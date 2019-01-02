@@ -1,0 +1,63 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('addons/iCheck/square/blue.css') }}">
+{% endblock %}
+{% block body %}
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="register-logo">
+        <b>ED:</b> Squadron Command Center
+    </div>
+    {% if error %}
+        {% include 'error2.html.twig' %}
+    {% endif %}
+    <div class="register-box-body">
+        <p class="login-box-msg"><b>Verify Your E-mail Address</b></p> <p>An e-mail address verification is required to activate your account.  An email has been sent to <b>{{ app.request.get('email') }}</b> with a token to continue with the new account creation.</p>
+
+        <form action="{{ path('app_confirm_email') }}" method="post">
+            <div class="form-group has-feedback">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('verify_email') }}">
+                <input type="email" name="email" value="{{ app.request.get('email') }}" class="form-control" placeholder="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" name="_token" class="form-control" placeholder="Token (from your E-mail)">
+                <span class="glyphicon glyphicon-arrow-left form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="pull-right col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Verify</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <div><br /><p class="login-box-msg">
+            <a href="{{ path('app_resend_token') }}" class="text-center">I did not get the e-mail.  Please resend.</a></p>
+        </div>
+    </div>
+    <!-- /.form-box -->
+</div>
+<!-- /.register-box -->
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+<!-- iCheck -->
+<script src="{{ asset('addons/iCheck/icheck.min.js') }}"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
+{% if error %}
+<script>
+$('#errorModal').modal('show');
+</script>
+{% endif %}
+{% endblock %}

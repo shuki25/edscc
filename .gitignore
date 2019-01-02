@@ -6,3 +6,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+### Custom .ignore ###
+/public/addons/
+### End Custom

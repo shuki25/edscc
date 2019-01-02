@@ -6,7 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-class DashboardController extends BaseController
+/**
+ *
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
+ */
+
+class ProfileController extends BaseController
 {
     private $router;
 
@@ -16,8 +21,7 @@ class DashboardController extends BaseController
     }
 
     /**
-     * @Route("/", name="dashboard")
-     * @IsGranted("ROLE_USER")
+     * @Route("/profile", name="app_profile")
      */
     public function index()
     {
@@ -30,10 +34,10 @@ class DashboardController extends BaseController
             $gravatar_url = $user->getAvatarUrl();
         }
 
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'controller_name' => 'DashboardController',
-            'title' => 'Squadron Command Center Dashboard',
-            'description' => 'General Overview of Squadron Operations',
+            'title' => 'Commander Profile',
+            'description' => '',
             'commander_name' => $user->getCommanderName(),
             'gravatar_url' => $gravatar_url,
             'date_created' => $user->getCreatedAt()

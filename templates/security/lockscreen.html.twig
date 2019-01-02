@@ -1,0 +1,66 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('bundles/iCheck/square/blue.css') }}">
+{% endblock %}
+{% block body %}
+    <body class="hold-transition lockscreen">
+    <!-- Automatic element centering -->
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="{{ path('app_login') }}"><b>ED:</b> SCC</a>
+        </div>
+        <!-- User name -->
+        <div class="lockscreen-name">{{ commander_name }}</div>
+
+        <!-- START LOCK SCREEN ITEM -->
+        <div class="lockscreen-item">
+            <!-- lockscreen image -->
+            <div class="lockscreen-image">
+                <img src="{{ gravatar_url }}" alt="User Image" />
+            </div>
+            <!-- /.lockscreen-image -->
+
+            <!-- lockscreen credentials (contains the form) -->
+            <form action="{{ path('app_lockscreen') }}" method="post" class="lockscreen-credentials">
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="password" />
+                    <input type="hidden" name="username" value="{{ username }}" />
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('screenlock') }}" />
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.lockscreen credentials -->
+
+        </div>
+        <!-- /.lockscreen-item -->
+        <div class="help-block text-center">
+            Enter your password to retrieve your session
+        </div>
+        <div class="text-center">
+            <a href="{{ path('app_logout') }}">Or sign in as a different user</a>
+        </div>
+        <div class="lockscreen-footer text-center">
+            Copyright &copy; 2019 <b>Joshua Butler, MD</b><br>
+            All rights reserved
+        </div>
+    </div>
+    <!-- /.center -->
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+<!-- iCheck -->
+<script src="{{ asset('bundles/iCheck/icheck.min.js') }}"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
+{% endblock %}

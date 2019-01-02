@@ -3170,6 +3170,7 @@ table.text-center th {
 /* ADD THIS CLASS TO THE <BODY> TAG */
 .lockscreen {
   background: #d2d6de;
+  height: auto;
 }
 .lockscreen-logo {
   font-size: 35px;
@@ -3235,7 +3236,7 @@ table.text-center th {
  */
 .login-logo,
 .register-logo {
-  font-size: 35px;
+  font-size: 30px;
   text-align: center;
   margin-bottom: 25px;
   font-weight: 300;
@@ -3247,10 +3248,11 @@ table.text-center th {
 .login-page,
 .register-page {
   background: #d2d6de;
+  height: auto;
 }
 .login-box,
 .register-box {
-  width: 360px;
+  width: 430px;
   margin: 7% auto;
 }
 @media (max-width: 768px) {
