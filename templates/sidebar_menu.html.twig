@@ -1,0 +1,39 @@
+<!-- Sidebar Menu -->
+{% if is_granted("ROLE_USER")  %}
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">SQUADRON NAVIGATION</li>
+    <!-- Optionally, you can add icons to the links -->
+    <li class="active"><a href="{{ path('dashboard') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="#"><i class="fa fa-bullhorn"></i> <span>Announcements</span></a></li>
+    <li><a href="#"><i class="fa fa-line-chart"></i> <span>Squadron Activities</span></a></li>
+    <li><a href="#"><i class="fa fa-bolt"></i> <span>Hot Spots</span></a></li>
+    <li><a href="#"><i class="fa fa-tachometer"></i> <span>My Performance</span></a></li>
+    <li><a href="#"><i class="fa fa-area-chart"></i> <span>My Statistics</span></a></li>
+</ul>
+{% endif %}
+{% if is_granted("ROLE_ADMIN") %}
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">ADMINISTRATION</li>
+    <!-- Optionally, you can add icons to the links -->
+    <li><a href="{{ path('admin_squadron_settings') }}"><i class="fa fa-gear"></i><span>Squadron Settings</span></a></li>
+    <li><a href="#"><i class="fa fa-bullhorn"></i><span>Manage Announcements</span></a></li>
+
+    {#<li class="header"><i class="fa fa-users"></i><span style="padding-left: 9px ">MANAGING MEMBERS</span></li>#}
+    {#<li><a href="#"><i class="fa fa-user-plus"></i><span>Pending Requests</span></a></li>#}
+    {#<li><a href="#"><i class="fa fa-list"></i><span>Members List</span></a></li>#}
+    {#<li><a href="#"><i class="fa fa-lock"></i><span>Manage Roles</span></a></li>#}
+    <li class="treeview">
+        <a href="#"><i class="fa fa-users"></i> <span>Manage Memberships</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-user-plus"></i><span>Pending Requests</span></a></li>
+            <li><a href="#"><i class="fa fa-users"></i><span>Members List</span></a></li>
+            <li><a href="#"><i class="fa fa-lock"></i><span>Manage Roles</span></a></li>
+        </ul>
+    </li>
+</ul>
+{% endif %}
+<!-- /.sidebar-menu -->

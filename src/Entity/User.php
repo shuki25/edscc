@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(indexes={@ORM\Index(name="apikey_idx", columns={"apikey"})})
  */
 class User implements UserInterface
 {
@@ -54,6 +56,11 @@ class User implements UserInterface
     private $email_verify = 'N';
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $apikey;
+
+    /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
     private $oauth_id;
@@ -75,6 +82,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VerifyToken", mappedBy="User", orphanRemoval=true)
+     * @ORM\OrderBy({"expiresAt" = "DESC"})
      */
     private $verifyTokens;
 
@@ -205,6 +213,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getApikey(): ?string
+    {
+        return $this->apikey;
+    }
+
+    public function setApikey(?string $apikey): self
+    {
+        $this->apikey = $apikey;
+
+        return $this;
+    }
+
     public function getOauthId(): ?string
     {
         return $this->oauth_id;
@@ -285,6 +305,14 @@ class User implements UserInterface
     public function getVerifyTokens(): Collection
     {
         return $this->verifyTokens;
+    }
+
+    public function getNewestVerifyTokens(): VerifyToken
+    {
+        if($this->verifyTokens->isEmpty()) {
+            return new VerifyToken();
+        }
+        return $this->verifyTokens->first();
     }
 
     public function addVerifyToken(VerifyToken $verifyToken): self

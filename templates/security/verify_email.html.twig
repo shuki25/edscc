@@ -4,12 +4,10 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('addons/iCheck/square/blue.css') }}">
 {% endblock %}
+{% block class %} register-page{% endblock %}
 {% block body %}
-<body class="hold-transition register-page">
 <div class="register-box">
-    <div class="register-logo">
-        <b>ED:</b> Squadron Command Center
-    </div>
+    {% include 'security/logo.html.twig' %}
     {% if error %}
         {% include 'error2.html.twig' %}
     {% endif %}
@@ -23,19 +21,20 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" name="_token" class="form-control" placeholder="Token (from your E-mail)">
+                <input type="text" name="_token" class="form-control" placeholder="Token (from your E-mail)" required="required">
                 <span class="glyphicon glyphicon-arrow-left form-control-feedback"></span>
             </div>
             <div class="row">
+                <div class="col-xs-8"></div>
                 <!-- /.col -->
-                <div class="pull-right col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Verify</button>
+                <div class="pull-right col-xs-4">
+                    <button type="submit" name="action" value="verify" class="btn btn-primary btn-block btn-flat">Verify</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
         <div><br /><p class="login-box-msg">
-            <a href="{{ path('app_resend_token') }}" class="text-center">I did not get the e-mail.  Please resend.</a></p>
+            <a href="{{ path('app_resend_token') }}?email={{ app.request.get('email')|url_encode }}" class="text-center">I did not get the activation e-mail. Please resend.</a></p>
         </div>
     </div>
     <!-- /.form-box -->

@@ -4,4 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         admin_skin: 'skin-black'
-        layout_option: 'sidebar_mini'
+        layout_option: 'sidebar-mini'

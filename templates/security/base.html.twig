@@ -3,6 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <title>{{ title }}: {{ description }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -30,14 +37,51 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<body class="hold-transition{% block class %}{% endblock %}" style="background: url('{{ asset('img/ed-assets/edscc_background.jpg') }}') no-repeat fixed center">
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade in text-center
+" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> {{ message }} </div>
+{% endfor %}
+{% for message in app.flashes('alert') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
 {% block body %}
-<body class="hold-transition">
 {% endblock %}
 {% block javascript %}
 <!-- jQuery 3 -->
 <script src="{{ asset('addons/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('addons/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- Cookie Consent -->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+        if(window.cookieconsent != undefined && 'function' === typeof window.cookieconsent.initialise){
+            window.cookieconsent.initialise({
+              "palette": {
+                "popup": {
+                  "background": "#000"
+                },
+                "button": {
+                  "background": "#f1d600"
+                }
+              },
+              "content": {
+                "message": "We use cookies to personalise content and to analyze our traffic. We will not share any information about your use of our site with any social media, advertising and analytics partners who may combine it with other information you’ve provided to them or they’ve collected from your use of their services."
+              }
+            });
+        }
+    });
+    </script>
+    <script>
+    $('.alert').alert()
+</script>
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" media="all"
+          href="/assets/application-mailer-dbc5154d3c4160e8fa7ef52fa740fa402760c39b5d22c8f6d64ad5999499d263.css"/>
+<!--
+    Use this template to edit the content of the message but needs to be compiled
+    first before sending the message to the recipient.  Make sure to double check the
+    compiled version that twig tags are not URL encoded before putting in production.
+
+    Compile at https://bootstrapemail.com/editor
+
+    Remove this comment in the compiled template.
+-->
+</head>
+<!-- Edit the code below this line -->
+<body class="bg-light">
+<preview>Thank you for registering with ED:SCC!</preview>
+<div class="container">
+    <img class="mx-auto mt-4 mb-3" style="height: 70px; width: auto;"
+         src="https://edscc.ddns.net/img/ed-assets/squadrons.png"/>
+
+    <div class="card mb-4" style="border-top: 5px solid #ff00bf;">
+        <div class="card-body">
+            <h4 class="text-center">Thanks for registering with ED:SCC!</h4>
+            <h5 class="text-muted text-center">Joined on {{ user.createdat|date("j F Y") }}</h5>
+            <hr/>
+            <h5><strong>The Next Step to Activation</strong></h5>
+            <hr/>
+            <div class="my-2">
+                <p class="my-3">Dear Commander {{ user.commandername }},</p>
+                <p class="my-3">In order to activate your account with us, we will need to verify your e-mail account.
+                    Please go to <a href="{{ url('app_confirm_email') }}?email={{ user.username }}">{{ url('app_confirm_email') }}</a> and enter
+                    the code below to complete the activation process. Your activation code will expire on {{ expires_at|localizeddate('long', 'none') }} at {{ expires_at|localizeddate('none', 'short') }} ({{ expires_at|date('e') }}).</p>
+                <div class="bg-info my-3 p-2 container"><code>{{ token }}</code></div>
+                <div class="my-3"><p>Alternatively, you can click on this activation link to <a href="{{ url('app_confirm_email') }}?email={{ user.username }}&_token={{ token|url_encode }}">activate your account</a>.</p>
+                <div class="my-3"><p>Sincerely,<br>Squadron Leader</p></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

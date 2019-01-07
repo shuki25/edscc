@@ -4,13 +4,10 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('addons/iCheck/square/blue.css') }}">
 {% endblock %}
+{% block class %} register-page{% endblock %}
 {% block body %}
-<body class="hold-transition register-page">
 <div class="register-box">
-    <div class="register-logo">
-            <b>ED:</b> Squadron Command Center
-    </div>
-
+    {% include 'security/logo.html.twig' %}
     <div class="register-box-body">
         {% if error %}
             {% include 'error2.html.twig' %}
@@ -51,11 +48,11 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-                Google+</a>
-        </div>
+        {#<div class="social-auth-links text-center">#}
+            {#<p>- OR -</p>#}
+            {#<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using#}
+                {#Google+</a>#}
+        {#</div>#}
 
         <a href="{{ path('app_login') }}" class="text-center">I already have a membership</a>
     </div>

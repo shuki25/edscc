@@ -1,0 +1,44 @@
+{% extends 'security/base.html.twig' %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="login-box">
+        {% include 'security/logo.html.twig' %}
+        <form>
+            <div class="login-box-body">
+                <p class="login-box-msg">Your API key for the <a href="https://gitlab.com/shuki25/edscc-plug-in">EDMC Plug-in</a>  is:</p>
+                <div class="input-group">
+                    <input id="apikey" type="text" class="form-control" value="{{ app.user.apikey }}" placeholder="API Key not generated" disabled="disabled">
+                    <span class="input-group-btn">
+                          <button type="button" class="btn btn-info btn-flat glyphicon glyphicon-copy" onclick="copyToClipboard('apikey')"></button>
+                        </span>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-8"></div>
+                    <div class="col-xs-4">
+                        <a href="{{ path('dashboard') }}" type="submit" class="btn btn-default btn-block btn-flat">Done</a>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <!-- /.login-box-body -->
+        </form>
+    </div>
+    <!-- /.login-box -->
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+<script>
+    function copyToClipboard(elementId) {
+        var aux = document.createElement("div");
+        aux.setAttribute("contentEditable", true);
+        aux.innerHTML = document.getElementById(elementId).getAttribute('value');
+        // console.log(aux.innerHTML);
+        aux.setAttribute("onfocus", "document.execCommand('selectAll',false,null)");
+        document.body.appendChild(aux);
+        aux.focus();
+        document.execCommand("copy");
+        document.body.removeChild(aux);
+    }
+</script>
+{% endblock %}

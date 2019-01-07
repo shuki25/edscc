@@ -4,16 +4,12 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('addons/iCheck/square/blue.css') }}">
 {% endblock %}
+{% block class %} login-page{% endblock %}
 {% block body %}
-<body class="hold-transition login-page">
 <div class="login-box">
-    <div class="login-logo">
-        <b>ED:</b> Squadron Command Center
-    </div>
-    <!-- /.login-logo -->
+    {% include 'security/logo.html.twig' %}
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
-
         <form action="{{ path('app_login') }}" method="post">
             {% if error %}
                 {% include 'error.html.twig' %}
@@ -43,16 +39,15 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-                Google+</a>
-        </div>
-        <!-- /.social-auth-links -->
+        {#<div class="social-auth-links text-center">#}
+            {#<p>- OR -</p>#}
+            {#<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using#}
+                {#Google+</a>#}
+        {#</div>#}
+        {#<!-- /.social-auth-links -->#}
 
         <a href="{{ path('app_forgot_pw') }}">I forgot my password</a><br>
         <a href="{{ path('app_new_member') }}" class="text-center">Register a new membership</a>
-
     </div>
     <!-- /.login-box-body -->
 </div>
