@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('addons/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('addons/Ionicons/css/ionicons.min.css') }}">
+    <!-- Custom ED Asset Glyphicons -->
+    <link rel="stylesheet" href="{{ asset('glyphicons/style.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -72,9 +74,9 @@ desired effect
         <!-- Logo -->
         <a href="index2.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><img src="{{ asset('img/ed-assets/squadrons.png') }}" style="width: 40px;"></span>
+            <span class="logo-mini"><i class="ed-asset-icon-squadrons" style="font-size: 32px; vertical-align: middle; color: orange;"></i> </span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><span style="padding-right: 8px;"><img src="{{ asset('img/ed-assets/squadrons.png') }}" style="width: 40px;"></span> <b>ED:</b> SCC</span>
+            <span class="logo-lg"><span style="padding-right: 8px;"><i class="ed-asset-icon-squadrons" style="font-size: 32px; vertical-align: middle; color: orange;"></i></span> <b>ED:</b> SCC</span>
         </a>
 
         <!-- Header Navbar -->
@@ -279,7 +281,18 @@ desired effect
 
         <!-- Main content -->
         <section class="content container-fluid">
-            <div class="alert alert-info alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good. </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade in text-center
+" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> {{ message }} </div>
+            {% endfor %}
+            {% for message in app.flashes('alert') %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
         {% block content %}
             <!--------------------------
               | Your Page Content Here |

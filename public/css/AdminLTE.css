@@ -3348,6 +3348,11 @@ table.text-center th {
   padding: 3px;
   border: 3px solid #d2d6de;
 }
+.profile-squadron-img {
+  margin: 0 auto;
+  width: 134px;
+  padding: 3px;
+}
 .profile-username {
   font-size: 21px;
   margin-top: 5px;

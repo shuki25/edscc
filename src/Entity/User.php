@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Index;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -49,6 +48,12 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Squadron", inversedBy="user")
      */
     private $Squadron = '1';
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rank", inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $rank;
 
     /**
      * @ORM\Column(type="string", length=1, options={"default": "N"})
@@ -337,4 +342,23 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getCommanderName();
+    }
+
+    public function getRank(): ?Rank
+    {
+        return $this->rank;
+    }
+
+    public function setRank(?Rank $rank): self
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+
 }

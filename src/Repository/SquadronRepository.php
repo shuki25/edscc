@@ -19,6 +19,23 @@ class SquadronRepository extends ServiceEntityRepository
         parent::__construct($registry, Squadron::class);
     }
 
+    /**
+     * @return Squadron[] Returns an array of Squadron objects
+     */
+    public function findValidTokens($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.verifyTokens', 'vt')
+            ->andWhere('u.id = ?1 and vt.expiresAt > ?2')
+            ->setParameter(1, $value)
+            ->setParameter(2,date('Y-m-d H:i:s'))
+            ->orderBy('vt.expiresAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Squadron[] Returns an array of Squadron objects
     //  */

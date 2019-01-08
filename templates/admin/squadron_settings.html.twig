@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title|default('Squadron Settings')}}!{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'squadron_profile.html.twig' %}
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#details" data-toggle="tab">Squadron Details</a></li>
+                    <li><a href="#features" data-toggle="tab">Features</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="details">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+
+                                    <h3 class="panel-title" style="line-height: 24px"><i class="ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> Squadron Details</h3>
+
+                            </div>
+                            <div class="panel-body">
+                                {{ form_start(form_template) }}
+                                {{ form_widget(form_template) }}
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                {{ form_end(form_template) }}
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="features">
+                        <div class="jumbotron">
+                            <h1>To Do</h1>
+                            <p>Placeholder for future addition</p>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+{% endblock %}

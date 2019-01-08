@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\SquadronRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SquadronRepository")
@@ -21,8 +21,20 @@ class Squadron
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=4, nullable=true)
+     */
+    private $id_code;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Platform", inversedBy="squadrons")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $platform;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
@@ -51,22 +63,25 @@ class Squadron
     private $RequireApproval = 'Y';
 
     /**
-     * @var SquadronRepository
+     * @ORM\ManyToOne(targetEntity="App\Entity\Faction", inversedBy="squadrons")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $squadronRepository;
-
-    public function __construct(SquadronRepository $squadronRepository)
-    {
-        $this->user = new ArrayCollection();
-        $this->squadronRepository = $squadronRepository;
-    }
+    private $faction;
 
     /**
-     * @return Collection|Squadron[]
+     * @ORM\ManyToOne(targetEntity="App\Entity\Power", inversedBy="squadrons")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
-    public function getAll(): Collection
+    private $power;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $home_base;
+
+    public function __construct()
     {
-        $this->squadronRepository->findAll();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,6 +153,66 @@ class Squadron
     public function setRequireApproval(?string $RequireApproval): self
     {
         $this->RequireApproval = $RequireApproval;
+
+        return $this;
+    }
+
+    public function getFaction(): ?Faction
+    {
+        return $this->faction;
+    }
+
+    public function setFaction(?Faction $faction): self
+    {
+        $this->faction = $faction;
+
+        return $this;
+    }
+
+    public function getPower(): ?Power
+    {
+        return $this->power;
+    }
+
+    public function setPower(?Power $power): self
+    {
+        $this->power = $power;
+
+        return $this;
+    }
+
+    public function getHomeBase(): ?string
+    {
+        return $this->home_base;
+    }
+
+    public function setHomeBase(?string $home_base): self
+    {
+        $this->home_base = $home_base;
+
+        return $this;
+    }
+
+    public function getIdCode(): ?string
+    {
+        return $this->id_code;
+    }
+
+    public function setIdCode(?string $id_code): self
+    {
+        $this->id_code = $id_code;
+
+        return $this;
+    }
+
+    public function getPlatform(): ?Platform
+    {
+        return $this->platform;
+    }
+
+    public function setPlatform(?Platform $platform): self
+    {
+        $this->platform = $platform;
 
         return $this;
     }
