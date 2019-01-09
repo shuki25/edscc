@@ -7,6 +7,8 @@ use App\Entity\VerifyToken;
 use App\Repository\SquadronRepository;
 use App\Repository\UserRepository;
 use App\Repository\VerifyTokenRepository;
+use DivineOmega\PasswordExposed\PasswordExposedChecker;
+use DivineOmega\PasswordExposed\PasswordStatus;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,7 +80,7 @@ class SecurityController extends BaseController
 
         if($request->isMethod('POST')) {
             $data = $request->request->all();
-
+//            $passwordStatus = (new PasswordExposedChecker())->passwordExposed($data['password1']);
             $csrf_token = new CsrfToken('new_acct', $request->request->get('_csrf_token'));
 
             if(!$csrfToken->isTokenValid($csrf_token)) {
@@ -87,8 +89,8 @@ class SecurityController extends BaseController
             elseif(!isset($data['_terms'])) {
                 $error = "You did not agree to the terms. The account was not created.";
             }
+//            elseif(($data['password1'] === $data['password2']) && $passwordStatus != PasswordStatus::EXPOSED) {
             elseif($data['password1'] === $data['password2']) {
-
                 $squadron = $squadronRepository->findOneBy(['id'=> 1]);
 
                 $user = new User();
@@ -131,11 +133,9 @@ class SecurityController extends BaseController
                     'email' => $data['email']
                 ]);
             } else {
-                $error = "The passwords did not match.  Please re-type them carefully.";
+                $error = $passwordStatus == PasswordStatus::EXPOSED ? "The password you chose has been exposed in a data breach.  Please visit haveibeenpwned.com for further information.  Please choose a different password." : "The passwords did not match.  Please re-type them carefully.";
             }
         }
-
-
 
         return $this->render('security/new_acct.html.twig', [
             'title' => 'Registration',

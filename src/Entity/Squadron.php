@@ -27,6 +27,7 @@ class Squadron
 
     /**
      * @ORM\Column(type="string", length=4, nullable=true)
+     * @Assert\Length(max=4)
      */
     private $id_code;
 

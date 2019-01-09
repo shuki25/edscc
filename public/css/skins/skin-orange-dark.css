@@ -2,6 +2,10 @@
  * Skin: Orange Dark
  * ------------------
  */
+
+.content-wrapper {
+  background-color: #333 !important;
+}
 .skin-orange-dark .main-header .navbar {
   background-color: #f39c12;
 }

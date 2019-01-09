@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+_translation_profiler:
+  resource: '@TranslationBundle/Resources/config/routing_symfony_profiler.yml'
