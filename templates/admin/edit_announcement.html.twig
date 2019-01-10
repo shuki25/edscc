@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border pb-2">
+                <h3 class="box-title"><i class="fa fa-bullhorn margin-r-5" style="vertical-align: middle"></i> {% if isEdit is defined %}{% trans %}Editing an announcement{% endtrans %}{% else %}{% trans %}Creating a new announcement{% endtrans %}{% endif %}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                {{ form_start(form_template) }}
+                {{ form_errors(form_template) }}
+                {% for row in form_template %}
+                    {% if row.vars.name != "_token" %}
+                        <div style="padding: 5px 0px 5px 0px;">
+                            {{ form_label(row) }}
+                            {{ form_errors(row) }}
+                            {{ form_widget(row) }}
+                            {{ form_help(row) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button class="btn btn-default" name="cancel" value="cancel" type="submit">Cancel</button> <button class="btn btn-primary" type="submit">{% if isEdit is defined %}{% trans %}Save Changes{% endtrans %}{% else %}{% trans %}Create{% endtrans %}{% endif %}</button>
+                {{ form_end(form_template) }}
+            </div>
+            <!-- ./box-body -->
+        </div>
+    </div>
+{% endblock %}
+
+
+

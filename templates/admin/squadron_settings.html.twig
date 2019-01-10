@@ -25,7 +25,17 @@
                             </div>
                             <div class="panel-body">
                                 {{ form_start(form_template) }}
-                                {{ form_widget(form_template) }}
+                                {{ form_errors(form_template) }}
+                                {% for row in form_template %}
+                                    {% if row.vars.name != "_token" %}
+                                        <div style="padding: 5px 0px 5px 0px;">
+                                            {{ form_label(row) }}
+                                            {{ form_errors(row) }}
+                                            {{ form_widget(row) }}
+                                            {{ form_help(row) }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                                 <button class="btn btn-primary" type="submit">Save Changes</button>
                                 {{ form_end(form_template) }}
                             </div>

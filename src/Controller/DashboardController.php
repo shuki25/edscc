@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-class DashboardController extends BaseController
+class DashboardController extends AbstractController
 {
     private $router;
 

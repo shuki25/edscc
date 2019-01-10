@@ -4,3 +4,6 @@ controllers:
     prefix:
         en: '' # don't prefix URLs for English, the default locale
         he: '/he'
+        es: '/es'
+        fr: '/fr'
+        ru: '/ru'

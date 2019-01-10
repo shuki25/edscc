@@ -282,11 +282,10 @@ desired effect
         <!-- Main content -->
         <section class="content container-fluid">
             {% for message in app.flashes('success') %}
-                <div class="alert alert-success alert-dismissible fade in text-center
-" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> {{ message }} </div>
+                <div class="alert alert-success alert-dismissible fade in text-center" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> {{ message }} </div>
             {% endfor %}
             {% for message in app.flashes('alert') %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-warning alert-dismissible fade in text-center" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

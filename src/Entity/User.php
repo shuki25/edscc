@@ -53,7 +53,7 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Rank", inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $rank;
+    private $rank = '1';
 
     /**
      * @ORM\Column(type="string", length=1, options={"default": "N"})

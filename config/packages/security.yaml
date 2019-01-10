@@ -44,6 +44,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/(login|forgot|new_member|verify_email|resend_token), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[(es|fr|ru)]+/(login|forgot|new_member|verify_email|resend_token), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
         # - { path: ^/admin, roles: ROLE_ADMIN }

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border pb-2">
+            <h3 class="box-title"><i class="fa fa-bullhorn margin-r-5" style="vertical-align: middle"></i> Squadron Announcements</h3>
+            <div class="box-tools pull-right">
+                <a class="btn btn-sm btn-primary" href="{{ path('admin_announcements_new', {token: csrf_token('new_announcement')}) }}"><i class="fa fa-plus"></i></a>
+            </div>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{% trans %}#{% endtrans %}</th>
+                    <th>{% trans %}Title{% endtrans %}</th>
+                    <th>{% trans %}Author{% endtrans %}</th>
+                    <th>{% trans %}Published At{% endtrans %}</th>
+                    <th>{% trans %}Created On{% endtrans %}</th>
+                    <th>{% trans %}Action{% endtrans %}</th>
+                </tr>
+                </thead>
+                <!-- /.tr Header -->
+                <tbody>
+                {% for row in pagination %}
+                    <tr>
+                        <td style="width: 40px;">{{ row.id }}</td>
+                        <td>{{ row.title|truncate(80) }}</td>
+                        <td style="width: 200px;">{% trans with {'%name%': row.user.commanderName} %}CMDR %name%{% endtrans %}</td>
+                        <td style="width: 105px;">{{ row.publishAt|ago }}</td>
+                        <td style="width: 105px;">{{ row.createdAt|ago }}</td>
+                        <td style="vertical-align: middle; width: 70px;">
+                            <a href="{{ path('admin_announcements_edit', {slug: row.id, token: csrf_token('edit_announcement')}) }}" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;
+                            <a href="{{ path('admin_announcements_remove', {'slug': row.id}) }}" title="Remove"><i class="fa fa-trash"></i></a>&nbsp;
+                            <a href="{{ path('admin_announcements_pause', {'slug': row.id}) }}" title="Pause"><i class="fa fa-pause"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- ./box-body -->
+        {% set startNum = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1%}
+        {% set endNum = startNum + pagination.getItemNumberPerPage - 1 %}
+        {% if endNum > pagination.getTotalItemCount %}
+        {% set endNum = pagination.getTotalItemCount %}
+        {% endif %}
+
+        <div class="box-footer with-border">
+            <h4 class="pull-left">{% trans %}Total{% endtrans %}: {% transchoice pagination.getTotalItemCount %}{0} No items|{1} one item|]1,Inf[ %count% items{% endtranschoice %} [{{ startNum }} - {{ endNum }}]</h4>
+            <div class="pull-right no-margin">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <!-- ./box-footer -->
+    </div>
+</div>
+{% endblock %}
+
+
+

@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Repository\VerifyTokenRepository;
 use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use DivineOmega\PasswordExposed\PasswordStatus;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends BaseController
+class SecurityController extends AbstractController
 {
 
     private $router;
