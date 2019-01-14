@@ -96,6 +96,17 @@ class User implements UserInterface
      */
     private $LastLoginAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Status")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Commander", mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $commander;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
@@ -356,6 +367,36 @@ class User implements UserInterface
     public function setRank(?Rank $rank): self
     {
         $this->rank = $rank;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCommander(): ?Commander
+    {
+        return $this->commander;
+    }
+
+    public function setCommander(?Commander $commander): self
+    {
+        $this->commander = $commander;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser_id = $commander === null ? null : $this;
+        if ($newUser_id !== $commander->getUserId()) {
+            $commander->setUserId($newUser_id);
+        }
 
         return $this;
     }

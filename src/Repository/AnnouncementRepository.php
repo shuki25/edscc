@@ -20,12 +20,79 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
-    public function findAllBySquadron(?string $value): QueryBuilder
+    public function recordsTotal(?string $value = "")
     {
-        return $this->createQueryBuilder('a')
+        $qb = $this->createQueryBuilder('q')
+            ->select("count(q.id)");
+
+        if($value != "") {
+            $qb->andWhere('q.squadron = :val')
+                ->setParameter('val', $value);
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findAllBySquadron(?string $value, ?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->addSelect('u.commander_name')
+            ->join('a.user', 'u')
             ->andWhere('a.squadron = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.publish_at', 'ASC');
+            ->setParameter('val', $value);
+
+        if($term) {
+            $qb->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+        return $qb;
+    }
+
+    public function findAllBySquadronDatatables(?string $value, $params) {
+
+        /**
+         * @var QueryBuilder $qb
+         */
+        $qb = $this->createQueryBuilder('a');
+
+        $qCount = $this->createQueryBuilder('a')
+            ->select('COUNT(u.id) as num')
+            ->join('a.user', 'u')
+            ->where('a.squadron = :val')
+            ->setParameter('val', $value);
+
+        $qb->select('a.id as id','a.title as title','a.publish_at as publish_in', 'a.createdAt as created_in')
+            ->addSelect('u.commander_name as author')
+            ->join('a.user', 'u')
+            ->andWhere('a.squadron = :val')
+            ->setParameter('val', $value);
+
+        foreach($params['order'] as $param) {
+            $qb->addOrderBy($param['name'], $param['dir']);
+        }
+
+        if($params['search']['value']?: 0) {
+            $qb->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
+                ->setParameter('term', '%' . $params['search']['value'] . '%');
+            $qCount->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
+                ->setParameter('term', '%' . $params['search']['value'] . '%');
+        }
+
+        if(isset($params['start']) ?: 0) {
+            $qb->setFirstResult($params['start']);
+        }
+
+        if(isset($params['length']) ?: 0) {
+            $qb->setMaxResults($params['length']);
+        }
+
+        $data = [
+            'data' => $qb->getQuery()->getArrayResult(),
+            'recordsFiltered' => $qCount->getQuery()->getSingleScalarResult(),
+            'recordsTotal' => $this->recordsTotal($value)
+        ];
+
+        return $data;
     }
 
     // /**

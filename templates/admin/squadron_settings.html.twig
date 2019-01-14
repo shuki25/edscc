@@ -12,16 +12,15 @@
         <div class="col-md-9">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#details" data-toggle="tab">Squadron Details</a></li>
-                    <li><a href="#features" data-toggle="tab">Features</a></li>
+                    <li class="active"><a href="#details" data-toggle="tab">{% trans %}Squadron Details{% endtrans %}</a></li>
+                    <li><a href="#tags" data-toggle="tab">{% trans %}Manage Tags</a>{% endtrans %}</li>
+                    <li><a href="#roles" data-toggle="tab">{% trans %}Roles</a>{% endtrans %}</li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="details">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-
-                                    <h3 class="panel-title" style="line-height: 24px"><i class="ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> Squadron Details</h3>
-
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}About Your Squadron{% endtrans %}</h3>
                             </div>
                             <div class="panel-body">
                                 {{ form_start(form_template) }}
@@ -44,11 +43,34 @@
 
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="features">
-                        <div class="jumbotron">
-                            <h1>To Do</h1>
-                            <p>Placeholder for future addition</p>
+                    <div class="tab-pane" id="tags">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Tags Associated with Your Squadron{% endtrans %}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="jumbotron">
+                                    <h1>// To Do</h1>
+                                    <p>Placeholder for future addition</p>
+                                </div>
+                            </div>
                         </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="roles">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Customizing Commander Roles{% endtrans %}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="jumbotron">
+                                    <h1>// To Do</h1>
+                                    <p>Placeholder for future addition</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel -->
                     </div>
                     <!-- /.tab-pane -->
                 </div>

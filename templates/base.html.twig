@@ -60,23 +60,17 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition {{ admin_skin }} {{ layout_option }} fixed">
-{#{% if is_granted('ROLE_PREVIOUS_ADMIN') %}#}
-    {#<div class="alert alert-warning" style="margin-bottom: 0; z-index: -100;">#}
-        {#You are currently viewing as this user: {{ app.user.username }}#}
-        {#<a class="pull-right btn-sm btn-danger" href="{{ path('dashboard', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>#}
-    {#</div>#}
-{#{% endif %}#}
 <div class="wrapper">
 
     <!-- Main Header -->
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{ path('dashboard') }}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><i class="ed-asset-icon-squadrons" style="font-size: 32px; vertical-align: middle; color: orange;"></i> </span>
+            <span class="logo-mini"><i class="ed-asset ed-asset-logo ed-asset-icon-squadrons text-orange"></i> </span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><span style="padding-right: 8px;"><i class="ed-asset-icon-squadrons" style="font-size: 32px; vertical-align: middle; color: orange;"></i></span> <b>ED:</b> SCC</span>
+            <span class="logo-lg"><span style="padding-right: 8px;"><i class="ed-asset ed-asset-logo ed-asset-icon-squadrons text-orange"></i></span><b>ED:</b> SCC</span>
         </a>
 
         <!-- Header Navbar -->
@@ -88,102 +82,6 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <!-- Menu toggle button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the messages -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <!-- User Image -->
-                                                <img src="{{ app.user.AvatarImgUrl }}" class="img-circle" alt="User Image">
-                                            </div>
-                                            <!-- Message title and timestamp -->
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <!-- The message -->
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                </ul>
-                                <!-- /.menu -->
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                    <!-- /.messages-menu -->
-
-                    <!-- Notifications Menu -->
-                    <li class="dropdown notifications-menu">
-                        <!-- Menu toggle button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- Inner Menu: contains the notifications -->
-                                <ul class="menu">
-                                    <li><!-- start notification -->
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <!-- end notification -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
-                    <!-- Tasks Menu -->
-                    <li class="dropdown tasks-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 9 tasks</li>
-                            <li>
-                                <!-- Inner menu: contains the tasks -->
-                                <ul class="menu">
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <!-- Task title and progress text -->
-                                            <h3>
-                                                Design some buttons
-                                                <small class="pull-right">20%</small>
-                                            </h3>
-                                            <!-- The progress bar -->
-                                            <div class="progress xs">
-                                                <!-- Change the css width attribute to simulate progress -->
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -199,26 +97,10 @@ desired effect
                                 <img src="{{ app.user.AvatarImgUrl }}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    CMDR {{ app.user.commanderName }} - [Squadron Role]
-                                    <small>Member since {{ app.user.createdat|date("j F Y") }}</small>
+                                    CMDR {{ app.user.commanderName }}<br><small>{{ app.user.rank.name }}</small>
+                                    <small>Member since {{ app.user.createdat|localizeddate('medium', 'none') }}</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
-                            <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a href="{{ path('app_profile') }}" class="btn btn-default btn-flat">Profile</a>
@@ -264,14 +146,14 @@ desired effect
         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
             <div class="alert alert-warning" style="margin-bottom: 0; z-index: -100;">
                 You are currently viewing as this user: {{ app.user.username }}
-                <a class="pull-right btn-sm btn-danger" href="{{ path('dashboard', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
+                <a class="pull-right btn btn-sm btn-danger" href="{{ path('dashboard', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
             </div>
         {% endif %}
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                {{ title|default('Untitled') }}
-                <small>{{ description|default('') }}</small>
+                <i class="ed-asset ed-asset-lg ed-asset-icon-squadrons"></i> {% trans with {'%name%': app.user.squadron.name} %}Squadron: %name%{% endtrans %}
+                <small>{{ app.user.squadron.idcode }}</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>

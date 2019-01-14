@@ -7,3 +7,4 @@ controllers:
         es: '/es'
         fr: '/fr'
         ru: '/ru'
+        de: '/de'

@@ -33,6 +33,16 @@ class Rank
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $group_code;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $assigned_id;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -101,5 +111,29 @@ class Rank
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getGroupCode(): ?string
+    {
+        return $this->group_code;
+    }
+
+    public function setGroupCode(?string $group_code): self
+    {
+        $this->group_code = $group_code;
+
+        return $this;
+    }
+
+    public function getAssignedId(): ?int
+    {
+        return $this->assigned_id;
+    }
+
+    public function setAssignedId(?int $assigned_id): self
+    {
+        $this->assigned_id = $assigned_id;
+
+        return $this;
     }
 }

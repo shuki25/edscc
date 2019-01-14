@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\MyBlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -11,6 +12,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Announcement
 {
     use TimestampableEntity;
+    use MyBlameableEntity;
 
     /**
      * @ORM\Id()
@@ -127,4 +129,5 @@ class Announcement
 
         return $this;
     }
+
 }

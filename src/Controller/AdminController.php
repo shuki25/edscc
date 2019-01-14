@@ -9,6 +9,7 @@ use App\Form\AnnouncementType;
 use App\Form\SquadronType;
 use App\Repository\AnnouncementRepository;
 use App\Repository\SquadronRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -71,22 +72,30 @@ class AdminController extends AbstractController
      */
     public function list_announcements(Request $request, EntityManagerInterface $em, AnnouncementRepository $repository, PaginatorInterface $paginator)
     {
-        /**
-         * @var User $user
-         */
-        $user = $this->getUser();
-        $query = $repository->findAllBySquadron($user->getSquadron()->getId());
 
-        $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
-
-        return $this->render('admin/list_announcements.html.twig', [
-            'title' => 'Manage Announcements',
-            'pagination' => $pagination
+        return $this->render('admin/list_announcements_datatables.html.twig', [
+            'title' => 'Members List'
         ]);
+
+
+
+//        /**
+//         * @var User $user
+//         */
+//        $user = $this->getUser();
+//
+//        $q = $request->query->get('q') ?: '';
+//        $query = $repository->findAllBySquadron($user->getSquadron()->getId(), $q);
+//        $size = $request->query->get('size') ?: '10';
+//
+//        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), $size);
+//
+//        return $this->render('admin/list_announcements.html.twig', [
+//            'title' => 'Manage Announcements',
+//            'pagination' => $pagination,
+//            'query' => $request->query->all(),
+//            'size' => $size
+//        ]);
 
     }
 
@@ -146,6 +155,11 @@ class AdminController extends AbstractController
         $user = $this->getUser();
 
         $data = $repository->findOneBy(['id'=>$slug, 'squadron' => $user->getSquadron()->getId()]);
+
+        if(!is_object($data)) {
+            $this->addFlash('alert',$this->translator->trans('Permission Denied. Unable to access to this resource.'));
+            return $this->redirectToRoute('admin_list_announcements');
+        }
         $form = $this->createForm(AnnouncementType::class, $data);
         $form->handleRequest($request);
 
@@ -200,4 +214,49 @@ class AdminController extends AbstractController
             'title' => 'Placeholder',
         ]);
     }
+
+    /**
+     * @Route("/admin/members", name="admin_list_members")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function list_members(Request $request, EntityManagerInterface $em, UserRepository $repository, PaginatorInterface $paginator)
+    {
+        return $this->render('admin/list_members_datatables.html.twig', [
+            'title' => 'Members List'
+        ]);
+
+//        /**
+//         * @var User $user
+//         */
+//        $user = $this->getUser();
+//        $q = $request->query->get('q') ?: '';
+//        $query = $repository->findAllBySquadron($user->getSquadron()->getId(), $q);
+//
+//        $size = $request->query->get('size') ?: '10';
+//
+//        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), $size);
+//
+//        return $this->render('admin/list_members_datatables.html.twig', [
+//            'title' => 'Members List',
+//            'pagination' => $pagination,
+//            'query' => array_merge($request->request->all(), $request->query->all()),
+//            'size' => $size
+//        ]);
+
+    }
+
+    /**
+     * @Route("/admin/members/{slug}/ban/{token}", name="admin_ban_member")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function ban_member($slug, $token, Request $request)
+    {
+        if (!$this->isCsrfTokenValid('new_announcement', $token)) {
+            $this->addFlash('success', $this->translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+            return $this->redirectToRoute('admin_list_members');
+        }
+
+        return $this->redirectToRoute('admin_list_members');
+    }
+
 }

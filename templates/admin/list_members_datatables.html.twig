@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border pb-2">
+                <h3 class="box-title"><i class="ed-asset ed-asset-lg ed-asset-icon-members margin-r-5"></i>Squadron Members</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="table" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}#{% endtrans %}</th>
+                        <th>{% trans %}Commander Name{% endtrans %}</th>
+                        <th>{% trans %}Rank{% endtrans %}</th>
+                        <th>{% trans %}Status{% endtrans %}</th>
+                        <th>{% trans %}Join Date{% endtrans %}</th>
+                        <th>{% trans %}Last Login{% endtrans %}</th>
+                        <th>{% trans %}Action{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <!-- /.tr Header -->
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- ./box-body -->
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script>
+        $('#table').DataTable({
+            columnDefs: [
+                {name: "id", targets: 0},
+                {name: "commander_name", targets: 1},
+                {name: "rank", targets: 2},
+                {name: "status", targets: 3},
+                {name: "join_date", targets: 4},
+                {name: "last_login_at", targets: 5},
+                {name: "action", orderable: false, targets: 6}
+            ],
+            columns: [
+                {data: "id", width: "30px"},
+                {data: "commander_name"},
+                {data: "rank", width: "85px"},
+                {data: "status", width: "55px" },
+                {data: "join_date", width: "100px"},
+                {data: "last_login_at", width: "100px"},
+                {data: "action", width: "75px"}
+            ],
+            serverSide: true,
+            processing: false,
+            ajax: {
+                url: "{{ path('ajax_members', {'token': csrf_token('ajax_members')}) }}",
+                type: "POST"
+            },
+            paging: true,
+            autoWidth: false,
+            info: true,
+            searching: true,
+            searchDelay: 400,
+            pageLength: 10,
+            order: [[1, 'asc']],
+            dom: "<'row'<'col-sm-6'i><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+            // dom: '<"top"i>rt<"bottom"flp><"clear">',
+            language: {
+                lengthMenu: {% include 'datatables_length_menu.html.twig' %},
+                search: '_INPUT_',
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+            },
+            initComplete: function () {
+                $('.dataTables_filter input[type="search"]').css({
+                    width: '200px', display: 'inline-block'
+                });
+            }
+        });
+    </script>
+{% endblock %}
+
+
+

@@ -1,0 +1,7 @@
+'<div class="input-group input-group-sm pull-right" style="padding-right: 12px;"><select class="form-control" style="width: 100px;">' +
+{% set sizes = [5,10,15,20,25,50] %}
+{% for i in sizes %}
+'<option value="{{ i }}">{{ i }} {% trans %}Items{% endtrans %}</option>' +
+{% endfor %}
+'</select>' +
+'</div>'

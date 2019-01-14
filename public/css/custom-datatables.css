@@ -1,0 +1,3 @@
+.table .dataTables>tbody>tr>td {
+    padding: 4px; !important;
+}

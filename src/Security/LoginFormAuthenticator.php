@@ -83,10 +83,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->manager->flush();
         $targetPath = $this->getTargetPath($request->getSession(),$providerKey);
 
-        if($targetPath != '/login') {
-            return new RedirectResponse($targetPath);
-        }
-        return new RedirectResponse($this->router->generate('dashboard'));
+        return new RedirectResponse($targetPath ?: $this->router->generate('dashboard'));
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
@@ -103,7 +100,5 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         return $this->router->generate('app_login');
     }
-
-
 
 }

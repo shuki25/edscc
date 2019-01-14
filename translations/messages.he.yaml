@@ -32,3 +32,4 @@ Admin: Admin
 'Invalid CSRF Token. Please refresh the page to continue.': 'Invalid CSRF Token. Please refresh the page to continue.'
 'Creating a new Squadron announcement': 'Creating a new Squadron announcement'
 'Manage Announcements': 'Manage Announcements'
+Last Login: 'messages'

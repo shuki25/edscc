@@ -15,20 +15,16 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">ADMINISTRATION</li>
     <!-- Optionally, you can add icons to the links -->
-    <li><a href="{{ path('admin_squadron_settings') }}"><i class="fa fa-gear"></i><span>Squadron Settings</span></a></li>
-    <li><a href="{{ path('admin_list_announcements') }}"><i class="fa fa-bullhorn"></i><span>Manage Announcements</span></a></li>
-    <li class="treeview">
-        <a href="#"><i class="fa fa-users"></i> <span>Manage Memberships</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="#"><i class="ed-asset-icon-new-applications margin-r-5"></i><span>Pending Requests</span></a></li>
-            <li><a href="#"><i class="ed-asset-icon-members margin-r-5"></i><span>Members List</span></a></li>
-            <li><a href="#"><i class="fa fa-lock"></i><span>Manage Roles</span></a></li>
-        </ul>
-    </li>
+    <li><a href="{{ path('admin_squadron_settings') }}"><i class="fa fa-gear"></i><span>Squadron Settings</span><span class="pull-right-container">
+              <small class="label pull-right bg-green"><i class="fa fa-star"></i></small>
+            </span></a></li>
+    <li><a href="{{ path('admin_list_announcements') }}"><i class="fa fa-bullhorn"></i><span>Manage Announcements</span><span class="pull-right-container">
+              <small class="label pull-right bg-green"><i class="fa fa-star"></i> </small>
+            </span></a></li>
+    <li><a href="{{ path('admin_list_members') }}"><i class="ed-asset-icon-members margin-r-5"></i><span>Manage Members</span><span class="pull-right-container">
+              <small class="label pull-right bg-green"><i class="fa fa-star"></i> </small>
+            </span></a></li>
+    <li><a href="#"><i class="fa fa-lock"></i><span>Configure Roles</span></a></li>
 </ul>
 {% endif %}
 <!-- /.sidebar-menu -->
