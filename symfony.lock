@@ -152,6 +152,12 @@
     "paragonie/sodium_compat": {
         "version": "v1.8.1"
     },
+    "pcrov/jsonreader": {
+        "version": "1.0.0"
+    },
+    "pcrov/unicode": {
+        "version": "0.1.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

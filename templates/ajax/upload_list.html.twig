@@ -1,0 +1,20 @@
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>{% trans %}File Uploaded{% endtrans %}</th>
+            <th>{% trans %}Size{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}Status{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+        <tr>
+            <td>{{ file.original_name }}</td>
+            <td>{{ file.size }}</td>
+            <td>{{ file.type }}</td>
+            <td>{{ file.status|trans }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

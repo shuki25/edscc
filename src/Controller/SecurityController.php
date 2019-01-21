@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commander;
 use App\Entity\User;
 use App\Entity\VerifyToken;
 use App\Repository\SquadronRepository;
@@ -95,12 +96,15 @@ class SecurityController extends AbstractController
                 $squadron = $squadronRepository->findOneBy(['id'=> 1]);
 
                 $user = new User();
+                $commander = new Commander();
+
                 $user->setCommanderName($data['commander_name'])
                     ->setEmail($data['email'])
                     ->setEmailVerify('N')
                     ->setGoogleFlag('N')
                     ->setGravatarFlag('Y')
                     ->setSquadron($squadron)
+                    ->setCommander($commander)
                     ->setApikey(md5('edmc' . $data['email'] . time()))
                     ->setPassword($passwordEncoder->encodePassword($user, $data['password1']));
 

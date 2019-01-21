@@ -7,10 +7,11 @@
             <div class="login-box-body">
                 <p class="login-box-msg">Your API key for the <a href="https://gitlab.com/shuki25/edscc-plug-in">EDMC Plug-in</a>  is:</p>
                 <div class="input-group">
-                    <input id="apikey" type="text" class="form-control" value="{{ app.user.apikey }}" placeholder="API Key not generated" disabled="disabled">
-                    <span class="input-group-btn">
-                          <button type="button" class="btn btn-info btn-flat glyphicon glyphicon-copy" onclick="copyToClipboard('apikey')"></button>
-                        </span>
+                    <input id="apikey" class="form-control" value="{{ app.user.apikey }}" disabled="disabled" placeholder="API Key not generated">
+
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-primary" onclick="copyToClipboard('apikey')" aria-label="Copy"><i class="fa fa-copy"></i></button>
+                    </div>
                 </div>
                 <br>
                 <div class="row">

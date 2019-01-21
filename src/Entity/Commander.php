@@ -17,24 +17,29 @@ class Commander
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $game_id;
+    private $player_id;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="commander", cascade={"persist", "remove"})
      */
-    private $user_id;
+    private $user;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="bigint", nullable=true)
      */
-    private $asset;
+    private $asset = 0;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="bigint", nullable=true)
      */
-    private $cash;
+    private $credits = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $loan = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Rank")
@@ -66,31 +71,61 @@ class Commander
      */
     private $cqc;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $combat_progress = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $trade_progress = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $explore_progress = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $federation_progress = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $empire_progress = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cqc_progress = 0;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGameId(): ?int
+    public function getPlayerId(): ?string
     {
-        return $this->game_id;
+        return $this->player_id;
     }
 
-    public function setGameId(?int $game_id): self
+    public function setPlayerId(?string $player_id): self
     {
-        $this->game_id = $game_id;
+        $this->player_id = $player_id;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
@@ -107,14 +142,26 @@ class Commander
         return $this;
     }
 
-    public function getCash(): ?int
+    public function getCredits(): ?int
     {
-        return $this->cash;
+        return $this->credits;
     }
 
-    public function setCash(int $cash): self
+    public function setCredits(int $credits): self
     {
-        $this->cash = $cash;
+        $this->credits = $credits;
+
+        return $this;
+    }
+
+    public function getLoan(): ?int
+    {
+        return $this->loan;
+    }
+
+    public function setLoan(?int $loan): self
+    {
+        $this->loan = $loan;
 
         return $this;
     }
@@ -188,6 +235,116 @@ class Commander
     {
         $this->empire = $empire;
 
+        return $this;
+    }
+
+    public function getCombatProgress(): ?int
+    {
+        return $this->combat_progress;
+    }
+
+    public function setCombatProgress(?int $combat_progress): self
+    {
+        $this->combat_progress = $combat_progress;
+
+        return $this;
+    }
+
+    public function getTradeProgress(): ?int
+    {
+        return $this->trade_progress;
+    }
+
+    public function setTradeProgress(?int $trade_progress): self
+    {
+        $this->trade_progress = $trade_progress;
+
+        return $this;
+    }
+
+    public function getExploreProgress(): ?int
+    {
+        return $this->explore_progress;
+    }
+
+    public function setExploreProgress(?int $explore_progress): self
+    {
+        $this->explore_progress = $explore_progress;
+
+        return $this;
+    }
+
+    public function getFederationProgress(): ?int
+    {
+        return $this->federation_progress;
+    }
+
+    public function setFederationProgress(?int $federation_progress): self
+    {
+        $this->federation_progress = $federation_progress;
+
+        return $this;
+    }
+
+    public function getEmpireProgress(): ?int
+    {
+        return $this->empire_progress;
+    }
+
+    public function setEmpireProgress(int $empire_progress): self
+    {
+        $this->empire_progress = $empire_progress;
+
+        return $this;
+    }
+
+    public function getCqcProgress(): ?int
+    {
+        return $this->cqc_progress;
+    }
+
+    public function setCqcProgress(?int $cqc_progress): self
+    {
+        $this->cqc_progress = $cqc_progress;
+
+        return $this;
+    }
+
+    public function setRankId($entity, $object)
+    {
+        switch ($entity) {
+            case 'Combat':
+                $this->setCombat($object);
+            case 'Trade':
+                $this->setTrade($object);
+            case 'Explore':
+                $this->setExplore($object);
+            case 'Federation':
+                $this->setFederation($object);
+            case 'Empire':
+                $this->setEmpire($object);
+            case 'CQC':
+                $this->setCqc($object);
+        }
+        return $this;
+    }
+
+    public function setRankProgress($entity, $object)
+    {
+        switch ($entity) {
+            case 'Combat':
+                $this->setCombatProgress($object);
+            case 'Trade':
+                $this->setTradeProgress($object);
+            case 'Explore':
+                $this->setExploreProgress($object);
+            case 'Federation':
+                $this->setFederationProgress($object);
+            case 'Empire':
+                $this->setEmpireProgress($object);
+            case 'CQC':
+                $this->setCqcProgress($object);
+        }
         return $this;
     }
 }

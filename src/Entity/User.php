@@ -94,6 +94,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
+    private $date_joined;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     private $LastLoginAt;
 
     /**
@@ -103,13 +108,19 @@ class User implements UserInterface
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commander", mappedBy="user_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Commander", mappedBy="user", cascade={"persist", "remove"})
      */
     private $commander;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImportQueue", mappedBy="user", orphanRemoval=true)
+     */
+    private $importQueues;
 
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
+        $this->importQueues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -305,6 +316,17 @@ class User implements UserInterface
         return "";
     }
 
+    public function getDateJoined(): ?\DateTimeInterface
+    {
+        return $this->date_joined;
+    }
+
+    public function setDateJoined(?\DateTimeInterface $date_joined): self
+    {
+        $this->date_joined = isset($date_joined) ? $date_joined : new \DateTime('now');
+        return $this;
+    }
+
     public function getLastLoginAt()
     {
         return $this->LastLoginAt;
@@ -393,13 +415,42 @@ class User implements UserInterface
         $this->commander = $commander;
 
         // set (or unset) the owning side of the relation if necessary
-        $newUser_id = $commander === null ? null : $this;
-        if ($newUser_id !== $commander->getUserId()) {
-            $commander->setUserId($newUser_id);
+        $newUser = $commander === null ? null : $this;
+        if ($newUser !== $commander->getUser()) {
+            $commander->setUser($newUser);
         }
 
         return $this;
     }
 
+    /**
+     * @return Collection|ImportQueue[]
+     */
+    public function getImportQueues(): Collection
+    {
+        return $this->importQueues;
+    }
 
+    public function addImportQueue(ImportQueue $importQueue): self
+    {
+        if (!$this->importQueues->contains($importQueue)) {
+            $this->importQueues[] = $importQueue;
+            $importQueue->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImportQueue(ImportQueue $importQueue): self
+    {
+        if ($this->importQueues->contains($importQueue)) {
+            $this->importQueues->removeElement($importQueue);
+            // set the owning side to null (unless already changed)
+            if ($importQueue->getUser() === $this) {
+                $importQueue->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -1,0 +1,435 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/custom-datatables.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <!-- Modal -->
+        <div class="modal modal-primary fade" id="errorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Houston, we have a problem!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{{ app.user.AvatarImgUrl }}" alt="User profile picture">
+                        <h3 class="profile-username text-center">{% trans with {'%name%': app.user.commanderName} %}CMDR %name%{% endtrans %}</h3>
+                        <p class="text-muted text-center">{{ app.user.rank.name|trans }}</p>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}Combat{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.combat.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.combatProgress }}%;"></div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}Trade{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.trade.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.tradeProgress }}%;"></div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}Exploration{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.explore.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.exploreProgress }}%;"></div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}Federation{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.federation.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.federationProgress }}%;"></div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}Empire{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.empire.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.empireProgress }}%;"></div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="pull-left">{% trans %}CQC{% endtrans %}</span>
+                            <small class="pull-right">{{ app.user.commander.cqc.name }}</small>
+                        </div>
+                        <div class="progress xs">
+                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.cqcProgress }}%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <!-- About Me Box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Import Queue Status{% endtrans %}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        // To Do
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#upload" data-toggle="tab">{% trans %}Upload Files{% endtrans %}</a></li>
+                        <li><a href="#import_history" data-toggle="tab">{% trans %}Import History{% endtrans %}</a></li>
+                        <li><a href="#edmc_plugin" data-toggle="tab">EDMC Plug-in</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="upload">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-upload fa-lg margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Uploading Player's Journal Log Files{% endtrans %}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <p>To maximize your experience and squadron's experience with the ED:SCC Web application, it requires data from the player journal log files which contains useful lines that record certain actions during your game play.  This application does not collect every action, just actions that are relevant to the Squadron dashboard and performance measurements. We will only capture data from your start date since you joined this squadron and data will not be capture prior to that date.  We only focus on your activities while you are an active squadron member.  When it detects that you have left the squadron, the data collection will stop at that point.</p>
+                                        <p>The usual location for these files can be found in this folder:</p>
+                                        <p><b>C:\Users\%userprofile%\Saved Games\Frontier Developments\Elite Dangerous</b></p>
+                                        <p>We also do accept a zip file of all log files combined in a single upload.  It will process each file and capture relevant data and store in the database.</p>
+                                    </div>
+                                    <div class="form-container">
+                                        <form action="{{ path('ajax_upload') }}" id="uploadFilesForm" name="fileupload" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-3">
+
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="uploadFile" class="btn btn-default">
+                                                    <i class="fa fa-upload"></i> Select Log Files
+                                                </label>
+                                                <input type="file" id="uploadFile" name="uploadFile[]" multiple><input id="uploadButton" type="submit" name='btnSubmit' value="Start Upload" class="btn btn-primary form-control" style="width: 150px;" accept="text/plain">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Upload Progress:</label>
+                                                <div class="progress" id="progressDivId">
+                                                    <div class="progress-bar progress-bar-primary" id="progressBar"></div>
+                                                    <span class="text-center text-sm" id="percent">0%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="fp"></div>
+                                                <p><div id="divTotalSize"></div></p>
+                                                <div id="progressResult"></div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="import_history">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h3 class="panel-title"><i class="fa fa-lg fa-list margin-r-5"></i> {% trans %}Player Journal Log Import History{% endtrans %}</h3>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group input-group-sm pull-right">
+                                                <button id="refreshButton" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="panel-body">
+                                    <table id="table" class="table table-condensed table-responsive-sm table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>{% trans %}#{% endtrans %}</th>
+                                            <th>{% trans %}Journal Log File{% endtrans %}</th>
+                                            <th>{% trans %}Game Date{% endtrans %}</th>
+                                            <th>{% trans %}Status{% endtrans %}</th>
+                                            <th>{% trans %}Date Processed{% endtrans %}</th>
+                                        </tr>
+                                        </thead>
+                                        <!-- /.tr Header -->
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- ./box-body -->
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="edmc_plugin">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-feed fa-lg margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Using EDMC Plug-in to Capture Data{% endtrans %}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <p>Instead of uploading journal files manually, you can use Elite Dangerous Market Connector app to automatically update your statistics and squadron progress. You will need to download the plug-in and install it.  You can get the plug-in at:</p>
+                                        <p><a href="https://gitlab.com/shuki25/edscc-plug-in">https://gitlab.com/shuki25/edscc-plug-in</a></p>
+                                        <p><img src="https://i.imgur.com/bcMQd6Z.png"></p>
+                                        <p>If you do not have E:D Market Connector app, you can get it at:</p>
+                                        <p><a href="https://github.com/Marginal/EDMarketConnector">https://github.com/Marginal/EDMarketConnector</a> </p>
+                                        <p>After you install the app and/or the plug-in, you will need the API key for it to upload your player journal log automatically in real time.  Please copy and paste it in the EDMC settings.</p>
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6"> <label>{% trans %}API Key{% endtrans %}: </label></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+
+                                                        <input id="apikey" class="form-control" value="{{ app.user.apikey }}" disabled="disabled">
+
+                                                        <div class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary" onclick="copyToClipboard('apikey')"><i class="fa fa-copy"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 align-bottom">
+                                                    <button id="regenerate_api" type="button" class="btn btn-danger">Regenerate API Key</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>#}
+<script src="{{ asset('js/jquery.form.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+<script>
+    $('#table').DataTable({
+        columnDefs: [
+            {name: "id", targets: 0},
+            {name: "original_filename", targets: 1},
+            {name: "game_datetime", targets: 2},
+            {name: "progress_code", targets: 3},
+            {name: "time_started", targets: 4},
+
+        ],
+        columns: [
+            {data: "id", width: "20px"},
+            {data: "original_filename"},
+            {data: "game_datetime", width: "135px"},
+            {data: "progress_code", width: "65px" },
+            {data: "time_started", width: "135px"},
+        ],
+        serverSide: true,
+        processing: false,
+        ajax: {
+            url: "{{ path('ajax_queue_list', {'token': csrf_token('ajax_queue')}) }}",
+            type: "POST"
+        },
+        paging: true,
+        autoWidth: false,
+        info: true,
+        searching: false,
+        searchDelay: 400,
+        pageLength: 10,
+        order: [[1, 'asc']],
+        dom: "<'row'<'col-sm-6'i><'col-sm-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+        language: {
+            lengthMenu: {% include 'datatables_length_menu.html.twig' %},
+            search: '_INPUT_',
+            searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+        },
+        initComplete: function () {
+            $('.dataTables_filter input[type="search"]').css({
+                width: '200px', display: 'inline-block'
+            });
+        }
+    });
+
+    $('#refreshButton').click(function () {
+       $('#table').DataTable().ajax.reload();
+    });
+
+    function copyToClipboard(elementId) {
+        var aux = document.createElement("div");
+        aux.setAttribute("contentEditable", true);
+        aux.innerHTML = document.getElementById(elementId).getAttribute('value');
+        // console.log(aux.innerHTML);
+        aux.setAttribute("onfocus", "document.execCommand('selectAll',false,null)");
+        document.body.appendChild(aux);
+        aux.focus();
+        document.execCommand("copy");
+        document.body.removeChild(aux);
+    }
+
+    $().ready(function () {
+        $('#regenerate_api').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_newapi') }}",
+                data: {
+                    _token: "{{ csrf_token('newapikey') }}"
+                },
+                success: function (result) {
+                    if(result.status == 200) {
+                        $('#apikey').val(result.newapi)
+                    }
+                    else {
+                        $('#errorMessage').replaceWith(result.errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (result) {
+                    alert('Internal Error.');
+                }
+            });
+        });
+    });
+
+    $().ready(function () {
+        $('#uploadButton').attr('disabled', 'disabled');
+        $('#uploadFile').change(function() {
+            var totalFileSize = 0;
+            var percentValue = '0%';
+
+            $('#fp').html('');
+            $("#divTotalSize").html('');
+            $("#progressResult").html('');
+            $('#progressBar').width(percentValue);
+            $('#percent').html(percentValue);
+            if (this.files.length > 20) {
+                $('#fp').append('You only can select a maximum of 20 files (web browser limitation).');
+            }
+            else if (this.files.length > 0) {
+                $('#fp').append(this.files.length + ' file(s) selected.');
+                for (var i = 0; i < this.files.length; i++) {
+                    var fsize = this.files.item(i).size;
+                    totalFileSize += fsize;
+                    // $('#fp').append('<br>File is <b>' +
+                    //     this.files.item(i).name +
+                    //     '</b> and size is <b>' + Math.round((fsize / 1024)) +
+                    //     '</b> KB and file type is <b>' + this.files.item(i).type + '</b>'
+                    // );
+                }
+                $('#divTotalSize').html('Total file(s) size is <b>' +
+                    Math.round(totalFileSize / 1024) + '</b> KB.'
+                );
+                $('#uploadButton').removeAttr('disabled');
+            }
+        });
+
+        $('#uploadButton').click(function (e) {
+            e.preventDefault();
+            $('#uploadFilesForm').ajaxSubmit({
+                target: '#progressResult',
+                url: "{{ path('ajax_upload') }}",
+                dataType: "json",
+                clearForm: true,
+                data: {
+                    _token: "{{ csrf_token('ajax_upload') }}"
+                },
+                beforeSubmit: function () {
+                    if($('#uploadFile').val() == "") {
+                        $('#errorMessage').replaceWith("{% trans %}Choose a file to upload{% endtrans %}");
+                        $('#errorModal').modal('show');
+                        return false;
+                    }
+                    $('#progressDivId').show();
+                    $('#progressDivId').css("display", "block");
+                    var percentValue = '0%';
+
+                    $('#progressBar').width(percentValue);
+                    $('#percent').html(percentValue);
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentValue = percentComplete + '%';
+                    $('#progressBar').animate({
+                        width: '' + percentValue + ''
+                    }, {
+                        duration: 100,
+                        easing: "linear",
+                        step: function (x) {
+                            percentText = Math.round(x * 100 / percentComplete);
+                            $("#percent").text(percentText + "%");
+                        }
+                    });
+                },
+                success: function(r) {
+                    $("#fp").empty();
+                    $("#divTotalSize").empty();
+                    $("#progressResult").empty();
+                    console.log(r);
+                    if (r.responseText && r.status === 200)
+                    {
+                        $("#progressResult").html(r.responseText);
+                    }
+                    else{
+                        $("#errorMessage").replaceWith("{% trans %}Problem in uploading files."{% endtrans %});
+                        $("#errorModal").modal('show');
+                        $("#progressBar").stop();
+                    }
+                    $('#uploadButton').attr('disabled', 'disabled');
+                },
+                error: function (response, status, e) {
+                    alert('Oops, something went wrong.');
+                },
+                complete: function (r) {
+                   console.log('upload completed.');
+                }
+            });
+
+        });
+    });
+</script>
+{% endblock %}

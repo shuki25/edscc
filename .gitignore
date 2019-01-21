@@ -9,4 +9,5 @@
 
 ### Custom .ignore ###
 /public/addons/
+/upload/
 ### End Custom

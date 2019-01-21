@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.5.11",
         "knplabs/knp-paginator-bundle": "^2.8",
         "knplabs/knp-time-bundle": "^1.9",
+        "pcrov/jsonreader": "^1.0",
         "sensio/framework-extra-bundle": "^5.2",
         "sensiolabs/security-checker": "^5.0",
         "stof/doctrine-extensions-bundle": "^1.3",
