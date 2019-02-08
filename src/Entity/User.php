@@ -31,7 +31,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text")
      */
-    private $roles = [];
+    private $roles = "[]";
 
     /**
      * @var string The hashed password
