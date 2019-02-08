@@ -23,7 +23,7 @@ class Edmc
     private $user;
 
     /**
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $entry;
 

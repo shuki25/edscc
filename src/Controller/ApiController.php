@@ -78,7 +78,7 @@ class ApiController extends AbstractController
                 else {
                     $edmc = new Edmc();
                     $edmc->setUser($user);
-                    $edmc->setEntry(json_decode($data['data'],true));
+                    $edmc->setEntry($data['data']);
                     $edmc->setEnteredAt(new \DateTime('now', $this->utc));
                     $edmc->setProcessedFlag(true);
                     $em->persist($edmc);
@@ -115,7 +115,7 @@ class ApiController extends AbstractController
                 $json_response->setStatusCode(500);
                 $response = [
                     'status_code' => 500,
-                    'message' => 'Internal Server Error. ' . $e->getMessage()
+                    'message' => 'Internal Server Error. ' . $e->getMessage() . $e->getTraceAsString()
                 ];
                 $json_response->setData($response);
             }
