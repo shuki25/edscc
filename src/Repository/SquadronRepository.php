@@ -36,6 +36,18 @@ class SquadronRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @return Squadron[]
+     */
+    public function findAllActiveSquadrons()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.id > 1')
+            ->orderBy('s.name')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Squadron[] Returns an array of Squadron objects
     //  */

@@ -3,32 +3,50 @@
 namespace App\Controller;
 
 use App\Entity\Commander;
+use App\Entity\Squadron;
 use App\Entity\User;
 use App\Entity\VerifyToken;
+use App\Form\SquadronType;
+use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
+use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
 use App\Repository\VerifyTokenRepository;
 use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use DivineOmega\PasswordExposed\PasswordStatus;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
 
     private $router;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
-    public function __construct(RouterInterface $router)
+    public function __construct(RouterInterface $router, TranslatorInterface $translator)
     {
         $this->router = $router;
+        $this->translator = $translator;
     }
 
     /**
@@ -75,7 +93,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/new_member", name="app_new_member")
      */
-    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, \Swift_Mailer $mailer)
+    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, \Swift_Mailer $mailer, RankRepository $rankRepository, StatusRepository $statusRepository)
     {
 
         $error = "";
@@ -97,6 +115,8 @@ class SecurityController extends AbstractController
 
                 $user = new User();
                 $commander = new Commander();
+                $rank = $rankRepository->findOneBy(['id' => 1]);
+                $status = $statusRepository->findOneBy(['name' => 'Pending']);
 
                 $user->setCommanderName($data['commander_name'])
                     ->setEmail($data['email'])
@@ -105,6 +125,8 @@ class SecurityController extends AbstractController
                     ->setGravatarFlag('Y')
                     ->setSquadron($squadron)
                     ->setCommander($commander)
+                    ->setRank($rank)
+                    ->setStatus($status)
                     ->setApikey(md5('edmc' . $data['email'] . time()))
                     ->setPassword($passwordEncoder->encodePassword($user, $data['password1']));
 
@@ -155,6 +177,11 @@ class SecurityController extends AbstractController
     public function verify_email (Request $request, CsrfTokenManagerInterface $csrfToken, UserRepository $userRepository, VerifyTokenRepository $tokenRepository) {
 
         $error = '';
+        $email = $request->query->get('email');
+
+        if($this->isGranted('ROLE_DENIED')) {
+            $email = $this->getUser()->getEmail();
+        }
 
         if($request->isMethod('POST')) {
             $form = $request->request->all();
@@ -177,7 +204,7 @@ class SecurityController extends AbstractController
                 $tokens = $users[0]->getVerifyTokens();
 
                 foreach($tokens as $token) {
-                    if($form['_token'] === $token->getToken()) {
+                    if(trim($form['_token']) == $token->getToken()) {
                         $user->setEmailVerify('Y');
                         $tk = $tokenRepository->findOneBy(['User' => $user->getId()]);
                         $user->removeVerifyToken($tk);
@@ -202,7 +229,7 @@ class SecurityController extends AbstractController
         return $this->render('security/verify_email.html.twig', [
             'title' => 'New Account Creation',
             'description' => 'Verify E-mail account',
-            'email' => $request->query->get('email'),
+            'email' => $email,
             'error' => $error,
         ]);
     }
@@ -217,9 +244,22 @@ class SecurityController extends AbstractController
          * @var User $user
          */
         $user = $userRepository->findOneBy(['email' => $email]);
+        $em = $this->getDoctrine()->getManager();
 
         if (isset($user) && isset($email)) {
             $tokenKey = $user->getNewestVerifyTokens()->getToken();
+
+            if(is_null($tokenKey)) {
+                $token = new VerifyToken();
+                $token->setUser($user);
+                $token->setToken();
+                $token->setExpiresAt(new \DateTime("+24 hour"));
+
+                $em->persist($token);
+                $em->flush();
+
+                $tokenKey = $token->getToken();
+            }
 
             $message = (new \Swift_Message('Activation Code for ED:SCC'))
                 ->setFrom('edscc.donotreply@gmail.com')
@@ -242,6 +282,168 @@ class SecurityController extends AbstractController
         }
         return $this->redirectToRoute('app_confirm_email', [
             'email' => $email
+        ]);
+    }
+
+    /**
+     * @Route("/select_squadron", name="app_select_squadron")
+     * @IsGranted("ROLE_PENDING")
+     */
+    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository)
+    {
+        $squadrons = $squadronRepository->findAllActiveSquadrons();
+
+        if($request->getMethod() == "POST" && $request->request->get('complete_registration') == "1") {
+            $token = $request->request->get('_csrf_token');
+
+            if($this->isCsrfTokenValid('select_squadron',$token)) {
+                /**
+                 * @var User $user
+                 */
+                $user = $this->getUser();
+                $em = $this->getDoctrine()->getManager();
+
+                $squadron = $squadronRepository->findOneBy(['id' => $request->request->get('id')]);
+                $status_key = $squadron->getRequireApproval() == "Y" ? "Pending" : "Approved";
+                $status = $statusRepository->findOneBy(['name' => $status_key]);
+
+                if(is_object($squadron) && is_object($status)) {
+                    $user->setWelcomeMessageFlag('N');
+                    $user->setSquadron($squadron);
+                    $user->setStatus($status);
+                    $em->flush();
+                    if($status_key == "Approved") {
+                        $providerKey = 'main';
+                        $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());
+                        $this->get("security.token_storage")->setToken($token);
+                        return $this->redirectToRoute('app_welcome');
+                    }
+                    return $this->redirectToRoute('app_pending_access');
+                }
+            }
+        }
+        elseif($request->getMethod() == "POST" && $request->request->get('create_squadron') == "1") {
+            return $this->redirectToRoute('app_create_squadron');
+        }
+
+        return $this->render('security/select_squadron.html.twig',[
+            'title' => 'Completing your registration',
+            'description' => 'Selecting your Squadron',
+            'squadrons' => $squadrons,
+            'error' => ''
+        ]);
+    }
+
+    /**
+     * @Route("/create_squadron", name="app_create_squadron")
+     * @IsGranted("ROLE_PENDING")
+     */
+    public function create_squadron(Request $request, StatusRepository $statusRepository)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
+        /**
+         * @var Squadron data
+         */
+        $data = new Squadron();
+        $data->setAdmin($user);
+
+        $form = $this->createForm(SquadronType::class, $data);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            /**
+             * @var Squadron $squad
+             */
+            $squad = $form->getData();
+
+            $em->persist($squad);
+            $em->flush();
+
+            $this->addFlash('success',$this->translator->trans('New Squadron Created.'));
+            $user->setSquadron($squad);
+            $status = $statusRepository->findOneBy(['name' => 'Approved']);
+            $user->setStatus($status);
+            $user->setWelcomeMessageFlag('N');
+
+            $providerKey = 'main';
+            $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());
+            $this->get("security.token_storage")->setToken($token);
+
+            $em->flush();
+
+            return $this->redirectToRoute('app_welcome');
+        }
+
+        return $this->render('security/create_new_squadron.html.twig', [
+            'form_template' => $form->createView(),
+            'title' => 'Creating a new Squadron',
+            'description' => 'About your Squadron',
+            'squad' => $data
+        ]);
+    }
+
+    /**
+     * @Route("/welcome", name="app_welcome")
+     */
+    public function welcome_message(Request $request)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->query->get('read') == "1") {
+            $user->setWelcomeMessageFlag('Y');
+            $em->flush();
+            return $this->redirectToRoute('dashboard');
+        }
+
+        $message = $user->getSquadron()->getWelcomeMessage();
+
+        return $this->render('security/welcome_message.html.twig', [
+            'title' => 'Welcome Message',
+            'description' => $user->getSquadron()->getName(),
+            'message' => $message,
+            'error' => ''
+        ]);
+    }
+
+    /**
+     * @Route("/pending_access", name="app_pending_access")
+     */
+    public function pending_access()
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $message = $user->getSquadron()->getWelcomeMessage();
+
+        return $this->render('security/pending_access.html.twig', [
+            'title' => 'Privacy Policy',
+            'description' => 'Privacy Policy for EDSCC',
+            'error' => ''
+        ]);
+    }
+
+    /**
+     * @Route("/privacy_policy", name="app_private_policy")
+     */
+    public function privacy_policy()
+    {
+        return $this->render('privacy_policy.html.twig', [
+            'title' => 'Privacy Policy',
+            'description' => 'Privacy Policy for EDSCC',
+            'error' => ''
         ]);
     }
 

@@ -1,0 +1,128 @@
+var {{ name }}_chart;
+
+function update_{{ name }}_data() {
+    $.ajax({
+        url: "{{ path(name_path) }}",
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token('chart_dashboard') }}"
+        },
+        success: function (result) {
+            if(result.status == 200) {
+                console.log(result);
+                {{ name }}_chart.data.datasets[0].label = result.label[0];
+                {{ name }}_chart.data.datasets[1].label = result.label[1];
+                {{ name }}_chart.data.labels = [];
+                {{ name }}_chart.data.datasets[0].data = [];
+                {{ name }}_chart.data.datasets[1].data = [];
+
+                for(var i in result.data[0]) {
+                    {{ name }}_chart.data.labels.push(i);
+                    {{ name }}_chart.data.datasets[0].data.push(result.data[0][i]);
+                    {{ name }}_chart.data.datasets[1].data.push(result.data[1][i]);
+                }
+
+                console.log({{ name }}_chart);
+
+                $('#{{ name }} .overlay').hide();
+                {{ name }}_chart.update();
+            }
+            else {
+                console.log('Problem with ajax call.')
+            }
+        },
+        error: function (result) {
+            alert('Internal Error.');
+        }
+    });
+}
+
+$(() => {
+    var ctx = $('#{{ name }}_chart');
+
+    {{ name }}_chart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: "",
+                    fill: true,
+                    backgroundColor: "rgba(220,220,220,0.5)",
+                    borderColor: "rgba(0, 166, 90,.8)",
+                    pointBorderColor: "rgba(0, 166, 90,.8)",
+                    pointRadius: 1,
+                    pointHoverRadius: 5,
+                    data: [],
+                    pointHitRadius: 5,
+                    cubicInterpolationMode: "default"
+
+                },
+                {
+                    label: "",
+                    fill: true,
+                    backgroundColor: "rgba(0,192,239,0.5)",
+                    borderColor: "rgba(0,192,239,1)",
+                    pointBorderColor: "rgba(0,192,239,1)",
+                    pointRadius: 1,
+                    pointHoverRadius: 5,
+                    data: [],
+                    pointHitRadius: 5,
+                    cubicInterpolationMode: "default"
+                }
+            ]
+        },
+        options: {
+            animation: {
+                easing: "easeInCubic",
+                duration: 1000
+            },
+            tooltips: {
+                enabled: true,
+                mode: "x-axis",
+                position: "nearest",
+                callbacks: {
+                    title: function (tooltipItems, data) {
+                        return "Daily Total Earning on " + tooltipItems[0].xLabel;
+                    },
+                    label: function (tooltipItems, data) {
+                        return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel.toLocaleString();
+                    },
+                    footer: function (tooltipItems, data) {
+                        var numerator = parseInt(tooltipItems[0].yLabel);
+                        var denominator = parseInt(tooltipItems[1].yLabel);
+                        var delta_percent = ((numerator-denominator)/denominator) * 100;
+                        return "Percentage difference: " + delta_percent.toFixed(1) + "%";
+                    }
+                }
+
+            },
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Credits"
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString();
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                            return value;
+                        }
+                    }
+                }]
+            },
+            maintainAspectRatio: true
+        }
+    });
+
+    update_{{ name }}_data();
+});

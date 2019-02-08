@@ -15,7 +15,7 @@ doctrine:
             charset: utf8
             collate: utf8_general_ci
         url: '%env(resolve:DATABASE_URL)%'
-        schema_filter: ~^(?!debug)~
+        schema_filter: ~^(?!debug|v_|p_|x_)~
 
     orm:
         auto_generate_proxy_classes: true

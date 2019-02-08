@@ -29,11 +29,16 @@ class SquadronType extends AbstractType
         $builder
             ->add('name',null, [
                 'label' => 'Name of your Squadron',
-                'help' => 'Exact spelling as depicted in the game'
+                'help' => 'Exact spelling as depicted in the game',
+                'required' => true
             ])
             ->add('idCode', null, [
                 'label' => 'Squadron ID',
-                'help' => 'A 4-character indicator for your Squadron in the game'
+                'help' => 'A 4-character indicator for your Squadron in the game',
+                'required' => true,
+                'attr' => [
+                    'maxlength' => 4
+                ]
             ])
             ->add('platform', null, [
                 'label' => 'Gaming Platform',
@@ -66,13 +71,13 @@ class SquadronType extends AbstractType
             ->add('RequireApproval', CheckboxType::class, [
                 'label' => 'Requires approval from squad leaders to join',
                 'required' => false
-            ])
-            ->add('admin', EntityType::class, [
-                'label' => 'ED:SCC Squadron Owner',
-                'class' => User::class,
-                'help' => 'This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.',
-                'disabled' => 'disabled'
             ]);
+//            ->add('admin', EntityType::class, [
+//                'label' => 'ED:SCC Squadron Owner',
+//                'class' => User::class,
+//                'help' => 'This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.',
+//                'disabled' => 'disabled'
+//            ]);
 
         $builder->get('RequireApproval')
             ->addModelTransformer($this->transformer);

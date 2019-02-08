@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\ImportQueue;
+use App\Entity\SquadronTags;
 use App\Entity\User;
 use App\Repository\AnnouncementRepository;
 use App\Repository\ImportQueueRepository;
+use App\Repository\SquadronRepository;
+use App\Repository\SquadronTagsRepository;
+use App\Repository\StatusRepository;
+use App\Repository\TagsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Knp\Bundle\TimeBundle\DateTimeFormatter;
@@ -90,7 +95,7 @@ class AjaxController extends AbstractController
     }
 
     /**
-     * @Route("/ajax/members/{token}", name="ajax_members", methods={"POST"} )
+     * @Route("/ajax/members/list/{token}", name="ajax_members", methods={"POST"} )
      */
     public function ajax_members($token, Request $request, UserRepository $repository, TranslatorInterface $translator)
     {
@@ -122,7 +127,8 @@ class AjaxController extends AbstractController
             $dt['data'][$i]['commander_name'] = $translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
             $dt['data'][$i]['status'] = sprintf("<span class=\"label label-%s\">%s</span>",$row['tag'], $translator->trans($row['status']));
             $dt['data'][$i]['action'] = $this->renderView('admin/list_members_action.html.twig', [
-                'id' => $row['id']
+                'id' => $row['id'],
+                'status' => $row['status']
             ]);
         }
 
@@ -133,6 +139,112 @@ class AjaxController extends AbstractController
         $response = new JsonResponse($datatable);
 
         return $response;
+    }
+
+    /**
+     * @Route("/ajax/members/manage", name="ajax_manage_member", methods={"POST"})
+     */
+    public function manage_member(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $squadron_id = $user->getSquadron()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+        $data['require_reason'] = false;
+
+        $token = $request->request->get('_token');
+        $action = $request->request->get('action');
+
+        if(!$this->isCsrfTokenValid('manage_member', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Invalid token, please reload the page.");
+        }
+        else {
+            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'),  'Squadron' => $squadron_id]);
+            if(is_object($target_user)) {
+                switch ($action) {
+                    case 'pending':
+                        $status = $statusRepository->findOneBy(['name' => 'Pending']);
+                        $target_user->setStatus($status);
+                        $target_user->setStatusComment(null);
+                        break;
+                    case 'approve':
+                        $status = $statusRepository->findOneBy(['name' => 'Approved']);
+                        $target_user->setStatus($status);
+                        $target_user->setStatusComment(null);
+                        break;
+                    case 'lock':
+                        $status = $statusRepository->findOneBy(['name' => 'Lock Out']);
+                        $target_user->setStatus($status);
+                        $data['require_reason'] = true;
+                        break;
+                    case 'ban':
+                        $status = $statusRepository->findOneBy(['name' => 'Banned']);
+                        $target_user->setStatus($status);
+                        $data['require_reason'] = true;
+                        break;
+                    case 'deny':
+                        $status = $statusRepository->findOneBy(['name' => 'Denied']);
+                        $target_user->setStatus($status);
+                        $data['require_reason'] = true;
+                        break;
+                }
+                $data['status'] = 200;
+                $em->flush();
+            }
+            else {
+                $data['errorMessage'] = $translator->trans("User not found.");
+            }
+
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+
+    }
+
+    /**
+     * @Route("/ajax/members/comment", name="ajax_manage_member_comment", methods={"POST"})
+     */
+    public function manage_member_comment(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $squadron_id = $user->getSquadron()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+
+        $token = $request->request->get('_token');
+
+        if(!$this->isCsrfTokenValid('save_comment', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Invalid token, please reload the page.");
+        }
+        else {
+            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'),  'Squadron' => $squadron_id]);
+            if(is_object($target_user)) {
+                $target_user->setStatusComment($request->request->get('comment'));
+                $data['status'] = 200;
+                $em->flush();
+            }
+            else {
+                $data['errorMessage'] = $translator->trans("User not found.");
+            }
+
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+
     }
 
     /**
@@ -370,6 +482,81 @@ class AjaxController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/ajax/squadron/info", name="ajax_squadron_info", methods={"POST"} )
+     */
+    public function ajax_squadron_info(Request $request, SquadronRepository $squadronRepository)
+    {
+        $json_response = new JsonResponse();
+        $token = $request->request->get('_token');
+
+        if(!$this->isCsrfTokenValid('squadron_info', $token)) {
+            $json_response->setStatusCode(401);
+            $response = [
+                'status' => 401,
+                'errorMessage' => 'Permission denied. Invaild CSRF Token.'
+            ];
+            return $json_response->setData($response);
+        }
+
+        $squadron_id = $request->request->get('id');
+        $squadron = $squadronRepository->findOneBy(['id' => $squadron_id]);
+        $content = $this->renderView('ajax/squadron_info.html.twig', [
+            'squad' => $squadron
+        ]);
+        $response = [
+          'status' => 200,
+          'content' => $content
+        ];
+
+        return $json_response->setData($response);
+    }
+
+    /**
+     * @Route("/ajax/tags", name="ajax_tags", methods={"POST"} )
+     */
+    public function ajax_tags(Request $request, UserRepository $userRepository, TagsRepository $tagsRepository, SquadronTagsRepository $squadronTagsRepository, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+
+        $token = $request->request->get('_token');
+        if(!$this->isCsrfTokenValid('squadron_tags', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Expired CSRF token, please reload the page.");
+        }
+        else {
+            $the_tag = $tagsRepository->findOneBy(['id' => $request->request->get('id')]);
+            $squadron_tag = $squadronTagsRepository->findOneBy(['tag' => $the_tag, 'squadron' => $user->getSquadron()]);
+
+            if($request->request->get('is_checked') == "true") {
+                if(!is_object($squadron_tag)) {
+                    $squadron_tag = new SquadronTags();
+                }
+                $squadron_tag->setSquadron($user->getSquadron())->setTag($the_tag);
+                $em->persist($squadron_tag);
+                $em->flush();
+            }
+            else {
+                if(is_object($squadron_tag)) {
+                    dump($squadron_tag);
+                    $em->remove($squadron_tag);
+                    $em->flush();
+                 }
+            }
+            $data['status'] = 200;
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+    }
+
 
     private function formatBytes($bytes, $precision = 2)
     {

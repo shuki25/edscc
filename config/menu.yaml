@@ -1,0 +1,47 @@
+user:
+    1:
+        item: "Squadron Dashboard"
+        route: "dashboard"
+        icon: "fa fa-home"
+    2:
+        item: "Squadron Leaderboard"
+        route: "leaderboard"
+        icon: "ed-asset ed-asset-icon-leaderboard_website margin-r-5"
+        star: false
+    3:
+        item: "Announcements"
+        route: "show_announcements"
+        icon: "fa fa-bullhorn"
+#    4:
+#        item: "Squadron Activities"
+#        icon: "fa fa-line-chart"
+    5:
+        item: "Members List"
+        route: "app_members"
+        icon: "ed-asset ed-asset-icon-members margin-r-5"
+        star: false
+#    6:
+#        item: "Player Statistics"
+#        icon: "fa fa-area-chart"
+    7:
+        item: "Player Journal Log"
+        route: "app_import"
+        icon: "fa fa-upload"
+admin:
+    1:
+        item: "Squadron Settings"
+        route: "admin_squadron_settings"
+        icon: "fa fa-gear"
+        roles: ["ROLE_ADMIN"]
+    2:
+        item: "Manage Announcements"
+        route: "admin_list_announcements"
+        routes: ["admin_list_announcements", "admin_announcements_edit", "admin_announcements_new"]
+        icon: "fa fa-bullhorn"
+        roles: ["ROLE_ADMIN","ROLE_EDITOR"]
+    3:
+        item: "Manage Members"
+        route: "admin_list_members"
+        routes: ["admin_list_members","admin_edit_member"]
+        icon: "ed-asset-icon-members margin-r-5"
+        roles: ["ROLE_ADMIN","CAN_EDIT_USER","CAN_CHANGE_STATUS","CAN_EDIT_PERMISSIONS","CAN_VIEW_HISTORY"]

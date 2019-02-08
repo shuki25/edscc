@@ -1,0 +1,28 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="welcome-box">
+        <div class="welcome-box-header">
+            {% include 'security/logo.html.twig' %}
+        </div>
+        <div class="welcome-box-body">
+            <div class="welcome-box-msg">
+                <p>{% trans with {'%name%': app.user.squadron.name} %}Welcome to %name%{% endtrans %}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ message|markdown }}
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <a href="{{ path('app_welcome') }}?read=1" class="btn btn-default">{% trans %}Continue{% endtrans %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

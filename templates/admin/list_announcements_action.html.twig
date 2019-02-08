@@ -1,3 +1,3 @@
 <a href="{{ path('admin_announcements_edit', {slug: id, token: csrf_token('edit_announcement')}) }}" title="Edit"><i class="fa fa-lg fa-pencil margin-r-3"></i></a>&nbsp;
+<a href="{{ path('admin_announcements_pause', {'slug': id}) }}" title="Hide"><i class="fa fa-lg fa-ban"></i></a>
 <a href="{{ path('admin_announcements_remove', {'slug': id}) }}" title="Remove"><i class="fa fa-lg fa-trash margin-r-3"></i></a>&nbsp;
-<a href="{{ path('admin_announcements_pause', {'slug': id}) }}" title="Pause"><i class="fa fa-lg fa-pause"></i></a>

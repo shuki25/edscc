@@ -1,17 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}{% trans %}Squadron Dashboard{% endtrans %}{% endblock %}
 
 {% block content %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-  <div class="jumbotron">
-    <h1>// To Do</h1>
-    <p>Placeholder for future addition</p>
-  </div>
-</div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h4>{% trans %}Commanders Joined{% endtrans %}</h4>
+                        <h3>{{ data.members }}</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ed-asset ed-asset-icon-members"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        {% trans with {"%count%": 0} %}{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today{% endtrans %}
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua-active">
+                    <div class="inner">
+                        <h4>Today's Earnings</h4>
+                        <h3>{{ data.earnings|number_format }}</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.earnings_pct|abs} %} %count%%% from yesterday{% endtrans %}
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h4>{% trans %}Missions Completed Today{% endtrans %}</h4>
+                        <h3>{{ data.bodies_found|number_format }}</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ed-asset ed-asset-icon-courier ed-asset-lg"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.missions_pct|abs} %} %count%%% from yesterday{% endtrans %}
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h4>{% trans %}Bodies Found Today{% endtrans %}</h4>
+                        <h3>{{ data.bodies_found|number_format }}</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-planet"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.bodies_found_pct|abs} %} %count%%% from yesterday{% endtrans %}
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- ./row -->
+        <!-- ./statistics -->
+        {% include 'charts/squadron_earning.html.twig' %}
+        {% include 'charts/bounty_earning.html.twig' %}
+        {% include 'charts/exploration_earning.html.twig' %}
+        {% include 'charts/trade_earning.html.twig' %}
+        {% include 'charts/mission_earning.html.twig' %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js" integrity="sha256-MZo5XY1Ah7Z2Aui4/alkfeiq3CopMdV/bbkc/Sh41+s=" crossorigin="anonymous"></script>
+    <script src="{{ path('chart_script', {"name": "squadron_earning"}) }}"></script>
+    <script src="{{ path('chart_script', {"name": "bounty_earning"}) }}"></script>
+    <script src="{{ path('chart_script', {"name": "exploration_earning"}) }}"></script>
+    <script src="{{ path('chart_script', {"name": "trade_earning"}) }}"></script>
+    <script src="{{ path('chart_script', {"name": "mission_earning"}) }}"></script>
 {% endblock %}

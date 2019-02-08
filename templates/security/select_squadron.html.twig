@@ -1,0 +1,108 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="select-squadron-box">
+        <div class="select-squadron-box-header">
+            {% include 'security/logo.html.twig' %}
+        </div>
+        <div class="select-squadron-box-body">
+            <p class="select-squadron-box-msg">{% trans %}Finishing up your registration &hyphen; Please select your Squadron{% endtrans %}</p>
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="list-group scrollable">
+                        {% for squadron in squadrons %}
+                        <a href="#" class="list-group-item" data-squadron-id="{{ squadron.id }}">
+                            <span class="clearfix pull-right"><small>{{ squadron.idCode }}</small></span>
+                            <h4 class="list-group-item-heading text-orange">{{ squadron.name }}</h4>
+                            <small class="badge bg-blue pull-right">{{ squadron.platform.name }}</small>
+                            <p class="list-group-item-text"><i class="ed-asset ed-asset-icon-manage-ranks"></i> {% trans with {'%name%': squadron.admin.commanderName} %}CMDR %name%{% endtrans %}</p>
+                            {% if squadron.requireApproval == 'Y' %}<span class="clearfix pull-right"><i class="ed-asset ed-asset-icon-new-applications"></i> </span>{% endif %}
+                            <p class="list-group-item-text"><i class="ed-asset ed-asset-icon-surface_port_pm"></i> {{ squadron.homeBase }} </p>
+
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="about-squadron" class="about-squadron-box">
+                                <div style="vertical-align: center; text-align: center;">
+                                    <h3>Choose a squadron on the left.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form method="POST" href="{{ path('app_select_squadron') }}">
+                            <input id="squadron_selected_id" type="hidden" name="id" value="1">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('select_squadron') }}">
+                            <div class="col-xs-6">
+                                <button type="submit" name="create_squadron" value="1" class="btn btn-primary btn-block btn-flat">{% trans %}Create a New Squadron{% endtrans %}</button>
+                            </div>
+                            <div class="col-xs-6 pull-right">
+                                <button id="submit_button" type="submit" name="complete_registration" value="1" class="btn btn-default btn-block btn-flat" disabled="disabled">{% trans %}Complete Registration{% endtrans %}</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+<script>
+$(() => {
+    var oldTarget = null;
+
+    $(".list-group-item")
+        .click(function(e) {
+            e.preventDefault();
+            if(oldTarget) {
+                $(oldTarget).removeClass('active');
+            }
+            $(this).addClass('active');
+            oldTarget = this;
+            fetch_info($(this).data("squadron-id"), "#about-squadron");
+            $("#squadron_selected_id").val($(this).data("squadron-id"));
+            $("#submit_button").removeAttr("disabled");
+        });
+
+    function fetch_info(id, target) {
+        $.ajax({
+            type: "POST",
+            url: "{{ path('ajax_squadron_info') }}",
+            data: {
+                _token: "{{ csrf_token('squadron_info') }}",
+                id: id
+            },
+            success: function (result) {
+                if(result.status == 200) {
+                    $(target).html(result.content);
+                }
+                else {
+                    $('#errorMessage').replaceWith(result.errorMessage);
+                    $('#errorModal').modal('show');
+                }
+            },
+            error: function (result) {
+                alert('Internal Error.');
+            }
+        });
+    }
+});
+
+</script>
+{% if error %}
+<script>
+$('#errorModal').modal('show');
+</script>
+{% endif %}
+{% endblock %}

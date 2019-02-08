@@ -20,6 +20,21 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
+    public function findAllbyPublishStatus(?string $value) {
+        $now = new \DateTime('now');
+
+        $qb = $this->createQueryBuilder('a');
+        return $qb->select('a.id as id', 'a.title as title', 'a.message as message', 'a.publish_at as publish_in', 'a.createdAt as created_in')
+            ->addSelect('u.commander_name as author')
+            ->join('a.user', 'u')
+            ->andWhere('a.squadron = :val and a.publish_at < :now')
+            ->setParameter('val', $value)
+            ->setParameter('now', $now)
+            ->orderBy('a.publish_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function recordsTotal(?string $value = "")
     {
         $qb = $this->createQueryBuilder('q')

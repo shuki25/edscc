@@ -1,0 +1,37 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+<div class="select-squadron-box">
+    <div class="select-squadron-box-header">
+        {% include 'security/logo.html.twig' %}
+    </div>
+    <div class="select-squadron-box-body">
+        <div class="select-squadron-box-msg">
+            <p>Creating a New Squadron</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form_template) }}
+                {{ form_errors(form_template) }}
+                {% for row in form_template %}
+                    {% if row.vars.name != "_token" %}
+                        <div style="padding: 5px 0px 5px 0px;">
+                            {{ form_label(row) }}
+                            {{ form_errors(row) }}
+                            {{ form_widget(row) }}
+                            {{ form_help(row) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button class="btn btn-primary" type="submit" name="cancel" value="1">Cancel</button>
+                <button class="btn btn-default" type="submit" name="create" value="1">Create New Squadron</button>
+                {{ form_end(form_template) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -49,10 +49,7 @@
                                 <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-tags margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Tags Associated with Your Squadron{% endtrans %}</h3>
                             </div>
                             <div class="panel-body">
-                                <div class="jumbotron">
-                                    <h1>// To Do</h1>
-                                    <p>Placeholder for future addition</p>
-                                </div>
+                                {% include 'admin/tags_selector.html.twig' %}
                             </div>
                         </div>
                         <!-- /.panel -->
@@ -82,4 +79,40 @@
     </div>
     <!-- /.row -->
 </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    $(() => {
+        $(".tag-button-group").on('change', function (e) {
+                e.preventDefault();
+                cb = $(this).children(".tag-button");
+                id = cb.data("tag-id");
+                isChecked = cb.is(':checked');
+                console.log('clicked on a button ' + id + '. checked: ' + isChecked);
+                update_squadron_tags(id, isChecked);
+        });
+
+        function update_squadron_tags(id, check_flag) {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_tags') }}",
+                data: {
+                    _token: "{{ csrf_token('squadron_tags') }}",
+                    id: id,
+                    is_checked: check_flag
+                },
+                success: function (result) {
+                    if(result.status != 200) {
+                        $('#errorMessage').replaceWith(result.errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (result) {
+                    console.log('Internal Error.');
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

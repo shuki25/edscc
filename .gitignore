@@ -10,4 +10,5 @@
 ### Custom .ignore ###
 /public/addons/
 /upload/
+/src/Migrations/
 ### End Custom

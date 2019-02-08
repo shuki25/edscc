@@ -1,0 +1,23 @@
+<form id="tag-button-group">
+{% set previous_tag = "" %}
+{% for tag in tags %}
+    {% if previous_tag != tag.groupCode %}
+        {% if previous_tag is not empty %}
+        </div>
+    </div>
+</div>
+        {% endif %}
+<div class="box box-warning">
+    <div class="box-header">{{ group_code[tag.groupCode] }}</div>
+    <div class="box-body">
+        <div class="btn-group-toggle input-group" data-toggle="buttons">
+    {% endif %}
+            <label class="btn btn-default btn-sm tag-button-group{% if tag.id in tags_bank %} active{% endif %}" style="margin: 3px 3px;">
+                <input type="checkbox" class="tag-button" data-tag-id="{{ tag.id }}" name="tags[]" value="{{ tag.id }}" autocomplete="off"{% if tag.id in tags_bank %} checked="checked"{% endif %}>{{ tag.name }}
+            </label>
+        {% set previous_tag = tag.groupCode %}
+{% endfor %}
+        </div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Squadron Members{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row">
+            {% for member in members %}
+                {% if loop.index0 is divisible by(3) %}
+        </div>
+        <div class="row">
+                {% endif %}
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-dark">
+                        <h3 class="widget-user-username">{% trans with {'%name%': member.commanderName} %}CMDR %name%{% endtrans %}</h3>
+                        <h5 class="widget-user-desc">{{ member.rank.name }}</h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <img class="img-responsive img-circle" src="{{ member.avatarImgUrl }}" alt="User Avatar">
+                    </div>
+                    <div class="box-footer">
+                            <ul class="nav">
+                                <li>Joined <span class="pull-right">{{ member.dateJoined|ago }}</span></li>
+                                <li>Total Earning <span class="pull-right">{{ total_earned[member.id]|localizednumber }}</span></li>
+                                <li>Earning Rank <span class="pull-right">{{ rank[member.id] }}</span></li>
+                            </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

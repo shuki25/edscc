@@ -33,72 +33,7 @@
         <!-- /.modal -->
         <div class="row">
             <div class="col-md-3">
-
-                <!-- Profile Image -->
-                <div class="box box-primary">
-                    <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="{{ app.user.AvatarImgUrl }}" alt="User profile picture">
-                        <h3 class="profile-username text-center">{% trans with {'%name%': app.user.commanderName} %}CMDR %name%{% endtrans %}</h3>
-                        <p class="text-muted text-center">{{ app.user.rank.name|trans }}</p>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}Combat{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.combat.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.combatProgress }}%;"></div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}Trade{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.trade.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.tradeProgress }}%;"></div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}Exploration{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.explore.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.exploreProgress }}%;"></div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}Federation{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.federation.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.federationProgress }}%;"></div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}Empire{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.empire.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.empireProgress }}%;"></div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="pull-left">{% trans %}CQC{% endtrans %}</span>
-                            <small class="pull-right">{{ app.user.commander.cqc.name }}</small>
-                        </div>
-                        <div class="progress xs">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ app.user.commander.cqcProgress }}%;"></div>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-
-                <!-- About Me Box -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{% trans %}Import Queue Status{% endtrans %}</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        // To Do
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
+                {% include 'members/profile_sidebar.html.twig' %}
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -131,7 +66,7 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="uploadFile" class="btn btn-default">
+                                                <label for="uploadFile" class="btn btn-primary">
                                                     <i class="fa fa-upload"></i> Select Log Files
                                                 </label>
                                                 <input type="file" id="uploadFile" name="uploadFile[]" multiple><input id="uploadButton" type="submit" name='btnSubmit' value="Start Upload" class="btn btn-primary form-control" style="width: 150px;" accept="text/plain">
@@ -293,6 +228,9 @@
             $('.dataTables_filter input[type="search"]').css({
                 width: '200px', display: 'inline-block'
             });
+        },
+        drawCallback: function () {
+            $('.dataTables_paginate > .pagination').addClass('pagination-sm');
         }
     });
 

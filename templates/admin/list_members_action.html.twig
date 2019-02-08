@@ -1,4 +1,24 @@
-<a href="#" title="Approve"><i class="fa fa-lg fa-check text-green"></i> </a>
-<a href="#" title="Lock"><i class="fa fa-lg fa-lock text-black"></i> </a>
-<a href="{{ path('admin_ban_member',{slug: id , token: csrf_token('ban_member')}) }}" title="Ban"><i class="fa fa-lg fa-ban margin-r-3 text-danger"></i></a>&nbsp;
-<a href="#" title="Edit Settings"><i class="fa fa-lg fa-gear text-dark"></i> </a>
+{% if (id == app.user.id and is_granted('CAN_MODIFY_SELF')) or (id != app.user.id) %}
+    {% if is_granted(['CAN_CHANGE_STATUS','CAN_EDIT_USER']) %}
+        {% if status == "Pending" %}
+            <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="approve" title="Approve"><i class="fa fa-lg fa-user-plus"></i> </a>
+            <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="deny" title="Deny"><i class="fa fa-lg fa-user-times"></i> </a>
+        {% elseif status == "Denied" %}
+            <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="pending" title="Undo Denial"><i class="fa fa-lg fa-undo"></i> </a>
+        {% else %}
+            {% if status == "Lock Out" %}
+                <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="approve" title="Unlock"><i class="fa fa-lg fa-unlock"></i> </a>
+            {% else %}
+                <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="lock" title="Lock"><i class="fa fa-lg fa-lock"></i> </a>
+            {% endif %}
+            {% if status == "Banned" %}
+                <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="approve" title="Unban"><i class="fa fa-lg fa-check margin-r-3"></i></a>
+            {% else %}
+                <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="ban" title="Ban"><i class="fa fa-lg fa-ban margin-r-3"></i></a>&nbsp;
+            {% endif %}
+        {% endif %}
+    {% endif %}
+        {% if is_granted(['CAN_EDIT_USER','CAN_EDIT_PERMISSIONS','CAN_VIEW_HISTORY']) and status != "Pending" %}
+        <a href="{{ path('admin_edit_member', {'id': id, 'token': csrf_token('edit_member')}) }}" title="Edit Settings"><i class="fa fa-lg fa-pencil"></i> </a>
+        {% endif %}
+{% endif %}

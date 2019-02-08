@@ -30,6 +30,12 @@ class EarningHistory
     private $squadron;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EarningType")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $earning_type;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $earned_on;
@@ -37,18 +43,12 @@ class EarningHistory
     /**
      * @ORM\Column(type="integer")
      */
-    private $reward;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EarningType")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $earning_type;
+    private $reward = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $crew_wage;
+    private $crew_wage = 0;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

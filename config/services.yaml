@@ -7,6 +7,7 @@ parameters:
     locale: 'en'
     ajax.fileupload.path: '../upload/'
     command.fileupload.path: 'upload/'
+    pdo_connection_string: '%env(resolve:DATABASE_URL)%'
 
 services:
     # default configuration for services in *this* file
@@ -25,3 +26,11 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    app.menu_builder:
+        class: App\Menu\MenuBuilder
+
+    app.security.voter.admin:
+        class: App\Security\Voter\AdminVoter
+        tags:
+            - { name: security.voter }

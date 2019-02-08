@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class AnnouncementType extends AbstractType
 {
@@ -23,7 +22,8 @@ class AnnouncementType extends AbstractType
             ->add('message', null, [
                 'attr' => [
                     'rows' => '10',
-                    'style' => 'resize: vertical;'
+                    'style' => 'resize: vertical;',
+                    'placeholder' => 'Write your content, use Markdown to format your message.'
                 ],
                 'label' => 'Message Content',
                 'help' => 'Use Markdown to format your content',

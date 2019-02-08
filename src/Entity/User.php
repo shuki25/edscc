@@ -29,7 +29,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="text")
      */
     private $roles = [];
 
@@ -59,6 +59,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=1, options={"default": "N"})
      */
     private $email_verify = 'N';
+
+    /**
+     * @ORM\Column(type="string", length=1, options={"default": "N"}, nullable=true)
+     */
+    private $welcome_message_flag = 'N';
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
@@ -108,6 +113,11 @@ class User implements UserInterface
     private $status;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status_comment;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Commander", mappedBy="user", cascade={"persist", "remove"})
      */
     private $commander;
@@ -116,6 +126,7 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\ImportQueue", mappedBy="user", orphanRemoval=true)
      */
     private $importQueues;
+
 
     public function __construct()
     {
@@ -155,16 +166,26 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $roles = json_decode($this->roles,true);
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+
+
+        if($this->getStatus()->getName() != "Approved" && $this->getStatus()->getDeniedFlag() == false && $this->getEmailVerify() == "Y") {
+            $roles = ['ROLE_PENDING'];
+        }
+        elseif($this->getEmailVerify() == "N" || $this->getStatus()->getDeniedFlag()) {
+            $roles = ['ROLE_DENIED'];
+        }
+        else {
+            $roles[] = 'ROLE_USER';
+        }
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->roles = json_encode($roles);
 
         return $this;
     }
@@ -453,4 +474,29 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getWelcomeMessageFlag(): ?string
+    {
+        return $this->welcome_message_flag;
+    }
+
+    public function setWelcomeMessageFlag(string $welcome_message_flag): self
+    {
+        $this->welcome_message_flag = $welcome_message_flag;
+
+        return $this;
+    }
+
+    public function getStatusComment(): ?string
+    {
+        return $this->status_comment;
+    }
+
+    public function setStatusComment(?string $status_comment): self
+    {
+        $this->status_comment = $status_comment;
+
+        return $this;
+    }
+
 }

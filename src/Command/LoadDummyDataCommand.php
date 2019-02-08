@@ -2,8 +2,11 @@
 
 namespace App\Command;
 
+use App\Entity\ActivityCounter;
 use App\Entity\Announcement;
 use App\Entity\Commander;
+use App\Entity\EarningHistory;
+use App\Entity\EarningType;
 use App\Entity\Faction;
 use App\Entity\Platform;
 use App\Entity\Power;
@@ -11,6 +14,7 @@ use App\Entity\Rank;
 use App\Entity\Squadron;
 use App\Entity\Status;
 use App\Entity\User;
+use App\Repository\EarningTypeRepository;
 use App\Repository\FactionRepository;
 use App\Repository\PlatformRepository;
 use App\Repository\PowerRepository;
@@ -27,6 +31,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -76,8 +81,12 @@ class LoadDummyDataCommand extends Command
      * @var StatusRepository
      */
     private $statusRepository;
+    /**
+     * @var EarningTypeRepository
+     */
+    private $earningTypeRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, PlatformRepository $platformRepository, StatusRepository $statusRepository, EntityManagerInterface $manager)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, PlatformRepository $platformRepository, StatusRepository $statusRepository, EntityManagerInterface $manager, EarningTypeRepository $earningTypeRepository)
     {
         parent::__construct();
 
@@ -90,12 +99,13 @@ class LoadDummyDataCommand extends Command
         $this->platformRepository = $platformRepository;
         $this->statusRepository = $statusRepository;
         $this->manager = $manager;
+        $this->earningTypeRepository = $earningTypeRepository;
     }
 
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
+            ->setDescription('Add dummy squadrons, accounts, daily earning and activities data to the database. [For development and testing only.]')
             ->addOption('users', 'u', InputOption::VALUE_REQUIRED, 'Number of users to create. (Default: 100)')
             ->addOption('squadrons', 's', InputOption::VALUE_REQUIRED, 'Number of Squadrons to create. (Default: 10')
         ;
@@ -104,27 +114,35 @@ class LoadDummyDataCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
+        $this->faker = Factory::create();
 
         $num_users = null !== $input->getOption('users') ? $input->getOption('users') : 100;
         $num_squads = null !=  $input->getOption('squadrons') ? $input->getOption('squadrons') : 10;
-        $num_announcements = 30 * $num_squads;
+        $num_announcements = (30 * $num_squads) + $this->faker->numberBetween(15,75);
 
-        $tot_num = ($num_users * 2) + $num_squads + $num_announcements;
+        $tot_num = ($num_users * 4) + $num_squads + $num_announcements;
+        $section1 = $output->section();
+        $section2 = $output->section();
 
-        $progressBar = new ProgressBar($output, $tot_num);
-        $progressBar->start();
-
-        $this->faker = Factory::create();
+        $progressBar = new ProgressBar($section1);
+        $progressBar2 = new ProgressBar($section2);
+        $progressBar->setFormat('very_verbose');
+        $progressBar2->setFormat('very_verbose');
+        $progressBar2->setRedrawFrequency(7);
+        $progressBar->start($tot_num);
+        $progressBar2->start(100);
 
         $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'service']);
         $this->referencesIndexByORM[Faction::class] = $this->factionRepository->findAll();
         $this->referencesIndexByORM[Power::class] = $this->powerRepository->findAll();
         $this->referencesIndexByORM[Platform::class] = $this->platformRepository->findAll();
         $this->referencesIndexByORM[Status::class] = $this->statusRepository->findAll();
+        $this->referencesIndexByORM[EarningType::class] = $this->earningTypeRepository->findAll();
 
         $squadron = $this->squadronRepository->findOneBy(['id'=> 1]);
+        $status_approved = $this->statusRepository->findOneBy(['name' => 'Approved']);
 
-        $this->createMany(User::class, $num_users, function(User $user, $count) use ($squadron, $progressBar){
+        $this->createMany(User::class, $num_users, function(User $user, $count) use ($squadron, $progressBar, $status_approved){
             $user->setEmail($this->faker->email)
                 ->setCommanderName($this->faker->userName)
                 ->setPassword($this->passwordEncoder->encodePassword($user, 'test123'))
@@ -132,8 +150,8 @@ class LoadDummyDataCommand extends Command
                 ->setSquadron($squadron)
                 ->setApikey($this->faker->md5)
                 ->setRank($this->getRandomReferenceByORM(Rank::class))
-                ->setStatus($this->getRandomReferenceByORM(Status::class))
-                ->setDateJoined($this->faker->dateTimeBetween('-6 months', '-1 seconds'))
+                ->setStatus($this->faker->optional(0.1, $status_approved)->randomElement($this->referencesIndexByORM[Status::class]))
+                ->setDateJoined($this->faker->dateTimeBetween('-5 months', '-1 weeks'))
                 ->setEmailVerify($this->faker->optional(0.1, 'Y')->randomElement(['Y','N']));
             $progressBar->advance();
         });
@@ -184,7 +202,8 @@ class LoadDummyDataCommand extends Command
             $commander->setUser($user)
                 ->setAsset($asset)
                 ->setCredits($credits)
-                ->setLoan($this->faker->optional(0.1, 0)->numberBetween(10000,1000000))
+                ->setPlayerId('F' . $this->faker->randomNumber(5))
+                ->setLoan($this->faker->optional(0.03, 0)->numberBetween(10000,1000000))
                 ->setCombat($this->getRandomRankByGroupCode('combat'))
                 ->setTrade($this->getRandomRankByGroupCode('trade'))
                 ->setExplore($this->getRandomRankByGroupCode('explore'))
@@ -211,6 +230,77 @@ class LoadDummyDataCommand extends Command
                 $user->setSquadron($squadron);
                 $this->manager->persist($user);
             }
+        }
+        $this->manager->flush();
+
+        foreach($users as $user) {
+
+            $interval = $user->getDateJoined()->diff(new \DateTime('now'));
+            $maxDays = round($interval->format('%a') * .65);
+            $minDays = round($maxDays * .45);
+            $num_dates = $this->faker->numberBetween($minDays,$maxDays);
+            $min = $num_dates*5;
+            $max = $num_dates*17;
+            $num_earning = $this->faker->numberBetween($min,$max);
+
+            $progressBar2->start($num_earning);
+            $this->createMany(EarningHistory::class, $num_earning, function(EarningHistory $earningHistory, $count) use ($user, $progressBar2) {
+                $reward = $this->faker->numberBetween(500,3000000) + $this->faker->optional(0.05, 0)->numberBetween(10000000,30000000);
+                $type = $this->getRandomReferenceByORM(EarningType::class);
+                if($type->getName() == 'MarketBuy') {
+                    $reward *= -1;
+                }
+                $earningHistory->setUser($user)
+                    ->setSquadron($user->getSquadron())
+                    ->setEarningType($type)
+                    ->setEarnedOn($this->faker->dateTimeBetween($user->getDateJoined(),'-1 hours'))
+                    ->setReward($reward);
+                $progressBar2->advance();
+            });
+            $progressBar2->finish();
+            $progressBar->advance();
+
+            $progressBar2->start($num_dates);
+
+            $list_of_dates = [];
+
+            for($i=0; $i < ($num_dates + 25); $i++) {
+                $tmp = $this->faker->unique()->dateTimeBetween($user->getDateJoined(), '-1 hours');
+                $list_of_dates[] = new \DateTime($tmp->format('Y-m-d'));
+            }
+            $list_of_dates = array_unique($list_of_dates, SORT_REGULAR);
+            sort($list_of_dates);
+
+            $num_in_list = count($list_of_dates) - 1;
+            $num_dates = $num_dates > $num_in_list ? $num_in_list - 1 : $num_dates;
+
+            $this->createMany(ActivityCounter::class, $num_dates, function (ActivityCounter $activityCounter, $count) use ($user, &$list_of_dates, $progressBar2) {
+                $systemFound = $this->faker->optional(0.1, 0)->numberBetween(0,100);
+                $bodiesFound = $systemFound ? ($systemFound * 8) + $this->faker->numberBetween(0,50) : 0;
+                $ssaScanned = $bodiesFound ? round($bodiesFound * 0.04) + $this->faker->numberBetween(0,round($bodiesFound * 0.02)) : 0;
+                $efficiency = $ssaScanned ? $ssaScanned - $this->faker->optional(0.2, 0)->numberBetween(0,round($ssaScanned * 0.15)) : 0;
+                $marketbuy = $this->faker->optional(0.1, 0)->numberBetween(0,500);
+                $marketsell = $marketbuy ? $marketbuy + $this->faker->numberBetween(0,10) : 0;
+
+                $activityCounter->setUser($user)
+                    ->setSquadron($user->getSquadron())
+                    ->setActivityDate(next($list_of_dates))
+                    ->addBountiesClaimed($this->faker->optional(0.1, 0)->numberBetween(0,25))
+                    ->addSystemsScanned($systemFound)
+                    ->addBodiesFound($bodiesFound)
+                    ->addSaaScanCompleted($ssaScanned)
+                    ->addEfficiencyAchieved($efficiency)
+                    ->addMarketBuy($marketbuy)
+                    ->addMarketSell($marketsell)
+                    ->addMissionsCompleted($this->faker->optional(0.05, 0)->numberBetween(0,50))
+                    ->addMiningRefined($this->faker->optional(0.05, 0)->numberBetween(0,200))
+                    ->addStolenGoods($this->faker->optional(0.01, 0)->numberBetween(0,25))
+                    ->addCgParticipated($this->faker->optional(0.1, 0)->numberBetween(0,2))
+                    ->addCrimesCommitted($this->faker->optional(0.01, 0)->numberBetween(0,5));
+                $progressBar2->advance();
+            });
+            $progressBar2->finish();
+            $progressBar->advance();
         }
 
         $this->manager->flush();
@@ -245,6 +335,9 @@ class LoadDummyDataCommand extends Command
             $factory($entity, $i);
 
             $this->manager->persist($entity);
+            if($i % 500 === 0) {
+                $this->manager->flush();
+            }
         }
     }
 

@@ -17,7 +17,7 @@
         <form action="{{ path('app_confirm_email') }}" method="post">
             <div class="form-group has-feedback">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('verify_email') }}">
-                <input type="email" name="email" value="{{ app.request.get('email') }}" class="form-control" placeholder="Email">
+                <input type="email" name="email" value="{{ email }}" class="form-control" placeholder="Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -33,8 +33,8 @@
                 <!-- /.col -->
             </div>
         </form>
-        <div><br /><p class="login-box-msg">
-            <a href="{{ path('app_resend_token') }}?email={{ app.request.get('email')|url_encode }}" class="text-center">I did not get the activation e-mail. Please resend.</a></p>
+        <div><br /><p>
+            <a href="{{ path('app_resend_token') }}?email={{ email|url_encode }}" class="text-center">I did not get the activation e-mail. Please resend.</a></p>
         </div>
     </div>
     <!-- /.form-box -->

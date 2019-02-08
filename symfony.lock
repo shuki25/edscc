@@ -125,17 +125,26 @@
     "knplabs/knp-components": {
         "version": "v1.3.10"
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.7.1"
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v2.8.0"
     },
     "knplabs/knp-time-bundle": {
         "version": "1.9.0"
     },
+    "michelf/php-markdown": {
+        "version": "1.8.0"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
     "nikic/php-parser": {
         "version": "v4.1.0"
+    },
+    "nyholm/dsn": {
+        "version": "1.0.0"
     },
     "ocramius/package-versions": {
         "version": "1.3.0"

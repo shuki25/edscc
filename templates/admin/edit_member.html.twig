@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+{% block title %}{{ title|default('Squadron Settings')}}!{% endblock %}
+
+{% block content %}
+    {% set isActive = false %}
+    <div class="content">
+        <form id="edit-member" method="post" action="{{ path('admin_save_member') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('save_member') }}">
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <div class="row">
+            <div class="col-md-3">
+                {% include 'members/profile_sidebar.html.twig' %}
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-left">
+                        {% if is_granted('CAN_EDIT_USER') %}{% set isActive = true %}<li class="active"><a href="#details" data-toggle="tab">{% trans %}Commander{% endtrans %}</a></li>{% endif %}
+                        {% if is_granted('CAN_EDIT_PERMISSIONS') %}<li{% if isActive == false %} class="active"{% endif %}><a href="#permissions" data-toggle="tab">{% trans %}Permissions</a>{% endtrans %}</li>{% set isActive = true %}{% endif %}
+                        {% if is_granted('CAN_VIEW_HISTORY') %}<li{% if isActive == false %} class="active"{% endif %}><a href="#history" data-toggle="tab">{% trans %}History Log</a>{% endtrans %}</li>{% endif %}
+                    </ul>
+                    {% set isActive = false %}
+                    <div class="pull-right" style="padding: 6px;">
+                        <a href="{{ path('admin_list_members') }}" class="btn btn-sm btn-primary margin-r-5">{% trans %}Cancel{% endtrans %}</a>
+                        {% if is_granted(['CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS']) %}<button id="save-changes" class="btn btn-sm btn-default">{% trans %}Save Changes{% endtrans %}</button>{% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="tab-content">
+                        {% if is_granted('CAN_EDIT_USER') %}
+                        {% set isActive = true %}
+                        <div class="active tab-pane" id="details">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="pull-right text-sm">{% trans %}Last Updated{% endtrans %}: {{ user.updatedAt|ago }}</span>
+                                    <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-members margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Commander Details{% endtrans %}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label required" for="email">{% trans %}Commander E-mail{% endtrans %}</label>
+                                        <input type="text" id="email" name="email" required="required" maxlength="255" class="form-control" value="{{ user.email }}" disabled="disabled">
+                                        <span class="help-block">{% trans %}Commander Login Email{% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label" for="rank_id">{% trans %}Current Squadron Rank{% endtrans %}</label>
+                                        <select id="rank_id" name="rank_id" class="form-control">
+                                            {% for rank in ranks %}
+                                                <option value="{{ rank.assignedId }}"{% if user.rank.id == rank.id %} selected="selected"{% endif %}>{{ rank.name|trans }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block">{% trans %}Choose the commander's rank{% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label" for="status_id">{% trans %}Squadron Membership Status{% endtrans %}</label>
+                                        <select id="status_id" name="status_id" class="form-control">
+                                            {% for status in statuses %}
+                                                <option value="{{ status.id }}"{% if user.status.id == status.id %} selected="selected"{% endif %}>{{ status.name|trans }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block">{% trans %}Choose the status to determine user's access privilege to the squadron{% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label" for="status_comment">{% trans %}Status Comment{% endtrans %}</label>
+                                        <input type="text" id="status_comment" name="status_comment" maxlength="255" class="form-control" value="{{ user.statusComment }}">
+                                        <span class="help-block">{% trans %}Please enter reason why the status is assigned as needed (if the access is being denied, etc.){% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <input id="email_verify" type="checkbox" data-toggle="toggle" data-size="mini" data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}" data-onstyle="success" data-offstyle="danger" name="email_verify"{% if user.emailVerify == "Y" %}checked{% endif %}>
+                                        <label class="control-label" for="email_verify" style="margin-left: 5px;">{% trans %}E-mail address verified{% endtrans %}</label>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <input id="welcome_msg" type="checkbox" data-toggle="toggle" data-size="mini" data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}" data-onstyle="success" data-offstyle="danger" name="welcome_message_flag"{% if user.welcomeMessageFlag == "Y" %}checked{% endif %}>
+                                        <label class="control-label" for="welcome_msg" style="margin-left: 5px;">{% trans %}User has read the welcome message after logging in{% endtrans %}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-panel -->
+                        {% endif %}
+                        {% if is_granted('CAN_EDIT_PERMISSIONS') %}
+                        <div class="{% if isActive == false %}active {% set isActive = true %}{% endif %}tab-pane" id="permissions">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-lg fa-key margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}User Permission Settings{% endtrans %}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <p>// To Do -- Instructions on configuring permissions</p>
+                                    </div>
+                                    {% for acl in acls %}
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <input id="acl-{{ acl.id }}" type="checkbox" data-toggle="toggle" data-size="mini" data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}" data-onstyle="success" data-offstyle="danger" name="acl[]" value="{{ acl.roleString }}"{% if acl.roleString in user.roles %}checked{% endif %}>
+                                        <label class="control-label" for="acl-{{ acl.id }}" style="margin-left: 5px;">{{ acl.description|trans }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-pane -->
+                        {% endif %}
+                        {% if is_granted('CAN_VIEW_HISTORY') %}
+                        <div class="{% if isActive == false %}active {% set isActive = true %}{% endif %}tab-pane" id="history">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Commander History Log{% endtrans %}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="jumbotron">
+                                        <h1>// To Do</h1>
+                                        <p>Placeholder for future addition</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-pane -->
+                        {% endif %}
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+    $(() => {
+       $("#save-changes").on('click', function (e) {
+           console.log('Save Button was hit.');
+           $("#edit-member").submit();
+       })
+    });
+</script>
+{% endblock %}

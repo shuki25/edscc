@@ -85,10 +85,21 @@ class Squadron
      */
     private $announcements;
 
+    /**
+     * @ORM\Column(type="string", length=1, nullable=true)
+     */
+    private $active = 'Y';
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SquadronTags", mappedBy="squadron")
+     */
+    private $squadronTags;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->announcements = new ArrayCollection();
+        $this->squadronTags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,6 +260,49 @@ class Squadron
             // set the owning side to null (unless already changed)
             if ($announcement->getSquadron() === $this) {
                 $announcement->setSquadron(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getActive(): ?string
+    {
+        return $this->active;
+    }
+
+    public function setActive(?string $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SquadronTags[]
+     */
+    public function getSquadronTags(): Collection
+    {
+        return $this->squadronTags;
+    }
+
+    public function addSquadronTag(SquadronTags $squadronTag): self
+    {
+        if (!$this->squadronTags->contains($squadronTag)) {
+            $this->squadronTags[] = $squadronTag;
+            $squadronTag->setSquadron($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSquadronTag(SquadronTags $squadronTag): self
+    {
+        if ($this->squadronTags->contains($squadronTag)) {
+            $this->squadronTags->removeElement($squadronTag);
+            // set the owning side to null (unless already changed)
+            if ($squadronTag->getSquadron() === $this) {
+                $squadronTag->setSquadron(null);
             }
         }
 

@@ -1,0 +1,125 @@
+var squadron_earning_chart;
+
+function update_squadron_earning_data() {
+    $.ajax({
+        url: "{{ path('chart_squadron_earning') }}",
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token('chart_dashboard') }}"
+        },
+        success: function (result) {
+            if(result.status == 200) {
+                console.log(result);
+                squadron_earning_chart.data.datasets[0].label[0] = result.label[0];
+                squadron_earning_chart.data.labels = [];
+                squadron_earning_chart.data.datasets[0].data = [];
+                squadron_earning_chart.data.datasets[1].data = [];
+
+                for(var i in result.data[0]) {
+                    var theDate = new Date(i);
+                    squadron_earning_chart.data.labels.push(theDate.toLocaleDateString());
+                    squadron_earning_chart.data.datasets[0].data.push(result.data[0][i]);
+                    squadron_earning_chart.data.datasets[1].data.push(result.data[1][i]);
+                }
+
+                console.log(squadron_earning_chart);
+
+                $('#squadron_earning .overlay').hide();
+                squadron_earning_chart.update();
+            }
+            else {
+                console.log('Problem with ajax call.')
+            }
+        },
+        error: function (result) {
+            alert('Internal Error.');
+        }
+    });
+}
+
+$(() => {
+    var ctx = $('#squadron_earning_chart');
+
+    squadron_earning_chart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: "Your Squadron",
+                    fill: true,
+                    backgroundColor: "rgba(220,220,220,0.5)",
+                    borderColor: "rgba(0, 166, 90,.8)",
+                    pointBorderColor: "rgba(0, 166, 90,.8)",
+                    pointRadius: 1,
+                    pointHoverRadius: 5,
+                    data: [],
+                    pointHitRadius: 5,
+                    cubicInterpolationMode: "default"
+
+                },
+                {
+                    label: "Other Squadrons (Average)",
+                    fill: true,
+                    backgroundColor: "rgba(0,192,239,0.5)",
+                    borderColor: "rgba(0,192,239,1)",
+                    pointBorderColor: "rgba(0,192,239,1)",
+                    pointRadius: 1,
+                    pointHoverRadius: 5,
+                    data: [],
+                    pointHitRadius: 5,
+                    cubicInterpolationMode: "default"
+                }
+            ]
+        },
+        options: {
+            animation: {
+                easing: "easeInCubic",
+                duration: 1000
+            },
+            tooltips: {
+                enabled: true,
+                mode: "x-axis",
+                position: "nearest",
+                callbacks: {
+                    title: function (tooltipItems, data) {
+                        var theDate = new Date(tooltipItems[0].xLabel);
+                        return "Daily Total Earning on " + theDate.toLocaleDateString();
+                    },
+                    label: function (tooltipItems, data) {
+                        return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel.toLocaleString();
+                    },
+                    footer: function (tooltipItems, data) {
+                        var numerator = parseInt(tooltipItems[0].yLabel);
+                        var denominator = parseInt(tooltipItems[1].yLabel);
+                        var delta_percent = ((numerator-denominator)/denominator) * 100;
+                        return "Percentage difference: " + delta_percent.toFixed(1) + "%";
+                    }
+                }
+
+            },
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString();
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                            return value;
+                        }
+                    }
+                }]
+            },
+            maintainAspectRatio: true
+        }
+    })
+
+    update_squadron_earning_data();
+});

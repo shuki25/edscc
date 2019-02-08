@@ -1,0 +1,29 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="login-box">
+        <div class="login-box-header">
+            {% include 'security/logo.html.twig' %}
+        </div>
+        <div class="login-box-body">
+            <div class="login-box-msg">
+                <p>{% trans %}You Have Been Banned{% endtrans %}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>{% trans %}Your squadron leader has banned you.{% endtrans %}</p>
+                    {% if app.user.statuscomment is not empty %}<p><b>Reason:</b> {{ app.user.statuscomment }}</p>{% endif %}
+                </div>
+            </div>
+            <div class="row text-center" style="padding-top: 15px;">
+                <div class="col-md-12">
+                    <a href="{{ path('app_logout') }}" class="btn btn-default">{% trans %}Return to Login Screen{% endtrans %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

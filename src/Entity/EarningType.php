@@ -17,7 +17,7 @@ class EarningType
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=40)
      */
     private $name;
 

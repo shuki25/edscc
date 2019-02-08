@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Squadron Announcements{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="content">
+    {% for article in articles %}
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ article.title }}</h3>
+                <div class="pull-right clearfix">
+                    {{ article.publish_in|ago }}
+                </div>
+            </div>
+            <div class="box-body">
+                {{ article.message|markdown }}
+            </div>
+            <div class="box-footer">
+                <div class="clearfix">
+                    <span><a href="#"><i class="ion ion-thumbsup text-white"></i> Like</a> </span>
+                    <div class="pull-right">{% trans with {"%author%": article.author} %}Posted by CMDR %author%{% endtrans %}</div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    {% endfor %}
+    </div>
+{% endblock %}
+

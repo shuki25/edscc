@@ -14,7 +14,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('addons/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://bootswatch.com/3/slate/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('addons/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -22,11 +22,13 @@
     <!-- Custom ED Asset Glyphicons -->
     <link rel="stylesheet" href="{{ asset('glyphicons/style.css') }}">
     <!-- Theme style -->
+    {% if admin_skin == "skin-dark" %}
+    <link rel="stylesheet" href="{{ asset('css/adminLTE-dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+    {% else %}
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect. -->
-    <link rel="stylesheet" href="{{ asset('css/skins/') }}{{ admin_skin }}.min.css">
+    {% endif %}
+    <link rel="stylesheet" href="{{ asset('css/skins/') }}{{ admin_skin }}.css">
     {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,26 +41,6 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition {{ admin_skin }} {{ layout_option }} fixed">
 <div class="wrapper">
 
@@ -152,7 +134,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <i class="ed-asset ed-asset-lg ed-asset-icon-squadrons"></i> {% trans with {'%name%': app.user.squadron.name} %}Squadron: %name%{% endtrans %}
+                <span class="text-orange"> <i class="ed-asset ed-asset-lg ed-asset-icon-squadrons"></i></span> {% trans with {'%name%': app.user.squadron.name} %}Squadron: %name%{% endtrans %}
                 <small>{{ app.user.squadron.idcode }}</small>
             </h1>
             <ol class="breadcrumb">
@@ -188,10 +170,10 @@ desired effect
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Anything you want
+            <a href="{{ path('app_private_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2018-19 <a href="#">Joshua Butler, MD</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018-19 <a href="https://gitlab.com/shuki25" target="_blank">Shuki25</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
