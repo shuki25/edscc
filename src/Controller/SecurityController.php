@@ -36,7 +36,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-
+    private $utc;
     private $router;
     /**
      * @var TranslatorInterface
@@ -47,6 +47,7 @@ class SecurityController extends AbstractController
     {
         $this->router = $router;
         $this->translator = $translator;
+        $this->utc = new \DateTimeZone('utc');
     }
 
     /**
@@ -373,6 +374,7 @@ class SecurityController extends AbstractController
             $user->setStatus($status);
             $user->setWelcomeMessageFlag('N');
             $user->setRoles(['ROLE_ADMIN']);
+            $user->setDateJoined(new \DateTime('now',$this->utc));
 
             $providerKey = 'main';
             $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());

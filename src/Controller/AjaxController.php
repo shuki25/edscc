@@ -171,6 +171,9 @@ class AjaxController extends AbstractController
                         $status = $statusRepository->findOneBy(['name' => 'Pending']);
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
+                        if(is_null($target_user->getDateJoined())) {
+                            $target_user->setDateJoined(new \DateTime('now'), $this->utc);
+                        }
                         break;
                     case 'approve':
                         $status = $statusRepository->findOneBy(['name' => 'Approved']);
