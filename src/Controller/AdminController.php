@@ -45,6 +45,7 @@ class AdminController extends AbstractController
          * @var User $user
          */
         $user = $this->getUser();
+        $tags_bank = [];
         $tags = $tagsRepository->findBy([],['group_code' => 'asc', 'name' => 'asc']);
         $group_code = [
             'activities' => "Activities",

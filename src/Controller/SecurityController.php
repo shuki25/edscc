@@ -372,6 +372,7 @@ class SecurityController extends AbstractController
             $status = $statusRepository->findOneBy(['name' => 'Approved']);
             $user->setStatus($status);
             $user->setWelcomeMessageFlag('N');
+            $user->setRoles(['ROLE_ADMIN']);
 
             $providerKey = 'main';
             $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());

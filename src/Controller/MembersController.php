@@ -50,7 +50,13 @@ class MembersController extends AbstractController
          * @var User $user
          */
         $user = $this->getUser();
+        $rank = [];
+        $total_earned = [];
         $members = $userRepository->findBy(['Squadron' => $user->getSquadron()->getId()],['commander_name' => 'ASC']);
+        foreach($members as $member) {
+            $rank[$member->getId()] = 'Unranked';
+            $total_earned[$member->getId()] = 0;
+        }
 
         $sql = "call p_commander_earning_rank(?)";
         try {
