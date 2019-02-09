@@ -89,8 +89,6 @@ class ParseLogHelper
 
     public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, $api = false) {
 
-        $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
-
         if($api) {
             $e = $data;
             $this->activity_counter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
@@ -105,6 +103,8 @@ class ParseLogHelper
         else {
             $e = json_decode($data, true);
         }
+
+        $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
 
         switch ($e['event']) {
             case 'Fileheader':
