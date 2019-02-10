@@ -56,12 +56,12 @@ class LeaderboardController extends AbstractController
         $user = $this->getUser();
         $report_id = ($request->request->get('report')) ?: 1;
 
-        $sql = "select * from x_leaderboard_report";
+        $sql = "select * from x_leaderboard_report order by title";
         $rs = $this->dbh->prepare($sql);
         $rs->execute([]);
         $report_picker = $rs->fetchAll(\PDO::FETCH_ASSOC);
 
-        $sql = "select * from x_leaderboard_report where id=? order by title";
+        $sql = "select * from x_leaderboard_report where id=?";
         $rs = $this->dbh->prepare($sql);
         $rs->execute([$report_id]);
         $report = $rs->fetch(\PDO::FETCH_ASSOC);
@@ -131,6 +131,10 @@ class LeaderboardController extends AbstractController
             $cast_columns = json_decode($report['cast_columns'],true);
         }
 
+        if(!is_null($report['sort_columns'])) {
+            $sort_columns = json_decode($report['sort_columns'], true);
+        }
+
         try {
             $sql = $report['count_sql'];
             $rs = $this->dbh->prepare($sql);
@@ -143,7 +147,12 @@ class LeaderboardController extends AbstractController
             }
             $order_by_str .= " limit %d offset %d";
 
-            $sql = $report['sql'] . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            if(isset($sort_columns[$order_by])) {
+                $sql = $report['sql'] . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            }
+            else {
+                $sql = $report['sql'] . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            }
 
             $rs = $this->dbh->prepare($sql);
             $rs->execute($params);
