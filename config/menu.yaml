@@ -12,17 +12,19 @@ user:
         item: "Announcements"
         route: "show_announcements"
         icon: "fa fa-bullhorn"
-#    4:
+    4:
+        item: "Player Activities Report"
+        route: "app_player_reports"
+        icon: "fa fa-database"
+        star: true
+#    5:
 #        item: "Squadron Activities"
 #        icon: "fa fa-line-chart"
-    5:
+    6:
         item: "Members List"
         route: "app_members"
         icon: "ed-asset ed-asset-icon-members margin-r-5"
         star: false
-#    6:
-#        item: "Player Statistics"
-#        icon: "fa fa-area-chart"
     7:
         item: "Player Journal Log"
         route: "app_import"

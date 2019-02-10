@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/edscc.css') }}"/>
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border pb-2">
+                <h3 class="box-title"><i class="fa fa-lg fa-database margin-r-5"></i>{% trans with {"%name%":app.user.commandername} %}Activities Report for CMDR %name%{% endtrans %}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="clearfix pull-right no-padding no-margin report-picker">
+                    <div class="row">
+                        <div class="col-md-4 report-label text-right">
+                            Select Report:
+                        </div>
+                        <div class="col-md-8 pull-right">
+                            <form class="input-group-sm" method="post" href="{{ path('app_player_reports') }}">
+                                <select id="report-picker" class="form-control text-sm" name="report" style="width: 300px;">
+                                    {% for item in report_picker %}
+                                        <option value="{{ item.id }}"{% if item.id == report_id %} selected="selected"{% endif %}>{{ item.title|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <table id="table" class="table table-condensed table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>{% for header in report.header %}
+                            <th>{{ header|trans }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <!-- /.tr Header -->
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- ./box-body -->
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script>
+        $('#table').DataTable({
+            columnDefs: [
+                {% for column in report.columns %}
+                {name: "{{ column }}", targets: {{ loop.index0 }}},
+                {% endfor %}
+            ],
+            columns: [
+                {% for column in report.columns %}
+                {data: "{{ column }}", targets: {{ loop.index0 }}},
+                {% endfor %}
+            ],
+            serverSide: true,
+            processing: false,
+            ajax: {
+                url: "{{ path('report_table', {'token': csrf_token('ajax_report'), 'slug': report_id}) }}",
+                type: "POST"
+            },
+            paging: true,
+            autoWidth: false,
+            info: true,
+            searching: false,
+            pageLength: 10,
+            order: [[{{ report.order_id }}, '{{ report.order_dir }}']],
+            dom: "<'row'<'col-sm-3'i>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+            // dom: '<"top"i>rt<"bottom"flp><"clear">',
+            language: {
+                lengthMenu: {% include 'datatables_length_menu.html.twig' %},
+                search: '_INPUT_',
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+            },
+            initComplete: function () {
+                $('.dataTables_filter input[type="search"]').css({
+                    width: '200px', display: 'inline-block'
+                });
+            },
+            drawCallback: function () {
+                $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+            }
+        });
+
+        $('#report-picker').on('change', function () {
+            this.form.submit();
+        });
+
+    </script>
+{% endblock %}
