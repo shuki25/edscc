@@ -162,11 +162,14 @@ class ReportController extends AbstractController
             die;
         }
 
-        if(!is_null($datatable['data'][0]['commander_name'])) {
-            foreach ($datatable['data'] as $i => $row) {
-                $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
+        if(is_object($datatable['data'])) {
+            if(!is_null($datatable['data'][0]['commander_name'])) {
+                foreach ($datatable['data'] as $i => $row) {
+                    $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
+                }
             }
         }
+
         $datatable['recordsFiltered'] = $rowcount;
         $datatable['recordsTotal'] = $rowcount;
         $datatable['draw'] = $datatable_params['draw'];
