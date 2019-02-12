@@ -20,7 +20,7 @@ user:
     6:
         item: "Squadron Roster"
         route: "app_members"
-        icon: "ed-asset ed-asset-icon-members margin-r-5"
+        icon: "fa fa-user-astronaut"
         star: false
     7:
         header: "Player"
