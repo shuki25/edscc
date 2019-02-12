@@ -19,6 +19,6 @@
         {% endif %}
     {% endif %}
         {% if is_granted(['CAN_EDIT_USER','CAN_EDIT_PERMISSIONS','CAN_VIEW_HISTORY']) and status != "Pending" %}
-        <a href="{{ path('admin_edit_member', {'id': id, 'token': csrf_token('edit_member')}) }}" title="Edit Settings"><i class="fa fa-lg fa-pencil"></i> </a>
+        <a href="{{ path('admin_edit_member', {'id': id, 'token': csrf_token('edit_member')}) }}" title="Edit Settings"><i class="fa fa-lg fa-user-edit"></i> </a>
         {% endif %}
 {% endif %}
