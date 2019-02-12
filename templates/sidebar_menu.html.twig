@@ -5,21 +5,25 @@
     {% set currentRoute = app.request.attributes.get('_route') %}
     <ul class="sidebar-menu" data-widget="tree">
     {% for item in menu %}
-        {% set isGranted = true %}
-        {% if item.roles is defined %}
-            {% set isGranted = false %}
-            {% for role in item.roles %}
-                {% if is_granted(role) %}
-                    {% set isGranted = true %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% set isCurrent = false %}
-        {% if item.routes is defined and currentRoute in item.routes %}
-            {% set isCurrent = true %}
-        {% endif %}
-        {% if isGranted %}
-            <li {% if (item.route is defined and item.route == currentRoute) or isCurrent == true %}class="active"{% endif %}><a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}">{% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}<span>{{ item.item }}</span> {% if item.star is defined and item.star == true %}<span class="pull-right-container"><small class="label pull-right bg-green"><i class="fa fa-star"></i></small>{% endif %}</a></li>
+        {% if item.header is defined %}
+            <li class="header">{{ item.header|upper }}</li>
+        {% else %}
+            {% set isGranted = true %}
+            {% if item.roles is defined %}
+                {% set isGranted = false %}
+                {% for role in item.roles %}
+                    {% if is_granted(role) %}
+                        {% set isGranted = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% set isCurrent = false %}
+            {% if item.routes is defined and currentRoute in item.routes %}
+                {% set isCurrent = true %}
+            {% endif %}
+            {% if isGranted %}
+                <li {% if (item.route is defined and item.route == currentRoute) or isCurrent == true %}class="active"{% endif %}><a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}">{% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}<span>{{ item.item }}</span> {% if item.star is defined and item.star == true %}<span class="pull-right-container"><small class="label pull-right bg-green"><i class="fa fa-star"></i></small>{% endif %}</a></li>
+            {% endif %}
         {% endif %}
     {% endfor %}
     </ul>
