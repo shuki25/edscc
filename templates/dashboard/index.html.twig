@@ -29,7 +29,7 @@
                         <h3>{{ data.earnings|number_format }}</h3>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-money"></i>
+                        <i class="fa fa-money-bill-wave"></i>
                     </div>
                     <div class="small-box-footer">
                         <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.earnings_pct|abs} %} %count%%% from yesterday{% endtrans %}
@@ -42,13 +42,13 @@
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <h4>{% trans %}Missions Completed Today{% endtrans %}</h4>
-                        <h3>{{ data.bodies_found|number_format }}</h3>
+                        <h3>{{ data.missions|number_format }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ed-asset ed-asset-icon-courier ed-asset-lg"></i>
                     </div>
                     <div class="small-box-footer">
-                        <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.missions_pct|abs} %} %count%%% from yesterday{% endtrans %}
+                        <i class="fa fa-arrow-circle-{% if data.missions_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.missions_pct|abs} %} %count%%% from yesterday{% endtrans %}
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <i class="ion ion-planet"></i>
                     </div>
                     <div class="small-box-footer">
-                        <i class="fa fa-arrow-circle-{% if data.earnings_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.bodies_found_pct|abs} %} %count%%% from yesterday{% endtrans %}
+                        <i class="fa fa-arrow-circle-{% if data.bodies_found_pct > 0 %}up{% else %}down{% endif %}"></i> {% trans with {"%count%": data.bodies_found_pct|abs} %} %count%%% from yesterday{% endtrans %}
                     </div>
                 </div>
             </div>
