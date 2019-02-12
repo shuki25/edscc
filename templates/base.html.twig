@@ -73,7 +73,7 @@
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">CMDR {{ app.user.commanderName }}</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu animated-dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 <img src="{{ app.user.AvatarImgUrl }}" class="img-circle" alt="User Image">
@@ -85,10 +85,10 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{ path('app_profile') }}" class="btn btn-default">Profile</a>
+                                    <a href="{{ path('app_profile') }}" class="btn btn-primary btn-flat">My Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ path('app_logout') }}" class="btn btn-default">Sign out</a>
+                                    <a href="{{ path('app_logout') }}" class="btn btn-primary btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -133,14 +133,17 @@
         {% endif %}
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <div class="clearfix header-clock pull-right">
+                {{ "now"|localizeddate('medium','short', null, 'UTC') }}
+            </div>
             <h1>
                 <span class="text-orange"> <i class="ed-asset ed-asset-lg ed-asset-icon-squadrons"></i></span> {% trans with {'%name%': app.user.squadron.name} %}Squadron: %name%{% endtrans %}
                 <small>{{ app.user.squadron.idcode }}</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li class="active">Here</li>
-            </ol>
+            {#<ol class="breadcrumb">#}
+                {#<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>#}
+                {#<li class="active">Here</li>#}
+            {#</ol>#}
         </section>
 
         <!-- Main content -->

@@ -27,6 +27,29 @@ input[type="file"] {
     margin: 0px;
 }
 
+.navbar {
+    background-image: none !important;
+}
+
+.btn-flat {
+    background-image: none !important;
+}
+
+.header-clock {
+    padding-top: 8px;
+    padding-right: 22px;
+    color: #CDCECD;
+    font-size: 1em;
+}
+
+.input-message {
+    /*+placement: -4px 4px;*/
+    position: relative;
+    left: -4px;
+    top: 4px;
+    padding-top: 3px;
+}
+
 /**
  * Progress bars with centered text
  */
