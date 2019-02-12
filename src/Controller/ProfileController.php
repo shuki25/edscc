@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Nyholm\DSN;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  *
@@ -14,17 +20,37 @@ use Symfony\Component\Routing\RouterInterface;
 
 class ProfileController extends AbstractController
 {
-    private $router;
 
-    public function __construct(RouterInterface $router)
+    private $dbh;
+
+    /**
+     * @var ParameterBagInterface
+     */
+    private $bag;
+
+    public function __construct(ParameterBagInterface $bag)
     {
-        $this->router = $router;
+        $this->bag = $bag;
+        $params = $this->bag->get('pdo_connection_string');
+
+        $dsnObject = new DSN($params);
+
+        $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
+
+        try {
+            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword());
+        }
+        catch (\Exception $e) {
+            dump($e->getMessage());
+            dump($dsnObject);
+            dd($dsn);
+        }
     }
 
     /**
      * @Route("/profile", name="app_profile")
      */
-    public function index()
+    public function profile()
     {
         $user = $this->getUser();
 
@@ -36,12 +62,95 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('profile/index.html.twig', [
-            'controller_name' => 'DashboardController',
             'title' => 'Commander Profile',
             'description' => '',
-            'commander_name' => $user->getCommanderName(),
-            'gravatar_url' => $gravatar_url,
-            'date_created' => $user->getCreatedAt()
         ]);
+    }
+
+    /**
+     * @Route("/profile/updatepw", name="app_profile_updatepw", methods={"POST"})
+     */
+    public function update_pw(Request $request, TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+
+        if($this->isCsrfTokenValid('change_password',$data['_token'])) {
+            if($data['new_password'] != $data['verify_password']) {
+                $this->addFlash('alert',$translator->trans('Your new password did not match with verify password. Password is not changed.'));
+            }
+            else if($passwordEncoder->isPasswordValid($user,$data['current_password'])) {
+                $user->setPassword($passwordEncoder->encodePassword($user, $data['new_password']));
+                $this->addFlash('success',$translator->trans('Your password change has been updated'));
+                $em->flush();
+            }
+            else {
+                $this->addFlash('alert',$translator->trans('The current password is incorrect, and your password is not changed'));
+            }
+        }
+        else {
+            $this->addFlash('alert',$translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        }
+        return $this->redirectToRoute('app_profile');
+    }
+
+    /**
+     * @Route("/profile/purgedata", name="app_profile_purge_data", methods={"POST"})
+     */
+    public function purge_data(Request $request, TranslatorInterface $translator)
+    {
+        $token = $request->request->get('_token');
+        $confirmed = $request->request->get('confirmed');
+        $errorMessage = "";
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $uid = $user->getId();
+        $sid = $user->getSquadron()->getId();
+        $param = [$uid, $sid];
+
+        if($this->isCsrfTokenValid('purge_data',$token)) {
+            if($confirmed && $uid && $sid) {
+                $this->dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                try {
+                    $this->dbh->beginTransaction();
+                    $rs = $this->dbh->prepare("delete from activity_counter where user_id=? and squadron_id=?");
+                    $rs->execute($param);
+                    $rs = $this->dbh->prepare("update commander set asset='0',credits='0',loan='0',combat_id='6',trade_id='15',explore_id='24',federation_id='33',empire_id='48',cqc_id='63',combat_progress='0',trade_progress='0',explore_progress='0',federation_progress='0',empire_progress='0',cqc_progress='0' where user_id=?");
+                    $rs->execute([$uid]);
+                    $rs = $this->dbh->prepare("delete from earning_history where user_id=? and squadron_id=?");
+                    $rs->execute($param);
+                    $rs = $this->dbh->prepare("delete from edmc where user_id=?");
+                    $rs->execute([$uid]);
+                    $rs = $this->dbh->prepare("delete from import_queue where user_id=?");
+                    $rs->execute([$uid]);
+                    $this->dbh->commit();
+
+                } catch (\PDOException $e) {
+                    $this->dbh->rollBack();
+                    $errorMessage = $e->getMessage();
+                }
+                if ($errorMessage) {
+                    $this->addFlash('alert', "Purge failed. " . $errorMessage);
+                }
+                else {
+                    $this->addFlash('success', $translator->trans('Commander data has been purged from the system.'));
+                }
+            }
+            else {
+                $this->addFlash('alert',$translator->trans('Something went wrong. Purge cancelled.'));
+            }
+        }
+        else {
+            $this->addFlash('alert',$translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        }
+
+        return $this->redirectToRoute('app_profile');
     }
 }

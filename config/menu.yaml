@@ -8,7 +8,7 @@ user:
     3:
         item: "Squadron Dashboard"
         route: "dashboard"
-        icon: "fa fa-home"
+        icon: "fa fa-chart-area"
     4:
         item: "Squadron Leaderboard"
         route: "leaderboard"
@@ -27,7 +27,7 @@ user:
     8:
         item: "Player Activities Report"
         route: "app_player_reports"
-        icon: "fa fa-file"
+        icon: "fa fa-chart-line"
         star: true
     9:
         item: "Player Journal Log"
@@ -36,12 +36,12 @@ user:
     10:
         item: "My Profile"
         route: "app_profile"
-        icon: "fa fa-gear"
+        icon: "fa fa-cog"
 admin:
     1:
         item: "Squadron Settings"
         route: "admin_squadron_settings"
-        icon: "fa fa-gears"
+        icon: "fa fa-tools"
         roles: ["ROLE_ADMIN"]
     2:
         item: "Manage Announcements"

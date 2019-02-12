@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ZxcvbnPhp\Zxcvbn;
 
 class AjaxController extends AbstractController
 {
@@ -560,6 +561,53 @@ class AjaxController extends AbstractController
         return $response;
     }
 
+    /**
+     * @Route("/ajax/password/strength", name="ajax_password_strength", methods={"POST"} )
+     */
+    public function ajax_password_strength(Request $request, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $zxcvbn = new Zxcvbn();
+        $scoreText = ['Worst','Bad','Weak','Good','Strong'];
+        $disallowed = [$user->getCommanderName(),$user->getUsername(),$user->getSquadron()->getName(),$request->request->get('cp')];
+
+        $strength = $zxcvbn->passwordStrength($request->request->get('q'),$disallowed);
+        if(is_infinite($strength['entropy'])) {
+            $strength['entropy'] = 0;
+        }
+        $strength['password'] = null;
+        $strength['match_sequence'] = null;
+        $strengthText = $translator->trans($scoreText[$strength['score']]);
+        $human_readable_time = $this->displayTime($strength['crack_time']);
+
+        $strength['message'] = $translator->trans('Strength: %strength% (cracked in %number% %unit%)',['%strength%' => $strengthText, '%number%' => $human_readable_time['number'], '%unit%' => $human_readable_time['unit']]);
+        return new JsonResponse($strength);
+    }
+
+    private function displayTime($ms) {
+        $s = floor($ms/1000);
+        $mi = floor($ms/(1000*60));
+        $h = floor($ms/(1000*60*60));
+        $d = floor($ms/(1000*60*60*24));
+        $mo = floor($ms/(1000*60*60*24*30));
+        $y = floor($ms/(1000*60*60*24*365));
+        $c = floor($ms/(1000*60*60*24*365*100));
+
+        $data['unit'] = $c > 1 ? "century" : ($y > 1 ? "year" : ($mo > 1 ? "month" : ($d > 1 ? "day" : ($h > 0.9 ? "hour" : ($mi > 1 ? "minute" : ($s > 0.1 ? "second" : "millisecond"))))));
+        $data['number'] = $c > 1 ? $c : ($y > 1 ? $y : ($mo > 1 ? $mo : ($d > 1 ? $d : ($h > 0.9 ? $h : ($mi > 1 ? $mi: ($s > 0.1 ? number_format($s,3) : number_format($ms, 3)))))));
+        if($data['number'] != 1) {
+            if($data['unit'] == "century") {
+                $data['unit'] = "centuries";
+            }
+            else {
+                $data['unit'] .= "s";
+            }
+        }
+        return $data;
+    }
 
     private function formatBytes($bytes, $precision = 2)
     {

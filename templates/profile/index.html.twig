@@ -23,11 +23,11 @@
                     <div class="active tab-pane" id="my-account">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-lg fa-key margin-r-5"></i> Change Password</h3>
+                                <h3 class="panel-title"><i class="fa fa-key margin-r-5"></i> Change Password</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <form action="" method="post" class="form-horizontal">
+                                    <form action="{{ path('app_profile_updatepw') }}" method="post" class="form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="col-sm-12">
@@ -38,7 +38,7 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <input type="password" class="form-control input-sm" id="new-password" name="new_password" placeholder="New Password">
-                                                <small id="new-password">Enter a new password.</small>
+                                                <small id="new-password-message">Enter a new password.</small>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -50,31 +50,33 @@
                                         <input type="hidden" name="_token" value="{{ csrf_token('change_password') }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <p>When choosing a new password, please consider the following:</p>
+                                        {#<p>When choosing a new password, please consider the following:</p>#}
                                         <ul style="padding-left: 15px;">
-                                            <li>Use 6 to 64 characters</li>
+                                            <li>Use 8 to 64 characters</li>
                                             <li>Besides letters, include at least a number or symbol</li>
                                             <li>Password is case sensitive</li>
                                             <li>Password is not part of your username</li>
+                                            <li>Password is not part of old password</li>
                                             <li>Avoid using the same password for multiple sites</li>
+                                            <li>Password strength is either good or strong</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-default btn-flat pull-right">Change Password</button>
-                                <button type="reset" class="btn btn-primary btn-flat pull-right margin-r-5">Reset</button>
+                                <button id="change-password-button" type="submit" class="btn btn-default btn-flat pull-right" disabled="disabled">Change Password</button>
+                                <button id="reset-button" type="reset" class="btn btn-primary btn-flat pull-right margin-r-5">Reset</button>
                                 </form>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-lg fa-refresh margin-r-5"></i> Purge Commander Data</h3>
+                                <h3 class="panel-title"><i class="fa fa-trash-alt margin-r-5"></i> Purge Commander Data</h3>
                             </div>
                             <div class="panel-body">
                                 <div>
-                                    <p>Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. Before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.</p>
-                                    <form method="post" action="">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('reset_data') }}">
-                                        <input id="purge-confirm" type="checkbox"> <b>I understand that by purging the data, it is irreversible.</b>
+                                    <p>Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. This will only purge any data associated with your current squadron. If you were previously in a different squadron, that data will not be purged. Remember, before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.</p>
+                                    <form method="post" action="{{ path('app_profile_purge_data') }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('purge_data') }}">
+                                        <input id="purge-confirm" type="checkbox" name="confirmed" value="1"> <b>I understand that by purging the data, it is irreversible.</b>
                                         <br>
                                         <button id="purge-button" type="submit" class="btn btn-danger btn-flat pull-right" disabled="disabled">Purge the Data</button>
                                     </form>
@@ -111,23 +113,6 @@
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
-<script>
-    $(()=>{
-        $('form').on('keypress', function (e) {
-            var key = e.charCode || e.keyCode || 0;
-            if(key == 13) {
-                e.preventDefault();
-            }
-        });
-        $('#purge-confirm').on('change', function (e) {
-           e.preventDefault();
-           if($('#purge-confirm').is(':checked')) {
-               $('#purge-button').removeAttr('disabled');
-           }
-           else {
-               $('#purge-button').attr('disabled','disabled');
-           }
-        });
-    });
-</script>
+<script src="{{ asset('js/password_change.js') }}"></script>
 {% endblock %}
+
