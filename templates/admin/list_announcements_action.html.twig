@@ -1,9 +1,9 @@
 <a href="{{ path('admin_announcements_edit', {slug: item.id, token: csrf_token('edit_announcement')}) }}" title="Edit"><i class="fa fa-lg fa-pencil-alt fa-fw"></i></a>&nbsp;
 {% if item.pinned_flag  %}
 <a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="unpin" title="Unpin">
-    <span class="fa-stack fa-fw" style="vertical-align: top; font-size: 66%;">
-        <i class="fas fa-ban fa-stack-2x fa-fw"></i>
-        <i class="fas fa-thumbtack fa-stack-1x fa-fw"></i>
+    <span class="fa-stack" style="text-align: top; font-size: 0.85em">
+        <i class="fas fa-lg fa-slash fa-stack-1x"></i>
+        <i class="fas fa-lg fa-thumbtack fa-stack-1x"></i>
     </span>
 </a>
 {% else %}
