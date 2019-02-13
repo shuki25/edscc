@@ -156,14 +156,14 @@ class ReportController extends AbstractController
             $rs = $this->dbh->prepare($sql);
             $rs->execute($params);
             $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
-            $rowcount = $rs->rowCount();
+            $has_data = $rs->rowCount();
         }
         catch (\PDOException $e) {
             echo $e->getMessage();
             die;
         }
 
-        if($rowcount) {
+        if($has_data) {
             if(!is_null($datatable['data'][0]['commander_name'])) {
                 foreach ($datatable['data'] as $i => $row) {
                     $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
