@@ -1,4 +1,17 @@
-<a href="{{ path('admin_announcements_edit', {slug: id, token: csrf_token('edit_announcement')}) }}" title="Edit"><i class="fa fa-lg fa-pencil-alt margin-r-3"></i></a>&nbsp;
-<a href="{{ path('admin_announcements_pause', {'slug': id}) }}" title="Pinned"><i class="fa fa-lg fa-thumbtack"></i></a>
-<a href="{{ path('admin_announcements_pause', {'slug': id}) }}" title="Hide"><i class="fa fa-lg fa-eye-slash"></i></a>
-<a href="{{ path('admin_announcements_remove', {'slug': id}) }}" title="Remove"><i class="fa fa-lg fa-trash margin-r-3"></i></a>&nbsp;
+<a href="{{ path('admin_announcements_edit', {slug: item.id, token: csrf_token('edit_announcement')}) }}" title="Edit"><i class="fa fa-lg fa-pencil-alt fa-fw"></i></a>&nbsp;
+{% if item.pinned_flag  %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="unpin" title="Unpin">
+    <span class="fa-stack fa-fw" style="vertical-align: top; font-size: 66%;">
+        <i class="fas fa-ban fa-stack-2x fa-fw"></i>
+        <i class="fas fa-thumbtack fa-stack-1x fa-fw"></i>
+    </span>
+</a>
+{% else %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="pin" title="Pin"><i class="fa fa-lg fa-thumbtack fa-fw"></i></a>
+{% endif %}
+{% if item.published_flag %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="hide" title="Hide"><i class="far fa-lg fa-eye-slash fa-fw"></i></a>
+{% else %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="show" title="Show"><i class="far fa-lg fa-eye fa-fw"></i></a>
+{% endif %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="remove" title="Remove"><i class="fa fa-lg fa-trash fa-fw"></i></a>&nbsp;

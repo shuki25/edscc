@@ -252,9 +252,9 @@ class AjaxController extends AbstractController
     }
 
     /**
-     * @Route("/ajax/announcements/{token}", name="ajax_announcements", methods={"POST"} )
+     * @Route("/ajax/announcements/list", name="ajax_announcements", methods={"POST"} )
      */
-    public function ajax_announcements($token, Request $request, AnnouncementRepository $repository, TranslatorInterface $translator)
+    public function ajax_announcements(Request $request, AnnouncementRepository $repository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -264,7 +264,7 @@ class AjaxController extends AbstractController
         $this->em = $this->getDoctrine()->getManager();
         $this->translator = $translator;
 
-        if(!$this->isCsrfTokenValid('ajax_announcements', $token)) {
+        if(!$this->isCsrfTokenValid('ajax_announcements', $request->request->get('_token'))) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -283,7 +283,7 @@ class AjaxController extends AbstractController
         foreach ($dt['data'] as $i=>$row) {
             $dt['data'][$i]['author'] = $translator->trans('CMDR %name%',['%name%' => $row['author']]);
             $dt['data'][$i]['action'] = $this->renderView('admin/list_announcements_action.html.twig', [
-                'id' => $row['id']
+                'item' => $row
             ]);
         }
 
@@ -294,6 +294,63 @@ class AjaxController extends AbstractController
         $response = new JsonResponse($datatable);
 
         return $response;
+    }
+
+    /**
+     * @Route("/ajax/announcements/manage", name="ajax_manage_announcements", methods={"POST"})
+     */
+    public function manage_announcements(Request $request, AnnouncementRepository $announcementRepository, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $squadron_id = $user->getSquadron()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+        $data['require_reason'] = false;
+
+        $token = $request->request->get('_token');
+        $action = $request->request->get('action');
+        $id = $request->request->get('id');
+
+        if(!$this->isCsrfTokenValid('manage_announcement', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Invalid token");
+        }
+        else {
+            $article = $announcementRepository->findOneBy(['id' => $id, 'squadron'=>$squadron_id]);
+            if(is_object($article)) {
+                switch ($action) {
+                    case 'pin':
+                        $article->setPinnedFlag(true);
+                        break;
+                    case 'unpin':
+                        $article->setPinnedFlag(false);
+                        break;
+                    case 'hide':
+                        $article->setPublishedFlag(false);
+                        break;
+                    case 'show':
+                        $article->setPublishedFlag(true);
+                        break;
+                    case 'remove':
+                        $em->remove($article);
+                        break;
+                }
+                $data['status'] = 200;
+                $em->flush();
+            }
+            else {
+                $data['errorMessage'] = $translator->trans("User not found.");
+            }
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+
     }
 
     /**

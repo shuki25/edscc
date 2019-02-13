@@ -56,13 +56,16 @@
                 {data: "author", width: "105px"},
                 {data: "publish_in", width: "105px" },
                 {data: "created_in", width: "105px"},
-                {data: "action", width: "75px"}
+                {data: "action", width: "95px"}
             ],
             serverSide: true,
             processing: false,
             ajax: {
-                url: "{{ path('ajax_announcements', {'token': csrf_token('ajax_announcements')}) }}",
-                type: "POST"
+                url: "{{ path('ajax_announcements') }}",
+                type: "POST",
+                data: {
+                    '_token': '{{ csrf_token('ajax_announcements') }}'
+                }
             },
             paging: true,
             autoWidth: false,
@@ -86,8 +89,39 @@
             },
             drawCallback: function () {
                 $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+                $(".action-button")
+                    .click(function(e) {
+                        e.preventDefault();
+                        console.log('Clicked here.');
+                        admin_action($(this).data("squadron-id"), $(this).data("action"));
+                    });
             }
         });
+
+        function admin_action(id, action) {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_manage_announcements') }}",
+                data: {
+                    _token: "{{ csrf_token('manage_announcement') }}",
+                    id: id,
+                    action: action
+                },
+                success: function (result) {
+                    if(result.status == 200) {
+                        $('#table').DataTable().ajax.reload();
+                    }
+                    else {
+                        $('#errorMessage').replaceWith(result.errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (result) {
+                    console.log('Error thrown.');
+                }
+            });
+        }
+
     </script>
 {% endblock %}
 

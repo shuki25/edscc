@@ -50,6 +50,14 @@ input[type="file"] {
     padding-top: 3px;
 }
 
+.announcement-action span a {
+    margin-right: 20px;
+}
+
+.announcement-action span a i {
+    padding-right: 3px;
+}
+
 /**
  * Progress bars with centered text
  */

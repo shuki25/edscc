@@ -24,13 +24,14 @@ class AnnouncementRepository extends ServiceEntityRepository
         $now = new \DateTime('now');
 
         $qb = $this->createQueryBuilder('a');
-        return $qb->select('a.id as id', 'a.title as title', 'a.message as message', 'a.publish_at as publish_in', 'a.createdAt as created_in')
+        return $qb->select('a.id as id', 'a.title as title', 'a.message as message', 'a.pinned_flag as pinned_flag', 'a.publish_at as publish_in', 'a.createdAt as created_in')
             ->addSelect('u.commander_name as author')
             ->join('a.user', 'u')
-            ->andWhere('a.squadron = :val and a.publish_at < :now')
+            ->andWhere('a.squadron = :val and a.publish_at < :now and a.published_flag=1')
             ->setParameter('val', $value)
             ->setParameter('now', $now)
-            ->orderBy('a.publish_at', 'DESC')
+            ->orderBy('a.pinned_flag', 'DESC')
+            ->addOrderBy('a.publish_at', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -76,7 +77,7 @@ class AnnouncementRepository extends ServiceEntityRepository
             ->where('a.squadron = :val')
             ->setParameter('val', $value);
 
-        $qb->select('a.id as id','a.title as title','a.publish_at as publish_in', 'a.createdAt as created_in')
+        $qb->select('a.id as id','a.title as title', 'a.pinned_flag as pinned_flag', 'a.published_flag as published_flag', 'a.publish_at as publish_in', 'a.createdAt as created_in')
             ->addSelect('u.commander_name as author')
             ->join('a.user', 'u')
             ->andWhere('a.squadron = :val')

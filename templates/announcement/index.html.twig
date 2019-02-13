@@ -7,7 +7,7 @@
     {% for article in articles %}
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ article.title }}</h3>
+                <h3 class="box-title">{% if article.pinned_flag == true %}<i class="fas fa-thumbtack text-warning margin-r-5"> </i>{% endif %}{{ article.title }}</h3>
                 <div class="pull-right clearfix">
                     {{ article.publish_in|ago }}
                 </div>
@@ -16,9 +16,10 @@
                 {{ article.message|markdown }}
             </div>
             <div class="box-footer">
-                <div class="clearfix">
-                    <span><a href="#"><i class="ion ion-thumbsup text-white"></i> Like</a> </span>
-                    <div class="pull-right">{% trans with {"%author%": article.author} %}Posted by CMDR %author%{% endtrans %}</div>
+                <div class="clearfix pull-right">{% trans with {"%author%": article.author} %}Posted by CMDR %author%{% endtrans %}</div>
+                <div class="announcement-action">
+                    <span><a href="#"><i class="far fa-thumbs-up text-white"></i> Like</a> </span>
+                    <span><a href="#"><i class="far fa-comments text-white"></i> Comments</a> </span>
                 </div>
             </div>
         </div>

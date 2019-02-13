@@ -36,7 +36,11 @@ class AnnouncementType extends AbstractType
                 'help' => 'The date that the announcement will automatically appear in the feed'
             ])
             ->add('publishedFlag', CheckboxType::class, [
-                'label' => 'Mark as Published',
+                'label' => 'Mark this post as published (will be visible in announcements after the published date)',
+                'required' => false,
+            ])
+            ->add('pinnedFlag', CheckboxType::class, [
+                'label' => 'This post is pinned (always will appear on the top of page)',
                 'required' => false
             ])
         ;

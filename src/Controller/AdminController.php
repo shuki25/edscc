@@ -196,10 +196,10 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/announcements/{slug}/remove", name="admin_announcements_remove", methods={"GET"})
+     * @Route("/admin/announcements/{slug}/pin/{token}", name="admin_announcement_pin", methods={"GET"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function remove_announcements($slug)
+    public function pin_announcement($slug, $token)
     {
         return $this->render('placeholder.html.twig', [
             'title' => 'Placeholder',
@@ -207,10 +207,21 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/announcements/{slug}/pause", name="admin_announcements_pause", methods={"GET"})
+     * @Route("/admin/announcements/{slug}/remove/{token}", name="admin_announcement_remove", methods={"GET"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function pause_announcements($slug)
+    public function remove_announcement($slug, $token)
+    {
+        return $this->render('placeholder.html.twig', [
+            'title' => 'Placeholder',
+        ]);
+    }
+
+    /**
+     * @Route("/admin/announcements/{slug}/hide", name="admin_announcement_hide", methods={"GET"})
+     * @IsGranted("ROLE_EDITOR")
+     */
+    public function hide_announcement($slug, $token)
     {
         return $this->render('placeholder.html.twig', [
             'title' => 'Placeholder',

@@ -53,6 +53,11 @@ class Announcement
      */
     private $published_flag = 0;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $pinned_flag = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,6 +131,18 @@ class Announcement
     public function setPublishedFlag(bool $published_flag): self
     {
         $this->published_flag = $published_flag;
+
+        return $this;
+    }
+
+    public function getPinnedFlag(): ?bool
+    {
+        return $this->pinned_flag;
+    }
+
+    public function setPinnedFlag(bool $pinned_flag): self
+    {
+        $this->pinned_flag = $pinned_flag;
 
         return $this;
     }
