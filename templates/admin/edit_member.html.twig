@@ -3,7 +3,7 @@
     {{ parent() }}
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 {% endblock %}
-{% block title %}{{ title|default('Squadron Settings')}}!{% endblock %}
+{% block title %}{{ title|default('Editing Member')}}!{% endblock %}
 
 {% block content %}
     {% set isActive = false %}
@@ -91,6 +91,12 @@
                                     <div style="padding: 5px 0px 5px 0px;">
                                         <p>// To Do -- Instructions on configuring permissions</p>
                                     </div>
+                                    {% if "ROLE_SUPERUSER" in user.roles %}
+                                    <div class="callout callout-warning">
+                                        <h4>This user is a SUPERUSER.</h4>
+                                        <p>This user has all permissions, any changes below will not affect this user.</p>
+                                    </div>
+                                    {% endif %}
                                     {% for acl in acls %}
                                     <div style="padding: 5px 0px 5px 0px;">
                                         <input id="acl-{{ acl.id }}" type="checkbox" data-toggle="toggle" data-size="mini" data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}" data-onstyle="success" data-offstyle="danger" name="acl[]" value="{{ acl.roleString }}"{% if acl.roleString in user.roles %}checked{% endif %}>

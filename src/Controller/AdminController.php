@@ -269,7 +269,7 @@ class AdminController extends AbstractController
 
 
         return $this->render('admin/edit_member.html.twig', [
-            'title' => 'Members List',
+            'title' => 'Editing squadron member',
             'user' => $user,
             'ranks' => $ranks,
             'statuses' => $statuses,
@@ -311,10 +311,16 @@ class AdminController extends AbstractController
                 $em->flush();
             }
         }
-
+        
         if($this->isGranted('CAN_EDIT_PERMISSIONS')) {
             if(is_object($user)) {
-                $user->setRoles($data['acl']);
+                $acl = isset($data['acl']) ? $data['acl'] : [];
+                
+                $roles = $user->getRoles();
+                if(in_array("ROLE_SUPERUSER",$roles)) {
+                    $acl[] = "ROLE_SUPERUSER";
+                }
+                $user->setRoles($acl);
                 $em->flush();
             }
         }
