@@ -68,6 +68,11 @@
                                         <span class="help-block">{% trans %}Please enter reason why the status is assigned as needed (if the access is being denied, etc.){% endtrans %}</span>
                                     </div>
                                     <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label" for="status_comment">{% trans %}Join Date{% endtrans %}</label>
+                                        <input type="date" id="join_date" name="join_date" maxlength="255" class="form-control" value="{{ user.dateJoined|date('Y-m-d') }}" placeholder="YYYY-MM-DD">
+                                        <span class="help-block">{% trans %}Date that this Commander has joined the squadron (may be different from signing up for this account){% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
                                         <input id="email_verify" type="checkbox" data-toggle="toggle" data-size="mini" data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}" data-onstyle="success" data-offstyle="danger" name="email_verify"{% if user.emailVerify == "Y" %}checked{% endif %}>
                                         <label class="control-label" for="email_verify" style="margin-left: 5px;">{% trans %}E-mail address verified{% endtrans %}</label>
                                     </div>

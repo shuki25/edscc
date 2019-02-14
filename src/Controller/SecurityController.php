@@ -312,6 +312,7 @@ class SecurityController extends AbstractController
                     $user->setWelcomeMessageFlag('N');
                     $user->setSquadron($squadron);
                     $user->setStatus($status);
+                    $user->setDateJoined(new \DateTime('now',$this->utc));
                     $em->flush();
                     if($status_key == "Approved") {
                         $providerKey = 'main';

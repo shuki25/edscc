@@ -295,6 +295,7 @@ class AdminController extends AbstractController
         $data = $request->request->all();
         $welcome_flag = isset($data['welcome_message_flag']) ? "Y" : "N";
         $email_flag = isset($data['email_verify']) ? "Y" : "N";
+        $join_date = isset($data['join_date']) ? new \DateTime($data['join_date']) : new \DateTime('new');
 
         if(!$this->isCsrfTokenValid('save_member',$token)) {
             $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
@@ -307,7 +308,7 @@ class AdminController extends AbstractController
             $status = $statusRepository->findOneBy(['id' => $data['status_id']]);
             $rank = $rankRepository->findOneBy(['group_code' => 'service', 'assigned_id' => $data['rank_id']]);
             if(is_object($user)) {
-                $user->setStatus($status)->setRank($rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag);
+                $user->setStatus($status)->setRank($rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag)->setDateJoined($join_date);
                 $em->flush();
             }
         }

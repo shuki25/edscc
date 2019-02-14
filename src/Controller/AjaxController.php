@@ -439,7 +439,7 @@ class AjaxController extends AbstractController
                         }
                         else {
                             $peek_file = $file->openFile('r');
-
+                            $found = false;
                             do {
                                 $line = json_decode($peek_file->getCurrentLine(), true);
                                 if(json_last_error() !== JSON_ERROR_NONE) {
