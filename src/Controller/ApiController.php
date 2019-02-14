@@ -24,7 +24,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/edmc", name="api_edmc", schemes={"https"})
+     * @Route("/api/edmc", name="api_edmc")
      */
     public function api_edmc(Request $request, ParseLogHelper $parseLogHelper, UserRepository $userRepository, CommanderRepository $commanderRepository)
     {

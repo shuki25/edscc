@@ -143,7 +143,7 @@
                                         <p>If you do not have E:D Market Connector app, you can get it at:</p>
                                         <p><a href="https://github.com/Marginal/EDMarketConnector">https://github.com/Marginal/EDMarketConnector</a> </p>
                                         <p>After you install the app and/or the plug-in, you will need the API key for it to upload your player journal log automatically in real time.  Please copy and paste it in the EDMC settings. Also, you will need to enter the API server endpoint in your EDMC settings:</p>
-                                        <p><b>EDSCC API Server:</b> {{ url('api_edmc') }}</p>
+                                        <p><b>EDSCC API Server:</b> {{ baseUrl}}{{ path('api_edmc') }}</p>
                                         <form>
                                             <div class="row">
                                                 <div class="col-md-6"> <label>{% trans %}API Key{% endtrans %}: </label></div>

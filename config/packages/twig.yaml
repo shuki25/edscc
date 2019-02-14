@@ -8,4 +8,5 @@ twig:
         admin_skin: 'skin-dark'
         layout_option: 'sidebar-mini'
         menuBuilder: "@app.menu_builder"
+        baseUrl: '%env(BASE_URL)%'
 
