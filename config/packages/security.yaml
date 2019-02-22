@@ -50,8 +50,8 @@ security:
         - { path: ^/[(es|fr|ru|de)]+/ajax/squadron/info, roles: ROLE_PENDING }
         - { path: ^/(select_squadron|create_squadron), roles: ROLE_PENDING }
         - { path: ^/[(es|fr|ru|de)]+/(select_squadron|create_squadron), roles: ROLE_PENDING }
-        - { path: ^/(login|logout|forgot|new_member|verify_email|resend_token), roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[(es|fr|ru|de)]+/(login|logout|forgot|new_member|verify_email|resend_token), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(login|logout|forgot|new_member|verify_email|resend_token|pending_access), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[(es|fr|ru|de)]+/(login|logout|forgot|new_member|verify_email|resend_token|pending_access), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
