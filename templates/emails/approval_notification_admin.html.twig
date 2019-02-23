@@ -1,0 +1,8 @@
+{% extends 'emails/email_base_min.html.twig' %}
+{% block preview %}New member joined your squadron{% endblock %}
+{% block title %}Notification Alert{% endblock %}
+{% block subtitle %}Commander requested to join your squadron{% endblock %}
+{% block body %}
+    <p class="my-3">Dear Commander {{ leader.commandername }},</p>
+    <p class="my-3">You have pending commanders who are waiting for your approval to join the squadron. Please login the ED:SCC website and go to the Manage Members section and approve or deny requests.</p>
+{% endblock %}
