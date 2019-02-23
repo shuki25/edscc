@@ -57,7 +57,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $user = $this->security->getUser();
 
         if($user->getEmailVerify() == "N") {
-            $url = $this->router->generate('app_confirm_email');
+            $url = $this->router->generate('app_confirm_email',['email' => $user->getEmail()]);
             return new RedirectResponse($url);
         }
 
