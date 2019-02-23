@@ -12,6 +12,7 @@ use App\Repository\SquadronRepository;
 use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
 use App\Repository\VerifyTokenRepository;
+use App\Service\NotificationHelper;
 use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use DivineOmega\PasswordExposed\PasswordStatus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -94,7 +95,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/new_member", name="app_new_member")
      */
-    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, \Swift_Mailer $mailer, RankRepository $rankRepository, StatusRepository $statusRepository)
+    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
     {
 
         $error = "";
@@ -143,19 +144,13 @@ class SecurityController extends AbstractController
                 $em->persist($token);
                 $em->flush();
 
-                $message = (new \Swift_Message('Activation Code for ED:SCC'))
-                    ->setFrom('edscc.donotreply@gmail.com')
-                    ->setTo($data['email'])
-                    ->setBody(
-                        $this->renderView('emails/registration_verification_min.html.twig',
-                            array('token' => $token->getToken(),
-                                'user' => $user,
-                                'expires_at' => $token->getExpiresAt()
-                            )
-                        ), 'text/html'
-                    );
+                $twig_params = [
+                    'token' => $token->getToken(),
+                    'user' => $user,
+                    'expires_at' => $token->getExpiresAt()
+                ];
 
-                $mailer->send($message);
+                $notificationHelper->user_email_verification($data['email'], $twig_params);
 
                 return $this->redirectToRoute('app_confirm_email', [
                     'email' => $data['email']
@@ -238,7 +233,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/resend_token", name="app_resend_token")
      */
-    public function resend_token(Request $request, UserRepository $userRepository, \Swift_Mailer $mailer)
+    public function resend_token(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
     {
         $email = $request->query->get('email');
         /*
@@ -262,19 +257,12 @@ class SecurityController extends AbstractController
                 $tokenKey = $token->getToken();
             }
 
-            $message = (new \Swift_Message('Activation Code for ED:SCC'))
-                ->setFrom('edscc.donotreply@gmail.com')
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView('emails/registration_verification_min.html.twig',
-                        array('token' => $tokenKey ? $tokenKey : 'Error: No token code was generated.',
-                            'user' => $user,
-                            'expires_at' => $user->getNewestVerifyTokens()->getExpiresAt()
-                        )
-                    ), 'text/html'
-                );
+            $twig_params = ['token' => $tokenKey ? $tokenKey : 'Error: No token code was generated.',
+                'user' => $user,
+                'expires_at' => $user->getNewestVerifyTokens()->getExpiresAt()
+            ];
 
-            $mailer->send($message);
+            $notificationHelper->user_email_verification($email, $twig_params);
 
             $this->addFlash('success','Your activation code has been resent. Check your INBOX.');
         }
@@ -290,7 +278,7 @@ class SecurityController extends AbstractController
      * @Route("/select_squadron", name="app_select_squadron")
      * @IsGranted("ROLE_PENDING")
      */
-    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository)
+    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, UserRepository $userRepository, NotificationHelper $notificationHelper)
     {
         $squadrons = $squadronRepository->findAllActiveSquadrons();
 
@@ -319,6 +307,9 @@ class SecurityController extends AbstractController
                         $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());
                         $this->get("security.token_storage")->setToken($token);
                         return $this->redirectToRoute('app_welcome');
+                    }
+                    else {
+                        $notificationHelper->admin_approval_notice($squadron);
                     }
                     return $this->redirectToRoute('app_pending_access');
                 }

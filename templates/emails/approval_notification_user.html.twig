@@ -1,0 +1,17 @@
+{% extends 'emails/email_base_min.html.twig' %}
+{% block preview %}Squadron Approval Status{% endblock %}
+{% block title %}Notification Alert{% endblock %}
+{% block subtitle %}{% if approved=="Y" %}Your request was Approved{% else %}Your request to join was denied{% endif %}{% endblock %}
+{% block body %}
+    {% if approved=="Y" %}
+        <p class="my-3">Dear Commander {{ user.commandername }},</p>
+        <p class="my-3">You are approved to join our squadron, {{ app.user.Squadron.name }}. You may login now.</p>
+        <p class="my-3">Sincerely,<br>Your Squadron Leader</p>
+    {% else %}
+        <p class="my-3">Dear Commander {{ user.commandername }},</p>
+        <p class="my-3">Sorry, you were denied access to the squadron, {{ app.user.Squadron.name }}. If you have any questions, please contact your squadron leader, CMDR {{ app.user.Squadron.admin.commandername }}, in the game.</p>
+        {% if user.statusComment is not empty %}
+            <p class="my-3">Denial Reason: {{ user.statusComment }}</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

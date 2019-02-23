@@ -12,6 +12,7 @@ use App\Repository\SquadronTagsRepository;
 use App\Repository\StatusRepository;
 use App\Repository\TagsRepository;
 use App\Repository\UserRepository;
+use App\Service\NotificationHelper;
 use Doctrine\ORM\EntityManager;
 use Knp\Bundle\TimeBundle\DateTimeFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -145,7 +146,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/members/manage", name="ajax_manage_member", methods={"POST"})
      */
-    public function manage_member(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator)
+    public function manage_member(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator, NotificationHelper $notificationHelper)
     {
         /**
          * @var User $user
@@ -167,6 +168,7 @@ class AjaxController extends AbstractController
         else {
             $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'),  'Squadron' => $squadron_id]);
             if(is_object($target_user)) {
+                $previous_status = $target_user->getStatus()->getName();
                 switch ($action) {
                     case 'pending':
                         $status = $statusRepository->findOneBy(['name' => 'Pending']);
@@ -180,6 +182,9 @@ class AjaxController extends AbstractController
                         $status = $statusRepository->findOneBy(['name' => 'Approved']);
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
+                        if($previous_status == "Pending") {
+                            $notificationHelper->user_status_change($target_user);
+                        }
                         break;
                     case 'lock':
                         $status = $statusRepository->findOneBy(['name' => 'Lock Out']);
@@ -195,6 +200,9 @@ class AjaxController extends AbstractController
                         $status = $statusRepository->findOneBy(['name' => 'Denied']);
                         $target_user->setStatus($status);
                         $data['require_reason'] = true;
+                        if($previous_status == "Pending") {
+                            $notificationHelper->user_status_change($target_user);
+                        }
                         break;
                 }
                 $data['status'] = 200;
