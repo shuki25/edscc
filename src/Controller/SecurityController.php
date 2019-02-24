@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Commander;
+use App\Entity\CustomRank;
 use App\Entity\Squadron;
 use App\Entity\User;
 use App\Entity\VerifyToken;
 use App\Form\SquadronType;
+use App\Repository\CustomRankRepository;
 use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
 use App\Repository\StatusRepository;
@@ -278,7 +280,7 @@ class SecurityController extends AbstractController
      * @Route("/select_squadron", name="app_select_squadron")
      * @IsGranted("ROLE_PENDING")
      */
-    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, UserRepository $userRepository, NotificationHelper $notificationHelper)
+    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, NotificationHelper $notificationHelper)
     {
         $squadrons = $squadronRepository->findAllActiveSquadrons();
 
@@ -295,10 +297,14 @@ class SecurityController extends AbstractController
                 $squadron = $squadronRepository->findOneBy(['id' => $request->request->get('id')]);
                 $status_key = $squadron->getRequireApproval() == "Y" ? "Pending" : "Approved";
                 $status = $statusRepository->findOneBy(['name' => $status_key]);
+                $rank = $rankRepository->findOneBy(['group_code' => 'service', 'name' => 'Rookie']);
+                $custom_rank =$customRankRepository->findOneBy(['squadron' => $squadron->getId(), 'order_id' => $rank->getAssignedId()]);
 
                 if(is_object($squadron) && is_object($status)) {
                     $user->setWelcomeMessageFlag('N');
                     $user->setSquadron($squadron);
+                    $user->setRank($rank);
+                    $user->setCustomRank($custom_rank);
                     $user->setStatus($status);
                     $user->setDateJoined(new \DateTime('now',$this->utc));
                     $em->flush();
@@ -331,7 +337,7 @@ class SecurityController extends AbstractController
      * @Route("/create_squadron", name="app_create_squadron")
      * @IsGranted("ROLE_PENDING")
      */
-    public function create_squadron(Request $request, StatusRepository $statusRepository)
+    public function create_squadron(Request $request, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -360,10 +366,27 @@ class SecurityController extends AbstractController
             $em->persist($squad);
             $em->flush();
 
+            $ranks = $rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+
+            foreach ($ranks as $i=>$row) {
+                $custom_rank = new CustomRank();
+                $custom_rank->setOrderId($row->getAssignedId())
+                    ->setName($row->getName());
+                $em->persist($custom_rank);
+                $squad->addCustomRank($custom_rank);
+                $rank = $row;
+            }
+            $em->flush();
+
+            $custom_ranks = $squad->getCustomRanks();
+            $custom_rank = $custom_ranks->last();
+
             $this->addFlash('success',$this->translator->trans('New Squadron Created.'));
             $user->setSquadron($squad);
             $status = $statusRepository->findOneBy(['name' => 'Approved']);
             $user->setStatus($status);
+            $user->setRank($rank);
+            $user->setCustomRank($custom_rank);
             $user->setWelcomeMessageFlag('N');
             $user->setRoles(['ROLE_ADMIN']);
             $user->setDateJoined(new \DateTime('now',$this->utc));

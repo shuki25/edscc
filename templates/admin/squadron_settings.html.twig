@@ -14,13 +14,14 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details" data-toggle="tab">{% trans %}Squadron Details{% endtrans %}</a></li>
                     <li><a href="#tags" data-toggle="tab">{% trans %}Manage Tags</a>{% endtrans %}</li>
+                    <li><a href="#ranks" data-toggle="tab">{% trans %}Ranks</a>{% endtrans %}</li>
                     <li><a href="#roles" data-toggle="tab">{% trans %}Roles</a>{% endtrans %}</li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="details">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}About Your Squadron{% endtrans %}</h3>
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title"></i> {% trans %}About Your Squadron{% endtrans %}</h3>
                             </div>
                             <div class="panel-body">
                                 {{ form_start(form_template) }}
@@ -35,7 +36,7 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                <button class="btn btn-primary btn-flat" type="submit">Save Changes</button>
                                 {{ form_end(form_template) }}
                             </div>
                         </div>
@@ -46,7 +47,7 @@
                     <div class="tab-pane" id="tags">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-tags margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Tags Associated with Your Squadron{% endtrans %}</h3>
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-tags margin-r-5 panel-title"></i> {% trans %}Tags Associated with Your Squadron{% endtrans %}</h3>
                             </div>
                             <div class="panel-body">
                                 {% include 'admin/tags_selector.html.twig' %}
@@ -55,10 +56,45 @@
                         <!-- /.panel -->
                     </div>
                     <!-- /.tab-pane -->
+                    <div class="tab-pane" id="ranks">
+                        <form action="{{ url('admin_update_ranks') }}" method="post">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-icon-manage-ranks margin-r-5 panel-title"></i> {% trans %}Customizing Rank Classifications{% endtrans %}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="box box-warning">
+                                    <div class="box-body">
+                                        <div style="padding-top: 5px; padding-bottom: 10px;">
+                                            {% trans %}In the game, Squadrons are able to customize their own rank classifications to integrate Squadron's lore. In the left column, the default rank names are listed, enter customized rank names in the right column accordingly.{% endtrans %}
+                                        </div>
+                                        <table class="table table-bordered table-striped">
+                                            <tbody><tr>
+                                                <th style="width: 150px">{% trans %}Default Rank Name{% endtrans %}</th>
+                                                <th>{% trans %}Custom Rank Name{% endtrans %}</th>
+                                            </tr>
+                                            {% for rank in ranks %}
+                                                <tr>
+                                                    <td style="vertical-align: middle"><i class="ed-asset ed-asset-icon-squadron-rank-{{ rank.assignedId+1 }} margin-r-5 text-orange"></i> <b>{{ rank.name|trans }}</b></td>
+                                                    <td><input type="text" class="form-control input-sm" size="30" maxlength="30" name="new_rank[{{ rank.assignedId }}]" value="{{ custom_ranks_idx[rank.assignedId] }}"></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody></table>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_ranks') }}">
+                                        <button type="submit" class="btn btn-flat btn-primary" style="margin-top: 10px">{% trans %}Save Changes{% endtrans %}</button>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
                     <div class="tab-pane" id="roles">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Customizing Commander Roles{% endtrans %}</h3>
+                                <h3 class="panel-title"><i class="ed-asset ed-asset-lg ed-asset-icon-squadrons margin-r-5 panel-title"></i> {% trans %}Customizing Commander Roles{% endtrans %}</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="jumbotron">

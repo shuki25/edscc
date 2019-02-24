@@ -79,15 +79,15 @@ class UserRepository extends ServiceEntityRepository
         $qCount = $this->createQueryBuilder('u')
             ->select('COUNT(u.id) as num')
             ->join('u.status', 's')
-            ->join('u.rank', 'r')
+            ->join('u.custom_rank', 'cr')
             ->where('u.Squadron = :val')
             ->setParameter('val', $value);
 
 
         $qb->select('u.id as id','u.commander_name as commander_name','u.createdAt as join_date', 'u.LastLoginAt as last_login_at')
-            ->addSelect('s.name as status, r.name as rank, s.tag as tag')
+            ->addSelect('s.name as status, cr.name as rank, s.tag as tag')
             ->join('u.status', 's')
-            ->join('u.rank', 'r')
+            ->join('u.custom_rank', 'cr')
             ->andWhere('u.Squadron = :val')
             ->setParameter('val', $value);
 
@@ -96,9 +96,9 @@ class UserRepository extends ServiceEntityRepository
         }
 
         if($params['search']['value']?: 0) {
-            $qb->andWhere('u.commander_name like :term or s.name like :term or r.name like :term')
+            $qb->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
-            $qCount->andWhere('u.commander_name like :term or s.name like :term or r.name like :term')
+            $qCount->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
         }
 

@@ -15,8 +15,8 @@
                 <div class="box box-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-dark">
-                        <h3 class="widget-user-username">{% trans with {'%name%': member.commanderName} %}CMDR %name%{% endtrans %}</h3>
-                        <h5 class="widget-user-desc">{{ member.rank.name }}</h5>
+                        <h4 class="widget-user-username">{% trans with {'%name%': member.commanderName} %}CMDR %name%{% endtrans %}</h4>
+                        <h5 class="widget-user-desc"><i class="ed-asset ed-asset-icon-squadron-rank-{{ member.customRank.orderId+1 }}"></i> {{ member.customRank.name|default(member.rank.name)|trans }}</h5>
                     </div>
                     <div class="widget-user-image">
                         <img class="img-responsive img-circle" src="{{ member.avatarImgUrl }}" alt="User Avatar">

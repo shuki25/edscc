@@ -3,21 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Announcement;
+use App\Entity\CustomRank;
 use App\Entity\Squadron;
 use App\Entity\User;
 use App\Form\AnnouncementType;
 use App\Form\SquadronType;
 use App\Repository\AclRepository;
 use App\Repository\AnnouncementRepository;
+use App\Repository\CustomRankRepository;
 use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
 use App\Repository\StatusRepository;
 use App\Repository\TagsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,22 +29,26 @@ class AdminController extends AbstractController
      * @var TranslatorInterface
      */
     private $translator;
+    private $utc;
 
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
+        $this->utc = new \DateTimeZone('UTC');
     }
 
     /**
      * @Route("/admin/squadron_settings", name="admin_squadron_settings")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function squadron_settings(Request $request, EntityManagerInterface $em, SquadronRepository $squadronRepository, TagsRepository $tagsRepository)
+    public function squadron_settings(Request $request, EntityManagerInterface $em, SquadronRepository $squadronRepository, TagsRepository $tagsRepository, RankRepository $rankRepository)
     {
         /**
          * @var User $user
          */
         $user = $this->getUser();
+        $squadron = $user->getSquadron();
+        $em = $this->getDoctrine()->getManager();
         $tags_bank = [];
         $tags = $tagsRepository->findBy([],['group_code' => 'asc', 'name' => 'asc']);
         $group_code = [
@@ -58,6 +62,27 @@ class AdminController extends AbstractController
         $squadron_tags = $user->getSquadron()->getSquadronTags();
         foreach($squadron_tags as $i=>$row) {
             $tags_bank[] = $row->getTag()->getId();
+        }
+
+        $custom_ranks = $user->getSquadron()->getCustomRanks();
+        $ranks = $rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+
+        if($custom_ranks->isEmpty()) {
+            foreach ($ranks as $i=>$row) {
+                $custom_rank = new CustomRank();
+                $custom_rank->setOrderId($row->getAssignedId())
+                    ->setName($row->getName());
+                $em->persist($custom_rank);
+                $squadron->addCustomRank($custom_rank);
+            }
+            $em->flush();
+            $custom_ranks = $user->getSquadron()->getCustomRanks();
+        }
+
+        $custom_ranks_idx = [];
+
+        foreach ($custom_ranks as $i=>$row) {
+            $custom_ranks_idx[$row->getOrderId()] = $row->getName();
         }
 
         /**
@@ -86,15 +111,55 @@ class AdminController extends AbstractController
             'tags' => $tags,
             'group_code' => $group_code,
             'tags_bank' => $tags_bank,
+            'ranks' => $ranks,
+            'custom_ranks_idx' => $custom_ranks_idx,
             'squad' => $data
         ]);
+    }
+
+    /**
+     * @Route("/admin/squadron_settings/update_ranks", name="admin_update_ranks", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function admin_update_ranks(Request $request, CustomRankRepository $customRankRepository)
+    {
+        $token = $request->request->get('_token');
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $squadron = $user->getSquadron();
+        $custom_ranks = $squadron->getCustomRanks();
+
+
+        if(!$this->isCsrfTokenValid('update_ranks', $token)) {
+            $this->addFlash('success', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
+        }
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $new_ranks = $request->request->get('new_rank');
+            /**
+             * @var CustomRank $element
+             */
+            $element = $custom_ranks->first();
+
+            do {
+                $element->setName($new_ranks[$element->getOrderId()]);
+                $element = $custom_ranks->next();
+            } while(is_object($element));
+            $em->flush();
+            $this->addFlash('success', $this->translator->trans('Squadron Rank Classifications Saved.'));
+        }
+
+        return $this->redirectToRoute('admin_squadron_settings');
     }
 
     /**
      * @Route("/admin/announcements", name="admin_list_announcements")
      * @IsGranted("ROLE_EDITOR")
      */
-    public function list_announcements(Request $request, EntityManagerInterface $em, AnnouncementRepository $repository, PaginatorInterface $paginator)
+    public function list_announcements()
     {
         return $this->render('admin/list_announcements_datatables.html.twig', [
             'title' => 'Members List'
@@ -105,7 +170,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/new/{token}", name="admin_announcements_new", methods={"GET","POST"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function new_announcements($token, Request $request, EntityManagerInterface $em, AnnouncementRepository $repository)
+    public function new_announcements($token, Request $request, EntityManagerInterface $em)
     {
         /**
          * @var User $user
@@ -122,7 +187,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if (!$this->isCsrfTokenValid('new_announcement', $token)) {
-            $this->addFlash('success', $this->translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+            $this->addFlash('success', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
             return $this->redirectToRoute('admin_list_announcements');
         }
 
@@ -166,7 +231,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if(!$this->isCsrfTokenValid('edit_announcement',$token)) {
-            $this->addFlash('success',$this->translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+            $this->addFlash('success',$this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
             return $this->redirectToRoute('admin_list_announcements');
         }
 
@@ -243,7 +308,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members/edit/{id}/{token}", name="admin_edit_member")
      */
-    public function edit_member($id, $token, UserRepository $userRepository, RankRepository $rankRepository, StatusRepository $statusRepository, AclRepository $aclRepository)
+    public function edit_member($id, $token, UserRepository $userRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, AclRepository $aclRepository)
     {
         $squadron_id = $this->getUser()->getSquadron()->getId();
         $user = $userRepository->findOneBy(['id' => $id, 'Squadron' => $squadron_id]);
@@ -253,7 +318,7 @@ class AdminController extends AbstractController
         }
         $this->denyAccessUnlessGranted(['CAN_EDIT_USER','CAN_EDIT_PERMISSIONS','CAN_VIEW_HISTORY'], $user);
 
-        $ranks = $rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+        $ranks = $customRankRepository->findBy(['squadron' => $squadron_id],['order_id' => 'asc']);
         $statuses = $statusRepository->findBy([],['name' => 'asc'],5);
         if($this->isGranted("ROLE_ADMIN")) {
             $acls = $aclRepository->findBy([],['list_order' => 'asc']);
@@ -280,7 +345,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members/save", name="admin_save_member", methods={"POST"})
      */
-    public function save_member(Request $request, UserRepository $userRepository, RankRepository $rankRepository, StatusRepository $statusRepository)
+    public function save_member(Request $request, UserRepository $userRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository)
     {
         $id = $request->request->get('id');
 
@@ -295,7 +360,7 @@ class AdminController extends AbstractController
         $data = $request->request->all();
         $welcome_flag = isset($data['welcome_message_flag']) ? "Y" : "N";
         $email_flag = isset($data['email_verify']) ? "Y" : "N";
-        $join_date = isset($data['join_date']) ? new \DateTime($data['join_date']) : new \DateTime('new');
+        $join_date = isset($data['join_date']) ? new \DateTime($data['join_date'], $this->utc) : new \DateTime('new', $this->utc);
 
         if(!$this->isCsrfTokenValid('save_member',$token)) {
             $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
@@ -307,8 +372,9 @@ class AdminController extends AbstractController
         if($this->isGranted('CAN_EDIT_USER')) {
             $status = $statusRepository->findOneBy(['id' => $data['status_id']]);
             $rank = $rankRepository->findOneBy(['group_code' => 'service', 'assigned_id' => $data['rank_id']]);
+            $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron_id, 'order_id' => $data['rank_id']]);
             if(is_object($user)) {
-                $user->setStatus($status)->setRank($rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag)->setDateJoined($join_date);
+                $user->setStatus($status)->setRank($rank)->setCustomRank($custom_rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag)->setDateJoined($join_date);
                 $em->flush();
             }
         }

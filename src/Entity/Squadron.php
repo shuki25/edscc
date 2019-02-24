@@ -95,11 +95,17 @@ class Squadron
      */
     private $squadronTags;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomRank", mappedBy="squadron")
+     */
+    private $customRanks;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->announcements = new ArrayCollection();
         $this->squadronTags = new ArrayCollection();
+        $this->customRanks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -303,6 +309,37 @@ class Squadron
             // set the owning side to null (unless already changed)
             if ($squadronTag->getSquadron() === $this) {
                 $squadronTag->setSquadron(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomRank[]
+     */
+    public function getCustomRanks(): Collection
+    {
+        return $this->customRanks;
+    }
+
+    public function addCustomRank(CustomRank $customRank): self
+    {
+        if (!$this->customRanks->contains($customRank)) {
+            $this->customRanks[] = $customRank;
+            $customRank->setSquadron($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomRank(CustomRank $customRank): self
+    {
+        if ($this->customRanks->contains($customRank)) {
+            $this->customRanks->removeElement($customRank);
+            // set the owning side to null (unless already changed)
+            if ($customRank->getSquadron() === $this) {
+                $customRank->setSquadron(null);
             }
         }
 

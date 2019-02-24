@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ZxcvbnPhp\Zxcvbn;
 
@@ -175,7 +174,7 @@ class AjaxController extends AbstractController
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
                         if(is_null($target_user->getDateJoined())) {
-                            $target_user->setDateJoined(new \DateTime('now'), $this->utc);
+                            $target_user->setDateJoined(new \DateTime('now', $this->utc));
                         }
                         break;
                     case 'approve':

@@ -56,6 +56,11 @@ class User implements UserInterface
     private $rank = '1';
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CustomRank")
+     */
+    private $custom_rank = '1';
+
+    /**
      * @ORM\Column(type="string", length=1, options={"default": "N"})
      */
     private $email_verify = 'N';
@@ -126,7 +131,6 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\ImportQueue", mappedBy="user", orphanRemoval=true)
      */
     private $importQueues;
-
 
     public function __construct()
     {
@@ -495,6 +499,18 @@ class User implements UserInterface
     public function setStatusComment(?string $status_comment): self
     {
         $this->status_comment = $status_comment;
+
+        return $this;
+    }
+
+    public function getCustomRank(): ?CustomRank
+    {
+        return $this->custom_rank;
+    }
+
+    public function setCustomRank(?CustomRank $custom_rank): self
+    {
+        $this->custom_rank = $custom_rank;
 
         return $this;
     }

@@ -113,7 +113,7 @@
                     <img src="{{ app.user.AvatarImgUrl }}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>CMDR {{ app.user.commanderName }}</p>
+                    <p><i class="ed-asset ed-asset-icon-squadron-rank-{{ app.user.customRank.orderId+1 }}"></i> CMDR {{ app.user.commanderName }}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>

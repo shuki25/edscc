@@ -2,8 +2,8 @@
 <div class="box box-warning">
     <div class="box-body box-profile">
         <img class="profile-user-img img-responsive img-circle" src="{{ user.AvatarImgUrl }}" alt="User profile picture">
-        <h3 class="profile-username text-center">{% trans with {'%name%': user.commanderName} %}CMDR %name%{% endtrans %}</h3>
-        <p class="text-muted text-center">{{ user.rank.name|trans }}</p>
+        <h3 class="profile-username text-center"><i class="ed-asset ed-asset-icon-squadron-rank-{{ user.customRank.orderId+1 }}"></i> {% trans with {'%name%': user.commanderName} %}CMDR %name%{% endtrans %}</h3>
+        <p class="text-muted text-center">{{ user.customRank.name|default(user.rank.name)|trans }}</p>
     </div>
     <div class="box-header with-border">{% trans %}Rank{% endtrans %}</div>
     <div class="box-body">

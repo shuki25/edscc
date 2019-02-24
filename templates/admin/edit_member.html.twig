@@ -48,7 +48,7 @@
                                         <label class="control-label" for="rank_id">{% trans %}Current Squadron Rank{% endtrans %}</label>
                                         <select id="rank_id" name="rank_id" class="form-control">
                                             {% for rank in ranks %}
-                                                <option value="{{ rank.assignedId }}"{% if user.rank.id == rank.id %} selected="selected"{% endif %}>{{ rank.name|trans }}</option>
+                                                <option value="{{ rank.orderId }}"{% if user.customRank.id == rank.id %} selected="selected"{% endif %}>{{ rank.name|trans }}</option>
                                             {% endfor %}
                                         </select>
                                         <span class="help-block">{% trans %}Choose the commander's rank{% endtrans %}</span>
