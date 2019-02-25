@@ -9,6 +9,43 @@
   font-style: normal;
 }
 
+.ed-asset {
+  display: inline-block;
+  font: normal normal normal 14px/1 ed-asset;
+  font-size: inherit;
+  text-rendering: auto;
+  vertical-align: -5%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* makes the font 33% larger relative to the icon container */
+.ed-asset-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -27%;
+}
+.ed-asset-logo {
+  font-size: 1.6em;
+  line-height: 0.75em;
+  vertical-align: -27%;
+}
+.ed-asset-login-logo {
+  font-size: 2.75em;
+  vertical-align: -27%;
+}
+.ed-asset-2x {
+  font-size: 2em;
+}
+.ed-asset-3x {
+  font-size: 3em;
+}
+.ed-asset-4x {
+  font-size: 4em;
+}
+.ed-asset-5x {
+  font-size: 5em;
+}
+
 i {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'ed-asset';
