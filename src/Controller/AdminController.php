@@ -395,5 +395,4 @@ class AdminController extends AbstractController
         $this->addFlash('success', $this->translator->trans('Your changes have been updated.'));
         return $this->redirectToRoute('admin_list_members');
     }
-
 }

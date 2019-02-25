@@ -7,6 +7,7 @@ use App\Entity\SquadronTags;
 use App\Entity\User;
 use App\Repository\AnnouncementRepository;
 use App\Repository\ImportQueueRepository;
+use App\Repository\MotdRepository;
 use App\Repository\SquadronRepository;
 use App\Repository\SquadronTagsRepository;
 use App\Repository\StatusRepository;
@@ -344,6 +345,97 @@ class AjaxController extends AbstractController
                         break;
                     case 'remove':
                         $em->remove($article);
+                        break;
+                }
+                $data['status'] = 200;
+                $em->flush();
+            }
+            else {
+                $data['errorMessage'] = $translator->trans("User not found.");
+            }
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+
+    }
+
+    /**
+     * @Route("/ajax/motd/list", name="ajax_motd", methods={"POST"} )
+     */
+    public function ajax_motd(Request $request, MotdRepository $repository, TranslatorInterface $translator)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $this->translator = $translator;
+
+        if(!$this->isCsrfTokenValid('ajax_motd', $request->request->get('_token'))) {
+            $datatable = [
+                'error' => $translator->trans('Unauthorized')
+            ];
+            return new JsonResponse($datatable);
+        }
+
+        $params = $request->request->all();
+        $params = $this->prepareDTOptions($params);
+        $dt = $repository->findAllByDatatables($params);
+
+        // Post process the data to clean up formatting
+
+        $dt = $this->postProcessDTDateData($dt, 'created_in', 'created_in');
+
+        foreach ($dt['data'] as $i=>$row) {
+//            $dt['data'][$i]['message'] = substr($row['message'],0,50) . ((strlen($row['message']) > 50) ? "&hellip;" : "");
+            $dt['data'][$i]['message'] = $row['message'];
+            $dt['data'][$i]['action'] = $this->renderView('admin/list_motd_action.html.twig', [
+                'item' => $row
+            ]);
+        }
+
+        $datatable = array_merge($dt, [
+            'draw' => $params['draw']
+        ]);
+
+        $response = new JsonResponse($datatable);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/ajax/motd/manage", name="ajax_manage_motd", methods={"POST"})
+     */
+    public function manage_motd(Request $request, MotdRepository $motdRepository, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $squadron_id = $user->getSquadron()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+        $data['require_reason'] = false;
+
+        $token = $request->request->get('_token');
+        $action = $request->request->get('action');
+        $id = $request->request->get('id');
+
+        if(!$this->isCsrfTokenValid('manage_motd', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Invalid token");
+        }
+        else {
+            $motd = $motdRepository->findOneBy(['id' => $id]);
+            if(is_object($motd)) {
+                switch ($action) {
+                    case 'hide':
+                        $motd->setShowFlag(false);
+                        break;
+                    case 'show':
+                        $motd->setShowFlag(true);
+                        break;
+                    case 'remove':
+                        $em->remove($motd);
                         break;
                 }
                 $data['status'] = 200;

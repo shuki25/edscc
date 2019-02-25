@@ -55,3 +55,9 @@ admin:
         routes: ["admin_list_members","admin_edit_member"]
         icon: "ed-asset-icon-members margin-r-5"
         roles: ["ROLE_ADMIN","CAN_EDIT_USER","CAN_CHANGE_STATUS","CAN_EDIT_PERMISSIONS","CAN_VIEW_HISTORY"]
+    4:
+        item: "MOTD"
+        route: "admin_list_motd"
+        routes: ["admin_list_motd","admin_motd_new","admin_motd_edit"]
+        icon: "fa fa-exclamation-triangle"
+        roles: ["ROLE_SUPERUSER"]

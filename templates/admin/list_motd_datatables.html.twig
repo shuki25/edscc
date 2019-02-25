@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom-datatables.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border pb-2">
+                <h3 class="box-title"><i class="fa fa-lg fa-exclamation-triangle margin-r-5"></i> {% trans %}Manage MOTD{% endtrans %}</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="padding-top: 5px;">
+                        <a class="btn btn-xs btn-primary pull-right" href="{{ path('admin_motd_new', {token: csrf_token('new_motd')}) }}"><i class="fa fa-plus margin-l-5"></i> Add New MOTD</a>
+                    </div>
+                </div> </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="table" class="table table-condensed table-striped table-responsive-sm table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}#{% endtrans %}</th>
+                        <th>{% trans %}Title{% endtrans %}</th>
+                        <th>{% trans %}Message{% endtrans %}</th>
+                        <th>{% trans %}Created In{% endtrans %}</th>
+                        <th>{% trans %}Action{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <!-- /.tr Header -->
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- ./box-body -->
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script>
+        $('#table').DataTable({
+            columnDefs: [
+                {name: "id", targets: 0},
+                {name: "title", targets: 1},
+                {name: "message", targets: 2},
+                {name: "created_in", targets: 3},
+                {name: "action", orderable: false, targets: 4}
+            ],
+            columns: [
+                {data: "id", width: "20px"},
+                {data: "title"},
+                {data: "message", render: function(data, type, row, meta) {
+                        return type === 'display' && data.length > 57 ? '<span title="'+ data +'">' + data.substr(0,57) + '&hellip;' : data;
+                    }, width: "350px"},
+                {data: "created_in", width: "105px"},
+                {data: "action", width: "105px"}
+            ],
+            serverSide: true,
+            processing: false,
+            ajax: {
+                url: "{{ path('ajax_motd') }}",
+                type: "POST",
+                data: {
+                    '_token': '{{ csrf_token('ajax_motd') }}'
+                }
+            },
+            paging: true,
+            autoWidth: false,
+            info: true,
+            searching: true,
+            searchDelay: 400,
+            pageLength: 10,
+            order: [[1, 'asc']],
+            dom: "<'row'<'col-sm-6'i><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+            language: {
+                lengthMenu: {% include 'datatables_length_menu.html.twig' %},
+                search: '_INPUT_',
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+            },
+            initComplete: function () {
+                $('.dataTables_filter input[type="search"]').css({
+                    width: '200px', display: 'inline-block'
+                });
+            },
+            drawCallback: function () {
+                $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+                $(".action-button")
+                    .click(function(e) {
+                        e.preventDefault();
+                        console.log('Clicked here.');
+                        admin_action($(this).data("squadron-id"), $(this).data("action"));
+                    });
+            }
+        });
+
+        function admin_action(id, action) {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_manage_motd') }}",
+                data: {
+                    _token: "{{ csrf_token('manage_motd') }}",
+                    id: id,
+                    action: action
+                },
+                success: function (result) {
+                    if(result.status == 200) {
+                        $('#table').DataTable().ajax.reload();
+                    }
+                    else {
+                        $('#errorMessage').replaceWith(result.errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (result) {
+                    console.log('Error thrown.');
+                }
+            });
+        }
+
+    </script>
+{% endblock %}
+
+
+

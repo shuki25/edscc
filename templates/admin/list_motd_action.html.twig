@@ -1,0 +1,7 @@
+<a href="{{ path('admin_motd_edit', {slug: item.id, token: csrf_token('edit_motd')}) }}" title="Edit"><i class="fa fa-lg fa-pencil-alt fa-fw"></i></a>&nbsp;
+{% if item.show_flag %}
+    <a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="hide" title="Hide"><i class="far fa-lg fa-eye-slash fa-fw"></i></a>
+{% else %}
+    <a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="show" title="Show"><i class="far fa-lg fa-eye fa-fw"></i></a>
+{% endif %}
+<a href="#" class="action-button" data-squadron-id="{{ item.id }}" data-action="remove" title="Remove"><i class="fa fa-lg fa-trash fa-fw"></i></a>&nbsp;

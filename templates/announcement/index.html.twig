@@ -4,6 +4,23 @@
 
 {% block content %}
     <div class="content">
+    {% for msg in motd %}
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title text-warning"><i class="fas fa-exclamation-triangle text-warning margin-r-5"> </i>{{ msg.title }}</h3>
+                <div class="pull-right clearfix">
+                    {{ msg.createdAt|ago }}
+                </div>
+            </div>
+            <div class="box-body">
+                {{ msg.message|markdown }}
+            </div>
+            <div class="box-footer">
+                <div class="clearfix pull-right">{% trans %}Posted by Site Administrator{% endtrans %}</div>
+            </div>
+        </div>
+        <!-- /.box -->
+    {% endfor %}
     {% for article in articles %}
         <div class="box box-warning">
             <div class="box-header with-border">

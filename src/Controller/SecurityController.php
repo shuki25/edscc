@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\VerifyToken;
 use App\Form\SquadronType;
 use App\Repository\CustomRankRepository;
+use App\Repository\MotdRepository;
 use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
 use App\Repository\StatusRepository;
@@ -56,17 +57,19 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils, MotdRepository $motdRepository)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+        $motd = $motdRepository->findBy(['show_login' => true], ['id' => 'desc']);
 
         return $this->render('security/login.html.twig', [
             'controller_name' => 'SecurityController',
             'title' => 'Login',
             'description' => 'Squadron Member Login',
             'error' => $error,
-            'last_username' => $lastUsername
+            'last_username' => $lastUsername,
+            'motd' => $motd
         ]);
     }
 
