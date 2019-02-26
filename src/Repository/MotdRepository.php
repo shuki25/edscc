@@ -25,7 +25,7 @@ class MotdRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('q')
             ->select("count(q.id)");
 
-        if($value != "") {
+        if ($value != "") {
             $qb->andWhere('q.squadron = :val')
                 ->setParameter('val', $value);
         }
@@ -33,7 +33,8 @@ class MotdRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findAllByDatatables($params) {
+    public function findAllByDatatables($params)
+    {
 
         /**
          * @var QueryBuilder $qb
@@ -43,24 +44,24 @@ class MotdRepository extends ServiceEntityRepository
         $qCount = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) as num');
 
-        $qb->select('m.id as id','m.title as title','m.message as message', 'm.show_flag as show_flag', 'm.show_login as show_login', 'm.createdAt as created_in');
+        $qb->select('m.id as id', 'm.title as title', 'm.message as message', 'm.show_flag as show_flag', 'm.show_login as show_login', 'm.createdAt as created_in');
 
-        foreach($params['order'] as $param) {
+        foreach ($params['order'] as $param) {
             $qb->addOrderBy($param['name'], $param['dir']);
         }
 
-        if($params['search']['value']?: 0) {
+        if ($params['search']['value'] ?: 0) {
             $qb->andWhere('m.title like :term or m.message like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
             $qCount->andWhere('m.title like :term or m.message like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
         }
 
-        if(isset($params['start']) ?: 0) {
+        if (isset($params['start']) ?: 0) {
             $qb->setFirstResult($params['start']);
         }
 
-        if(isset($params['length']) ?: 0) {
+        if (isset($params['length']) ?: 0) {
             $qb->setMaxResults($params['length']);
         }
 
@@ -72,7 +73,7 @@ class MotdRepository extends ServiceEntityRepository
 
         return $data;
     }
-    
+
     // /**
     //  * @return Motd[] Returns an array of Motd objects
     //  */

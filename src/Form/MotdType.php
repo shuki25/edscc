@@ -20,7 +20,7 @@ class MotdType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label'=>'Title',
+                'label' => 'Title',
                 'required' => true,
                 'trim' => true
             ])
@@ -47,7 +47,7 @@ class MotdType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-           'data_class' => Motd::class
+            'data_class' => Motd::class
         ]);
     }
 

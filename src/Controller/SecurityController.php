@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
     public function forgot_pw()
     {
         return $this->render('security/forgot_pw.html.twig', [
-           'title' => 'Forgot Password',
+            'title' => 'Forgot Password',
             'description' => 'Password Recovery',
             'error' => ''
         ]);
@@ -105,20 +105,18 @@ class SecurityController extends AbstractController
 
         $error = "";
 
-        if($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $data = $request->request->all();
 //            $passwordStatus = (new PasswordExposedChecker())->passwordExposed($data['password1']);
             $csrf_token = new CsrfToken('new_acct', $request->request->get('_csrf_token'));
 
-            if(!$csrfToken->isTokenValid($csrf_token)) {
+            if (!$csrfToken->isTokenValid($csrf_token)) {
                 $error = "Invalid CSRF Token";
-            }
-            elseif(!isset($data['_terms'])) {
+            } elseif (!isset($data['_terms'])) {
                 $error = "You did not agree to the terms. The account was not created.";
-            }
-//            elseif(($data['password1'] === $data['password2']) && $passwordStatus != PasswordStatus::EXPOSED) {
-            elseif($data['password1'] === $data['password2']) {
-                $squadron = $squadronRepository->findOneBy(['id'=> 1]);
+            } //            elseif(($data['password1'] === $data['password2']) && $passwordStatus != PasswordStatus::EXPOSED) {
+            elseif ($data['password1'] === $data['password2']) {
+                $squadron = $squadronRepository->findOneBy(['id' => 1]);
 
                 $user = new User();
                 $commander = new Commander();
@@ -175,16 +173,17 @@ class SecurityController extends AbstractController
     /**
      * @Route("/verify_email", name="app_confirm_email")
      */
-    public function verify_email (Request $request, CsrfTokenManagerInterface $csrfToken, UserRepository $userRepository, VerifyTokenRepository $tokenRepository) {
+    public function verify_email(Request $request, CsrfTokenManagerInterface $csrfToken, UserRepository $userRepository, VerifyTokenRepository $tokenRepository)
+    {
 
         $error = '';
         $email = $request->query->get('email');
 
-        if($this->isGranted('ROLE_DENIED')) {
+        if ($this->isGranted('ROLE_DENIED')) {
             $email = $this->getUser()->getEmail();
         }
 
-        if($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $form = $request->request->all();
         } else {
             $form = $request->query->all();
@@ -193,19 +192,17 @@ class SecurityController extends AbstractController
 
         $csrf_token = new CsrfToken('verify_email', $form['_csrf_token']);
 
-        if($request->isMethod('POST') && !$csrfToken->isTokenValid($csrf_token)) {
+        if ($request->isMethod('POST') && !$csrfToken->isTokenValid($csrf_token)) {
             $error = "Invalid CSRF Token";
-        }
+        } elseif ($request->isMethod('POST') || ($request->isMethod('GET') && isset($form['_token']))) {
+            $user = $userRepository->findOneBy(['email' => $form['email']]);
 
-        elseif($request->isMethod('POST') || ($request->isMethod('GET') && isset($form['_token']))) {
-            $user = $userRepository->findOneBy(['email'=>$form['email']]);
-
-            if($user->getEmailVerify() === 'N') {
+            if ($user->getEmailVerify() === 'N') {
                 $users = $userRepository->findValidTokens($user->getId());
                 $tokens = $users[0]->getVerifyTokens();
 
-                foreach($tokens as $token) {
-                    if(trim($form['_token']) == $token->getToken()) {
+                foreach ($tokens as $token) {
+                    if (trim($form['_token']) == $token->getToken()) {
                         $user->setEmailVerify('Y');
                         $tk = $tokenRepository->findOneBy(['User' => $user->getId()]);
                         $user->removeVerifyToken($tk);
@@ -215,14 +212,12 @@ class SecurityController extends AbstractController
                         $this->addFlash('success', 'Your account has been activated.  Please login to continue.');
 
                         return new RedirectResponse($this->router->generate('app_login'));
-                    }
-                    else {
+                    } else {
                         $error = "The token entered is invalid.";
                     }
                 }
-            }
-            else {
-                $this->addFlash('success','Your account is already activated.');
+            } else {
+                $this->addFlash('success', 'Your account is already activated.');
                 return new RedirectResponse($this->router->generate('app_login'));
             }
         }
@@ -250,7 +245,7 @@ class SecurityController extends AbstractController
         if (isset($user) && isset($email)) {
             $tokenKey = $user->getNewestVerifyTokens()->getToken();
 
-            if(is_null($tokenKey)) {
+            if (is_null($tokenKey)) {
                 $token = new VerifyToken();
                 $token->setUser($user);
                 $token->setToken();
@@ -269,10 +264,9 @@ class SecurityController extends AbstractController
 
             $notificationHelper->user_email_verification($email, $twig_params);
 
-            $this->addFlash('success','Your activation code has been resent. Check your INBOX.');
-        }
-        else {
-            $this->addFlash('alert','Please enter your email');
+            $this->addFlash('success', 'Your activation code has been resent. Check your INBOX.');
+        } else {
+            $this->addFlash('alert', 'Please enter your email');
         }
         return $this->redirectToRoute('app_confirm_email', [
             'email' => $email
@@ -287,10 +281,10 @@ class SecurityController extends AbstractController
     {
         $squadrons = $squadronRepository->findAllActiveSquadrons();
 
-        if($request->getMethod() == "POST" && $request->request->get('complete_registration') == "1") {
+        if ($request->getMethod() == "POST" && $request->request->get('complete_registration') == "1") {
             $token = $request->request->get('_csrf_token');
 
-            if($this->isCsrfTokenValid('select_squadron',$token)) {
+            if ($this->isCsrfTokenValid('select_squadron', $token)) {
                 /**
                  * @var User $user
                  */
@@ -301,34 +295,32 @@ class SecurityController extends AbstractController
                 $status_key = $squadron->getRequireApproval() == "Y" ? "Pending" : "Approved";
                 $status = $statusRepository->findOneBy(['name' => $status_key]);
                 $rank = $rankRepository->findOneBy(['group_code' => 'service', 'name' => 'Rookie']);
-                $custom_rank =$customRankRepository->findOneBy(['squadron' => $squadron->getId(), 'order_id' => $rank->getAssignedId()]);
+                $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron->getId(), 'order_id' => $rank->getAssignedId()]);
 
-                if(is_object($squadron) && is_object($status)) {
+                if (is_object($squadron) && is_object($status)) {
                     $user->setWelcomeMessageFlag('N');
                     $user->setSquadron($squadron);
                     $user->setRank($rank);
                     $user->setCustomRank($custom_rank);
                     $user->setStatus($status);
-                    $user->setDateJoined(new \DateTime('now',$this->utc));
+                    $user->setDateJoined(new \DateTime('now', $this->utc));
                     $em->flush();
-                    if($status_key == "Approved") {
+                    if ($status_key == "Approved") {
                         $providerKey = 'main';
                         $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());
                         $this->get("security.token_storage")->setToken($token);
                         return $this->redirectToRoute('app_welcome');
-                    }
-                    else {
+                    } else {
                         $notificationHelper->admin_approval_notice($squadron);
                     }
                     return $this->redirectToRoute('app_pending_access');
                 }
             }
-        }
-        elseif($request->getMethod() == "POST" && $request->request->get('create_squadron') == "1") {
+        } elseif ($request->getMethod() == "POST" && $request->request->get('create_squadron') == "1") {
             return $this->redirectToRoute('app_create_squadron');
         }
 
-        return $this->render('security/select_squadron.html.twig',[
+        return $this->render('security/select_squadron.html.twig', [
             'title' => 'Completing your registration',
             'description' => 'Selecting your Squadron',
             'squadrons' => $squadrons,
@@ -359,7 +351,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(SquadronType::class, $data);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             /**
              * @var Squadron $squad
@@ -369,9 +361,9 @@ class SecurityController extends AbstractController
             $em->persist($squad);
             $em->flush();
 
-            $ranks = $rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+            $ranks = $rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
 
-            foreach ($ranks as $i=>$row) {
+            foreach ($ranks as $i => $row) {
                 $custom_rank = new CustomRank();
                 $custom_rank->setOrderId($row->getAssignedId())
                     ->setName($row->getName());
@@ -384,7 +376,7 @@ class SecurityController extends AbstractController
             $custom_ranks = $squad->getCustomRanks();
             $custom_rank = $custom_ranks->last();
 
-            $this->addFlash('success',$this->translator->trans('New Squadron Created.'));
+            $this->addFlash('success', $this->translator->trans('New Squadron Created.'));
             $user->setSquadron($squad);
             $status = $statusRepository->findOneBy(['name' => 'Approved']);
             $user->setStatus($status);
@@ -392,7 +384,7 @@ class SecurityController extends AbstractController
             $user->setCustomRank($custom_rank);
             $user->setWelcomeMessageFlag('N');
             $user->setRoles(['ROLE_ADMIN']);
-            $user->setDateJoined(new \DateTime('now',$this->utc));
+            $user->setDateJoined(new \DateTime('now', $this->utc));
 
             $providerKey = 'main';
             $token = new PostAuthenticationGuardToken($user, $providerKey, $user->getRoles());
@@ -422,7 +414,7 @@ class SecurityController extends AbstractController
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        if($request->query->get('read') == "1") {
+        if ($request->query->get('read') == "1") {
             $user->setWelcomeMessageFlag('Y');
             $em->flush();
             return $this->redirectToRoute('dashboard');
@@ -489,7 +481,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $hash = md5(strtolower(trim($lastUsername)));
-        $gravatar_url = sprintf("https://www.gravatar.com/avatar/%s?d=mp",$hash);
+        $gravatar_url = sprintf("https://www.gravatar.com/avatar/%s?d=mp", $hash);
 
         return $this->render('security/lockscreen.html.twig', [
             'title' => 'Lockscreen',

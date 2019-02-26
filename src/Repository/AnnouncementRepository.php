@@ -20,7 +20,8 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
-    public function findAllbyPublishStatus(?string $value) {
+    public function findAllbyPublishStatus(?string $value)
+    {
         $now = new \DateTime('now');
 
         $qb = $this->createQueryBuilder('a');
@@ -41,7 +42,7 @@ class AnnouncementRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('q')
             ->select("count(q.id)");
 
-        if($value != "") {
+        if ($value != "") {
             $qb->andWhere('q.squadron = :val')
                 ->setParameter('val', $value);
         }
@@ -57,14 +58,15 @@ class AnnouncementRepository extends ServiceEntityRepository
             ->andWhere('a.squadron = :val')
             ->setParameter('val', $value);
 
-        if($term) {
+        if ($term) {
             $qb->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
                 ->setParameter('term', '%' . $term . '%');
         }
         return $qb;
     }
 
-    public function findAllBySquadronDatatables(?string $value, $params) {
+    public function findAllBySquadronDatatables(?string $value, $params)
+    {
 
         /**
          * @var QueryBuilder $qb
@@ -77,28 +79,28 @@ class AnnouncementRepository extends ServiceEntityRepository
             ->where('a.squadron = :val')
             ->setParameter('val', $value);
 
-        $qb->select('a.id as id','a.title as title', 'a.pinned_flag as pinned_flag', 'a.published_flag as published_flag', 'a.publish_at as publish_in', 'a.createdAt as created_in')
+        $qb->select('a.id as id', 'a.title as title', 'a.pinned_flag as pinned_flag', 'a.published_flag as published_flag', 'a.publish_at as publish_in', 'a.createdAt as created_in')
             ->addSelect('u.commander_name as author')
             ->join('a.user', 'u')
             ->andWhere('a.squadron = :val')
             ->setParameter('val', $value);
 
-        foreach($params['order'] as $param) {
+        foreach ($params['order'] as $param) {
             $qb->addOrderBy($param['name'], $param['dir']);
         }
 
-        if($params['search']['value']?: 0) {
+        if ($params['search']['value'] ?: 0) {
             $qb->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
             $qCount->andWhere('a.title like :term or u.commander_name like :term or a.message like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
         }
 
-        if(isset($params['start']) ?: 0) {
+        if (isset($params['start']) ?: 0) {
             $qb->setFirstResult($params['start']);
         }
 
-        if(isset($params['length']) ?: 0) {
+        if (isset($params['length']) ?: 0) {
             $qb->setMaxResults($params['length']);
         }
 

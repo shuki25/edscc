@@ -64,7 +64,7 @@ class MotdController extends AbstractController
             $em->persist($motd);
             $em->flush();
 
-            $this->addFlash('success',$this->translator->trans('New MOTD has been added.'));
+            $this->addFlash('success', $this->translator->trans('New MOTD has been added.'));
             $data = $motd;
 
             return $this->redirectToRoute('admin_list_motd');
@@ -82,33 +82,33 @@ class MotdController extends AbstractController
     public function edit_motd($slug, $token, Request $request, MotdRepository $repository)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $repository->findOneBy(['id'=>$slug]);
+        $data = $repository->findOneBy(['id' => $slug]);
 
-        if(!is_object($data)) {
-            $this->addFlash('alert',$this->translator->trans('Permission Denied. Unable to access to this resource.'));
+        if (!is_object($data)) {
+            $this->addFlash('alert', $this->translator->trans('Permission Denied. Unable to access to this resource.'));
             return $this->redirectToRoute('admin_list_motd');
         }
         $form = $this->createForm(MotdType::class, $data);
         $form->handleRequest($request);
 
-        if(!$this->isCsrfTokenValid('edit_motd',$token)) {
-            $this->addFlash('success',$this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
+        if (!$this->isCsrfTokenValid('edit_motd', $token)) {
+            $this->addFlash('success', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
             return $this->redirectToRoute('admin_list_motd');
         }
 
-        if($request->request->get('cancel')) {
+        if ($request->request->get('cancel')) {
             $this->addFlash('alert', $this->translator->trans('Changes were not saved.'));
             return $this->redirectToRoute('admin_list_motd');
         }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var Motd $motd
              */
             $motd = $form->getData();
             $em->flush();
 
-            $this->addFlash('success',$this->translator->trans('Your changes have been updated.'));
+            $this->addFlash('success', $this->translator->trans('Your changes have been updated.'));
             $data = $motd;
 
             return $this->redirectToRoute('admin_list_motd');

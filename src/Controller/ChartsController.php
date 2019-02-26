@@ -30,9 +30,8 @@ class ChartsController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword());
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword());
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -46,7 +45,7 @@ class ChartsController extends AbstractController
      */
     public function fetch_script($name)
     {
-        switch($name) {
+        switch ($name) {
             case 'squadron_earningxxx':
                 $content = $this->renderView('charts/squadron_earning.js.twig');
                 break;
@@ -74,15 +73,15 @@ class ChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_daily_total where earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
@@ -104,15 +103,15 @@ class ChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='1' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_type_total where earning_type_id='1' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
@@ -134,15 +133,15 @@ class ChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='4' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_type_total where earning_type_id='4' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
@@ -164,21 +163,21 @@ class ChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id in ('5','6') and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_type_total where earning_type_id='5' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $buy[$row['x']] = $row['y'];
         }
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_type_total where earning_type_id='6' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'] + $buy[$row['x']];
         }
 
@@ -201,15 +200,15 @@ class ChartsController extends AbstractController
         $data = [];
 
         $sql = "select total_earned as y, earned_on as x from v_squadron_mission_total where squadron_id=? and earned_on between now() - interval 30 day and now()";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_mission_total where earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql,[$squadron_id]);
-        foreach($tmp as $i=>$row) {
+        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
         $results['data'][] = $data;
@@ -220,17 +219,19 @@ class ChartsController extends AbstractController
         return $jsonResponse;
     }
 
-    private function fetch_sql($sql, $params = null) {
+    private function fetch_sql($sql, $params = null)
+    {
         $rs = $this->dbh->prepare($sql);
-        if(is_array($params)) {
+        if (is_array($params)) {
             $rs->execute($params);
         }
         return $rs->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    private function fetch_sql_single_scalar($sql, $params = null) {
+    private function fetch_sql_single_scalar($sql, $params = null)
+    {
         $rs = $this->dbh->prepare($sql);
-        if(is_array($params)) {
+        if (is_array($params)) {
             $rs->execute($params);
         }
         return $rs->fetchColumn(0);

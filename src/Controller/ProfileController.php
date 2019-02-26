@@ -17,7 +17,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
-
 class ProfileController extends AbstractController
 {
 
@@ -38,9 +37,8 @@ class ProfileController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword());
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword());
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -55,9 +53,9 @@ class ProfileController extends AbstractController
         $user = $this->getUser();
 
         $hash = md5(strtolower(trim($user->getUsername())));
-        $gravatar_url = sprintf("https://www.gravatar.com/avatar/%s?d=mp",$hash);
+        $gravatar_url = sprintf("https://www.gravatar.com/avatar/%s?d=mp", $hash);
 
-        if($user->getGoogleFlag() === "Y") {
+        if ($user->getGoogleFlag() === "Y") {
             $gravatar_url = $user->getAvatarUrl();
         }
 
@@ -79,21 +77,18 @@ class ProfileController extends AbstractController
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
 
-        if($this->isCsrfTokenValid('change_password',$data['_token'])) {
-            if($data['new_password'] != $data['verify_password']) {
-                $this->addFlash('alert',$translator->trans('Your new password did not match with verify password. Password is not changed.'));
-            }
-            else if($passwordEncoder->isPasswordValid($user,$data['current_password'])) {
+        if ($this->isCsrfTokenValid('change_password', $data['_token'])) {
+            if ($data['new_password'] != $data['verify_password']) {
+                $this->addFlash('alert', $translator->trans('Your new password did not match with verify password. Password is not changed.'));
+            } else if ($passwordEncoder->isPasswordValid($user, $data['current_password'])) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $data['new_password']));
-                $this->addFlash('success',$translator->trans('Your password change has been updated'));
+                $this->addFlash('success', $translator->trans('Your password change has been updated'));
                 $em->flush();
+            } else {
+                $this->addFlash('alert', $translator->trans('The current password is incorrect, and your password is not changed'));
             }
-            else {
-                $this->addFlash('alert',$translator->trans('The current password is incorrect, and your password is not changed'));
-            }
-        }
-        else {
-            $this->addFlash('alert',$translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        } else {
+            $this->addFlash('alert', $translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
         }
         return $this->redirectToRoute('app_profile');
     }
@@ -115,8 +110,8 @@ class ProfileController extends AbstractController
         $sid = $user->getSquadron()->getId();
         $param = [$uid, $sid];
 
-        if($this->isCsrfTokenValid('purge_data',$token)) {
-            if($confirmed && $uid && $sid) {
+        if ($this->isCsrfTokenValid('purge_data', $token)) {
+            if ($confirmed && $uid && $sid) {
                 $this->dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 try {
                     $this->dbh->beginTransaction();
@@ -138,17 +133,14 @@ class ProfileController extends AbstractController
                 }
                 if ($errorMessage) {
                     $this->addFlash('alert', "Purge failed. " . $errorMessage);
-                }
-                else {
+                } else {
                     $this->addFlash('success', $translator->trans('Commander data has been purged from the system.'));
                 }
+            } else {
+                $this->addFlash('alert', $translator->trans('Something went wrong. Purge cancelled.'));
             }
-            else {
-                $this->addFlash('alert',$translator->trans('Something went wrong. Purge cancelled.'));
-            }
-        }
-        else {
-            $this->addFlash('alert',$translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        } else {
+            $this->addFlash('alert', $translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
         }
 
         return $this->redirectToRoute('app_profile');

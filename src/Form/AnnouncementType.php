@@ -15,7 +15,7 @@ class AnnouncementType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label'=>'Title',
+                'label' => 'Title',
                 'required' => true,
                 'trim' => true
             ])
@@ -42,8 +42,7 @@ class AnnouncementType extends AbstractType
             ->add('pinnedFlag', CheckboxType::class, [
                 'label' => 'This post is pinned (always will appear on the top of page)',
                 'required' => false
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

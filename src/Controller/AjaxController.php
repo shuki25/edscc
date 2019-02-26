@@ -50,8 +50,7 @@ class AjaxController extends AbstractController
         $orders = $params['order'];
         $columns = $params['columns'];
 
-        foreach ($orders as $key => $order)
-        {
+        foreach ($orders as $key => $order) {
             // Orders does not contain the name of the column, but its number,
             // so add the name so we can handle it just like the $columns array
             $orders[$key]['name'] = $columns[$order['column']]['name'];
@@ -69,17 +68,15 @@ class AjaxController extends AbstractController
         $formatter = new DateTimeFormatter($this->translator);
         $dt = $data['data'];
 
-        foreach($dt as $i=>$row) {
-            if(isset($row[$source])) {
-                if($ago) {
-                    $dt[$i] = array_merge($dt[$i],[$target => $formatter->formatDiff($row[$source], new \DateTime('now'))]);
+        foreach ($dt as $i => $row) {
+            if (isset($row[$source])) {
+                if ($ago) {
+                    $dt[$i] = array_merge($dt[$i], [$target => $formatter->formatDiff($row[$source], new \DateTime('now'))]);
+                } else {
+                    $dt[$i] = array_merge($dt[$i], [$target => date_format($row[$source], 'Y-m-d H:i:s') . " UTC"]);
                 }
-                else {
-                    $dt[$i] = array_merge($dt[$i],[$target => date_format($row[$source], 'Y-m-d H:i:s') . " UTC"]);
-                }
-            }
-            else {
-                switch($target) {
+            } else {
+                switch ($target) {
                     case 'last_login_at':
                         $msg = $this->translator->trans('Never');
                         break;
@@ -88,7 +85,7 @@ class AjaxController extends AbstractController
                         $msg = "";
                         break;
                 }
-                $dt[$i] = array_merge($dt[$i],[$target => $msg]);
+                $dt[$i] = array_merge($dt[$i], [$target => $msg]);
             }
         }
         $data['data'] = $dt;
@@ -109,7 +106,7 @@ class AjaxController extends AbstractController
         $this->em = $this->getDoctrine()->getManager();
         $this->translator = $translator;
 
-        if(!$this->isCsrfTokenValid('ajax_members', $token)) {
+        if (!$this->isCsrfTokenValid('ajax_members', $token)) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -125,9 +122,9 @@ class AjaxController extends AbstractController
         $dt = $this->postProcessDTDateData($dt, 'join_date', 'join_date');
         $dt = $this->postProcessDTDateData($dt, 'last_login_at', 'last_login_at');
 
-        foreach ($dt['data'] as $i=>$row) {
-            $dt['data'][$i]['commander_name'] = $translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
-            $dt['data'][$i]['status'] = sprintf("<span class=\"label label-%s\">%s</span>",$row['tag'], $translator->trans($row['status']));
+        foreach ($dt['data'] as $i => $row) {
+            $dt['data'][$i]['commander_name'] = $translator->trans('CMDR %name%', ['%name%' => $row['commander_name']]);
+            $dt['data'][$i]['status'] = sprintf("<span class=\"label label-%s\">%s</span>", $row['tag'], $translator->trans($row['status']));
             $dt['data'][$i]['action'] = $this->renderView('admin/list_members_action.html.twig', [
                 'id' => $row['id'],
                 'status' => $row['status']
@@ -161,20 +158,19 @@ class AjaxController extends AbstractController
         $token = $request->request->get('_token');
         $action = $request->request->get('action');
 
-        if(!$this->isCsrfTokenValid('manage_member', $token)) {
+        if (!$this->isCsrfTokenValid('manage_member', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token, please reload the page.");
-        }
-        else {
-            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'),  'Squadron' => $squadron_id]);
-            if(is_object($target_user)) {
+        } else {
+            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'), 'Squadron' => $squadron_id]);
+            if (is_object($target_user)) {
                 $previous_status = $target_user->getStatus()->getName();
                 switch ($action) {
                     case 'pending':
                         $status = $statusRepository->findOneBy(['name' => 'Pending']);
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
-                        if(is_null($target_user->getDateJoined())) {
+                        if (is_null($target_user->getDateJoined())) {
                             $target_user->setDateJoined(new \DateTime('now', $this->utc));
                         }
                         break;
@@ -182,7 +178,7 @@ class AjaxController extends AbstractController
                         $status = $statusRepository->findOneBy(['name' => 'Approved']);
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
-                        if($previous_status == "Pending") {
+                        if ($previous_status == "Pending") {
                             $notificationHelper->user_status_change($target_user);
                         }
                         break;
@@ -200,15 +196,14 @@ class AjaxController extends AbstractController
                         $status = $statusRepository->findOneBy(['name' => 'Denied']);
                         $target_user->setStatus($status);
                         $data['require_reason'] = true;
-                        if($previous_status == "Pending") {
+                        if ($previous_status == "Pending") {
                             $notificationHelper->user_status_change($target_user);
                         }
                         break;
                 }
                 $data['status'] = 200;
                 $em->flush();
-            }
-            else {
+            } else {
                 $data['errorMessage'] = $translator->trans("User not found.");
             }
 
@@ -236,18 +231,16 @@ class AjaxController extends AbstractController
 
         $token = $request->request->get('_token');
 
-        if(!$this->isCsrfTokenValid('save_comment', $token)) {
+        if (!$this->isCsrfTokenValid('save_comment', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token, please reload the page.");
-        }
-        else {
-            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'),  'Squadron' => $squadron_id]);
-            if(is_object($target_user)) {
+        } else {
+            $target_user = $userRepository->findOneBy(['id' => $request->request->get('id'), 'Squadron' => $squadron_id]);
+            if (is_object($target_user)) {
                 $target_user->setStatusComment($request->request->get('comment'));
                 $data['status'] = 200;
                 $em->flush();
-            }
-            else {
+            } else {
                 $data['errorMessage'] = $translator->trans("User not found.");
             }
 
@@ -272,7 +265,7 @@ class AjaxController extends AbstractController
         $this->em = $this->getDoctrine()->getManager();
         $this->translator = $translator;
 
-        if(!$this->isCsrfTokenValid('ajax_announcements', $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('ajax_announcements', $request->request->get('_token'))) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -288,8 +281,8 @@ class AjaxController extends AbstractController
         $dt = $this->postProcessDTDateData($dt, 'created_in', 'created_in');
         $dt = $this->postProcessDTDateData($dt, 'publish_in', 'publish_in');
 
-        foreach ($dt['data'] as $i=>$row) {
-            $dt['data'][$i]['author'] = $translator->trans('CMDR %name%',['%name%' => $row['author']]);
+        foreach ($dt['data'] as $i => $row) {
+            $dt['data'][$i]['author'] = $translator->trans('CMDR %name%', ['%name%' => $row['author']]);
             $dt['data'][$i]['action'] = $this->renderView('admin/list_announcements_action.html.twig', [
                 'item' => $row
             ]);
@@ -323,13 +316,12 @@ class AjaxController extends AbstractController
         $action = $request->request->get('action');
         $id = $request->request->get('id');
 
-        if(!$this->isCsrfTokenValid('manage_announcement', $token)) {
+        if (!$this->isCsrfTokenValid('manage_announcement', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token");
-        }
-        else {
-            $article = $announcementRepository->findOneBy(['id' => $id, 'squadron'=>$squadron_id]);
-            if(is_object($article)) {
+        } else {
+            $article = $announcementRepository->findOneBy(['id' => $id, 'squadron' => $squadron_id]);
+            if (is_object($article)) {
                 switch ($action) {
                     case 'pin':
                         $article->setPinnedFlag(true);
@@ -349,8 +341,7 @@ class AjaxController extends AbstractController
                 }
                 $data['status'] = 200;
                 $em->flush();
-            }
-            else {
+            } else {
                 $data['errorMessage'] = $translator->trans("User not found.");
             }
         }
@@ -369,7 +360,7 @@ class AjaxController extends AbstractController
         $this->em = $this->getDoctrine()->getManager();
         $this->translator = $translator;
 
-        if(!$this->isCsrfTokenValid('ajax_motd', $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('ajax_motd', $request->request->get('_token'))) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -384,7 +375,7 @@ class AjaxController extends AbstractController
 
         $dt = $this->postProcessDTDateData($dt, 'created_in', 'created_in');
 
-        foreach ($dt['data'] as $i=>$row) {
+        foreach ($dt['data'] as $i => $row) {
 //            $dt['data'][$i]['message'] = substr($row['message'],0,50) . ((strlen($row['message']) > 50) ? "&hellip;" : "");
             $dt['data'][$i]['message'] = $row['message'];
             $dt['data'][$i]['action'] = $this->renderView('admin/list_motd_action.html.twig', [
@@ -420,13 +411,12 @@ class AjaxController extends AbstractController
         $action = $request->request->get('action');
         $id = $request->request->get('id');
 
-        if(!$this->isCsrfTokenValid('manage_motd', $token)) {
+        if (!$this->isCsrfTokenValid('manage_motd', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token");
-        }
-        else {
+        } else {
             $motd = $motdRepository->findOneBy(['id' => $id]);
-            if(is_object($motd)) {
+            if (is_object($motd)) {
                 switch ($action) {
                     case 'hide':
                         $motd->setShowFlag(false);
@@ -440,8 +430,7 @@ class AjaxController extends AbstractController
                 }
                 $data['status'] = 200;
                 $em->flush();
-            }
-            else {
+            } else {
                 $data['errorMessage'] = $translator->trans("User not found.");
             }
         }
@@ -465,11 +454,10 @@ class AjaxController extends AbstractController
         $data['status'] = 500;
 
         $token = $request->request->get('_token');
-        if(!$this->isCsrfTokenValid('newapikey', $token)) {
+        if (!$this->isCsrfTokenValid('newapikey', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Unable to generate a new API Key. Invalid token, please reload the page.");
-        }
-        else {
+        } else {
             $data['status'] = 200;
             $newapi = md5('edmc:' . $user->getUsername() . time() . random_bytes(5));
             $user->setApikey($newapi);
@@ -496,20 +484,19 @@ class AjaxController extends AbstractController
          * @var User $user
          */
         $user = $this->getUser();
-        $join_date = new \DateTime(date_format($user->getDateJoined(),'Y-m-d H:i:s'),$this->utc);
+        $join_date = new \DateTime(date_format($user->getDateJoined(), 'Y-m-d H:i:s'), $this->utc);
 
         $em = $this->getDoctrine()->getManager();
         $folder_path = $this->getParameter('ajax.fileupload.path');
         $token = $request->request->get('_token');
-        $acceptable_files = ['text/plain','application/json'];
+        $acceptable_files = ['text/plain', 'application/json'];
 
-        if(!$this->isCsrfTokenValid('ajax_upload', $token)) {
+        if (!$this->isCsrfTokenValid('ajax_upload', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token. Uploaded files are not processed.");
-        }
-        else {
-            if(is_writable($folder_path) && is_dir($folder_path)) {
-                foreach($files as $i=> $file) {
+        } else {
+            if (is_writable($folder_path) && is_dir($folder_path)) {
+                foreach ($files as $i => $file) {
                     $new_name = md5(uniqid()) . '.' . $file->guessExtension();
                     $size = $file->getSize();
                     $mime = $file->getMimeType();
@@ -518,40 +505,37 @@ class AjaxController extends AbstractController
                     $files[$i] = [
                         'original_name' => $file->getClientOriginalName(),
                         'new_name' => $new_name,
-                        'size' => $this->formatBytes($size,1),
+                        'size' => $this->formatBytes($size, 1),
                         'type' => $mime,
                         'status' => 'Accepted'
                     ];
 
                     $queue = $repository->findOneBy(['user' => $user, 'original_filename' => $file->getClientOriginalName()]);
 
-                    if(!is_object($queue)) {
+                    if (!is_object($queue)) {
                         $queue = new ImportQueue();
                         $queue->setUser($user);
                         $queue->setOriginalFilename($file->getClientOriginalName());
                         $queue->setUploadFilename($new_name);
                         $queue->setProgressCode('Q');
 
-                        if(array_search($mime, $acceptable_files) === false) {
+                        if (array_search($mime, $acceptable_files) === false) {
                             $files[$i]['status'] = 'Rejected. Invalid type.';
                             $accept = false;
-                        }
-                        else {
+                        } else {
                             $peek_file = $file->openFile('r');
                             $found = false;
                             do {
                                 $line = json_decode($peek_file->getCurrentLine(), true);
-                                if(json_last_error() !== JSON_ERROR_NONE) {
+                                if (json_last_error() !== JSON_ERROR_NONE) {
                                     $found = true;
                                     $accept = false;
                                     $files[$i]['status'] = 'Rejected. Not a Journal File.';
-                                }
-                                elseif($peek_file->eof()) {
+                                } elseif ($peek_file->eof()) {
                                     $accept = false;
                                     $found = true;
                                     $files[$i]['status'] = 'Rejected. Not a Journal File.';
-                                }
-                                elseif($line['event'] == "Fileheader") {
+                                } elseif ($line['event'] == "Fileheader") {
                                     $found = true;
                                     $game_datetime = $line['timestamp'];
                                     $log_date = new \DateTime($game_datetime, $this->utc);
@@ -563,14 +547,13 @@ class AjaxController extends AbstractController
                                 $peek_file->next();
                             } while (!$found);
                         }
-                    }
-                    else {
+                    } else {
                         $accept = false;
                         $files[$i]['status'] = 'Rejected. Already imported.';
                     }
 
-                    if($accept) {
-                        if(!$file->move($folder_path, $new_name)) {
+                    if ($accept) {
+                        if (!$file->move($folder_path, $new_name)) {
                             $files[$i]['status'] = 'Upload Failed.';
                         }
                         $queue->setGameDatetime(new \DateTime($game_datetime, $this->utc));
@@ -580,11 +563,10 @@ class AjaxController extends AbstractController
                 }
                 $data['status'] = 200;
                 $data['responseText'] = $this->renderView('ajax/upload_list.html.twig', [
-                    'files' => $files
+                        'files' => $files
                     ]
                 );
-            }
-            else {
+            } else {
                 $data['status'] = 403;
                 $data['errorMessage'] = $translator->trans("Permission Denied. Unable to save to the upload directory. Files are not processed.");
             }
@@ -613,7 +595,7 @@ class AjaxController extends AbstractController
             'R' => 'Rejected'
         ];
 
-        if(!$this->isCsrfTokenValid('ajax_queue', $token)) {
+        if (!$this->isCsrfTokenValid('ajax_queue', $token)) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -629,7 +611,7 @@ class AjaxController extends AbstractController
         $dt = $this->postProcessDTDateData($dt, 'game_datetime', 'game_datetime', false);
         $dt = $this->postProcessDTDateData($dt, 'time_started', 'time_started');
 
-        foreach ($dt['data'] as $i=>$row) {
+        foreach ($dt['data'] as $i => $row) {
             $code = $dt['data'][$i]['progress_code'];
             $dt['data'][$i]['progress_code'] = $translator->trans($status_code[$code]);
         }
@@ -651,7 +633,7 @@ class AjaxController extends AbstractController
         $json_response = new JsonResponse();
         $token = $request->request->get('_token');
 
-        if(!$this->isCsrfTokenValid('squadron_info', $token)) {
+        if (!$this->isCsrfTokenValid('squadron_info', $token)) {
             $json_response->setStatusCode(401);
             $response = [
                 'status' => 401,
@@ -666,8 +648,8 @@ class AjaxController extends AbstractController
             'squad' => $squadron
         ]);
         $response = [
-          'status' => 200,
-          'content' => $content
+            'status' => 200,
+            'content' => $content
         ];
 
         return $json_response->setData($response);
@@ -686,28 +668,26 @@ class AjaxController extends AbstractController
         $data['status'] = 500;
 
         $token = $request->request->get('_token');
-        if(!$this->isCsrfTokenValid('squadron_tags', $token)) {
+        if (!$this->isCsrfTokenValid('squadron_tags', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Expired CSRF token, please reload the page.");
-        }
-        else {
+        } else {
             $the_tag = $tagsRepository->findOneBy(['id' => $request->request->get('id')]);
             $squadron_tag = $squadronTagsRepository->findOneBy(['tag' => $the_tag, 'squadron' => $user->getSquadron()]);
 
-            if($request->request->get('is_checked') == "true") {
-                if(!is_object($squadron_tag)) {
+            if ($request->request->get('is_checked') == "true") {
+                if (!is_object($squadron_tag)) {
                     $squadron_tag = new SquadronTags();
                 }
                 $squadron_tag->setSquadron($user->getSquadron())->setTag($the_tag);
                 $em->persist($squadron_tag);
                 $em->flush();
-            }
-            else {
-                if(is_object($squadron_tag)) {
+            } else {
+                if (is_object($squadron_tag)) {
                     dump($squadron_tag);
                     $em->remove($squadron_tag);
                     $em->flush();
-                 }
+                }
             }
             $data['status'] = 200;
         }
@@ -727,11 +707,11 @@ class AjaxController extends AbstractController
          */
         $user = $this->getUser();
         $zxcvbn = new Zxcvbn();
-        $scoreText = ['Worst','Bad','Weak','Good','Strong'];
-        $disallowed = [$user->getCommanderName(),$user->getUsername(),$user->getSquadron()->getName(),$request->request->get('cp')];
+        $scoreText = ['Worst', 'Bad', 'Weak', 'Good', 'Strong'];
+        $disallowed = [$user->getCommanderName(), $user->getUsername(), $user->getSquadron()->getName(), $request->request->get('cp')];
 
-        $strength = $zxcvbn->passwordStrength($request->request->get('q'),$disallowed);
-        if(is_infinite($strength['entropy'])) {
+        $strength = $zxcvbn->passwordStrength($request->request->get('q'), $disallowed);
+        if (is_infinite($strength['entropy'])) {
             $strength['entropy'] = 0;
         }
         $strength['password'] = null;
@@ -739,26 +719,26 @@ class AjaxController extends AbstractController
         $strengthText = $translator->trans($scoreText[$strength['score']]);
         $human_readable_time = $this->displayTime($strength['crack_time']);
 
-        $strength['message'] = $translator->trans('Strength: %strength% (cracked in %number% %unit%)',['%strength%' => $strengthText, '%number%' => $human_readable_time['number'], '%unit%' => $human_readable_time['unit']]);
+        $strength['message'] = $translator->trans('Strength: %strength% (cracked in %number% %unit%)', ['%strength%' => $strengthText, '%number%' => $human_readable_time['number'], '%unit%' => $human_readable_time['unit']]);
         return new JsonResponse($strength);
     }
 
-    private function displayTime($ms) {
-        $s = floor($ms/1000);
-        $mi = floor($ms/(1000*60));
-        $h = floor($ms/(1000*60*60));
-        $d = floor($ms/(1000*60*60*24));
-        $mo = floor($ms/(1000*60*60*24*30));
-        $y = floor($ms/(1000*60*60*24*365));
-        $c = floor($ms/(1000*60*60*24*365*100));
+    private function displayTime($ms)
+    {
+        $s = floor($ms / 1000);
+        $mi = floor($ms / (1000 * 60));
+        $h = floor($ms / (1000 * 60 * 60));
+        $d = floor($ms / (1000 * 60 * 60 * 24));
+        $mo = floor($ms / (1000 * 60 * 60 * 24 * 30));
+        $y = floor($ms / (1000 * 60 * 60 * 24 * 365));
+        $c = floor($ms / (1000 * 60 * 60 * 24 * 365 * 100));
 
         $data['unit'] = $c > 1 ? "century" : ($y > 1 ? "year" : ($mo > 1 ? "month" : ($d > 1 ? "day" : ($h > 0.9 ? "hour" : ($mi > 1 ? "minute" : ($s > 0.1 ? "second" : "millisecond"))))));
-        $data['number'] = $c > 1 ? $c : ($y > 1 ? $y : ($mo > 1 ? $mo : ($d > 1 ? $d : ($h > 0.9 ? $h : ($mi > 1 ? $mi: ($s > 0.1 ? number_format($s,3) : number_format($ms, 3)))))));
-        if($data['number'] != 1) {
-            if($data['unit'] == "century") {
+        $data['number'] = $c > 1 ? $c : ($y > 1 ? $y : ($mo > 1 ? $mo : ($d > 1 ? $d : ($h > 0.9 ? $h : ($mi > 1 ? $mi : ($s > 0.1 ? number_format($s, 3) : number_format($ms, 3)))))));
+        if ($data['number'] != 1) {
+            if ($data['unit'] == "century") {
                 $data['unit'] = "centuries";
-            }
-            else {
+            } else {
                 $data['unit'] .= "s";
             }
         }

@@ -21,13 +21,11 @@ class BooleanToYNTransformer implements DataTransformerInterface
      */
     public function Transform($value): bool
     {
-        if($value == 'Y') {
+        if ($value == 'Y') {
             return true;
-        }
-        elseif($value =='N') {
+        } elseif ($value == 'N') {
             return false;
-        }
-        else {
+        } else {
             throw new TransformationFailedException(sprintf('Unable to transform "%s" to boolean.  Valid values are either Y or N.', $value));
         }
     }

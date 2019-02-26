@@ -31,9 +31,8 @@ class MembersController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword());
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword());
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -52,8 +51,8 @@ class MembersController extends AbstractController
         $user = $this->getUser();
         $rank = [];
         $total_earned = [];
-        $members = $userRepository->findBy(['Squadron' => $user->getSquadron()->getId()],['commander_name' => 'ASC']);
-        foreach($members as $member) {
+        $members = $userRepository->findBy(['Squadron' => $user->getSquadron()->getId()], ['commander_name' => 'ASC']);
+        foreach ($members as $member) {
             $rank[$member->getId()] = 'Unranked';
             $total_earned[$member->getId()] = 0;
         }
@@ -63,13 +62,12 @@ class MembersController extends AbstractController
             $rs = $this->dbh->prepare($sql);
             $rs->execute([$user->getSquadron()->getId()]);
             $rank_list = $rs->fetchAll(\PDO::FETCH_ASSOC);
-        }
-        catch (\PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage();
             die;
         }
 
-        foreach($rank_list as $i=>$item) {
+        foreach ($rank_list as $i => $item) {
             $rank[$item['user_id']] = $item['rank'];
             $total_earned[$item['user_id']] = $item['total_earned'];
         }

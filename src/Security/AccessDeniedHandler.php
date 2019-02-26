@@ -56,17 +56,16 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
          */
         $user = $this->security->getUser();
 
-        if($user->getEmailVerify() == "N") {
-            $url = $this->router->generate('app_confirm_email',['email' => $user->getEmail()]);
+        if ($user->getEmailVerify() == "N") {
+            $url = $this->router->generate('app_confirm_email', ['email' => $user->getEmail()]);
             return new RedirectResponse($url);
         }
 
-        switch($user->getStatus()->getName()) {
+        switch ($user->getStatus()->getName()) {
             case 'Pending':
-                if($user->getSquadron()->getId() == "1") {
-                    $url =$this->router->generate('app_select_squadron');
-                }
-                else {
+                if ($user->getSquadron()->getId() == "1") {
+                    $url = $this->router->generate('app_select_squadron');
+                } else {
                     $url = $this->router->generate('app_pending_access');
                 }
                 return new RedirectResponse($url);

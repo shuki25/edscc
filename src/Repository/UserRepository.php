@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('q')
             ->select("count(q.id)");
 
-        if($value != "") {
+        if ($value != "") {
             $qb->andWhere('q.Squadron = :val')
                 ->setParameter('val', $value);
         }
@@ -34,20 +34,19 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return User[] Returns an array of User objects
-    */
+     * @return User[] Returns an array of User objects
+     */
     public function findValidTokens($value)
     {
         return $this->createQueryBuilder('u')
             ->join('u.verifyTokens', 'vt')
             ->andWhere('u.id = ?1 and vt.expiresAt > ?2')
             ->setParameter(1, $value)
-            ->setParameter(2,date('Y-m-d H:i:s'))
+            ->setParameter(2, date('Y-m-d H:i:s'))
             ->orderBy('vt.expiresAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findAllBySquadron(?string $value, ?string $term): QueryBuilder
@@ -62,14 +61,15 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('u.Squadron = :val')
             ->setParameter('val', $value);
 
-        if($term) {
+        if ($term) {
             $qb->andWhere('u.commander_name like :term or s.name like :term or r.name like :term')
                 ->setParameter('term', '%' . $term . '%');
         }
         return $qb;
     }
 
-    public function findAllBySquadronDatatables(?string $value, $params) {
+    public function findAllBySquadronDatatables(?string $value, $params)
+    {
 
         /**
          * @var QueryBuilder $qb
@@ -84,29 +84,29 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('val', $value);
 
 
-        $qb->select('u.id as id','u.commander_name as commander_name','u.createdAt as join_date', 'u.LastLoginAt as last_login_at')
+        $qb->select('u.id as id', 'u.commander_name as commander_name', 'u.createdAt as join_date', 'u.LastLoginAt as last_login_at')
             ->addSelect('s.name as status, cr.name as rank, s.tag as tag')
             ->join('u.status', 's')
             ->join('u.custom_rank', 'cr')
             ->andWhere('u.Squadron = :val')
             ->setParameter('val', $value);
 
-        foreach($params['order'] as $param) {
+        foreach ($params['order'] as $param) {
             $qb->addOrderBy($param['name'], $param['dir']);
         }
 
-        if($params['search']['value']?: 0) {
+        if ($params['search']['value'] ?: 0) {
             $qb->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
             $qCount->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
         }
 
-        if(isset($params['start']) ?: 0) {
+        if (isset($params['start']) ?: 0) {
             $qb->setFirstResult($params['start']);
         }
 
-        if(isset($params['length']) ?: 0) {
+        if (isset($params['length']) ?: 0) {
             $qb->setMaxResults($params['length']);
         }
 

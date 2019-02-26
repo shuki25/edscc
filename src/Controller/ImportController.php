@@ -23,20 +23,4 @@ class ImportController extends AbstractController
             'user' => $user
         ]);
     }
-
-//    /**
-//     * @Route("/import/upload", name="app_import_upload")
-//     */
-//    public function upload($token, Request $request, UploadedFile $uploadedFile)
-//    {
-//        $user = $this->getUser();
-//
-//        if($request->getMethod() == 'POST') {
-//
-//        }
-//
-//        return $this->redirectToRoute('app_import');
-//
-//    }
-
 }

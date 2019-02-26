@@ -36,9 +36,8 @@ class ReportController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword(),[\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"']);
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"']);
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -46,6 +45,7 @@ class ReportController extends AbstractController
 
         $this->translator = $translator;
     }
+
     /**
      * @Route("/reports", name="app_player_reports")
      */
@@ -85,7 +85,7 @@ class ReportController extends AbstractController
          */
         $user = $this->getUser();
 
-        if(!$this->isCsrfTokenValid('ajax_report', $token)) {
+        if (!$this->isCsrfTokenValid('ajax_report', $token)) {
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
@@ -110,15 +110,15 @@ class ReportController extends AbstractController
         $parameters_data = $rs->fetch(\PDO::FETCH_ASSOC);
 
         $params = [];
-        if(!is_null($parameters[0])) {
-            foreach($parameters[0] as $i=>$item) {
+        if (!is_null($parameters[0])) {
+            foreach ($parameters[0] as $i => $item) {
                 $params[] = $parameters_data[$item];
             }
         }
 
         $counter_params = [];
-        if(!is_null($parameters[1])) {
-            foreach($parameters[1] as $i=>$item) {
+        if (!is_null($parameters[1])) {
+            foreach ($parameters[1] as $i => $item) {
                 $counter_params[] = $parameters_data[$item];
             }
         }
@@ -126,11 +126,11 @@ class ReportController extends AbstractController
         $order_by = $datatable_params['columns'][$datatable_params['order'][0]['column']]['data'];
         $order_dir = $datatable_params['order'][0]['dir'] == "asc" ? "asc" : "desc";
 
-        if(!is_null($report['cast_columns'])) {
-            $cast_columns = json_decode($report['cast_columns'],true);
+        if (!is_null($report['cast_columns'])) {
+            $cast_columns = json_decode($report['cast_columns'], true);
         }
 
-        if(!is_null($report['sort_columns'])) {
+        if (!is_null($report['sort_columns'])) {
             $sort_columns = json_decode($report['sort_columns'], true);
         }
 
@@ -141,15 +141,14 @@ class ReportController extends AbstractController
             $rowcount = $rs->fetchColumn(0);
 
             $order_by_str = " order by `%s` %s";
-            if(isset($cast_columns[$order_by])) {
+            if (isset($cast_columns[$order_by])) {
                 $order_by_str = " order by cast(`%s` as " . $cast_columns[$order_by] . ") %s";
             }
             $order_by_str .= " limit %d offset %d";
 
-            if(isset($sort_columns[$order_by])) {
+            if (isset($sort_columns[$order_by])) {
                 $sql = $report['sql'] . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
-            }
-            else {
+            } else {
                 $sql = $report['sql'] . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
             }
 
@@ -157,16 +156,15 @@ class ReportController extends AbstractController
             $rs->execute($params);
             $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
             $has_data = $rs->rowCount();
-        }
-        catch (\PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage();
             die;
         }
 
-        if($has_data) {
-            if(!is_null($datatable['data'][0]['commander_name'])) {
+        if ($has_data) {
+            if (!is_null($datatable['data'][0]['commander_name'])) {
                 foreach ($datatable['data'] as $i => $row) {
-                    $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%',['%name%' => $row['commander_name']]);
+                    $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%', ['%name%' => $row['commander_name']]);
                 }
             }
         }

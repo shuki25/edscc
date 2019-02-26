@@ -49,7 +49,7 @@ class LoadDummyDailyDataCommand extends Command
     private $faker;
     private $referencesIndexByORM = [];
     private $referencesRank = [];
-    private $rank_list = ['combat','trade','explore','federation','empire','cqc'];
+    private $rank_list = ['combat', 'trade', 'explore', 'federation', 'empire', 'cqc'];
     private $date_to_use;
     private $utc;
 
@@ -116,8 +116,7 @@ class LoadDummyDailyDataCommand extends Command
     {
         $this
             ->setDescription('Add dummy daily earning and activities data to the database. [For development and testing only.]')
-            ->addOption('date', 'd', InputOption::VALUE_REQUIRED, 'Date to use for fake data.')
-        ;
+            ->addOption('date', 'd', InputOption::VALUE_REQUIRED, 'Date to use for fake data.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -137,7 +136,7 @@ class LoadDummyDailyDataCommand extends Command
         $this->referencesIndexByORM[Platform::class] = $this->platformRepository->findAll();
         $this->referencesIndexByORM[Status::class] = $this->statusRepository->findAll();
         $this->referencesIndexByORM[EarningType::class] = $this->earningTypeRepository->findAll();
-        $this->referencesIndexByORM[User::class] = $this->userRepository->findBy([],null, null, 1);
+        $this->referencesIndexByORM[User::class] = $this->userRepository->findBy([], null, null, 1);
 
         $num_users = count($this->referencesIndexByORM[User::class]);
         $min = round($num_users * .3);
@@ -146,18 +145,18 @@ class LoadDummyDailyDataCommand extends Command
 
         $progressBar->start($num_users_to_update);
 
-        for($i=0; $i<$num_users_to_update; $i++) {
+        for ($i = 0; $i < $num_users_to_update; $i++) {
 
             /**
              * @var User $user
              */
             $user = $this->getRandomReferenceByORM(User::class);
-            $num_earning = $this->faker->numberBetween(5,15);
+            $num_earning = $this->faker->numberBetween(5, 15);
 
-            $this->createMany(EarningHistory::class, $num_earning, function(EarningHistory $earningHistory, $count) use ($user) {
-                $reward = $this->faker->numberBetween(500,3000000) + $this->faker->optional(0.05, 0)->numberBetween(10000000,30000000);
+            $this->createMany(EarningHistory::class, $num_earning, function (EarningHistory $earningHistory, $count) use ($user) {
+                $reward = $this->faker->numberBetween(500, 3000000) + $this->faker->optional(0.05, 0)->numberBetween(10000000, 30000000);
                 $type = $this->getRandomReferenceByORM(EarningType::class);
-                if($type->getName() == 'MarketBuy') {
+                if ($type->getName() == 'MarketBuy') {
                     $reward *= -1;
                 }
                 $earningHistory->setUser($user)
@@ -167,8 +166,8 @@ class LoadDummyDailyDataCommand extends Command
                     ->setReward($reward);
             });
 
-            $activityCounter = $this->activityCounterRepository->findOneBy(['user'=>$user, 'activity_date'=>$this->date_to_use]);
-            if(!is_object($activityCounter)) {
+            $activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'activity_date' => $this->date_to_use]);
+            if (!is_object($activityCounter)) {
                 $activityCounter = new ActivityCounter();
                 $activityCounter->setUser($user)
                     ->setSquadron($user->getSquadron())
@@ -176,26 +175,26 @@ class LoadDummyDailyDataCommand extends Command
                 $this->manager->persist($activityCounter);
             }
 
-            $systemFound = $this->faker->optional(0.1, 0)->numberBetween(0,100);
-            $bodiesFound = $systemFound ? ($systemFound * 8) + $this->faker->numberBetween(0,50) : 0;
-            $ssaScanned = $bodiesFound ? round($bodiesFound * 0.04) + $this->faker->numberBetween(0,round($bodiesFound * 0.02)) : 0;
-            $efficiency = $ssaScanned ? $ssaScanned - $this->faker->optional(0.2, 0)->numberBetween(0,round($ssaScanned * 0.15)) : 0;
-            $marketbuy = $this->faker->optional(0.1, 0)->numberBetween(0,500);
-            $marketsell = $marketbuy ? $marketbuy + $this->faker->numberBetween(0,10) : 0;
+            $systemFound = $this->faker->optional(0.1, 0)->numberBetween(0, 100);
+            $bodiesFound = $systemFound ? ($systemFound * 8) + $this->faker->numberBetween(0, 50) : 0;
+            $ssaScanned = $bodiesFound ? round($bodiesFound * 0.04) + $this->faker->numberBetween(0, round($bodiesFound * 0.02)) : 0;
+            $efficiency = $ssaScanned ? $ssaScanned - $this->faker->optional(0.2, 0)->numberBetween(0, round($ssaScanned * 0.15)) : 0;
+            $marketbuy = $this->faker->optional(0.1, 0)->numberBetween(0, 500);
+            $marketsell = $marketbuy ? $marketbuy + $this->faker->numberBetween(0, 10) : 0;
 
             $activityCounter->setActivityDate($this->date_to_use)
-                ->addBountiesClaimed($this->faker->optional(0.1, 0)->numberBetween(0,25))
+                ->addBountiesClaimed($this->faker->optional(0.1, 0)->numberBetween(0, 25))
                 ->addSystemsScanned($systemFound)
                 ->addBodiesFound($bodiesFound)
                 ->addSaaScanCompleted($ssaScanned)
                 ->addEfficiencyAchieved($efficiency)
                 ->addMarketBuy($marketbuy)
                 ->addMarketSell($marketsell)
-                ->addMissionsCompleted($this->faker->optional(0.05, 0)->numberBetween(0,50))
-                ->addMiningRefined($this->faker->optional(0.05, 0)->numberBetween(0,200))
-                ->addStolenGoods($this->faker->optional(0.01, 0)->numberBetween(0,25))
-                ->addCgParticipated($this->faker->optional(0.1, 0)->numberBetween(0,2))
-                ->addCrimesCommitted($this->faker->optional(0.01, 0)->numberBetween(0,5));
+                ->addMissionsCompleted($this->faker->optional(0.05, 0)->numberBetween(0, 50))
+                ->addMiningRefined($this->faker->optional(0.05, 0)->numberBetween(0, 200))
+                ->addStolenGoods($this->faker->optional(0.01, 0)->numberBetween(0, 25))
+                ->addCgParticipated($this->faker->optional(0.1, 0)->numberBetween(0, 2))
+                ->addCrimesCommitted($this->faker->optional(0.01, 0)->numberBetween(0, 5));
 
             $progressBar->advance();
         }
@@ -208,12 +207,12 @@ class LoadDummyDailyDataCommand extends Command
 
     function createMany(string $className, int $count, callable $factory)
     {
-        for($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $entity = new $className();
             $factory($entity, $i);
 
             $this->manager->persist($entity);
-            if($i % 500 === 0) {
+            if ($i % 500 === 0) {
                 $this->manager->flush();
             }
         }

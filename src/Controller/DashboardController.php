@@ -36,9 +36,8 @@ class DashboardController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword());
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword());
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -67,7 +66,7 @@ class DashboardController extends AbstractController
         $sql = "select count(eh.id) from earning_history eh join earning_type et on eh.earning_type_id=et.id where squadron_id=? and et.mission_flag='1' and earned_on=?";
         $this->fetch_stats($sql, $squadron_id, 'missions', $data);
 
-        $sql ="select sum(bodies_found) from activity_counter where squadron_id=? and activity_date=?";
+        $sql = "select sum(bodies_found) from activity_counter where squadron_id=? and activity_date=?";
         $this->fetch_stats($sql, $squadron_id, 'bodies_found', $data);
 
         return $this->render('dashboard/index.html.twig', [
@@ -81,25 +80,28 @@ class DashboardController extends AbstractController
 
     }
 
-    private function fetch_sql($sql, $params = null) {
+    private function fetch_sql($sql, $params = null)
+    {
         $rs = $this->dbh->prepare($sql);
-        if(is_array($params)) {
+        if (is_array($params)) {
             $rs->execute($params);
         }
         return $rs->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    private function fetch_sql_single_scalar($sql, $params = null) {
+    private function fetch_sql_single_scalar($sql, $params = null)
+    {
         $rs = $this->dbh->prepare($sql);
-        if(is_array($params)) {
+        if (is_array($params)) {
             $rs->execute($params);
         }
         return $rs->fetchColumn(0);
     }
 
-    private function fetch_stats($sql, $squadron_id, $prefix, &$data) {
+    private function fetch_stats($sql, $squadron_id, $prefix, &$data)
+    {
         $date_yesterday = date_format(new \DateTime('yesterday'), 'Y-m-d');
-        $date_today = date_format(new \DateTime('today'),'Y-m-d');
+        $date_today = date_format(new \DateTime('today'), 'Y-m-d');
 
         $yesterday = $this->fetch_sql_single_scalar($sql, [$squadron_id, $date_yesterday]) ?: 1;
         $today = $this->fetch_sql_single_scalar($sql, [$squadron_id, $date_today]) ?: 0;

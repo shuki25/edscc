@@ -50,7 +50,7 @@ class AdminController extends AbstractController
         $squadron = $user->getSquadron();
         $em = $this->getDoctrine()->getManager();
         $tags_bank = [];
-        $tags = $tagsRepository->findBy([],['group_code' => 'asc', 'name' => 'asc']);
+        $tags = $tagsRepository->findBy([], ['group_code' => 'asc', 'name' => 'asc']);
         $group_code = [
             'activities' => "Activities",
             'availability' => "Availability",
@@ -60,15 +60,15 @@ class AdminController extends AbstractController
             'attitude' => "Attitude",
         ];
         $squadron_tags = $user->getSquadron()->getSquadronTags();
-        foreach($squadron_tags as $i=>$row) {
+        foreach ($squadron_tags as $i => $row) {
             $tags_bank[] = $row->getTag()->getId();
         }
 
         $custom_ranks = $user->getSquadron()->getCustomRanks();
-        $ranks = $rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+        $ranks = $rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
 
-        if($custom_ranks->isEmpty()) {
-            foreach ($ranks as $i=>$row) {
+        if ($custom_ranks->isEmpty()) {
+            foreach ($ranks as $i => $row) {
                 $custom_rank = new CustomRank();
                 $custom_rank->setOrderId($row->getAssignedId())
                     ->setName($row->getName());
@@ -81,7 +81,7 @@ class AdminController extends AbstractController
 
         $custom_ranks_idx = [];
 
-        foreach ($custom_ranks as $i=>$row) {
+        foreach ($custom_ranks as $i => $row) {
             $custom_ranks_idx[$row->getOrderId()] = $row->getName();
         }
 
@@ -93,7 +93,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(SquadronType::class, $data);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             /**
              * @var Squadron $squad
@@ -101,7 +101,7 @@ class AdminController extends AbstractController
             $squad = $form->getData();
             $em->flush();
 
-            $this->addFlash('success',$this->translator->trans('Your settings have been saved.'));
+            $this->addFlash('success', $this->translator->trans('Your settings have been saved.'));
             $data = $squad;
         }
 
@@ -133,10 +133,9 @@ class AdminController extends AbstractController
         $custom_ranks = $squadron->getCustomRanks();
 
 
-        if(!$this->isCsrfTokenValid('update_ranks', $token)) {
+        if (!$this->isCsrfTokenValid('update_ranks', $token)) {
             $this->addFlash('success', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
-        }
-        else {
+        } else {
             $em = $this->getDoctrine()->getManager();
             $new_ranks = $request->request->get('new_rank');
             /**
@@ -147,7 +146,7 @@ class AdminController extends AbstractController
             do {
                 $element->setName($new_ranks[$element->getOrderId()]);
                 $element = $custom_ranks->next();
-            } while(is_object($element));
+            } while (is_object($element));
             $em->flush();
             $this->addFlash('success', $this->translator->trans('Squadron Rank Classifications Saved.'));
         }
@@ -181,7 +180,7 @@ class AdminController extends AbstractController
          * @var Announcement $data
          */
         $data = new Announcement();
-        $data ->setUser($user)->setSquadron($user->getSquadron());
+        $data->setUser($user)->setSquadron($user->getSquadron());
 
         $form = $this->createForm(AnnouncementType::class, $data);
         $form->handleRequest($request);
@@ -199,7 +198,7 @@ class AdminController extends AbstractController
             $em->persist($announcement);
             $em->flush();
 
-            $this->addFlash('success',$this->translator->trans('New announcement has been added.'));
+            $this->addFlash('success', $this->translator->trans('New announcement has been added.'));
             $data = $announcement;
 
             return $this->redirectToRoute('admin_list_announcements');
@@ -221,33 +220,33 @@ class AdminController extends AbstractController
          */
         $user = $this->getUser();
 
-        $data = $repository->findOneBy(['id'=>$slug, 'squadron' => $user->getSquadron()->getId()]);
+        $data = $repository->findOneBy(['id' => $slug, 'squadron' => $user->getSquadron()->getId()]);
 
-        if(!is_object($data)) {
-            $this->addFlash('alert',$this->translator->trans('Permission Denied. Unable to access to this resource.'));
+        if (!is_object($data)) {
+            $this->addFlash('alert', $this->translator->trans('Permission Denied. Unable to access to this resource.'));
             return $this->redirectToRoute('admin_list_announcements');
         }
         $form = $this->createForm(AnnouncementType::class, $data);
         $form->handleRequest($request);
 
-        if(!$this->isCsrfTokenValid('edit_announcement',$token)) {
-            $this->addFlash('success',$this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
+        if (!$this->isCsrfTokenValid('edit_announcement', $token)) {
+            $this->addFlash('success', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
             return $this->redirectToRoute('admin_list_announcements');
         }
 
-        if($request->request->get('cancel')) {
+        if ($request->request->get('cancel')) {
             $this->addFlash('alert', $this->translator->trans('Changes were not saved.'));
             return $this->redirectToRoute('admin_list_announcements');
         }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var Announcement $announcement
              */
             $announcement = $form->getData();
             $em->flush();
 
-            $this->addFlash('success',$this->translator->trans('Your changes have been updated.'));
+            $this->addFlash('success', $this->translator->trans('Your changes have been updated.'));
             $data = $announcement;
 
             return $this->redirectToRoute('admin_list_announcements');
@@ -298,7 +297,7 @@ class AdminController extends AbstractController
      */
     public function list_members(Request $request)
     {
-        $this->denyAccessUnlessGranted(['CAN_CHANGE_STATUS','CAN_EDIT_USER','CAN_EDIT_PERMISSIONS','CAN_VIEW_HISTORY'], User::class);
+        $this->denyAccessUnlessGranted(['CAN_CHANGE_STATUS', 'CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS', 'CAN_VIEW_HISTORY'], User::class);
 
         return $this->render('admin/list_members_datatables.html.twig', [
             'title' => 'Members List'
@@ -313,23 +312,22 @@ class AdminController extends AbstractController
         $squadron_id = $this->getUser()->getSquadron()->getId();
         $user = $userRepository->findOneBy(['id' => $id, 'Squadron' => $squadron_id]);
 
-        if($id == $this->getUser()->getId()) {
+        if ($id == $this->getUser()->getId()) {
             $this->denyAccessUnlessGranted('CAN_MODIFY_SELF');
         }
-        $this->denyAccessUnlessGranted(['CAN_EDIT_USER','CAN_EDIT_PERMISSIONS','CAN_VIEW_HISTORY'], $user);
+        $this->denyAccessUnlessGranted(['CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS', 'CAN_VIEW_HISTORY'], $user);
 
-        $ranks = $customRankRepository->findBy(['squadron' => $squadron_id],['order_id' => 'asc']);
-        $statuses = $statusRepository->findBy([],['name' => 'asc'],5);
-        if($this->isGranted("ROLE_ADMIN")) {
-            $acls = $aclRepository->findBy([],['list_order' => 'asc']);
-        }
-        else {
-            $acls = $aclRepository->findBy(['admin_flag' => false],['list_order' => 'asc']);
+        $ranks = $customRankRepository->findBy(['squadron' => $squadron_id], ['order_id' => 'asc']);
+        $statuses = $statusRepository->findBy([], ['name' => 'asc'], 5);
+        if ($this->isGranted("ROLE_ADMIN")) {
+            $acls = $aclRepository->findBy([], ['list_order' => 'asc']);
+        } else {
+            $acls = $aclRepository->findBy(['admin_flag' => false], ['list_order' => 'asc']);
         }
 
-        if(!$this->isCsrfTokenValid('edit_member',$token)) {
-           $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
-           return $this->redirectToRoute('admin_list_members');
+        if (!$this->isCsrfTokenValid('edit_member', $token)) {
+            $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
+            return $this->redirectToRoute('admin_list_members');
         }
 
 
@@ -349,10 +347,10 @@ class AdminController extends AbstractController
     {
         $id = $request->request->get('id');
 
-        if($id == $this->getUser()->getId()) {
+        if ($id == $this->getUser()->getId()) {
             $this->denyAccessUnlessGranted('CAN_MODIFY_SELF');
         }
-        $this->denyAccessUnlessGranted(['CAN_EDIT_USER','CAN_EDIT_PERMISSIONS']);
+        $this->denyAccessUnlessGranted(['CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS']);
 
         $em = $this->getDoctrine()->getManager();
         $squadron_id = $this->getUser()->getSquadron()->getId();
@@ -362,29 +360,29 @@ class AdminController extends AbstractController
         $email_flag = isset($data['email_verify']) ? "Y" : "N";
         $join_date = isset($data['join_date']) ? new \DateTime($data['join_date'], $this->utc) : new \DateTime('new', $this->utc);
 
-        if(!$this->isCsrfTokenValid('save_member',$token)) {
+        if (!$this->isCsrfTokenValid('save_member', $token)) {
             $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please refresh the page to continue.'));
             return $this->redirectToRoute('admin_list_members');
         }
 
         $user = $userRepository->findOneBy(['id' => $id, 'Squadron' => $squadron_id]);
 
-        if($this->isGranted('CAN_EDIT_USER')) {
+        if ($this->isGranted('CAN_EDIT_USER')) {
             $status = $statusRepository->findOneBy(['id' => $data['status_id']]);
             $rank = $rankRepository->findOneBy(['group_code' => 'service', 'assigned_id' => $data['rank_id']]);
             $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron_id, 'order_id' => $data['rank_id']]);
-            if(is_object($user)) {
+            if (is_object($user)) {
                 $user->setStatus($status)->setRank($rank)->setCustomRank($custom_rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag)->setDateJoined($join_date);
                 $em->flush();
             }
         }
-        
-        if($this->isGranted('CAN_EDIT_PERMISSIONS')) {
-            if(is_object($user)) {
+
+        if ($this->isGranted('CAN_EDIT_PERMISSIONS')) {
+            if (is_object($user)) {
                 $acl = isset($data['acl']) ? $data['acl'] : [];
-                
+
                 $roles = $user->getRoles();
-                if(in_array("ROLE_SUPERUSER",$roles)) {
+                if (in_array("ROLE_SUPERUSER", $roles)) {
                     $acl[] = "ROLE_SUPERUSER";
                 }
                 $user->setRoles($acl);

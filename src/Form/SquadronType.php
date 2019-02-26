@@ -27,7 +27,7 @@ class SquadronType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',null, [
+            ->add('name', null, [
                 'label' => 'Name of your Squadron',
                 'help' => 'Exact spelling as depicted in the game',
                 'required' => true

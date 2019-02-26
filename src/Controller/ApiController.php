@@ -37,45 +37,40 @@ class ApiController extends AbstractController
          */
         $user = $userRepository->findOneBy(['apikey' => $api_key]);
 
-        if($request->getMethod() != "POST") {
+        if ($request->getMethod() != "POST") {
             $json_response->setStatusCode(405);
-        }
-        elseif($request->headers->get('Content-Type') != "application/x-www-form-urlencoded") {
+        } elseif ($request->headers->get('Content-Type') != "application/x-www-form-urlencoded") {
             $json_response->setStatusCode(400);
             $response = [
                 'status_code' => 400,
                 'message' => 'Bad request. Wrong content type.'
             ];
             $json_response->setData($response);
-        }
-        elseif(!is_object($user) || $api_key == '') {
+        } elseif (!is_object($user) || $api_key == '') {
             $response = [
                 'status_code' => 401,
                 'message' => 'Unauthorized request. No API key or it was not registered.'
             ];
             $json_response->setData($response);
             $json_response->setStatusCode(401);
-        }
-        else {
+        } else {
             try {
                 $em = $this->getDoctrine()->getManager();
                 $data = $request->request->all();
 
-                if($data['fromSoftware'] != "E:D Market Connector") {
+                if ($data['fromSoftware'] != "E:D Market Connector") {
                     $response = [
                         'status_code' => 403,
                         'message' => 'Forbidden. Unauthorized Client.'
                     ];
                     $json_response->setStatusCode(403);
-                }
-                elseif($data['data_type'] != 'journal') {
+                } elseif ($data['data_type'] != 'journal') {
                     $response = [
                         'status_code' => 200,
                         'message' => 'Data not processed.'
                     ];
                     $json_response->setStatusCode(200);
-                }
-                else {
+                } else {
                     $edmc = new Edmc();
                     $edmc->setUser($user);
                     $edmc->setEntry($data['data']);
@@ -88,7 +83,7 @@ class ApiController extends AbstractController
                      * @var Commander $commander
                      */
                     $commander = $user->getCommander();
-                    if(is_null($commander)) {
+                    if (is_null($commander)) {
                         $commander = new Commander();
                         $commander->setUser($entry->getUser());
                         $em->persist($commander);
@@ -110,8 +105,7 @@ class ApiController extends AbstractController
                     $json_response->setStatusCode(200);
                 }
                 $json_response->setData($response);
-            }
-            catch(\Exception $e) {
+            } catch (\Exception $e) {
                 $json_response->setStatusCode(500);
                 $response = [
                     'status_code' => 500,

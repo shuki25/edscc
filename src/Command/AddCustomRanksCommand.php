@@ -67,7 +67,7 @@ class AddCustomRanksCommand extends Command
         $progressBar->setFormat('very_verbose');
         $progressBar->start();
 
-        $ranks = $this->rankRepository->findBy(['group_code' => 'service'],['assigned_id' => 'asc']);
+        $ranks = $this->rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
         $rank_idx = [];
         $order_idx = [];
 
@@ -77,7 +77,7 @@ class AddCustomRanksCommand extends Command
 
         foreach ($squadrons as $squadron) {
             $custom_ranks = $squadron->getCustomRanks();
-            if($custom_ranks->isEmpty()) {
+            if ($custom_ranks->isEmpty()) {
                 foreach ($ranks as $row) {
                     $custom_rank = new CustomRank();
                     $custom_rank->setOrderId($row->getAssignedId())
@@ -96,7 +96,7 @@ class AddCustomRanksCommand extends Command
             do {
                 $rank_idx[$element->getSquadron()->getId()][$element->getOrderId()] = $element;
                 $element = $custom_ranks->next();
-            } while($element);
+            } while ($element);
 
             $progressBar->advance();
         }

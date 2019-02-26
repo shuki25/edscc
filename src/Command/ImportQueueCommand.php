@@ -72,8 +72,7 @@ class ImportQueueCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Process import queue for parsing of Player Journal log files')
-        ;
+            ->setDescription('Process import queue for parsing of Player Journal log files');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -83,24 +82,24 @@ class ImportQueueCommand extends Command
         $folder_path = $this->bag->get('command.fileupload.path');
         $num_records = 0;
 
-        if(!is_readable($folder_path) || !is_dir($folder_path)) {
+        if (!is_readable($folder_path) || !is_dir($folder_path)) {
             $io->error($folder_path . " is not readable or is not a directory.");
             return;
         }
 
-        $queue = $this->importQueueRepository->findBy(['progress_code' => 'Q'],['game_datetime' => 'asc']);
+        $queue = $this->importQueueRepository->findBy(['progress_code' => 'Q'], ['game_datetime' => 'asc']);
 
         $max = count($queue);
         $progressBar = new ProgressBar($output, $max);
         $progressBar->setFormat('very_verbose');
         $progressBar->start();
 
-        foreach($queue as $i=>$entry) {
+        foreach ($queue as $i => $entry) {
             $entry->setTimeStarted();
             $this->commander = $this->commanderRepository->findOneBy(['user' => $entry->getUser()]);
             $this->user = $entry->getUser();
 
-            if(is_null($this->commander)) {
+            if (is_null($this->commander)) {
                 $this->commander = new Commander();
                 $this->commander->setUser($entry->getUser());
             }
@@ -109,15 +108,13 @@ class ImportQueueCommand extends Command
 
             try {
                 $fh = fopen($file_path, 'r');
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $io->error($e->getMessage());
             }
 
-            if(!is_readable($file_path) || $fh === false) {
+            if (!is_readable($file_path) || $fh === false) {
                 $io->error($file_path . ' is not readable. Skipping.');
-            }
-            else {
+            } else {
                 while (($data = fgets($fh)) !== false) {
                     $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data);
                     time_nanosleep(0, 1000000);

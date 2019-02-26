@@ -60,8 +60,8 @@ class NotificationHelper
     public function admin_approval_notice(Squadron $squadron)
     {
         $leader = $this->userRepository->findOneBy(['id' => $squadron->getAdmin()->getId()]);
-        $body = $this->twig->render('emails/approval_notification_admin.html.twig',[
-           'leader' => $leader
+        $body = $this->twig->render('emails/approval_notification_admin.html.twig', [
+            'leader' => $leader
         ]);
 
         $message = (new \Swift_Message($this->translator->trans('ED:SCC Approval Requested')))

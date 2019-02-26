@@ -28,8 +28,7 @@ class MenuBuilder implements ContainerAwareInterface
         $this->yaml = new Yaml();
         try {
             $this->menu = $this->yaml->parseFile('../config/menu.yaml');
-        }
-        catch (ParseException $e) {
+        } catch (ParseException $e) {
             echo $e->getMessage();
         }
     }

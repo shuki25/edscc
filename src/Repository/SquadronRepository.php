@@ -28,12 +28,11 @@ class SquadronRepository extends ServiceEntityRepository
             ->join('u.verifyTokens', 'vt')
             ->andWhere('u.id = ?1 and vt.expiresAt > ?2')
             ->setParameter(1, $value)
-            ->setParameter(2,date('Y-m-d H:i:s'))
+            ->setParameter(2, date('Y-m-d H:i:s'))
             ->orderBy('vt.expiresAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**

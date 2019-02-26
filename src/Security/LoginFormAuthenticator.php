@@ -64,16 +64,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             'csrf_token' => $request->request->get('_csrf_token')
         ];
 
-        $request->getSession()->set(Security::LAST_USERNAME,$credentials['email']);
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email']);
 
         return $credentials;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $csrf_token = new CsrfToken('authenticate',$credentials['csrf_token']);
+        $csrf_token = new CsrfToken('authenticate', $credentials['csrf_token']);
 
-        if(!$this->csrfTokenManager->isTokenValid($csrf_token)) {
+        if (!$this->csrfTokenManager->isTokenValid($csrf_token)) {
             throw new InvalidCsrfTokenException();
         }
         return $this->userRepository->findOneBy(['email' => $credentials['email']]);
@@ -81,7 +81,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->userPasswordEncoder->isPasswordValid($user,$credentials['password']);
+        return $this->userPasswordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -90,7 +90,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $user->setLastLoginAt();
 
         $this->manager->flush();
-        $targetPath = $this->getTargetPath($request->getSession(),$providerKey);
+        $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
         $status = $user->getStatus()->getName();
         $message = $this->translator->trans('Access Denied: Account status is %status%', ['%status%' => $status]);
 
@@ -102,10 +102,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
                 break;
         }
 
-        if($user->getSquadron()->getId() == 1) {
+        if ($user->getSquadron()->getId() == 1) {
             $targetPath = $this->router->generate('app_select_squadron');
-        }
-        elseif($user->getWelcomeMessageFlag() == "N" && $user->getStatus()->getName() == "Approved") {
+        } elseif ($user->getWelcomeMessageFlag() == "N" && $user->getStatus()->getName() == "Approved") {
             $targetPath = $this->router->generate('app_welcome');
         }
 

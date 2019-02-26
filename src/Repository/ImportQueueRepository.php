@@ -24,7 +24,7 @@ class ImportQueueRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('q')
             ->select("count(q.id)");
 
-        if($value != "") {
+        if ($value != "") {
             $qb->andWhere('q.user = :val')
                 ->setParameter('val', $value);
         }
@@ -32,7 +32,8 @@ class ImportQueueRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findAllByUserDatatables(?string $value, $params) {
+    public function findAllByUserDatatables(?string $value, $params)
+    {
 
         /**
          * @var QueryBuilder $qb
@@ -44,19 +45,19 @@ class ImportQueueRepository extends ServiceEntityRepository
             ->where('iq.user = :val')
             ->setParameter('val', $value);
 
-        $qb->select('iq.id as id','iq.original_filename as original_filename','iq.game_datetime as game_datetime', 'iq.progress_code as progress_code', 'iq.time_started as time_started, iq.progress_percent as progress_percent')
+        $qb->select('iq.id as id', 'iq.original_filename as original_filename', 'iq.game_datetime as game_datetime', 'iq.progress_code as progress_code', 'iq.time_started as time_started, iq.progress_percent as progress_percent')
             ->andWhere('iq.user = :val')
             ->setParameter('val', $value);
 
-        foreach($params['order'] as $param) {
+        foreach ($params['order'] as $param) {
             $qb->addOrderBy($param['name'], $param['dir']);
         }
 
-        if(isset($params['start']) ?: 0) {
+        if (isset($params['start']) ?: 0) {
             $qb->setFirstResult($params['start']);
         }
 
-        if(isset($params['length']) ?: 0) {
+        if (isset($params['length']) ?: 0) {
             $qb->setMaxResults($params['length']);
         }
 

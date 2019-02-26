@@ -162,7 +162,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -170,17 +170,15 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = json_decode($this->roles,true);
+        $roles = json_decode($this->roles, true);
         // guarantee every user at least has ROLE_USER
 
 
-        if($this->getStatus()->getName() != "Approved" && $this->getStatus()->getDeniedFlag() == false && $this->getEmailVerify() == "Y") {
+        if ($this->getStatus()->getName() != "Approved" && $this->getStatus()->getDeniedFlag() == false && $this->getEmailVerify() == "Y") {
             $roles = ['ROLE_PENDING'];
-        }
-        elseif($this->getEmailVerify() == "N" || $this->getStatus()->getDeniedFlag()) {
+        } elseif ($this->getEmailVerify() == "N" || $this->getStatus()->getDeniedFlag()) {
             $roles = ['ROLE_DENIED'];
-        }
-        else {
+        } else {
             $roles[] = 'ROLE_USER';
         }
 
@@ -199,7 +197,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -327,15 +325,14 @@ class User implements UserInterface
 
     public function getAvatarImgUrl(int $size = null): string
     {
-        if($this->getGravatarFlag() == "Y") {
+        if ($this->getGravatarFlag() == "Y") {
             $hash = md5(strtolower(trim($this->getUsername())));
             $url = sprintf("https://www.gravatar.com/avatar/%s?d=mp", $hash);
-            if($size) {
+            if ($size) {
                 $url .= sprintf("&s=%d", $size);
             }
             return $url;
-        }
-        else if($this->getAvatarUrl()) {
+        } else if ($this->getAvatarUrl()) {
             return $this->getAvatarUrl();
         }
         return "";
@@ -372,7 +369,7 @@ class User implements UserInterface
 
     public function getNewestVerifyTokens(): VerifyToken
     {
-        if($this->verifyTokens->isEmpty()) {
+        if ($this->verifyTokens->isEmpty()) {
             return new VerifyToken();
         }
         return $this->verifyTokens->first();

@@ -34,9 +34,8 @@ class LoadDummyAvatarCommand extends Command
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn,$dsnObject->getUsername(),$dsnObject->getPassword(), [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]);
-        }
-        catch (\Exception $e) {
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]);
+        } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
             dd($dsn);
@@ -53,7 +52,7 @@ class LoadDummyAvatarCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $client = new \GuzzleHttp\Client();
 
-        if(!is_object($client)) {
+        if (!is_object($client)) {
             $io->error('Failed to create GuzzleHttp instance');
             return;
         }
@@ -77,16 +76,15 @@ class LoadDummyAvatarCommand extends Command
                     'random' => 1
                 ]
             ]);
-        }
-        catch (RequestException $e) {
+        } catch (RequestException $e) {
             $io->error($e->getMessage());
             return;
         }
 
         $json = $response->getBody()->getContents();
-        $avatar = json_decode($json,true);
+        $avatar = json_decode($json, true);
 
-        foreach($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $sql = "update user set avatar_url=? where id=?";
             $params = [
                 $avatar[$i]['photo'],
@@ -95,8 +93,7 @@ class LoadDummyAvatarCommand extends Command
             $rs = $this->dbh->prepare($sql);
             try {
                 $rs->execute($params);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $io->error($e->getMessage());
             }
             $progressBar->advance();
