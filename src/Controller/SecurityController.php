@@ -100,7 +100,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/new_member", name="app_new_member")
      */
-    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
+    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
     {
 
         $error = "";
@@ -122,6 +122,7 @@ class SecurityController extends AbstractController
                 $commander = new Commander();
                 $rank = $rankRepository->findOneBy(['id' => 1]);
                 $status = $statusRepository->findOneBy(['name' => 'Pending']);
+                $custom_rank = $customRankRepository->findOneBy(['id' => 1]);
 
                 $user->setCommanderName($data['commander_name'])
                     ->setEmail($data['email'])
@@ -131,6 +132,7 @@ class SecurityController extends AbstractController
                     ->setSquadron($squadron)
                     ->setCommander($commander)
                     ->setRank($rank)
+                    ->setCustomRank($custom_rank)
                     ->setStatus($status)
                     ->setApikey(md5('edmc' . $data['email'] . time()))
                     ->setPassword($passwordEncoder->encodePassword($user, $data['password1']));
