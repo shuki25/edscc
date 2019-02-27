@@ -4,6 +4,9 @@
 ### Beta and Demo Servers
 We have two servers for you to check out the features or for your use for data analysis.  The demo server is populated with fake data so that you can see what the site would look like when it is enriched with data rather than starting out from blank and not being able to view dashboard with line graphs and statistics.
 
+Beta Server: [beta.edscc.net](https://beta.edscc.net)
+Demo Server: [demo.edscc.net](https://demo.edscc.net)
+
 ### Requirements
 * PHP 7.2 or higher
 * MySQL 5.7 or higher
