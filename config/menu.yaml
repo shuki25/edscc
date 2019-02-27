@@ -25,15 +25,19 @@ user:
     7:
         header: "Player"
     8:
+        item: "Player Dashboard"
+        route: "player_dashboard"
+        icon: "fa fa-chart-area"
+    9:
         item: "Player Activities Report"
         route: "app_player_reports"
         icon: "fa fa-chart-line"
         star: true
-    9:
+    10:
         item: "Player Journal Log"
         route: "app_import"
         icon: "fa fa-upload"
-    10:
+    11:
         item: "My Profile"
         route: "app_profile"
         icon: "fa fa-cog"
