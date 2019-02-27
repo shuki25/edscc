@@ -176,6 +176,7 @@ class PlayerChartsController extends AbstractController
         }
         $results['data'][] = $this->fill_missing_dates($data, 30);
 
+        $buy = [];
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where squadron_id=? and earning_type_id='5' and earned_on between now() - interval 30 day and now() group by earned_on";
         $tmp = $this->fetch_sql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
@@ -183,6 +184,7 @@ class PlayerChartsController extends AbstractController
         }
         $buy = $this->fill_missing_dates($buy, 30);
 
+        $data = [];
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where squadron_id=? and earning_type_id='6' and earned_on between now() - interval 30 day and now() group by earned_on";
         $tmp = $this->fetch_sql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
