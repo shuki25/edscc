@@ -15,7 +15,7 @@ We have two servers for you to check out the features or for your use for data a
 ### Install
 1. Download the source code from Github.
 ```
-$ git clone
+$ git clone https://github.com/shuki25/edscc.git
 ```
 2. Install the package dependencies with composer.
 ```
@@ -27,7 +27,7 @@ $ composer install
 $ mysql -u root -p
 
 create database edscc;
-grant all privileges on edscc.* to 'username'@'localhost' identified by 'password'
+grant all privileges on edscc.* to 'username'@'localhost' identified by 'password';
 
 ```
 4. Type \q to exit the program and log in as the user you just created to install initial database.
