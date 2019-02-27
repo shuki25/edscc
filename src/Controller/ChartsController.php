@@ -177,6 +177,7 @@ class ChartsController extends AbstractController
         foreach ($tmp as $i => $row) {
             $buy[$row['x']] = $row['y'];
         }
+        $buy = $this->fill_missing_dates($buy, 30);
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_type_total where earning_type_id='6' and earned_on between now() - interval 30 day and now() group by earned_on";
         $tmp = $this->fetch_sql($sql, [$squadron_id]);
@@ -230,7 +231,7 @@ class ChartsController extends AbstractController
 
         for ($d = 0; $d < $num_days_ago; $d++) {
             $date = $current_date->format('Y-m-d');
-            $new_data[$date] = is_null($data[$date]) ? 0 : $data[$date];
+            $new_data[$date] = isset($data[$date]) ? $data[$date] : 0;
             $current_date->add($one_day_interval);
         }
         return $new_data;
