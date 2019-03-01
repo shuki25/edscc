@@ -55,7 +55,9 @@
                                         <p>The usual location for these files can be found in this folder:</p>
                                         <p><b>C:\Users\%userprofile%\Saved Games\Frontier Developments\Elite Dangerous</b></p>
                                         <p>Upload the files with the filenames in a format like this: Journal.190209154325.01.log. Note that all log files end with .log. All other files like Status.json, Journal315129.cache or the similar will not be accepted.</p>
-                                        <p>We also do <strike>accept a zip file of all log files combined in a single upload</strike> (Coming soon).  It will process each file and capture relevant data and store in the database.</p>
+                                        <p>We also do accept a zip file of all log files combined in a single upload. It
+                                            will process each file and capture relevant data and store in the database.
+                                            Maximum upload file size is {{ upload_max }}.</p>
                                     </div>
                                     <div class="form-container">
                                         <form action="{{ path('ajax_upload') }}" id="uploadFilesForm" name="fileupload" method="post" enctype="multipart/form-data">

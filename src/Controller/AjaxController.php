@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Alchemy\Zippy\Zippy;
 use App\Entity\ImportQueue;
 use App\Entity\SquadronTags;
 use App\Entity\User;
@@ -18,6 +19,7 @@ use Doctrine\ORM\EntityManager;
 use Knp\Bundle\TimeBundle\DateTimeFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -485,42 +487,104 @@ class AjaxController extends AbstractController
          */
         $user = $this->getUser();
         $join_date = new \DateTime(date_format($user->getDateJoined(), 'Y-m-d H:i:s'), $this->utc);
+        $zippy = Zippy::load();
+        $fileinfo = new \finfo();
 
         $em = $this->getDoctrine()->getManager();
         $folder_path = $this->getParameter('ajax.fileupload.path');
+        $tmp_dir = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
         $token = $request->request->get('_token');
-        $acceptable_files = ['text/plain', 'application/json'];
+        $acceptable_files = ['text/plain', 'application/json', 'application/zip'];
+        $archive_files = ['application/zip', 'application/x-gtar', 'application/x-tar', 'application/x-zip-compressed'];
+        $extension = [
+            'application/zip' => '.zip',
+            'application/x-gtar' => '.tar.gz',
+            'application/x-tar' => '.tar',
+            'application/x-zip-compressed' => '.zip'
+        ];
 
         if (!$this->isCsrfTokenValid('ajax_upload', $token)) {
             $data['status'] = 403;
             $data['errorMessage'] = $translator->trans("Invalid token. Uploaded files are not processed.");
         } else {
+            $file_list = $files;
+            $file_info = [];
+
+            foreach ($files as $i => $file) {
+                $mime = $file->getMimeType();
+
+                if (array_search($mime, $archive_files) !== false) {
+                    $archive_path = $file->getPathname();
+                    $file_info[$i] = [
+                        'original_name' => $file->getClientOriginalName(),
+                        'new_name' => "",
+                        'size' => $this->formatBytes($file->getSize(), 1),
+                        'type' => $mime,
+                        'status' => 'Archived file. Unpacked.',
+                        'skip' => true,
+                        'unpacked' => false
+                    ];
+
+                    try {
+                        $archive = $zippy->getAdapterFor($extension[$mime])->open($archive_path);
+                        $members = $archive->getMembers();
+                        $archive->extract($tmp_dir);
+                        foreach ($members as $item) {
+                            $original_filename = $item->getLocation();
+                            $path = $file->getPath() . "/" . $original_filename;
+                            $unpacked_file = new UploadedFile($path, $original_filename, null, null, true);
+                            $file_list[] = $unpacked_file;
+                            $file_info[] = [
+                                'skip' => false,
+                                'unpacked' => true
+                            ];
+                        }
+                    } catch (\Exception $e) {
+                        $file_info[$i] = [
+                            'original_name' => $file->getClientOriginalName(),
+                            'new_name' => "",
+                            'size' => $this->formatBytes($file->getSize(), 1),
+                            'type' => $mime,
+                            'status' => 'Error. ' . $e->getMessage(),
+                            'skip' => true,
+                            'unpacked' => false
+                        ];
+                    }
+                } else {
+                    $file_info[$i] = [
+                        'skip' => false,
+                        'unpacked' => false
+                    ];
+                }
+            }
+
             if (is_writable($folder_path) && is_dir($folder_path)) {
-                foreach ($files as $i => $file) {
+                foreach ($file_list as $i => $file) {
                     $new_name = md5(uniqid()) . '.' . $file->guessExtension();
                     $size = $file->getSize();
                     $mime = $file->getMimeType();
                     $accept = true;
-
-                    $files[$i] = [
-                        'original_name' => $file->getClientOriginalName(),
-                        'new_name' => $new_name,
-                        'size' => $this->formatBytes($size, 1),
-                        'type' => $mime,
-                        'status' => 'Accepted'
-                    ];
-
+                    $unpacked = $file_info[$i]['unpacked'] ?: false;
                     $queue = $repository->findOneBy(['user' => $user, 'original_filename' => $file->getClientOriginalName()]);
 
-                    if (!is_object($queue)) {
+                    if (!is_object($queue) && !$file_info[$i]['skip']) {
                         $queue = new ImportQueue();
                         $queue->setUser($user);
                         $queue->setOriginalFilename($file->getClientOriginalName());
                         $queue->setUploadFilename($new_name);
                         $queue->setProgressCode('Q');
 
+                        $file_info[$i] = [
+                            'original_name' => $file->getClientOriginalName(),
+                            'new_name' => $new_name,
+                            'size' => $this->formatBytes($size, 1),
+                            'type' => $mime,
+                            'status' => 'Accepted',
+                            'unpacked' => $unpacked
+                        ];
+
                         if (array_search($mime, $acceptable_files) === false) {
-                            $files[$i]['status'] = 'Rejected. Invalid type.';
+                            $file_info[$i]['status'] = 'Not Accepted. Invalid type.';
                             $accept = false;
                         } else {
                             $peek_file = $file->openFile('r');
@@ -530,40 +594,53 @@ class AjaxController extends AbstractController
                                 if (json_last_error() !== JSON_ERROR_NONE) {
                                     $found = true;
                                     $accept = false;
-                                    $files[$i]['status'] = 'Rejected. Not a Journal File.';
+                                    $file_info[$i]['status'] = 'Not Accepted. Not a Journal File.';
                                 } elseif ($peek_file->eof()) {
                                     $accept = false;
                                     $found = true;
-                                    $files[$i]['status'] = 'Rejected. Not a Journal File.';
+                                    $file_info[$i]['status'] = 'Not Accepted. Not a Journal File.';
                                 } elseif ($line['event'] == "Fileheader") {
                                     $found = true;
                                     $game_datetime = $line['timestamp'];
                                     $log_date = new \DateTime($game_datetime, $this->utc);
                                     if ($join_date > $log_date) {
                                         $accept = false;
-                                        $files[$i]['status'] = 'Rejected. Log date before join date.';
+                                        $file_info[$i]['status'] = 'Rejected. Log date before join date.';
                                     }
                                 }
                                 $peek_file->next();
                             } while (!$found);
                         }
                     } else {
+                        if (!$file_info[$i]['skip']) {
+                            $file_info[$i] = [
+                                'original_name' => $file->getClientOriginalName(),
+                                'new_name' => $new_name,
+                                'size' => $this->formatBytes($size, 1),
+                                'type' => $mime,
+                                'status' => 'Rejected. Already imported.',
+                                'unpacked' => $unpacked
+                            ];
+                        }
                         $accept = false;
-                        $files[$i]['status'] = 'Rejected. Already imported.';
+                        if ($file_info[$i]['unpacked']) {
+                            unlink($file->getPathname());
+                        }
                     }
 
                     if ($accept) {
                         if (!$file->move($folder_path, $new_name)) {
-                            $files[$i]['status'] = 'Upload Failed.';
+                            $file_info[$i]['status'] = 'Upload Failed.';
                         }
                         $queue->setGameDatetime(new \DateTime($game_datetime, $this->utc));
                         $em->persist($queue);
                         $em->flush();
                     }
                 }
+
                 $data['status'] = 200;
                 $data['responseText'] = $this->renderView('ajax/upload_list.html.twig', [
-                        'files' => $files
+                        'files' => $file_info
                     ]
                 );
             } else {

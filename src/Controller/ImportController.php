@@ -20,6 +20,7 @@ class ImportController extends AbstractController
 
         return $this->render('import/index.html.twig', [
             'title' => 'Importing Player Journal Log',
+            'upload_max' => ini_get('upload_max_filesize'),
             'user' => $user
         ]);
     }
