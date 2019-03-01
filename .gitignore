@@ -12,4 +12,5 @@
 /upload/
 /src/Migrations/
 /.idea/
+/*.lock
 ### End Custom
