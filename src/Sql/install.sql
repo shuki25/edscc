@@ -868,12 +868,12 @@ INSERT INTO x_player_report (id, title, header, `columns`, `sql`, count_sql, par
 DROP TABLE IF EXISTS `v_commander_daily_earning`;
 
 CREATE VIEW v_commander_daily_earning AS
-select `edscc-beta`.earning_history.user_id     AS user_id,
-       `edscc-beta`.earning_history.squadron_id AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward) AS total_earned,
-       `edscc-beta`.earning_history.earned_on   AS earned_on
-from `edscc-beta`.earning_history
-group by `edscc-beta`.earning_history.user_id, `edscc-beta`.earning_history.earned_on;
+select earning_history.user_id     AS user_id,
+       earning_history.squadron_id AS squadron_id,
+       sum(earning_history.reward) AS total_earned,
+       earning_history.earned_on   AS earned_on
+from earning_history
+group by earning_history.user_id, earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -899,8 +899,8 @@ from (select a.user_id                  AS user_id,
              sum(a.bodies_found)        AS bodies_found,
              sum(a.saa_scan_completed)  AS saa_scan_completed,
              sum(a.efficiency_achieved) AS efficiency_achieved
-      from (`edscc-beta`.activity_counter a
-             left join `edscc-beta`.`user` u on ((a.user_id = u.id)))
+      from (activity_counter a
+             left join `user` u on ((a.user_id = u.id)))
       group by a.user_id, a.squadron_id) t;
 
 -- --------------------------------------------------------
@@ -917,19 +917,19 @@ select t1.id                            AS id,
        t2.market_sell                   AS market_sell,
        (t1.market_buy + t2.market_sell) AS total
 from (((select u.id AS id, ifnull(a1.squadron_id, u.squadron_id) AS squadron_id, ifnull(a1.market_buy, 0) AS market_buy
-        from (`edscc-beta`.`user` u
+        from (`user` u
                left join (select e.user_id AS user_id, e.squadron_id AS squadron_id, sum(e.reward) AS market_buy
-                          from `edscc-beta`.earning_history e
+                          from earning_history e
                           where (e.earning_type_id = '5')
                           group by e.user_id, e.squadron_id) a1 on ((u.id = a1.user_id))))) t1
        left join (select u.id                                  AS id,
                          ifnull(b1.squadron_id, u.squadron_id) AS squadron_id,
                          ifnull(b1.market_sell, 0)             AS market_sell
-                  from (`edscc-beta`.`user` u
+                  from (`user` u
                          left join (select e.user_id     AS user_id,
                                            e.squadron_id AS squadron_id,
                                            sum(e.reward) AS market_sell
-                                    from `edscc-beta`.earning_history e
+                                    from earning_history e
                                     where (e.earning_type_id = '6')
                                     group by e.user_id, e.squadron_id) b1 on ((u.id = b1.user_id)))) t2
                  on (((t1.id = t2.id) and (t1.squadron_id = t2.squadron_id))));
@@ -951,8 +951,8 @@ from (select a.user_id          AS user_id,
              u.squadron_id      AS squadron_id,
              sum(a.market_buy)  AS units_bought,
              sum(a.market_sell) AS units_sold
-      from (`edscc-beta`.activity_counter a
-             left join `edscc-beta`.`user` u on ((a.user_id = u.id)))
+      from (activity_counter a
+             left join `user` u on ((a.user_id = u.id)))
       group by a.user_id) t;
 
 -- --------------------------------------------------------
@@ -963,13 +963,13 @@ from (select a.user_id          AS user_id,
 DROP TABLE IF EXISTS `v_commander_mission_total`;
 
 CREATE VIEW v_commander_mission_total AS
-select `edscc-beta`.earning_history.squadron_id AS squadron_id,
-       `edscc-beta`.earning_history.user_id     AS user_id,
-       sum(`edscc-beta`.earning_history.reward) AS total_earned,
-       `edscc-beta`.earning_history.earned_on   AS earned_on
-from `edscc-beta`.earning_history
-where (`edscc-beta`.earning_history.earning_type_id >= '8')
-group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
+select earning_history.squadron_id AS squadron_id,
+       earning_history.user_id     AS user_id,
+       sum(earning_history.reward) AS total_earned,
+       earning_history.earned_on   AS earned_on
+from earning_history
+where (earning_history.earning_type_id >= '8')
+group by earning_history.squadron_id, earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -979,11 +979,11 @@ group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.
 DROP TABLE IF EXISTS `v_commander_total_earning`;
 
 CREATE VIEW v_commander_total_earning AS
-select `edscc-beta`.earning_history.user_id     AS user_id,
-       `edscc-beta`.earning_history.squadron_id AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward) AS total_earned
-from `edscc-beta`.earning_history
-group by `edscc-beta`.earning_history.user_id;
+select earning_history.user_id     AS user_id,
+       earning_history.squadron_id AS squadron_id,
+       sum(earning_history.reward) AS total_earned
+from earning_history
+group by earning_history.user_id;
 
 -- --------------------------------------------------------
 
@@ -993,14 +993,14 @@ group by `edscc-beta`.earning_history.user_id;
 DROP TABLE IF EXISTS `v_commander_type_total`;
 
 CREATE VIEW v_commander_type_total AS
-select `edscc-beta`.earning_history.earning_type_id AS earning_type_id,
-       `edscc-beta`.earning_history.user_id         AS user_id,
-       `edscc-beta`.earning_history.squadron_id     AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward)     AS total_earned,
-       `edscc-beta`.earning_history.earned_on       AS earned_on
-from `edscc-beta`.earning_history
-group by `edscc-beta`.earning_history.earning_type_id, `edscc-beta`.earning_history.user_id,
-         `edscc-beta`.earning_history.earned_on;
+select earning_history.earning_type_id AS earning_type_id,
+       earning_history.user_id         AS user_id,
+       earning_history.squadron_id     AS squadron_id,
+       sum(earning_history.reward)     AS total_earned,
+       earning_history.earned_on       AS earned_on
+from earning_history
+group by earning_history.earning_type_id, earning_history.user_id,
+         earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -1010,11 +1010,11 @@ group by `edscc-beta`.earning_history.earning_type_id, `edscc-beta`.earning_hist
 DROP TABLE IF EXISTS `v_squadron_daily_total`;
 
 CREATE VIEW v_squadron_daily_total AS
-select `edscc-beta`.earning_history.squadron_id AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward) AS total_earned,
-       `edscc-beta`.earning_history.earned_on   AS earned_on
-from `edscc-beta`.earning_history
-group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
+select earning_history.squadron_id AS squadron_id,
+       sum(earning_history.reward) AS total_earned,
+       earning_history.earned_on   AS earned_on
+from earning_history
+group by earning_history.squadron_id, earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -1024,12 +1024,12 @@ group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.
 DROP TABLE IF EXISTS `v_squadron_mission_total`;
 
 CREATE VIEW v_squadron_mission_total AS
-select `edscc-beta`.earning_history.squadron_id AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward) AS total_earned,
-       `edscc-beta`.earning_history.earned_on   AS earned_on
-from `edscc-beta`.earning_history
-where (`edscc-beta`.earning_history.earning_type_id >= '8')
-group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
+select earning_history.squadron_id AS squadron_id,
+       sum(earning_history.reward) AS total_earned,
+       earning_history.earned_on   AS earned_on
+from earning_history
+where (earning_history.earning_type_id >= '8')
+group by earning_history.squadron_id, earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -1039,13 +1039,13 @@ group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.
 DROP TABLE IF EXISTS `v_squadron_type_total`;
 
 CREATE VIEW v_squadron_type_total AS
-select `edscc-beta`.earning_history.earning_type_id AS earning_type_id,
-       `edscc-beta`.earning_history.squadron_id     AS squadron_id,
-       sum(`edscc-beta`.earning_history.reward)     AS total_earned,
-       `edscc-beta`.earning_history.earned_on       AS earned_on
-from `edscc-beta`.earning_history
-group by `edscc-beta`.earning_history.earning_type_id, `edscc-beta`.earning_history.squadron_id,
-         `edscc-beta`.earning_history.earned_on;
+select earning_history.earning_type_id AS earning_type_id,
+       earning_history.squadron_id     AS squadron_id,
+       sum(earning_history.reward)     AS total_earned,
+       earning_history.earned_on       AS earned_on
+from earning_history
+group by earning_history.earning_type_id, earning_history.squadron_id,
+         earning_history.earned_on;
 
 --
 -- Indexes for dumped tables
