@@ -526,7 +526,6 @@ class AjaxController extends AbstractController
                     ];
 
                     try {
-                        $filename = $archive_path . $extension[$mime];
                         $archive = UnifiedArchive::open($archive_path);
                         $members = $archive->getFileNames();
                         $archive->extractFiles($tmp_dir);
