@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 22, 2019 at 08:13 PM
+-- Generation Time: Mar 01, 2019 at 08:06 PM
 -- Server version: 5.7.25-log
 -- PHP Version: 7.2.14-1+0~20190205200805.15+stretch~1.gbpd83c69
 
@@ -25,7 +25,9 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `p_commander_earning_rank` (IN `squadronId` INT)  begin
+DROP PROCEDURE IF EXISTS `p_commander_earning_rank`$$
+CREATE PROCEDURE `p_commander_earning_rank`(IN `squadronId` INT)
+begin
 select user_id, b.squadron_id, total_earned, 1+(select count(*) from v_commander_total_earning a where a.total_earned > b.total_earned and a.squadron_id=squadronId) as rank from v_commander_total_earning b left join user u on u.id=b.user_id where b.squadron_id=squadronId order by rank;
 end$$
 
@@ -37,6 +39,7 @@ DELIMITER ;
 -- Table structure for table acl
 --
 
+DROP TABLE IF EXISTS acl;
 CREATE TABLE acl (
   id int(11) NOT NULL,
   role_string varchar(50) NOT NULL,
@@ -64,6 +67,7 @@ INSERT INTO acl (id, role_string, description, list_order, admin_flag) VALUES
 -- Table structure for table activity_counter
 --
 
+DROP TABLE IF EXISTS activity_counter;
 CREATE TABLE activity_counter (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -89,6 +93,7 @@ CREATE TABLE activity_counter (
 -- Table structure for table announcement
 --
 
+DROP TABLE IF EXISTS announcement;
 CREATE TABLE announcement (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -110,6 +115,7 @@ CREATE TABLE announcement (
 -- Table structure for table commander
 --
 
+DROP TABLE IF EXISTS commander;
 CREATE TABLE commander (
   id int(11) NOT NULL,
   player_id varchar(20) DEFAULT NULL,
@@ -134,9 +140,37 @@ CREATE TABLE commander (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table custom_rank
+--
+
+DROP TABLE IF EXISTS custom_rank;
+CREATE TABLE custom_rank
+(
+  id          int(11)     NOT NULL,
+  squadron_id int(11)     NOT NULL,
+  order_id    smallint(6) NOT NULL,
+  name        varchar(30) NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+--
+-- Dumping data for table custom_rank
+--
+
+INSERT INTO custom_rank (id, squadron_id, order_id, `name`)
+VALUES (1, 1, 0, 'Rookie'),
+       (2, 1, 1, 'Agent'),
+       (3, 1, 2, 'Officer'),
+       (4, 1, 3, 'Senior Officer'),
+       (5, 1, 4, 'Leader');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table debug
 --
 
+DROP TABLE IF EXISTS debug;
 CREATE TABLE debug (
   id int(11) NOT NULL,
   detail mediumtext NOT NULL,
@@ -149,6 +183,7 @@ CREATE TABLE debug (
 -- Table structure for table earning_history
 --
 
+DROP TABLE IF EXISTS earning_history;
 CREATE TABLE earning_history (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -166,6 +201,7 @@ CREATE TABLE earning_history (
 -- Table structure for table earning_type
 --
 
+DROP TABLE IF EXISTS earning_type;
 CREATE TABLE earning_type (
   id int(11) NOT NULL,
   name varchar(40) NOT NULL,
@@ -208,6 +244,7 @@ INSERT INTO earning_type (id, `name`, mission_flag) VALUES
 -- Table structure for table edmc
 --
 
+DROP TABLE IF EXISTS edmc;
 CREATE TABLE edmc (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -222,6 +259,7 @@ CREATE TABLE edmc (
 -- Table structure for table faction
 --
 
+DROP TABLE IF EXISTS faction;
 CREATE TABLE faction (
   id int(11) NOT NULL,
   name varchar(255) NOT NULL,
@@ -245,6 +283,7 @@ INSERT INTO faction (id, `name`, logo, journal_id) VALUES
 -- Table structure for table import_queue
 --
 
+DROP TABLE IF EXISTS import_queue;
 CREATE TABLE import_queue (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -262,6 +301,7 @@ CREATE TABLE import_queue (
 -- Table structure for table migration_versions
 --
 
+DROP TABLE IF EXISTS migration_versions;
 CREATE TABLE migration_versions (
   version varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -269,9 +309,29 @@ CREATE TABLE migration_versions (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table motd
+--
+
+DROP TABLE IF EXISTS motd;
+CREATE TABLE motd
+(
+  id         int(11)    NOT NULL,
+  title      varchar(255) DEFAULT NULL,
+  message    longtext,
+  show_flag  tinyint(1) NOT NULL,
+  show_login tinyint(1) NOT NULL,
+  created_at datetime   NOT NULL,
+  updated_at datetime   NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table platform
 --
 
+DROP TABLE IF EXISTS platform;
 CREATE TABLE platform (
   id int(11) NOT NULL,
   name varchar(20) NOT NULL
@@ -292,6 +352,7 @@ INSERT INTO platform (id, `name`) VALUES
 -- Table structure for table `power`
 --
 
+DROP TABLE IF EXISTS power;
 CREATE TABLE power (
   id int(11) NOT NULL,
   name varchar(255) NOT NULL,
@@ -323,6 +384,7 @@ INSERT INTO `power` (id, `name`, logo, journal_id, color_power) VALUES
 -- Table structure for table rank
 --
 
+DROP TABLE IF EXISTS rank;
 CREATE TABLE rank (
   id int(11) NOT NULL,
   group_code varchar(20) DEFAULT NULL,
@@ -414,6 +476,7 @@ INSERT INTO rank (id, group_code, assigned_id, `name`, perm_mask) VALUES
 -- Table structure for table squadron
 --
 
+DROP TABLE IF EXISTS squadron;
 CREATE TABLE squadron (
   id int(11) NOT NULL,
   name varchar(255) NOT NULL,
@@ -442,6 +505,7 @@ INSERT INTO squadron (id, `name`, id_code, active, platform_id, admin_id, factio
 -- Table structure for table squadron_tags
 --
 
+DROP TABLE IF EXISTS squadron_tags;
 CREATE TABLE squadron_tags (
   id int(11) NOT NULL,
   squadron_id int(11) NOT NULL,
@@ -454,6 +518,7 @@ CREATE TABLE squadron_tags (
 -- Table structure for table `status`
 --
 
+DROP TABLE IF EXISTS status;
 CREATE TABLE `status` (
   id int(11) NOT NULL,
   name varchar(20) NOT NULL,
@@ -482,6 +547,7 @@ INSERT INTO `status` (id, `name`, lock_out_flag, banned_flag, active_flag, denie
 -- Table structure for table tags
 --
 
+DROP TABLE IF EXISTS tags;
 CREATE TABLE tags (
   id int(10) UNSIGNED NOT NULL,
   group_code varchar(20) NOT NULL,
@@ -532,35 +598,43 @@ INSERT INTO tags (id, group_code, `name`, badge_color) VALUES
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS user;
 CREATE TABLE `user` (
-  id int(11) NOT NULL,
-  email varchar(180) NOT NULL,
-  roles text NOT NULL,
-  password varchar(255) NOT NULL,
-  commander_name varchar(255) NOT NULL,
-  squadron_id int(11) DEFAULT NULL,
-  rank_id int(11) DEFAULT NULL,
-  status_id int(11) NOT NULL,
-  status_comment varchar(255) DEFAULT NULL,
-  email_verify varchar(1) NOT NULL DEFAULT 'N',
-  welcome_message_flag varchar(1) DEFAULT 'N',
-  apikey varchar(64) DEFAULT NULL,
-  oauth_id varchar(32) DEFAULT NULL,
-  google_flag varchar(1) NOT NULL DEFAULT 'N',
-  gravatar_flag varchar(1) NOT NULL DEFAULT 'N',
-  avatar_url varchar(255) DEFAULT NULL,
-  date_joined datetime DEFAULT NULL,
-  last_login_at datetime DEFAULT NULL,
-  created_at datetime NOT NULL,
-  updated_at datetime NOT NULL
+                      id                   int(11)      NOT NULL,
+                      email                varchar(180) NOT NULL,
+                      roles                text         NOT NULL,
+                      password             varchar(255) NOT NULL,
+                      commander_name       varchar(255) NOT NULL,
+                      squadron_id          int(11) DEFAULT NULL,
+                      rank_id              int(11) DEFAULT NULL,
+                      status_id            int(11)      NOT NULL,
+                      status_comment       varchar(255) DEFAULT NULL,
+                      email_verify         varchar(1)   NOT NULL DEFAULT 'N',
+                      welcome_message_flag varchar(1) DEFAULT 'N',
+                      apikey               varchar(64) DEFAULT NULL,
+                      oauth_id             varchar(32) DEFAULT NULL,
+                      google_flag          varchar(1)   NOT NULL DEFAULT 'N',
+                      gravatar_flag        varchar(1)   NOT NULL DEFAULT 'N',
+                      avatar_url           varchar(255) DEFAULT NULL,
+                      date_joined          datetime DEFAULT NULL,
+                      last_login_at        datetime DEFAULT NULL,
+                      created_at           datetime     NOT NULL,
+                      updated_at           datetime     NOT NULL,
+                      custom_rank_id       int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (id, email, roles, `password`, commander_name, squadron_id, rank_id, status_id, status_comment, email_verify, welcome_message_flag, apikey, oauth_id, google_flag, gravatar_flag, avatar_url, date_joined, last_login_at, created_at, updated_at) VALUES
-(1, 'dummyaccount@dummy.com', '[\"ROLE_ADMIN\"]', '$argon2i$v=19$m=1024,t=2,p=2$TXphREttaVM4ZmlDR0EwVw$3zilyDIG2Bizvc7ILBQTTZ+uJSSXqcwo3gxIXkUgp4w', 'dummy.account', 1, 1, 1, NULL, 'Y', 'N', NULL, NULL, 'N', 'N', 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTM0ODU5Nzk2OV5BMl5BanBnXkFtZTcwMzI2ODgyNQ@@._V1_UY256_CR4,0,172,256_AL_.jpg', '2018-11-01 00:00:00', NULL, '2019-01-14 00:00:00', '2019-01-21 22:16:01');
+INSERT INTO `user` (id, email, roles, `password`, commander_name, squadron_id, rank_id, status_id, status_comment,
+                    email_verify, welcome_message_flag, apikey, oauth_id, google_flag, gravatar_flag, avatar_url,
+                    date_joined, last_login_at, created_at, updated_at, custom_rank_id)
+VALUES (1, 'dummyaccount@dummy.com', '[\"ROLE_ADMIN\"]',
+        '$argon2i$v=19$m=1024,t=2,p=2$TXphREttaVM4ZmlDR0EwVw$3zilyDIG2Bizvc7ILBQTTZ+uJSSXqcwo3gxIXkUgp4w',
+        'dummy.account', 1, 1, 1, NULL, 'Y', 'N', NULL, NULL, 'N', 'N',
+        'https://images-na.ssl-images-amazon.com/images/M/MV5BMTM0ODU5Nzk2OV5BMl5BanBnXkFtZTcwMzI2ODgyNQ@@._V1_UY256_CR4,0,172,256_AL_.jpg',
+        '2018-11-01 00:00:00', NULL, '2019-01-14 00:00:00', '2019-02-24 20:39:22', 1);
 
 -- --------------------------------------------------------
 
@@ -568,6 +642,7 @@ INSERT INTO `user` (id, email, roles, `password`, commander_name, squadron_id, r
 -- Table structure for table verify_token
 --
 
+DROP TABLE IF EXISTS verify_token;
 CREATE TABLE verify_token (
   id int(11) NOT NULL,
   user_id int(11) NOT NULL,
@@ -581,6 +656,7 @@ CREATE TABLE verify_token (
 -- Stand-in structure for view v_commander_daily_earning
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_commander_daily_earning`;
 CREATE TABLE `v_commander_daily_earning` (
 `user_id` int(11)
 ,`squadron_id` int(11)
@@ -594,6 +670,7 @@ CREATE TABLE `v_commander_daily_earning` (
 -- Stand-in structure for view v_commander_exploration_total
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_commander_exploration_total`;
 CREATE TABLE `v_commander_exploration_total` (
 `user_id` int(11)
 ,`squadron_id` int(11)
@@ -611,6 +688,7 @@ CREATE TABLE `v_commander_exploration_total` (
 -- Stand-in structure for view v_commander_market_net_earning
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_commander_market_net_earning`;
 CREATE TABLE `v_commander_market_net_earning` (
 `id` int(11)
 ,`squadron_id` bigint(11)
@@ -625,6 +703,7 @@ CREATE TABLE `v_commander_market_net_earning` (
 -- Stand-in structure for view v_commander_market_net_units
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_commander_market_net_units`;
 CREATE TABLE `v_commander_market_net_units` (
 `user_id` int(11)
 ,`squadron_id` int(11)
@@ -636,9 +715,25 @@ CREATE TABLE `v_commander_market_net_units` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view v_commander_mission_total
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `v_commander_mission_total`;
+CREATE TABLE `v_commander_mission_total`
+(
+  `squadron_id`  int(11),
+  `user_id`      int(11),
+  `total_earned` decimal(32, 0),
+  `earned_on`    date
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view v_commander_total_earning
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_commander_total_earning`;
 CREATE TABLE `v_commander_total_earning` (
 `user_id` int(11)
 ,`squadron_id` int(11)
@@ -648,9 +743,26 @@ CREATE TABLE `v_commander_total_earning` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view v_commander_type_total
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `v_commander_type_total`;
+CREATE TABLE `v_commander_type_total`
+(
+  `earning_type_id` int(11),
+  `user_id`         int(11),
+  `squadron_id`     int(11),
+  `total_earned`    decimal(32, 0),
+  `earned_on`       date
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view v_squadron_daily_total
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_squadron_daily_total`;
 CREATE TABLE `v_squadron_daily_total` (
 `squadron_id` int(11)
 ,`total_earned` decimal(32,0)
@@ -663,6 +775,7 @@ CREATE TABLE `v_squadron_daily_total` (
 -- Stand-in structure for view v_squadron_mission_total
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_squadron_mission_total`;
 CREATE TABLE `v_squadron_mission_total` (
 `squadron_id` int(11)
 ,`total_earned` decimal(32,0)
@@ -675,6 +788,7 @@ CREATE TABLE `v_squadron_mission_total` (
 -- Stand-in structure for view v_squadron_type_total
 -- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `v_squadron_type_total`;
 CREATE TABLE `v_squadron_type_total` (
 `earning_type_id` int(11)
 ,`squadron_id` int(11)
@@ -688,6 +802,7 @@ CREATE TABLE `v_squadron_type_total` (
 -- Table structure for table x_leaderboard_report
 --
 
+DROP TABLE IF EXISTS x_leaderboard_report;
 CREATE TABLE x_leaderboard_report (
   id int(11) UNSIGNED NOT NULL,
   title varchar(255) DEFAULT NULL,
@@ -721,6 +836,7 @@ INSERT INTO x_leaderboard_report (id, title, header, `columns`, `sql`, count_sql
 -- Table structure for table x_player_report
 --
 
+DROP TABLE IF EXISTS x_player_report;
 CREATE TABLE x_player_report (
   id int(11) UNSIGNED NOT NULL,
   title varchar(255) DEFAULT NULL,
@@ -751,7 +867,13 @@ INSERT INTO x_player_report (id, title, header, `columns`, `sql`, count_sql, par
 --
 DROP TABLE IF EXISTS `v_commander_daily_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_daily_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.user_id,earning_history.earned_on ;
+CREATE VIEW v_commander_daily_earning AS
+select `edscc-beta`.earning_history.user_id     AS user_id,
+       `edscc-beta`.earning_history.squadron_id AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward) AS total_earned,
+       `edscc-beta`.earning_history.earned_on   AS earned_on
+from `edscc-beta`.earning_history
+group by `edscc-beta`.earning_history.user_id, `edscc-beta`.earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -760,7 +882,26 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_exploration_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_exploration_total  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.commander_name AS commander_name,t.systems_scanned AS systems_scanned,t.bodies_found AS bodies_found,t.saa_scan_completed AS saa_scan_completed,t.efficiency_achieved AS efficiency_achieved,cast(ifnull(format(((t.efficiency_achieved / t.saa_scan_completed) * 100),1),0) as decimal(4,1)) AS efficiency_rate from (select a.user_id AS user_id,a.squadron_id AS squadron_id,u.commander_name AS commander_name,sum(a.systems_scanned) AS systems_scanned,sum(a.bodies_found) AS bodies_found,sum(a.saa_scan_completed) AS saa_scan_completed,sum(a.efficiency_achieved) AS efficiency_achieved from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id,a.squadron_id) t ;
+CREATE VIEW v_commander_exploration_total AS
+select t.user_id                                                                                           AS user_id,
+       t.squadron_id                                                                                       AS squadron_id,
+       t.commander_name                                                                                    AS commander_name,
+       t.systems_scanned                                                                                   AS systems_scanned,
+       t.bodies_found                                                                                      AS bodies_found,
+       t.saa_scan_completed                                                                                AS saa_scan_completed,
+       t.efficiency_achieved                                                                               AS efficiency_achieved,
+       cast(ifnull(format(((t.efficiency_achieved / t.saa_scan_completed) * 100), 1),
+                   0) as decimal(4, 1))                                                                    AS efficiency_rate
+from (select a.user_id                  AS user_id,
+             a.squadron_id              AS squadron_id,
+             u.commander_name           AS commander_name,
+             sum(a.systems_scanned)     AS systems_scanned,
+             sum(a.bodies_found)        AS bodies_found,
+             sum(a.saa_scan_completed)  AS saa_scan_completed,
+             sum(a.efficiency_achieved) AS efficiency_achieved
+      from (`edscc-beta`.activity_counter a
+             left join `edscc-beta`.`user` u on ((a.user_id = u.id)))
+      group by a.user_id, a.squadron_id) t;
 
 -- --------------------------------------------------------
 
@@ -769,7 +910,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_market_net_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_commander_market_net_earning  AS  select t1.id AS id,t1.squadron_id AS squadron_id,t1.market_buy AS market_buy,t2.market_sell AS market_sell,(t1.market_buy + t2.market_sell) AS total from (((select u.id AS id,ifnull(a1.squadron_id,u.squadron_id) AS squadron_id,ifnull(a1.market_buy,0) AS market_buy from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_buy from earning_history e where (e.earning_type_id = '5') group by e.user_id,e.squadron_id) a1 on((u.id = a1.user_id))))) t1 left join (select u.id AS id,ifnull(b1.squadron_id,u.squadron_id) AS squadron_id,ifnull(b1.market_sell,0) AS market_sell from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_sell from earning_history e where (e.earning_type_id = '6') group by e.user_id,e.squadron_id) b1 on((u.id = b1.user_id)))) t2 on(((t1.id = t2.id) and (t1.squadron_id = t2.squadron_id)))) ;
+CREATE VIEW v_commander_market_net_earning AS
+select t1.id                            AS id,
+       t1.squadron_id                   AS squadron_id,
+       t1.market_buy                    AS market_buy,
+       t2.market_sell                   AS market_sell,
+       (t1.market_buy + t2.market_sell) AS total
+from (((select u.id AS id, ifnull(a1.squadron_id, u.squadron_id) AS squadron_id, ifnull(a1.market_buy, 0) AS market_buy
+        from (`edscc-beta`.`user` u
+               left join (select e.user_id AS user_id, e.squadron_id AS squadron_id, sum(e.reward) AS market_buy
+                          from `edscc-beta`.earning_history e
+                          where (e.earning_type_id = '5')
+                          group by e.user_id, e.squadron_id) a1 on ((u.id = a1.user_id))))) t1
+       left join (select u.id                                  AS id,
+                         ifnull(b1.squadron_id, u.squadron_id) AS squadron_id,
+                         ifnull(b1.market_sell, 0)             AS market_sell
+                  from (`edscc-beta`.`user` u
+                         left join (select e.user_id     AS user_id,
+                                           e.squadron_id AS squadron_id,
+                                           sum(e.reward) AS market_sell
+                                    from `edscc-beta`.earning_history e
+                                    where (e.earning_type_id = '6')
+                                    group by e.user_id, e.squadron_id) b1 on ((u.id = b1.user_id)))) t2
+                 on (((t1.id = t2.id) and (t1.squadron_id = t2.squadron_id))));
 
 -- --------------------------------------------------------
 
@@ -778,7 +941,35 @@ CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_market_net_units`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_commander_market_net_units  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.units_bought AS units_bought,t.units_sold AS units_sold,(t.units_sold - t.units_bought) AS net_units from (select a.user_id AS user_id,u.squadron_id AS squadron_id,sum(a.market_buy) AS units_bought,sum(a.market_sell) AS units_sold from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id) t ;
+CREATE VIEW v_commander_market_net_units AS
+select t.user_id                       AS user_id,
+       t.squadron_id                   AS squadron_id,
+       t.units_bought                  AS units_bought,
+       t.units_sold                    AS units_sold,
+       (t.units_sold - t.units_bought) AS net_units
+from (select a.user_id          AS user_id,
+             u.squadron_id      AS squadron_id,
+             sum(a.market_buy)  AS units_bought,
+             sum(a.market_sell) AS units_sold
+      from (`edscc-beta`.activity_counter a
+             left join `edscc-beta`.`user` u on ((a.user_id = u.id)))
+      group by a.user_id) t;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view v_commander_mission_total
+--
+DROP TABLE IF EXISTS `v_commander_mission_total`;
+
+CREATE VIEW v_commander_mission_total AS
+select `edscc-beta`.earning_history.squadron_id AS squadron_id,
+       `edscc-beta`.earning_history.user_id     AS user_id,
+       sum(`edscc-beta`.earning_history.reward) AS total_earned,
+       `edscc-beta`.earning_history.earned_on   AS earned_on
+from `edscc-beta`.earning_history
+where (`edscc-beta`.earning_history.earning_type_id >= '8')
+group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -787,7 +978,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_total_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_total_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned from earning_history group by earning_history.user_id ;
+CREATE VIEW v_commander_total_earning AS
+select `edscc-beta`.earning_history.user_id     AS user_id,
+       `edscc-beta`.earning_history.squadron_id AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward) AS total_earned
+from `edscc-beta`.earning_history
+group by `edscc-beta`.earning_history.user_id;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view v_commander_type_total
+--
+DROP TABLE IF EXISTS `v_commander_type_total`;
+
+CREATE VIEW v_commander_type_total AS
+select `edscc-beta`.earning_history.earning_type_id AS earning_type_id,
+       `edscc-beta`.earning_history.user_id         AS user_id,
+       `edscc-beta`.earning_history.squadron_id     AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward)     AS total_earned,
+       `edscc-beta`.earning_history.earned_on       AS earned_on
+from `edscc-beta`.earning_history
+group by `edscc-beta`.earning_history.earning_type_id, `edscc-beta`.earning_history.user_id,
+         `edscc-beta`.earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -796,7 +1009,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_squadron_daily_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_daily_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_daily_total AS
+select `edscc-beta`.earning_history.squadron_id AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward) AS total_earned,
+       `edscc-beta`.earning_history.earned_on   AS earned_on
+from `edscc-beta`.earning_history
+group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -805,7 +1023,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_sq
 --
 DROP TABLE IF EXISTS `v_squadron_mission_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_mission_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history where (earning_history.earning_type_id >= '8') group by earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_mission_total AS
+select `edscc-beta`.earning_history.squadron_id AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward) AS total_earned,
+       `edscc-beta`.earning_history.earned_on   AS earned_on
+from `edscc-beta`.earning_history
+where (`edscc-beta`.earning_history.earning_type_id >= '8')
+group by `edscc-beta`.earning_history.squadron_id, `edscc-beta`.earning_history.earned_on;
 
 -- --------------------------------------------------------
 
@@ -814,7 +1038,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_sq
 --
 DROP TABLE IF EXISTS `v_squadron_type_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_type_total  AS  select earning_history.earning_type_id AS earning_type_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.earning_type_id,earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_type_total AS
+select `edscc-beta`.earning_history.earning_type_id AS earning_type_id,
+       `edscc-beta`.earning_history.squadron_id     AS squadron_id,
+       sum(`edscc-beta`.earning_history.reward)     AS total_earned,
+       `edscc-beta`.earning_history.earned_on       AS earned_on
+from `edscc-beta`.earning_history
+group by `edscc-beta`.earning_history.earning_type_id, `edscc-beta`.earning_history.squadron_id,
+         `edscc-beta`.earning_history.earned_on;
 
 --
 -- Indexes for dumped tables
@@ -857,6 +1088,13 @@ ALTER TABLE commander
   ADD KEY IDX_42D318BA6A03EFC5 (federation_id),
   ADD KEY IDX_42D318BA6E6A432A (empire_id),
   ADD KEY IDX_42D318BA4B8351E7 (cqc_id);
+
+--
+-- Indexes for table custom_rank
+--
+ALTER TABLE custom_rank
+  ADD PRIMARY KEY (id),
+  ADD KEY IDX_890F2018D331F5B5 (squadron_id);
 
 --
 -- Indexes for table debug
@@ -905,6 +1143,12 @@ ALTER TABLE import_queue
 --
 ALTER TABLE migration_versions
   ADD PRIMARY KEY (version);
+
+--
+-- Indexes for table motd
+--
+ALTER TABLE motd
+  ADD PRIMARY KEY (id);
 
 --
 -- Indexes for table platform
@@ -963,7 +1207,8 @@ ALTER TABLE `user`
   ADD KEY IDX_8D93D649D331F5B5 (squadron_id),
   ADD KEY apikey_idx (apikey),
   ADD KEY IDX_8D93D6497616678F (rank_id),
-  ADD KEY IDX_8D93D6496BF700BD (status_id);
+  ADD KEY IDX_8D93D6496BF700BD (status_id),
+  ADD KEY IDX_8D93D649714F0E42 (custom_rank_id);
 
 --
 -- Indexes for table verify_token
@@ -1013,6 +1258,13 @@ ALTER TABLE commander
   MODIFY id int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table custom_rank
+--
+ALTER TABLE custom_rank
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 6;
+
+--
 -- AUTO_INCREMENT for table debug
 --
 ALTER TABLE debug
@@ -1046,6 +1298,12 @@ ALTER TABLE faction
 -- AUTO_INCREMENT for table import_queue
 --
 ALTER TABLE import_queue
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table motd
+--
+ALTER TABLE motd
   MODIFY id int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1147,6 +1405,12 @@ ALTER TABLE commander
   ADD CONSTRAINT FK_42D318BAFC7EEDB8 FOREIGN KEY (combat_id) REFERENCES rank (id);
 
 --
+-- Constraints for table custom_rank
+--
+ALTER TABLE custom_rank
+  ADD CONSTRAINT FK_890F2018D331F5B5 FOREIGN KEY (squadron_id) REFERENCES squadron (id);
+
+--
 -- Constraints for table earning_history
 --
 ALTER TABLE earning_history
@@ -1186,6 +1450,7 @@ ALTER TABLE squadron_tags
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
+  ADD CONSTRAINT FK_8D93D649714F0E42 FOREIGN KEY (custom_rank_id) REFERENCES custom_rank (id),
   ADD CONSTRAINT FK_8D93D6497616678F FOREIGN KEY (rank_id) REFERENCES rank (id),
   ADD CONSTRAINT FK_8D93D649D331F5B5 FOREIGN KEY (squadron_id) REFERENCES squadron (id),
   ADD CONSTRAINT user_ibfk_1 FOREIGN KEY (status_id) REFERENCES status (id);
