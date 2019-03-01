@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `p_commander_earning_rank` (IN `squadronId` INT)  begin
+CREATE PROCEDURE `p_commander_earning_rank` (IN `squadronId` INT)  begin
 select user_id, b.squadron_id, total_earned, 1+(select count(*) from v_commander_total_earning a where a.total_earned > b.total_earned and a.squadron_id=squadronId) as rank from v_commander_total_earning b left join user u on u.id=b.user_id where b.squadron_id=squadronId order by rank;
 end$$
 
@@ -751,7 +751,7 @@ INSERT INTO x_player_report (id, title, header, `columns`, `sql`, count_sql, par
 --
 DROP TABLE IF EXISTS `v_commander_daily_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_daily_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.user_id,earning_history.earned_on ;
+CREATE VIEW v_commander_daily_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.user_id,earning_history.earned_on ;
 
 -- --------------------------------------------------------
 
@@ -760,7 +760,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_exploration_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_exploration_total  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.commander_name AS commander_name,t.systems_scanned AS systems_scanned,t.bodies_found AS bodies_found,t.saa_scan_completed AS saa_scan_completed,t.efficiency_achieved AS efficiency_achieved,cast(ifnull(format(((t.efficiency_achieved / t.saa_scan_completed) * 100),1),0) as decimal(4,1)) AS efficiency_rate from (select a.user_id AS user_id,a.squadron_id AS squadron_id,u.commander_name AS commander_name,sum(a.systems_scanned) AS systems_scanned,sum(a.bodies_found) AS bodies_found,sum(a.saa_scan_completed) AS saa_scan_completed,sum(a.efficiency_achieved) AS efficiency_achieved from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id,a.squadron_id) t ;
+CREATE VIEW v_commander_exploration_total  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.commander_name AS commander_name,t.systems_scanned AS systems_scanned,t.bodies_found AS bodies_found,t.saa_scan_completed AS saa_scan_completed,t.efficiency_achieved AS efficiency_achieved,cast(ifnull(format(((t.efficiency_achieved / t.saa_scan_completed) * 100),1),0) as decimal(4,1)) AS efficiency_rate from (select a.user_id AS user_id,a.squadron_id AS squadron_id,u.commander_name AS commander_name,sum(a.systems_scanned) AS systems_scanned,sum(a.bodies_found) AS bodies_found,sum(a.saa_scan_completed) AS saa_scan_completed,sum(a.efficiency_achieved) AS efficiency_achieved from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id,a.squadron_id) t ;
 
 -- --------------------------------------------------------
 
@@ -769,7 +769,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_market_net_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_commander_market_net_earning  AS  select t1.id AS id,t1.squadron_id AS squadron_id,t1.market_buy AS market_buy,t2.market_sell AS market_sell,(t1.market_buy + t2.market_sell) AS total from (((select u.id AS id,ifnull(a1.squadron_id,u.squadron_id) AS squadron_id,ifnull(a1.market_buy,0) AS market_buy from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_buy from earning_history e where (e.earning_type_id = '5') group by e.user_id,e.squadron_id) a1 on((u.id = a1.user_id))))) t1 left join (select u.id AS id,ifnull(b1.squadron_id,u.squadron_id) AS squadron_id,ifnull(b1.market_sell,0) AS market_sell from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_sell from earning_history e where (e.earning_type_id = '6') group by e.user_id,e.squadron_id) b1 on((u.id = b1.user_id)))) t2 on(((t1.id = t2.id) and (t1.squadron_id = t2.squadron_id)))) ;
+CREATE VIEW v_commander_market_net_earning  AS  select t1.id AS id,t1.squadron_id AS squadron_id,t1.market_buy AS market_buy,t2.market_sell AS market_sell,(t1.market_buy + t2.market_sell) AS total from (((select u.id AS id,ifnull(a1.squadron_id,u.squadron_id) AS squadron_id,ifnull(a1.market_buy,0) AS market_buy from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_buy from earning_history e where (e.earning_type_id = '5') group by e.user_id,e.squadron_id) a1 on((u.id = a1.user_id))))) t1 left join (select u.id AS id,ifnull(b1.squadron_id,u.squadron_id) AS squadron_id,ifnull(b1.market_sell,0) AS market_sell from (`user` u left join (select e.user_id AS user_id,e.squadron_id AS squadron_id,sum(e.reward) AS market_sell from earning_history e where (e.earning_type_id = '6') group by e.user_id,e.squadron_id) b1 on((u.id = b1.user_id)))) t2 on(((t1.id = t2.id) and (t1.squadron_id = t2.squadron_id)))) ;
 
 -- --------------------------------------------------------
 
@@ -778,7 +778,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_market_net_units`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_commander_market_net_units  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.units_bought AS units_bought,t.units_sold AS units_sold,(t.units_sold - t.units_bought) AS net_units from (select a.user_id AS user_id,u.squadron_id AS squadron_id,sum(a.market_buy) AS units_bought,sum(a.market_sell) AS units_sold from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id) t ;
+CREATE VIEW v_commander_market_net_units  AS  select t.user_id AS user_id,t.squadron_id AS squadron_id,t.units_bought AS units_bought,t.units_sold AS units_sold,(t.units_sold - t.units_bought) AS net_units from (select a.user_id AS user_id,u.squadron_id AS squadron_id,sum(a.market_buy) AS units_bought,sum(a.market_sell) AS units_sold from (activity_counter a left join `user` u on((a.user_id = u.id))) group by a.user_id) t ;
 
 -- --------------------------------------------------------
 
@@ -787,7 +787,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=josh@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_commander_total_earning`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_commander_total_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned from earning_history group by earning_history.user_id ;
+CREATE VIEW v_commander_total_earning  AS  select earning_history.user_id AS user_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned from earning_history group by earning_history.user_id ;
 
 -- --------------------------------------------------------
 
@@ -796,7 +796,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_co
 --
 DROP TABLE IF EXISTS `v_squadron_daily_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_daily_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_daily_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.squadron_id,earning_history.earned_on ;
 
 -- --------------------------------------------------------
 
@@ -805,7 +805,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_sq
 --
 DROP TABLE IF EXISTS `v_squadron_mission_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_mission_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history where (earning_history.earning_type_id >= '8') group by earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_mission_total  AS  select earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history where (earning_history.earning_type_id >= '8') group by earning_history.squadron_id,earning_history.earned_on ;
 
 -- --------------------------------------------------------
 
@@ -814,7 +814,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_sq
 --
 DROP TABLE IF EXISTS `v_squadron_type_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW v_squadron_type_total  AS  select earning_history.earning_type_id AS earning_type_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.earning_type_id,earning_history.squadron_id,earning_history.earned_on ;
+CREATE VIEW v_squadron_type_total  AS  select earning_history.earning_type_id AS earning_type_id,earning_history.squadron_id AS squadron_id,sum(earning_history.reward) AS total_earned,earning_history.earned_on AS earned_on from earning_history group by earning_history.earning_type_id,earning_history.squadron_id,earning_history.earned_on ;
 
 --
 -- Indexes for dumped tables
