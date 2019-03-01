@@ -87,14 +87,16 @@ class ImportQueueCommand extends Command
             return;
         }
 
-        $queue = $this->importQueueRepository->findBy(['progress_code' => 'Q'], ['game_datetime' => 'asc']);
+        $entry = $this->importQueueRepository->findOneBy(['progress_code' => 'Q'], ['game_datetime' => 'asc']);
 
-        $max = count($queue);
+        $max = $this->importQueueRepository->totalCountInQueue();
         $progressBar = new ProgressBar($output, $max);
         $progressBar->setFormat('very_verbose');
         $progressBar->start();
 
-        foreach ($queue as $i => $entry) {
+        while (isset($entry)) {
+            $entry->setProgressCode('L');
+
             $entry->setTimeStarted();
             $this->commander = $this->commanderRepository->findOneBy(['user' => $entry->getUser()]);
             $this->user = $entry->getUser();
@@ -114,6 +116,9 @@ class ImportQueueCommand extends Command
 
             if (!is_readable($file_path) || $fh === false) {
                 $io->error($file_path . ' is not readable. Skipping.');
+                $entry->setProgressCode('E');
+                $em->persist($entry);
+                $em->flush();
             } else {
                 while (($data = fgets($fh)) !== false) {
                     $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data);
@@ -127,156 +132,10 @@ class ImportQueueCommand extends Command
             time_nanosleep(0, 35000000);
             $progressBar->advance();
             $num_records++;
+
+            $entry = $this->importQueueRepository->findOneBy(['progress_code' => 'Q'], ['game_datetime' => 'asc']);
         }
         $progressBar->finish();
         $io->success(sprintf('%d Player Journal logs processed.', $num_records));
     }
-
-//    private function parseEntry($data) {
-//        $e = json_decode($data, true);
-//        $game_datetime = $e['timestamp'];
-//
-//        switch ($e['event']) {
-//            case 'Fileheader':
-//                $this->activity_counter = $this->activityCounterRepository->findOneBy(['user' => $this->user, 'squadron' => $this->user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
-//                if(!is_object($this->activity_counter)) {
-//                    $this->activity_counter = new ActivityCounter();
-//                    $this->activity_counter->setUser($this->user)
-//                        ->setSquadron($this->user->getSquadron())
-//                        ->setActivityDate(new \DateTime($game_datetime, $this->utc));
-//                }
-//                $this->entityManager->persist($this->activity_counter);
-//                break;
-//
-//            case 'LoadGame':
-//                $this->commander->setCredits($e['Credits']);
-//                $this->commander->setLoan($e['Loan']);
-//                break;
-//
-//            case 'Commander':
-//                if(isset($e['FID'])) {
-//                    $this->commander->setPlayerId($e['FID']);
-//                }
-//                break;
-//
-//            case 'Rank':
-//                foreach($this->group_code as $key) {
-//                    $rank = $this->rankRepository->findOneBy(['group_code' => strtolower($key), 'assigned_id' => $e[$key]]);
-//                    $this->commander->setRankId($key, $rank);
-//                }
-//                break;
-//
-//            case 'Progress':
-//                foreach($this->group_code as $key) {
-//                    $this->commander->setRankProgress($key, $e[$key]);
-//                }
-//                break;
-//
-//            case 'Statistics':
-//                $bank_acct = $e['Bank_Account'];
-//                $this->commander->setAsset($bank_acct['Current_Wealth']);
-//                break;
-//
-//            case 'Bounty':
-//                $reward = isset($e['TotalReward']) ? $e['TotalReward']: $e['Reward'];
-//                $this->addEarningHistory($e['event'], $game_datetime, $reward);
-//                $this->activity_counter->addBountiesClaimed(1);
-//                break;
-//
-//            case 'CapShipBond':
-//            case 'FactionKillBond':
-//                $this->addEarningHistory($e['event'], $game_datetime, $e['Reward']);
-//                $this->activity_counter->addBountiesClaimed(1);
-//                break;
-//
-//            case 'MultiSellExplorationData':
-//                $num_systems = count($e['Discovered']);
-//                $num_bodies = 0;
-//                foreach($e['Discovered'] as $system) {
-//                    $num_bodies += $system['NumBodies'];
-//                }
-//                $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
-//                $this->addEarningHistory('ExplorationData', $game_datetime, $e['TotalEarnings'], $crew_wage);
-//                $this->activity_counter->addBodiesFound($num_bodies)
-//                    ->addSystemsScanned($num_systems);
-//                break;
-//
-//            case 'SellExplorationData':
-//                $num_systems = count($e['Systems']);
-//                $num_bodies = count($e['Discovered']);
-//
-//                if(isset($e['TotalEarnings'])) {
-//                    $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
-//                    $this->addEarningHistory('ExplorationData', $game_datetime, $e['TotalEarnings'], $crew_wage);
-//                }
-//                else {
-//                    $this->addEarningHistory('ExplorationData', $game_datetime, $e['BaseValue']+$e['Bonus']);
-//                }
-//                $this->activity_counter->addBodiesFound($num_bodies)
-//                    ->addSystemsScanned($num_systems);
-//                break;
-//
-//            case 'SAAScanComplete':
-//                $efficiency = ($e['ProbesUsed'] <= $e['EfficiencyTarget']);
-//                $this->activity_counter->addSaaScanCompleted(1)
-//                    ->addEfficiencyAchieved($efficiency);
-//                break;
-//
-//            case 'MarketBuy':
-//                $this->addEarningHistory($e['event'], $game_datetime, $e['TotalCost'] * -1);
-//                $this->activity_counter->addMarketBuy($e['Count']);
-//                break;
-//
-//            case 'MarketSell':
-//                $this->addEarningHistory($e['event'], $game_datetime, $e['TotalSale']);
-//                $this->activity_counter->addMarketSell($e['Count']);
-//                if(isset($e['StolenGoods'])) {
-//                    $this->activity_counter->addStolenGoods($e['Count']);
-//                }
-//                break;
-//
-//            case 'MiningRefined':
-//                $this->activity_counter->addMiningRefined(1);
-//                break;
-//
-//            case 'CommunityGoalReward':
-//                $this->addEarningHistory($e['event'], $game_datetime, $e['Reward']);
-//                $this->activity_counter->addCgParticipated(1);
-//                break;
-//
-//            case 'MissionCompleted':
-//                $name = isset($e['Name']) ? $e['Name'] : '';
-//                $pieces = explode('_',$name);
-//                $name = sprintf('%s_%s', ucfirst(strtolower($pieces[0])), $pieces[1]);
-//                $type = isset($this->earning_type[$name]) ? $name : $e['event'];
-//                $note = '';
-//                if($type == $e['event']) {
-//                    $note = $name;
-//                }
-//                if(isset($e['Reward'])) {
-//                    $this->addEarningHistory($type, $game_datetime, $e['Reward'], 0, $note);
-//                }
-//                $this->activity_counter->addMissionsCompleted(1);
-//                break;
-//
-//            case 'CommitCrime':
-//                $this->activity_counter->addCrimesCommitted(1);
-//                break;
-//
-//        }
-//    }
-//
-//    private function addEarningHistory($type, $date, $reward, $crew_wage = 0, $notes = '') {
-//        $eh = new EarningHistory();
-//        $eh->setUser($this->user)
-//            ->setEarningType($this->earning_type[$type])
-//            ->setSquadron($this->user->getSquadron())
-//            ->setEarnedOn(new \DateTime($date, $this->utc))
-//            ->setReward($reward)
-//            ->setCrewWage($crew_wage);
-//        if($notes) {
-//            $eh->setNotes($notes);
-//        }
-//        $this->entityManager->persist($eh);
-//    }
 }

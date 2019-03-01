@@ -590,6 +590,7 @@ class AjaxController extends AbstractController
         $this->translator = $translator;
         $status_code = [
             'Q' => 'In Queue',
+            'L' => 'Locked - Processing',
             'P' => 'Processed',
             'E' => 'Error when Processing',
             'R' => 'Rejected'

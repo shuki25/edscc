@@ -32,6 +32,16 @@ class ImportQueueRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    public function totalCountInQueue()
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->select("count(q.id)")
+            ->andWhere("q.progress_code = :val")
+            ->setParameter('val', "Q");
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function findAllByUserDatatables(?string $value, $params)
     {
 
