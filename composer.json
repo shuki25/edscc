@@ -5,7 +5,6 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-      "alchemy/zippy": "^0.4.9",
         "bjeavons/zxcvbn-php": "^0.4.0",
         "divineomega/password_exposed": "^2.7",
         "doctrine/annotations": "^1.6",
@@ -34,7 +33,8 @@
         "symfony/twig-bundle": "4.2.*",
         "symfony/validator": "4.2.*",
         "symfony/yaml": "4.2.*",
-        "twig/extensions": "^1.5"
+      "twig/extensions": "^1.5",
+      "wapmorgan/unified-archive": "^0.1.2"
     },
     "config": {
         "preferred-install": {

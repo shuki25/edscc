@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use wapmorgan\UnifiedArchive\UnifiedArchive;
 use ZxcvbnPhp\Zxcvbn;
 
 class AjaxController extends AbstractController
@@ -487,7 +488,6 @@ class AjaxController extends AbstractController
          */
         $user = $this->getUser();
         $join_date = new \DateTime(date_format($user->getDateJoined(), 'Y-m-d H:i:s'), $this->utc);
-        $zippy = Zippy::load();
         $fileinfo = new \finfo();
 
         $em = $this->getDoctrine()->getManager();
@@ -526,13 +526,13 @@ class AjaxController extends AbstractController
                     ];
 
                     try {
-                        $archive = $zippy->getAdapterFor($extension[$mime])->open($archive_path);
-                        $members = $archive->getMembers();
-                        $archive->extract($tmp_dir);
+                        $filename = $archive_path . $extension[$mime];
+                        $archive = UnifiedArchive::open($archive_path);
+                        $members = $archive->getFileNames();
+                        $archive->extractFiles($tmp_dir);
                         foreach ($members as $item) {
-                            $original_filename = $item->getLocation();
-                            $path = $file->getPath() . "/" . $original_filename;
-                            $unpacked_file = new UploadedFile($path, $original_filename, null, null, true);
+                            $path = join(DIRECTORY_SEPARATOR, array($tmp_dir, $item));
+                            $unpacked_file = new UploadedFile($path, $item, null, null, true);
                             $file_list[] = $unpacked_file;
                             $file_info[] = [
                                 'skip' => false,
