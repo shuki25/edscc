@@ -579,6 +579,7 @@ class AjaxController extends AbstractController
                             'size' => $this->formatBytes($size, 1),
                             'type' => $mime,
                             'status' => 'Accepted',
+                            'accept' => true,
                             'unpacked' => $unpacked
                         ];
 
@@ -600,11 +601,16 @@ class AjaxController extends AbstractController
                                     $file_info[$i]['status'] = 'Not Accepted. Not a Journal File.';
                                 } elseif ($line['event'] == "Fileheader") {
                                     $found = true;
-                                    $game_datetime = $line['timestamp'];
-                                    $log_date = new \DateTime($game_datetime, $this->utc);
-                                    if ($join_date > $log_date) {
+                                    if (preg_match('/(beta)/i', $line['gameversion'])) {
                                         $accept = false;
-                                        $file_info[$i]['status'] = 'Rejected. Log date before join date.';
+                                        $file_info[$i]['status'] = 'Not accepted. Beta Journal File.';
+                                    } else {
+                                        $game_datetime = $line['timestamp'];
+                                        $log_date = new \DateTime($game_datetime, $this->utc);
+                                        if ($join_date > $log_date) {
+                                            $accept = false;
+                                            $file_info[$i]['status'] = 'Rejected. Log date before join date.';
+                                        }
                                     }
                                 }
                                 $peek_file->next();
@@ -627,9 +633,12 @@ class AjaxController extends AbstractController
                         }
                     }
 
+                    $file_info[$i]['accept'] = $accept;
+
                     if ($accept) {
                         if (!$file->move($folder_path, $new_name)) {
                             $file_info[$i]['status'] = 'Upload Failed.';
+                            $file_info[$i]['accept'] = false;
                         }
                         $queue->setGameDatetime(new \DateTime($game_datetime, $this->utc));
                         $em->persist($queue);
