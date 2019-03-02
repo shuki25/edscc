@@ -61,7 +61,7 @@ Add the following line in the editor. It will run every 5 minutes. You can chang
 ```
 
 
-####Sample HTTP Apache2 Configs
+#### Sample HTTP Apache2 Configs
 ```apacheconfig
 <VirtualHost *:80>
 
@@ -84,7 +84,7 @@ Add the following line in the editor. It will run every 5 minutes. You can chang
 </VirtualHost>
 ```
 
-####Sample HTTPS Apache2 Configs
+#### Sample HTTPS Apache2 Configs
 ```apacheconfig
 <IfModule mod_ssl.c>
     <VirtualHost *:443>
