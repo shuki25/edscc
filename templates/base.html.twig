@@ -80,7 +80,8 @@
 
                                 <p>
                                     CMDR {{ app.user.commanderName }}<br><small>{{ app.user.rank.name }}</small>
-                                    <small>Member since {{ app.user.createdat|localizeddate('medium', 'none') }}</small>
+                                    <small>Member
+                                        since {{ app.user.datejoined|localizeddate('medium', 'none') }}</small>
                                 </p>
                             </li>
                             <li class="user-footer">

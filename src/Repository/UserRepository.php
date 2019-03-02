@@ -84,7 +84,7 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('val', $value);
 
 
-        $qb->select('u.id as id', 'u.commander_name as commander_name', 'u.createdAt as join_date', 'u.LastLoginAt as last_login_at')
+        $qb->select('u.id as id', 'u.commander_name as commander_name', 'u.date_joined as join_date', 'u.LastLoginAt as last_login_at')
             ->addSelect('s.name as status, cr.name as rank, s.tag as tag')
             ->join('u.status', 's')
             ->join('u.custom_rank', 'cr')
