@@ -134,7 +134,6 @@ class SecurityController extends AbstractController
 
                 return $this->redirectToRoute('app_login');
             } else {
-                dd($data);
                 $this->addFlash('alert', $this->translator->trans('Invalid temporary password or mismatched new/verify password pairs.'));
             }
         } else {
