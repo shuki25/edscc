@@ -786,7 +786,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/password/strength", name="ajax_password_strength", methods={"POST"} )
      */
-    public function ajax_password_strength(Request $request, TranslatorInterface $translator)
+    public function ajax_password_strength(Request $request, UserRepository $userRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -794,7 +794,16 @@ class AjaxController extends AbstractController
         $user = $this->getUser();
         $zxcvbn = new Zxcvbn();
         $scoreText = ['Worst', 'Bad', 'Weak', 'Good', 'Strong'];
-        $disallowed = [$user->getCommanderName(), $user->getUsername(), $user->getSquadron()->getName(), $request->request->get('cp')];
+
+        if ($request->request->get('email') != "") {
+            $user = $userRepository->findOneBy(['email' => $request->request->get('email')]);
+        }
+
+        if (!isset($user)) {
+            $disallowed = [];
+        } else {
+            $disallowed = [$user->getCommanderName(), $user->getUsername(), $user->getSquadron()->getName(), $request->request->get('cp')];
+        }
 
         $strength = $zxcvbn->passwordStrength($request->request->get('q'), $disallowed);
         if (is_infinite($strength['entropy'])) {

@@ -94,4 +94,15 @@ class NotificationHelper
             ->setBody($body, 'text/html');
         $this->mailer->send($message);
     }
+
+    public function user_forgot_password(User $user, Array $params)
+    {
+        $params['user'] = $user;
+        $body = $this->twig->render('emails/forgot_pw.html.twig', $params);
+        $message = (new \Swift_Message($this->translator->trans('Password Reset Request')))
+            ->setFrom($this->from)
+            ->setTo($user->getEmail())
+            ->setBody($body, 'text/html');
+        $this->mailer->send($message);
+    }
 }

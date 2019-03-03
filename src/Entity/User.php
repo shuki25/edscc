@@ -40,6 +40,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tmp_password;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $commander_name;
@@ -508,6 +513,18 @@ class User implements UserInterface
     public function setCustomRank(?CustomRank $custom_rank): self
     {
         $this->custom_rank = $custom_rank;
+
+        return $this;
+    }
+
+    public function getTmpPassword(): ?string
+    {
+        return $this->tmp_password;
+    }
+
+    public function setTmpPassword(?string $tmp_password): self
+    {
+        $this->tmp_password = $tmp_password;
 
         return $this;
     }
