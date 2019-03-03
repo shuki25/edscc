@@ -38,16 +38,14 @@
 </head>
 <body class="hold-transition{% block class %}{% endblock %}" style="background: url('{{ asset('img/ed-assets/edscc_background.jpg') }}') no-repeat fixed center">
 {% for message in app.flashes('success') %}
-    <div class="alert alert-success alert-dismissible fade in text-center
-" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> {{ message }} </div>
+    <div class="alert alert-success alert-dismissible fade in text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button> {{ message }} </div>
 {% endfor %}
 {% for message in app.flashes('alert') %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    <div class="alert alert-warning alert-dismissible fade in text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button> {{ message }} </div>
 {% endfor %}
 {% block body %}
 {% endblock %}

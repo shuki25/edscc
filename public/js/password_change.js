@@ -58,6 +58,7 @@ $(()=>{
         var np = $(this).val();
         var cp = $('#current-password').val();
         var msg = $('#new-password-message');
+        var email = $('#email').val()
 
         if(np.length == 0) {
             msg.text(newPasswordMessage);
@@ -70,7 +71,8 @@ $(()=>{
                 dataType: 'json',
                 data: {
                     'q': np,
-                    'cp': cp
+                    'cp': cp,
+                    'email': email
                 },
                 success: function (r) {
                     msg.text('');

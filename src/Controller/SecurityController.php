@@ -16,8 +16,7 @@ use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
 use App\Repository\VerifyTokenRepository;
 use App\Service\NotificationHelper;
-use DivineOmega\PasswordExposed\PasswordExposedChecker;
-use DivineOmega\PasswordExposed\PasswordStatus;
+use Faker\Factory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -25,17 +24,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
@@ -88,11 +81,69 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgot", name="app_forgot_pw")
      */
-    public function forgot_pw()
+    public function forgot_pw(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
     {
+        $token = $request->request->get('_token');
+        $faker = Factory::create();
+
+        if ($request->getMethod() == "POST" && $this->isCsrfTokenValid('forgot_password', $token)) {
+            $user = $userRepository->findOneBy(['email' => $request->request->get('email')]);
+            if (is_object($user)) {
+                $em = $this->getDoctrine()->getManager();
+                $tmp_pw = $faker->password(8);
+                $params = [
+                    'tmp_password' => $tmp_pw
+                ];
+                $user->setTmpPassword(sha1($tmp_pw));
+                $em->flush();
+                $notificationHelper->user_forgot_password($user, $params);
+            }
+            $this->addFlash('success', 'An e-mail has been sent with a temporary password.');
+            return $this->render('security/reset_pw.html.twig', [
+                'title' => 'Reset Password',
+                'description' => 'Reset Password',
+                'email' => $request->request->get('email'),
+                'error' => ''
+            ]);
+        }
+
         return $this->render('security/forgot_pw.html.twig', [
             'title' => 'Forgot Password',
             'description' => 'Password Recovery',
+            'error' => ''
+        ]);
+    }
+
+    /**
+     * @Route("/reset_pw", name="app_reset_pw", methods={"POST"})
+     */
+    public function reset_pw(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $data = $request->request->all();
+
+        if ($this->isCsrfTokenValid('reset_pw', $data['_token']) && isset($data['email'])) {
+            $user = $userRepository->findOneBy(['email' => $data['email']]);
+            $em = $this->getDoctrine()->getManager();
+            $encoded_tmp_pw = sha1($data['current_password']);
+
+            if ($data['new_password'] == $data['verify_password'] && $user->getTmpPassword() == $encoded_tmp_pw) {
+                $user->setTmpPassword(null);
+                $user->setPassword($passwordEncoder->encodePassword($user, $data['new_password']));
+                $this->addFlash('success', $this->translator->trans('Your password has been reset'));
+                $em->flush();
+
+                return $this->redirectToRoute('app_login');
+            } else {
+                dd($data);
+                $this->addFlash('alert', $this->translator->trans('Invalid temporary password or mismatched new/verify password pairs.'));
+            }
+        } else {
+            $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please try again.'));
+        }
+        return $this->render('security/reset_pw.html.twig', [
+            'title' => 'Reset Password',
+            'description' => 'Reset Password',
+            'email' => $request->request->get('email'),
             'error' => ''
         ]);
     }

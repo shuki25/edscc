@@ -8,7 +8,8 @@
 
         <form action="{{ path('app_forgot_pw') }}" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="hidden" name="_token" value="{{ csrf_token('forgot_password') }}">
+                <input type="email" class="form-control" name="email" placeholder="Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
