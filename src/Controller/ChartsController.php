@@ -233,7 +233,7 @@ class ChartsController extends AbstractController
         $current_date->sub(new \DateInterval('P30D'));
         $new_data = [];
 
-        for ($d = 0; $d < $num_days_ago; $d++) {
+        for ($d = 0; $d <= $num_days_ago; $d++) {
             $date = $current_date->format('Y-m-d');
             $new_data[$date] = isset($data[$date]) ? $data[$date] : 0;
             $current_date->add($one_day_interval);
