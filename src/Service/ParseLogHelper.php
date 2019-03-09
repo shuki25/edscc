@@ -12,12 +12,14 @@ use App\Entity\ActivityCounter;
 use App\Entity\Commander;
 use App\Entity\EarningHistory;
 use App\Entity\EarningType;
+use App\Entity\FactionActivity;
 use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
 use App\Repository\EarningHistoryRepository;
 use App\Repository\EarningTypeRepository;
 use App\Repository\ImportQueueRepository;
+use App\Repository\MinorFactionRepository;
 use App\Repository\RankRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,8 +70,12 @@ class ParseLogHelper
      * @var ActivityCounter $activity_counter
      */
     private $activity_counter;
+    /**
+     * @var MinorFactionRepository
+     */
+    private $minorFactionRepository;
 
-    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository)
+    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository)
     {
         $this->importQueueRepository = $importQueueRepository;
         $this->userRepository = $userRepository;
@@ -85,6 +91,7 @@ class ParseLogHelper
             $this->earning_type[$row->getName()] = $row;
         }
 
+        $this->minorFactionRepository = $minorFactionRepository;
     }
 
     public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, $api = false)
@@ -149,14 +156,27 @@ class ParseLogHelper
 
             case 'Bounty':
                 $reward = isset($e['TotalReward']) ? $e['TotalReward'] : $e['Reward'];
+                $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
                 $this->addEarningHistory($em, $user, $e['event'], $game_datetime, $reward);
                 $this->activity_counter->addBountiesClaimed(1);
+                if (isset($e['Rewards'])) {
+                    foreach ($e['Rewards'] as $i => $row) {
+                        $minor_faction = isset($row['Faction']) ? $row['Faction'] : "";
+                        $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $row['Reward'], $minor_faction, $target_faction);
+                    }
+                } else {
+                    $minor_faction = isset($e['Faction']) ? $e['Faction'] : "";
+                    $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
+                }
                 break;
 
             case 'CapShipBond':
             case 'FactionKillBond':
+                $minor_faction = isset($e['AwardingFaction']) ? $e['AwardingFaction'] : "";
+                $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
                 $this->addEarningHistory($em, $user, $e['event'], $game_datetime, $e['Reward']);
                 $this->activity_counter->addBountiesClaimed(1);
+                $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 break;
 
             case 'MultiSellExplorationData':
@@ -223,7 +243,10 @@ class ParseLogHelper
                     $note = $name;
                 }
                 if (isset($e['Reward'])) {
+                    $minor_faction = isset($e['Faction']) ? $e['Faction'] : "";
+                    $target_faction = isset($e['TargetFaction']) ? $e['TargetFaction'] : "";
                     $this->addEarningHistory($em, $user, $type, $game_datetime, $e['Reward'], 0, $note);
+                    $this->addMinorFactionActivity($em, $user, $type, $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 }
                 $this->activity_counter->addMissionsCompleted(1);
                 break;
@@ -250,5 +273,21 @@ class ParseLogHelper
         $em->persist($eh);
     }
 
+    private function addMinorFactionActivity(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minor_faction, $target_faction)
+    {
+        $mfa = new FactionActivity();
+        $minor_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $minor_faction]);
+        $target_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $target_faction]);
+
+        $mfa->setUser($user)
+            ->setEarningType($this->earning_type[$type])
+            ->setSquadron($user->getSquadron())
+            ->setEarnedOn(new \DateTime($date, $this->utc))
+            ->setReward($reward)
+            ->setMinorFaction($minor_faction_obj)
+            ->setTargetMinorFaction($target_faction_obj);
+
+        $em->persist($mfa);
+    }
 
 }
