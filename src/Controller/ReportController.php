@@ -162,7 +162,7 @@ class ReportController extends AbstractController
         }
 
         if ($has_data) {
-            if (!is_null($datatable['data'][0]['commander_name'])) {
+            if (isset($datatable['data'][0]['commander_name'])) {
                 foreach ($datatable['data'] as $i => $row) {
                     $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%', ['%name%' => $row['commander_name']]);
                 }
