@@ -166,7 +166,7 @@ class ParseLogHelper
                     }
                 } else {
                     $minor_faction = isset($e['Faction']) ? $e['Faction'] : "";
-                    $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
+                    $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $reward, $minor_faction, $target_faction);
                 }
                 break;
 
