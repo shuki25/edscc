@@ -51,6 +51,11 @@ class EarningHistory
     private $crew_wage = 0;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MinorFaction")
+     */
+    private $minor_faction;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $notes;
@@ -140,6 +145,18 @@ class EarningHistory
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getMinorFaction(): ?MinorFaction
+    {
+        return $this->minor_faction;
+    }
+
+    public function setMinorFaction(?MinorFaction $minor_faction): self
+    {
+        $this->minor_faction = $minor_faction;
 
         return $this;
     }

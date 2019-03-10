@@ -112,6 +112,13 @@ Add the following line in the editor. It will run every 5 minutes. You can chang
 </IfModule>
 ```
 
+### Post-Configuration Install Steps
+1. Run a script to download and import minor faction data from eddb.io.
+```
+$ cd /path/to/base/dir/edscc
+$ bin/console app:install-minor-faction
+```
+
 ### Contributing
 Contributions are welcome and will be fully credited. We accept contributions through pull requests on [GitHub](https://github.com/shuki25/edscc). This code base is built on Symfony 4 framework, all contributions must be based off on that.
 
@@ -136,6 +143,11 @@ $ bin/console app:load-dummy-data -h
 ```
 0 9,16 * * * cd /path/to/base/dir/edscc; bin/console app:load-dummy-daily-data
 ```
+4. If you want to update minor factions data every Sunday morning at 2 a.m., you can add this to the crontab as well. Or run it manually with the `-u` option.
+```
+0 2 * * 0 cd /path/to/base/dir/edscc; bin/console app:install-minor-faction -u >/dev/null 2>&1
+```
+
 ### Contacting Maintainer
 You can drop a message to shuki25 on [EDCD discord](https://discord.gg/zQjjutY). If you want to contribute, please make a new issue to describe a new feature you would like to create to ensure that the work would not be duplicated by someone else who is already working on. Otherwise, leave a note
 
