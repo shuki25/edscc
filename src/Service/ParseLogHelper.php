@@ -15,6 +15,7 @@ use App\Entity\CrimeType;
 use App\Entity\EarningHistory;
 use App\Entity\EarningType;
 use App\Entity\FactionActivity;
+use App\Entity\MinorFaction;
 use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
@@ -305,14 +306,14 @@ class ParseLogHelper
         }
     }
 
-    private function addEarningHistory(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minor_faction = null, $crew_wage = 0, $notes = '')
+    private function addEarningHistory(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minorFaction = null, $crewWage = 0, $notes = '')
     {
         $eh = new EarningHistory();
         $type = strtolower($type);
 
-        $minor_faction_obj = null;
-        if (!is_null($minor_faction)) {
-            $minor_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $minor_faction]);
+        $minorFactionObj = null;
+        if (!is_null($minorFaction)) {
+            $minorFactionObj = $this->findMinorFaction($em, $minorFaction);
         }
 
         $eh->setUser($user)
@@ -320,19 +321,19 @@ class ParseLogHelper
             ->setSquadron($user->getSquadron())
             ->setEarnedOn(new \DateTime($date, $this->utc))
             ->setReward($reward)
-            ->setCrewWage($crew_wage)
-            ->setMinorFaction($minor_faction_obj);
+            ->setCrewWage($crewWage)
+            ->setMinorFaction($minorFactionObj);
         if ($notes) {
             $eh->setNotes($notes);
         }
         $em->persist($eh);
     }
 
-    private function addMinorFactionActivity(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minor_faction, $target_faction)
+    private function addMinorFactionActivity(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minorFaction, $targetFaction)
     {
         $mfa = new FactionActivity();
-        $minor_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $minor_faction]);
-        $target_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $target_faction]);
+        $minorFactionObj = $this->findMinorFaction($em, $minorFaction);
+        $targetFactionObj = $this->findMinorFaction($em, $targetFaction);
         $type = strtolower($type);
 
         $mfa->setUser($user)
@@ -340,28 +341,28 @@ class ParseLogHelper
             ->setSquadron($user->getSquadron())
             ->setEarnedOn(new \DateTime($date, $this->utc))
             ->setReward($reward)
-            ->setMinorFaction($minor_faction_obj)
-            ->setTargetMinorFaction($target_faction_obj);
+            ->setMinorFaction($minorFactionObj)
+            ->setTargetMinorFaction($targetFactionObj);
 
         $em->persist($mfa);
     }
 
-    private function addCrimeHistory(EntityManagerInterface &$em, User &$user, $crime_committed, $minor_faction, $victim, $fine, $bounty, $date)
+    private function addCrimeHistory(EntityManagerInterface &$em, User &$user, $crimeCommitted, $minorFaction, $victim, $fine, $bounty, $date)
     {
         $crime = new Crime();
-        $minor_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $minor_faction]);
-        $crime_committed_ci = strtolower($crime_committed);
+        $minorFactionObj = $this->findMinorFaction($em, $minorFaction);
+        $crimeCommittedCi = strtolower($crimeCommitted);
         $notes = null;
 
-        if (!isset($this->crimeType[$crime_committed_ci])) {
-            $notes = $crime_committed;
-            $crime_committed_ci = "other";
+        if (!isset($this->crimeType[$crimeCommittedCi])) {
+            $notes = $crimeCommitted;
+            $crimeCommittedCi = "other";
         }
 
         $crime->setUser($user)
             ->setSquadron($user->getSquadron())
-            ->setCrimeType($this->crimeType[$crime_committed_ci])
-            ->setMinorFaction($minor_faction_obj)
+            ->setCrimeType($this->crimeType[$crimeCommittedCi])
+            ->setMinorFaction($minorFactionObj)
             ->setVictim($victim)
             ->setFine($fine)
             ->setBounty($bounty)
@@ -369,6 +370,26 @@ class ParseLogHelper
             ->setNotes($notes);
 
         $em->persist($crime);
+    }
+
+    private function findMinorFaction(EntityManagerInterface &$em, $minorFaction): ?MinorFaction
+    {
+
+        if (trim($minorFaction) == '') {
+            return null;
+        }
+
+        $minorFactionObj = $this->minorFactionRepository->findOneBy(['name' => $minorFaction]);
+        if (!is_object($minorFactionObj)) {
+            $minorFactionObj = new MinorFaction();
+            $minorFactionObj->setName($minorFaction)
+                ->setPlayerFaction(0)
+                ->setEddbId(null);
+            $em->persist($minorFactionObj);
+            $em->flush();
+        }
+
+        return $minorFactionObj;
     }
 
 }

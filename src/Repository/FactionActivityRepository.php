@@ -19,6 +19,18 @@ class FactionActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, FactionActivity::class);
     }
 
+    /**
+     * @return FactionActivity[]
+     */
+    public function findMinorFactionNotNull()
+    {
+        return $this->createQueryBuilder('mf')
+            ->where('mf.minor_faction is not null')
+            ->orWhere('mf.target_minor_faction is not null')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return FactionActivity[] Returns an array of FactionActivity objects
     //  */

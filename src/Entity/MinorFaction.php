@@ -27,6 +27,11 @@ class MinorFaction
      */
     private $player_faction = 0;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $eddb_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +63,18 @@ class MinorFaction
     public function setPlayerFaction(bool $player_faction): self
     {
         $this->player_faction = $player_faction;
+
+        return $this;
+    }
+
+    public function getEddbId(): ?int
+    {
+        return $this->eddb_id;
+    }
+
+    public function setEddbId(?int $eddb_id): self
+    {
+        $this->eddb_id = $eddb_id;
 
         return $this;
     }

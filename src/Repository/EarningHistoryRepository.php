@@ -19,6 +19,17 @@ class EarningHistoryRepository extends ServiceEntityRepository
         parent::__construct($registry, EarningHistory::class);
     }
 
+    /**
+     * @return EarningHistory[]
+     */
+    public function findMinorFactionNotNull()
+    {
+        return $this->createQueryBuilder('eh')
+            ->andWhere('eh.minor_faction is not null')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return EarningHistory[] Returns an array of EarningHistory objects
     //  */
