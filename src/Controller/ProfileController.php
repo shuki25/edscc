@@ -123,6 +123,8 @@ class ProfileController extends AbstractController
                     $rs->execute($param);
                     $rs = $this->dbh->prepare("delete from faction_activity where user_id=? and squadron_id=?");
                     $rs->execute($param);
+                    $rs = $this->dbh->prepare("delete from crime where user_id=? and squadron_id=?");
+                    $rs->execute($param);
                     $rs = $this->dbh->prepare("delete from edmc where user_id=?");
                     $rs->execute([$uid]);
                     $rs = $this->dbh->prepare("delete from import_queue where user_id=?");

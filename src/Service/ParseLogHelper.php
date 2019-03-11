@@ -10,12 +10,15 @@ namespace App\Service;
 
 use App\Entity\ActivityCounter;
 use App\Entity\Commander;
+use App\Entity\Crime;
+use App\Entity\CrimeType;
 use App\Entity\EarningHistory;
 use App\Entity\EarningType;
 use App\Entity\FactionActivity;
 use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
+use App\Repository\CrimeTypeRepository;
 use App\Repository\EarningHistoryRepository;
 use App\Repository\EarningTypeRepository;
 use App\Repository\ImportQueueRepository;
@@ -63,9 +66,13 @@ class ParseLogHelper
      * @var EarningType $earning_type_obj
      */
     private $earning_type_obj;
-
     private $earning_type;
 
+    /**
+     * @var CrimeType
+     */
+    private $crime_type_obj;
+    private $crime_type;
     /**
      * @var ActivityCounter $activity_counter
      */
@@ -74,8 +81,12 @@ class ParseLogHelper
      * @var MinorFactionRepository
      */
     private $minorFactionRepository;
+    /**
+     * @var CrimeTypeRepository
+     */
+    private $crimeTypeRepository;
 
-    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository)
+    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository, CrimeTypeRepository $crimeTypeRepository)
     {
         $this->importQueueRepository = $importQueueRepository;
         $this->userRepository = $userRepository;
@@ -93,6 +104,20 @@ class ParseLogHelper
         }
 
         $this->minorFactionRepository = $minorFactionRepository;
+        $this->crimeTypeRepository = $crimeTypeRepository;
+
+        $this->crime_type_obj = $this->crimeTypeRepository->findAll();
+        foreach ($this->crime_type_obj as $i => $row) {
+            $crime_type = strtolower($row->getName());
+            $alias = json_decode($row->getAlias(), true);
+            $this->crime_type[$crime_type] = $row;
+            if (is_array($alias)) {
+                foreach ($alias as $key) {
+                    $key = strtolower($key);
+                    $this->crime_type[$key] = $row;
+                }
+            }
+        }
     }
 
     public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, $api = false)
@@ -247,8 +272,9 @@ class ParseLogHelper
             case 'MissionCompleted':
                 $name = isset($e['Name']) ? $e['Name'] : '';
                 $pieces = explode('_', $name);
-                $name = strtolower(sprintf('%s_%s', ucfirst(strtolower($pieces[0])), $pieces[1]));
-                $type = isset($this->earning_type[$name]) ? $name : $e['event'];
+                $name = sprintf('%s_%s', ucfirst(strtolower($pieces[0])), $pieces[1]);
+                $name_ci = strtolower($name);
+                $type = isset($this->earning_type[$name_ci]) ? $name_ci : $e['event'];
                 $note = '';
                 if ($type == $e['event']) {
                     $note = $name;
@@ -264,6 +290,16 @@ class ParseLogHelper
 
             case 'CommitCrime':
                 $this->activity_counter->addCrimesCommitted(1);
+                $crime_committed = isset($e['CrimeType']) ? $e['CrimeType'] : "";
+                $minor_faction = isset($e['Faction']) ? $e['Faction'] : null;
+                if (isset($e['Victim_Localised'])) {
+                    $victim = $e['Victim_Localised'];
+                } else {
+                    $victim = isset($e['Victim']) ? $e['Victim'] : null;
+                }
+                $fine = isset($e['Fine']) ? $e['Fine'] : null;
+                $bounty = isset($e['Bounty']) ? $e['Bounty'] : null;
+                $this->addCrimeHistory($em, $user, $crime_committed, $minor_faction, $victim, $fine, $bounty, $game_datetime);
                 break;
 
         }
@@ -308,6 +344,31 @@ class ParseLogHelper
             ->setTargetMinorFaction($target_faction_obj);
 
         $em->persist($mfa);
+    }
+
+    private function addCrimeHistory(EntityManagerInterface &$em, User &$user, $crime_committed, $minor_faction, $victim, $fine, $bounty, $date)
+    {
+        $crime = new Crime();
+        $minor_faction_obj = $this->minorFactionRepository->findOneBy(['name' => $minor_faction]);
+        $crime_committed_ci = strtolower($crime_committed);
+        $notes = null;
+
+        if (!isset($this->crime_type[$crime_committed_ci])) {
+            $notes = $crime_committed;
+            $crime_committed_ci = "other";
+        }
+
+        $crime->setUser($user)
+            ->setSquadron($user->getSquadron())
+            ->setCrimeType($this->crime_type[$crime_committed_ci])
+            ->setMinorFaction($minor_faction_obj)
+            ->setVictim($victim)
+            ->setFine($fine)
+            ->setBounty($bounty)
+            ->setCommittedOn(new \DateTime($date, $this->utc))
+            ->setNotes($notes);
+
+        $em->persist($crime);
     }
 
 }
