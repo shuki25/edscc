@@ -29,7 +29,7 @@ class MotdController extends AbstractController
      * @Route("/admin/motd", name="admin_list_motd")
      * @IsGranted("ROLE_SUPERUSER")
      */
-    public function list_motd()
+    public function listMotd()
     {
         return $this->render('admin/list_motd_datatables.html.twig', [
             'title' => 'Members List'
@@ -40,7 +40,7 @@ class MotdController extends AbstractController
      * @Route("/admin/motd/new/{token}", name="admin_motd_new", methods={"GET","POST"})
      * @IsGranted("ROLE_SUPERUSER")
      */
-    public function new_motd($token, Request $request)
+    public function newMotd($token, Request $request)
     {
         /**
          * @var Motd $data
@@ -79,7 +79,7 @@ class MotdController extends AbstractController
      * @Route("/admin/motd/{slug}/edit/{token}", name="admin_motd_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_SUPERUSER")
      */
-    public function edit_motd($slug, $token, Request $request, MotdRepository $repository)
+    public function editMotd($slug, $token, Request $request, MotdRepository $repository)
     {
         $em = $this->getDoctrine()->getManager();
         $data = $repository->findOneBy(['id' => $slug]);

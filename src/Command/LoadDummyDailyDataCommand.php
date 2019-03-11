@@ -49,8 +49,8 @@ class LoadDummyDailyDataCommand extends Command
     private $faker;
     private $referencesIndexByORM = [];
     private $referencesRank = [];
-    private $rank_list = ['combat', 'trade', 'explore', 'federation', 'empire', 'cqc'];
-    private $date_to_use;
+    private $rankList = ['combat', 'trade', 'explore', 'federation', 'empire', 'cqc'];
+    private $dateToUse;
     private $utc;
 
     /**
@@ -124,7 +124,7 @@ class LoadDummyDailyDataCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $this->faker = Factory::create();
 
-        $this->date_to_use = null !== $input->getOption('date') ? new \DateTime($input->getOption('date'), $this->utc) : new \DateTime('now', $this->utc);
+        $this->dateToUse = null !== $input->getOption('date') ? new \DateTime($input->getOption('date'), $this->utc) : new \DateTime('now', $this->utc);
 
         $section1 = $output->section();
         $progressBar = new ProgressBar($section1);
@@ -162,16 +162,16 @@ class LoadDummyDailyDataCommand extends Command
                 $earningHistory->setUser($user)
                     ->setSquadron($user->getSquadron())
                     ->setEarningType($type)
-                    ->setEarnedOn($this->date_to_use)
+                    ->setEarnedOn($this->dateToUse)
                     ->setReward($reward);
             });
 
-            $activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'activity_date' => $this->date_to_use]);
+            $activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'activity_date' => $this->dateToUse]);
             if (!is_object($activityCounter)) {
                 $activityCounter = new ActivityCounter();
                 $activityCounter->setUser($user)
                     ->setSquadron($user->getSquadron())
-                    ->setActivityDate($this->date_to_use);
+                    ->setActivityDate($this->dateToUse);
                 $this->manager->persist($activityCounter);
             }
 
@@ -182,7 +182,7 @@ class LoadDummyDailyDataCommand extends Command
             $marketbuy = $this->faker->optional(0.1, 0)->numberBetween(0, 500);
             $marketsell = $marketbuy ? $marketbuy + $this->faker->numberBetween(0, 10) : 0;
 
-            $activityCounter->setActivityDate($this->date_to_use)
+            $activityCounter->setActivityDate($this->dateToUse)
                 ->addBountiesClaimed($this->faker->optional(0.1, 0)->numberBetween(0, 25))
                 ->addSystemsScanned($systemFound)
                 ->addBodiesFound($bodiesFound)

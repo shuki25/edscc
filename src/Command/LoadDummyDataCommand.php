@@ -48,7 +48,7 @@ class LoadDummyDataCommand extends Command
     private $faker;
     private $referencesIndexByORM = [];
     private $referencesRank = [];
-    private $rank_list = ['combat', 'trade', 'explore', 'federation', 'empire', 'cqc'];
+    private $rankList = ['combat', 'trade', 'explore', 'federation', 'empire', 'cqc'];
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -190,7 +190,7 @@ class LoadDummyDataCommand extends Command
 
         $users = $this->userRepository->findAll();
 
-        foreach ($this->rank_list as $key) {
+        foreach ($this->rankList as $key) {
             $this->referencesRank[$key] = $this->rankRepository->findBy(['group_code' => $key]);
         }
 

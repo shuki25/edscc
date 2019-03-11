@@ -69,7 +69,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/settings-api", name="app_get_api")
      */
-    public function get_api()
+    public function getApi()
     {
         return $this->render('security/get_api.html.twig', [
             'title' => 'Your API Key',
@@ -81,7 +81,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgot", name="app_forgot_pw")
      */
-    public function forgot_pw(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
+    public function forgotPw(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
     {
         $token = $request->request->get('_token');
         $faker = Factory::create();
@@ -96,7 +96,7 @@ class SecurityController extends AbstractController
                 ];
                 $user->setTmpPassword(sha1($tmp_pw));
                 $em->flush();
-                $notificationHelper->user_forgot_password($user, $params);
+                $notificationHelper->userForgotPassword($user, $params);
             }
             $this->addFlash('success', 'An e-mail has been sent with a temporary password.');
             return $this->render('security/reset_pw.html.twig', [
@@ -117,7 +117,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/reset_pw", name="app_reset_pw", methods={"POST"})
      */
-    public function reset_pw(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPw(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
     {
         $data = $request->request->all();
 
@@ -150,7 +150,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/new_member", name="app_new_member")
      */
-    public function new_member(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
+    public function newMember(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
     {
 
         $error = "";
@@ -205,7 +205,7 @@ class SecurityController extends AbstractController
                     'expires_at' => $token->getExpiresAt()
                 ];
 
-                $notificationHelper->user_email_verification($data['email'], $twig_params);
+                $notificationHelper->userEmailVerification($data['email'], $twig_params);
 
                 return $this->redirectToRoute('app_confirm_email', [
                     'email' => $data['email']
@@ -225,7 +225,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/verify_email", name="app_confirm_email")
      */
-    public function verify_email(Request $request, CsrfTokenManagerInterface $csrfToken, UserRepository $userRepository, VerifyTokenRepository $tokenRepository)
+    public function verifyEmail(Request $request, CsrfTokenManagerInterface $csrfToken, UserRepository $userRepository, VerifyTokenRepository $tokenRepository)
     {
 
         $error = '';
@@ -285,7 +285,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/resend_token", name="app_resend_token")
      */
-    public function resend_token(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
+    public function resendToken(Request $request, UserRepository $userRepository, NotificationHelper $notificationHelper)
     {
         $email = $request->query->get('email');
         /*
@@ -314,7 +314,7 @@ class SecurityController extends AbstractController
                 'expires_at' => $user->getNewestVerifyTokens()->getExpiresAt()
             ];
 
-            $notificationHelper->user_email_verification($email, $twig_params);
+            $notificationHelper->userEmailVerification($email, $twig_params);
 
             $this->addFlash('success', 'Your activation code has been resent. Check your INBOX.');
         } else {
@@ -329,7 +329,7 @@ class SecurityController extends AbstractController
      * @Route("/select_squadron", name="app_select_squadron")
      * @IsGranted("ROLE_PENDING")
      */
-    public function select_squadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, NotificationHelper $notificationHelper)
+    public function selectSquadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, NotificationHelper $notificationHelper)
     {
         $squadrons = $squadronRepository->findAllActiveSquadrons();
 
@@ -363,7 +363,7 @@ class SecurityController extends AbstractController
                         $this->get("security.token_storage")->setToken($token);
                         return $this->redirectToRoute('app_welcome');
                     } else {
-                        $notificationHelper->admin_approval_notice($squadron);
+                        $notificationHelper->adminApprovalNotice($squadron);
                     }
                     return $this->redirectToRoute('app_pending_access');
                 }
@@ -384,7 +384,7 @@ class SecurityController extends AbstractController
      * @Route("/create_squadron", name="app_create_squadron")
      * @IsGranted("ROLE_PENDING")
      */
-    public function create_squadron(Request $request, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository)
+    public function createSquadron(Request $request, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -458,7 +458,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/welcome", name="app_welcome")
      */
-    public function welcome_message(Request $request)
+    public function welcomeMessage(Request $request)
     {
         /**
          * @var User $user
@@ -485,7 +485,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/pending_access", name="app_pending_access")
      */
-    public function pending_access()
+    public function pendingAccess()
     {
         /**
          * @var User $user
@@ -503,7 +503,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/privacy_policy", name="app_private_policy")
      */
-    public function privacy_policy()
+    public function privacyPolicy()
     {
         return $this->render('privacy_policy.html.twig', [
             'title' => 'Privacy Policy',
@@ -515,7 +515,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register_google", name="app_new_member_google")
      */
-    public function new_member_google()
+    public function newMemberGoogle()
     {
         return $this->render('security/new_acct.html.twig', [
             'title' => 'Registration',

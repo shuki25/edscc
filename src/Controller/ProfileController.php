@@ -68,7 +68,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/updatepw", name="app_profile_updatepw", methods={"POST"})
      */
-    public function update_pw(Request $request, TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder)
+    public function updatePw(Request $request, TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder)
     {
         /**
          * @var User $user
@@ -96,7 +96,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/purgedata", name="app_profile_purge_data", methods={"POST"})
      */
-    public function purge_data(Request $request, TranslatorInterface $translator)
+    public function purgeData(Request $request, TranslatorInterface $translator)
     {
         $token = $request->request->get('_token');
         $confirmed = $request->request->get('confirmed');

@@ -79,7 +79,7 @@ class LeaderboardController extends AbstractController
     /**
      * @Route("/leaderboard/ajax/{slug}/{token}", name="leaderboard_table", methods={"POST"} )
      */
-    public function leaderboard_table($slug, $token, Request $request)
+    public function leaderboardTable($slug, $token, Request $request)
     {
         /**
          * @var User $user

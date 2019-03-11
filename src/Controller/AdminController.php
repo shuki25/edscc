@@ -41,7 +41,7 @@ class AdminController extends AbstractController
      * @Route("/admin/squadron_settings", name="admin_squadron_settings")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function squadron_settings(Request $request, EntityManagerInterface $em, SquadronRepository $squadronRepository, TagsRepository $tagsRepository, RankRepository $rankRepository)
+    public function squadronSettings(Request $request, EntityManagerInterface $em, SquadronRepository $squadronRepository, TagsRepository $tagsRepository, RankRepository $rankRepository)
     {
         /**
          * @var User $user
@@ -121,7 +121,7 @@ class AdminController extends AbstractController
      * @Route("/admin/squadron_settings/update_ranks", name="admin_update_ranks", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function admin_update_ranks(Request $request, CustomRankRepository $customRankRepository)
+    public function adminUpdateRanks(Request $request, CustomRankRepository $customRankRepository)
     {
         $token = $request->request->get('_token');
 
@@ -158,7 +158,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements", name="admin_list_announcements")
      * @IsGranted("ROLE_EDITOR")
      */
-    public function list_announcements()
+    public function listAnnouncements()
     {
         return $this->render('admin/list_announcements_datatables.html.twig', [
             'title' => 'Members List'
@@ -169,7 +169,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/new/{token}", name="admin_announcements_new", methods={"GET","POST"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function new_announcements($token, Request $request, EntityManagerInterface $em)
+    public function newAnnouncements($token, Request $request, EntityManagerInterface $em)
     {
         /**
          * @var User $user
@@ -213,7 +213,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/{slug}/edit/{token}", name="admin_announcements_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function edit_announcements($slug, $token, Request $request, EntityManagerInterface $em, AnnouncementRepository $repository)
+    public function editAnnouncements($slug, $token, Request $request, EntityManagerInterface $em, AnnouncementRepository $repository)
     {
         /**
          * @var User $user
@@ -263,7 +263,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/{slug}/pin/{token}", name="admin_announcement_pin", methods={"GET"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function pin_announcement($slug, $token)
+    public function pinAnnouncement($slug, $token)
     {
         return $this->render('placeholder.html.twig', [
             'title' => 'Placeholder',
@@ -274,7 +274,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/{slug}/remove/{token}", name="admin_announcement_remove", methods={"GET"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function remove_announcement($slug, $token)
+    public function removeAnnouncement($slug, $token)
     {
         return $this->render('placeholder.html.twig', [
             'title' => 'Placeholder',
@@ -285,7 +285,7 @@ class AdminController extends AbstractController
      * @Route("/admin/announcements/{slug}/hide", name="admin_announcement_hide", methods={"GET"})
      * @IsGranted("ROLE_EDITOR")
      */
-    public function hide_announcement($slug, $token)
+    public function hideAnnouncement($slug, $token)
     {
         return $this->render('placeholder.html.twig', [
             'title' => 'Placeholder',
@@ -295,7 +295,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members", name="admin_list_members")
      */
-    public function list_members(Request $request)
+    public function listMembers(Request $request)
     {
         $this->denyAccessUnlessGranted(['CAN_CHANGE_STATUS', 'CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS', 'CAN_VIEW_HISTORY'], User::class);
 
@@ -307,7 +307,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members/edit/{id}/{token}", name="admin_edit_member")
      */
-    public function edit_member($id, $token, UserRepository $userRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, AclRepository $aclRepository)
+    public function editMember($id, $token, UserRepository $userRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, AclRepository $aclRepository)
     {
         $squadron_id = $this->getUser()->getSquadron()->getId();
         $user = $userRepository->findOneBy(['id' => $id, 'Squadron' => $squadron_id]);
@@ -343,7 +343,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members/save", name="admin_save_member", methods={"POST"})
      */
-    public function save_member(Request $request, UserRepository $userRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository)
+    public function saveMember(Request $request, UserRepository $userRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository)
     {
         $id = $request->request->get('id');
 

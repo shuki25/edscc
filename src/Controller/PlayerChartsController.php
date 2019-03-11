@@ -45,7 +45,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/script/{name}", name="player_chart_script")
      * @IsGranted("ROLE_USER")
      */
-    public function fetch_script($name)
+    public function fetchScript($name)
     {
         switch ($name) {
             case 'squadron_earningxxx':
@@ -68,7 +68,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/daily_earning", name="player_chart_squadron_earning")
      * @IsGranted("ROLE_USER")
      */
-    public function daily_earning(Request $request)
+    public function dailyEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
@@ -76,19 +76,19 @@ class PlayerChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$user_id, $squadron_id]);
+        $tmp = $this->fetchSql($sql, [$user_id, $squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $data = [];
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_daily_earning where squadron_id='3' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$user_id]);
+        $tmp = $this->fetchSql($sql, [$user_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $results['status'] = 200;
         $jsonResponse = new JsonResponse($results);
@@ -100,7 +100,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/bounty_earning", name="player_chart_bounty_earning")
      * @IsGranted("ROLE_USER")
      */
-    public function bounty_earning(Request $request)
+    public function bountyEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
@@ -108,18 +108,18 @@ class PlayerChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='1' and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$user_id, $squadron_id]);
+        $tmp = $this->fetchSql($sql, [$user_id, $squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where earning_type_id='1' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        $tmp = $this->fetchSql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $results['status'] = 200;
         $jsonResponse = new JsonResponse($results);
@@ -131,7 +131,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/exploration_earning", name="player_chart_exploration_earning")
      * @IsGranted("ROLE_USER")
      */
-    public function exploration_earning(Request $request)
+    public function explorationEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
@@ -139,18 +139,18 @@ class PlayerChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='4' and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$user_id, $squadron_id]);
+        $tmp = $this->fetchSql($sql, [$user_id, $squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where earning_type_id='4' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        $tmp = $this->fetchSql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $results['status'] = 200;
         $jsonResponse = new JsonResponse($results);
@@ -162,7 +162,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/trade_earning", name="player_chart_trade_earning")
      * @IsGranted("ROLE_USER")
      */
-    public function trade_earning(Request $request)
+    public function tradeEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
@@ -170,28 +170,28 @@ class PlayerChartsController extends AbstractController
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id in ('5','6') and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$user_id, $squadron_id]);
+        $tmp = $this->fetchSql($sql, [$user_id, $squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $buy = [];
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where squadron_id=? and earning_type_id='5' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        $tmp = $this->fetchSql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
             $buy[$row['x']] = $row['y'];
         }
-        $buy = $this->fill_missing_dates($buy, 30);
+        $buy = $this->fillMissingDates($buy, 30);
 
         $data = [];
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_commander_type_total where squadron_id=? and earning_type_id='6' and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        $tmp = $this->fetchSql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
             $buy_value = isset($buy[$row['x']]) ? $buy[$row['x']] : 0;
             $data[$row['x']] = $row['y'] + $buy_value;
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $results['status'] = 200;
         $jsonResponse = new JsonResponse($results);
@@ -203,7 +203,7 @@ class PlayerChartsController extends AbstractController
      * @Route("/player/chart/mission_earning", name="player_chart_mission_earning")
      * @IsGranted("ROLE_USER")
      */
-    public function mission_earning(Request $request)
+    public function missionEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
@@ -211,18 +211,18 @@ class PlayerChartsController extends AbstractController
         $data = [];
 
         $sql = "select total_earned as y, earned_on as x from v_commander_mission_total where user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now()";
-        $tmp = $this->fetch_sql($sql, [$user_id, $squadron_id]);
+        $tmp = $this->fetchSql($sql, [$user_id, $squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $sql = "select round(avg(total_earned)) as y, earned_on as x from v_squadron_mission_total where squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
-        $tmp = $this->fetch_sql($sql, [$squadron_id]);
+        $tmp = $this->fetchSql($sql, [$squadron_id]);
         foreach ($tmp as $i => $row) {
             $data[$row['x']] = $row['y'];
         }
-        $results['data'][] = $this->fill_missing_dates($data, 30);
+        $results['data'][] = $this->fillMissingDates($data, 30);
 
         $results['status'] = 200;
         $jsonResponse = new JsonResponse($results);
@@ -230,7 +230,7 @@ class PlayerChartsController extends AbstractController
         return $jsonResponse;
     }
 
-    private function fill_missing_dates($data, $num_days_ago)
+    private function fillMissingDates($data, $num_days_ago)
     {
         $current_date = new \DateTime('now', $this->utc);
         $one_day_interval = new \DateInterval('P1D');
@@ -245,7 +245,7 @@ class PlayerChartsController extends AbstractController
         return $new_data;
     }
 
-    private function fetch_sql($sql, $params = null)
+    private function fetchSql($sql, $params = null)
     {
         $rs = $this->dbh->prepare($sql);
         if (is_array($params)) {
@@ -258,7 +258,7 @@ class PlayerChartsController extends AbstractController
         }
     }
 
-    private function fetch_sql_single_scalar($sql, $params = null)
+    private function fetchSqlSingleScalar($sql, $params = null)
     {
         $rs = $this->dbh->prepare($sql);
         if (is_array($params)) {

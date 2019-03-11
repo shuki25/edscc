@@ -26,7 +26,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/edmc", name="api_edmc")
      */
-    public function api_edmc(Request $request, ParseLogHelper $parseLogHelper, UserRepository $userRepository, CommanderRepository $commanderRepository)
+    public function apiEdmc(Request $request, ParseLogHelper $parseLogHelper, UserRepository $userRepository, CommanderRepository $commanderRepository)
     {
 
         $json_response = new JsonResponse();

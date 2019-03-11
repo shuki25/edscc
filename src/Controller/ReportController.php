@@ -49,7 +49,7 @@ class ReportController extends AbstractController
     /**
      * @Route("/reports", name="app_player_reports")
      */
-    public function player_reports(Request $request)
+    public function playerReports(Request $request)
     {
 
         $user = $this->getUser();
@@ -78,7 +78,7 @@ class ReportController extends AbstractController
     /**
      * @Route("/reports/ajax/{slug}/{token}", name="report_table", methods={"POST"} )
      */
-    public function report_table($slug, $token, Request $request)
+    public function reportTable($slug, $token, Request $request)
     {
         /**
          * @var User $user

@@ -21,7 +21,7 @@ class AnnouncementController extends AbstractController
      * @Route("/announcements", name="show_announcements")
      * @IsGranted("ROLE_USER")
      */
-    public function show_announcements(AnnouncementRepository $announcementRepository, MotdRepository $motdRepository)
+    public function showAnnouncements(AnnouncementRepository $announcementRepository, MotdRepository $motdRepository)
     {
         $this->user = $this->getUser();
 

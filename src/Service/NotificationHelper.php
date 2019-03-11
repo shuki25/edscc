@@ -57,7 +57,7 @@ class NotificationHelper
         $this->em = $em;
     }
 
-    public function admin_approval_notice(Squadron $squadron)
+    public function adminApprovalNotice(Squadron $squadron)
     {
         $leader = $this->userRepository->findOneBy(['id' => $squadron->getAdmin()->getId()]);
         $body = $this->twig->render('emails/approval_notification_admin.html.twig', [
@@ -71,7 +71,7 @@ class NotificationHelper
         $this->mailer->send($message);
     }
 
-    public function user_email_verification($email, $twig_params)
+    public function userEmailVerification($email, $twig_params)
     {
         $body = $this->twig->render('emails/registration_verification.html.twig', $twig_params);
         $message = (new \Swift_Message($this->translator->trans('Activation Code for ED:SCC')))
@@ -81,7 +81,7 @@ class NotificationHelper
         $this->mailer->send($message);
     }
 
-    public function user_status_change(User $user)
+    public function userStatusChange(User $user)
     {
         $twig_params = [
             'approved' => $user->getStatus()->getName() == "Approved" ? "Y" : "N",
@@ -95,7 +95,7 @@ class NotificationHelper
         $this->mailer->send($message);
     }
 
-    public function user_forgot_password(User $user, Array $params)
+    public function userForgotPassword(User $user, Array $params)
     {
         $params['user'] = $user;
         $body = $this->twig->render('emails/forgot_pw.html.twig', $params);

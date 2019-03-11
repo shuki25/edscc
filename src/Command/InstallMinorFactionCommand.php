@@ -151,7 +151,7 @@ class InstallMinorFactionCommand extends Command
                     $minorFaction->setId($json['id'])
                         ->setName($json['name'])
                         ->setPlayerFaction($json['is_player_faction'] ? 1 : 0);
-                    $this->set_entity($minorFaction, $json['id'], $row);
+                    $this->setEntity($minorFaction, $json['id'], $row);
                 }
 
                 $count += strlen($data);
@@ -166,7 +166,7 @@ class InstallMinorFactionCommand extends Command
         $io->success('Task Completed.');
     }
 
-    private function set_entity($entity, $id, $count)
+    private function setEntity($entity, $id, $count)
     {
         if ($id) {
             $this->entityManager->persist($entity);

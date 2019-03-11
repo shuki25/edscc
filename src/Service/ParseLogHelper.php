@@ -60,23 +60,23 @@ class ParseLogHelper
      */
     private $activityCounterRepository;
 
-    private $group_code = ['Combat', 'Trade', 'Explore', 'Federation', 'Empire', 'CQC'];
+    private $groupCode = ['Combat', 'Trade', 'Explore', 'Federation', 'Empire', 'CQC'];
 
     /**
-     * @var EarningType $earning_type_obj
+     * @var EarningType $earningTypeObj
      */
-    private $earning_type_obj;
-    private $earning_type;
+    private $earningTypeObj;
+    private $earningType;
 
     /**
      * @var CrimeType
      */
-    private $crime_type_obj;
-    private $crime_type;
+    private $crimeTypeObj;
+    private $crimeType;
     /**
-     * @var ActivityCounter $activity_counter
+     * @var ActivityCounter $activityCounter
      */
-    private $activity_counter;
+    private $activityCounter;
     /**
      * @var MinorFactionRepository
      */
@@ -97,24 +97,24 @@ class ParseLogHelper
         $this->activityCounterRepository = $activityCounterRepository;
         $this->utc = new \DateTimeZone('UTC');
 
-        $this->earning_type_obj = $this->earningTypeRepository->findAll();
-        foreach ($this->earning_type_obj as $i => $row) {
+        $this->earningTypeObj = $this->earningTypeRepository->findAll();
+        foreach ($this->earningTypeObj as $i => $row) {
             $type = strtolower($row->getName());
-            $this->earning_type[$type] = $row;
+            $this->earningType[$type] = $row;
         }
 
         $this->minorFactionRepository = $minorFactionRepository;
         $this->crimeTypeRepository = $crimeTypeRepository;
 
-        $this->crime_type_obj = $this->crimeTypeRepository->findAll();
-        foreach ($this->crime_type_obj as $i => $row) {
+        $this->crimeTypeObj = $this->crimeTypeRepository->findAll();
+        foreach ($this->crimeTypeObj as $i => $row) {
             $crime_type = strtolower($row->getName());
             $alias = json_decode($row->getAlias(), true);
-            $this->crime_type[$crime_type] = $row;
+            $this->crimeType[$crime_type] = $row;
             if (is_array($alias)) {
                 foreach ($alias as $key) {
                     $key = strtolower($key);
-                    $this->crime_type[$key] = $row;
+                    $this->crimeType[$key] = $row;
                 }
             }
         }
@@ -125,14 +125,14 @@ class ParseLogHelper
         if ($api) {
             $e = $data;
             $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
-            $this->activity_counter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
-            if (!is_object($this->activity_counter)) {
-                $this->activity_counter = new ActivityCounter();
-                $this->activity_counter->setUser($user)
+            $this->activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
+            if (!is_object($this->activityCounter)) {
+                $this->activityCounter = new ActivityCounter();
+                $this->activityCounter->setUser($user)
                     ->setSquadron($user->getSquadron())
                     ->setActivityDate(new \DateTime($game_datetime, $this->utc));
             }
-            $em->persist($this->activity_counter);
+            $em->persist($this->activityCounter);
         } else {
             $e = json_decode($data, true);
             $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
@@ -140,14 +140,14 @@ class ParseLogHelper
 
         switch ($e['event']) {
             case 'Fileheader':
-                $this->activity_counter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
-                if (!is_object($this->activity_counter)) {
-                    $this->activity_counter = new ActivityCounter();
-                    $this->activity_counter->setUser($user)
+                $this->activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
+                if (!is_object($this->activityCounter)) {
+                    $this->activityCounter = new ActivityCounter();
+                    $this->activityCounter->setUser($user)
                         ->setSquadron($user->getSquadron())
                         ->setActivityDate(new \DateTime($game_datetime, $this->utc));
                 }
-                $em->persist($this->activity_counter);
+                $em->persist($this->activityCounter);
                 break;
 
             case 'LoadGame':
@@ -162,14 +162,14 @@ class ParseLogHelper
                 break;
 
             case 'Rank':
-                foreach ($this->group_code as $key) {
+                foreach ($this->groupCode as $key) {
                     $rank = $this->rankRepository->findOneBy(['group_code' => strtolower($key), 'assigned_id' => $e[$key]]);
                     $commander->setRankId($key, $rank);
                 }
                 break;
 
             case 'Progress':
-                foreach ($this->group_code as $key) {
+                foreach ($this->groupCode as $key) {
                     $commander->setRankProgress($key, $e[$key]);
                 }
                 break;
@@ -182,7 +182,7 @@ class ParseLogHelper
             case 'Bounty':
                 $reward = isset($e['TotalReward']) ? $e['TotalReward'] : $e['Reward'];
                 $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
-                $this->activity_counter->addBountiesClaimed(1);
+                $this->activityCounter->addBountiesClaimed(1);
                 if (isset($e['Rewards'])) {
                     foreach ($e['Rewards'] as $i => $row) {
                         $minor_faction = isset($row['Faction']) ? $row['Faction'] : "";
@@ -198,7 +198,7 @@ class ParseLogHelper
             case 'FactionKillBond':
                 $minor_faction = isset($e['AwardingFaction']) ? $e['AwardingFaction'] : "";
                 $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
-                $this->activity_counter->addBountiesClaimed(1);
+                $this->activityCounter->addBountiesClaimed(1);
                 $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 break;
 
@@ -223,7 +223,7 @@ class ParseLogHelper
                 }
                 $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
                 $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], null, $crew_wage);
-                $this->activity_counter->addBodiesFound($num_bodies)
+                $this->activityCounter->addBodiesFound($num_bodies)
                     ->addSystemsScanned($num_systems);
                 break;
 
@@ -237,36 +237,36 @@ class ParseLogHelper
                 } else {
                     $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['BaseValue'] + $e['Bonus']);
                 }
-                $this->activity_counter->addBodiesFound($num_bodies)
+                $this->activityCounter->addBodiesFound($num_bodies)
                     ->addSystemsScanned($num_systems);
                 break;
 
             case 'SAAScanComplete':
                 $efficiency = ($e['ProbesUsed'] <= $e['EfficiencyTarget']);
-                $this->activity_counter->addSaaScanCompleted(1)
+                $this->activityCounter->addSaaScanCompleted(1)
                     ->addEfficiencyAchieved($efficiency);
                 break;
 
             case 'MarketBuy':
                 $this->addEarningHistory($em, $user, $e['event'], $game_datetime, $e['TotalCost'] * -1);
-                $this->activity_counter->addMarketBuy($e['Count']);
+                $this->activityCounter->addMarketBuy($e['Count']);
                 break;
 
             case 'MarketSell':
                 $this->addEarningHistory($em, $user, $e['event'], $game_datetime, $e['TotalSale']);
-                $this->activity_counter->addMarketSell($e['Count']);
+                $this->activityCounter->addMarketSell($e['Count']);
                 if (isset($e['StolenGoods'])) {
-                    $this->activity_counter->addStolenGoods($e['Count']);
+                    $this->activityCounter->addStolenGoods($e['Count']);
                 }
                 break;
 
             case 'MiningRefined':
-                $this->activity_counter->addMiningRefined(1);
+                $this->activityCounter->addMiningRefined(1);
                 break;
 
             case 'CommunityGoalReward':
                 $this->addEarningHistory($em, $user, $e['event'], $game_datetime, $e['Reward']);
-                $this->activity_counter->addCgParticipated(1);
+                $this->activityCounter->addCgParticipated(1);
                 break;
 
             case 'MissionCompleted':
@@ -274,7 +274,7 @@ class ParseLogHelper
                 $pieces = explode('_', $name);
                 $name = sprintf('%s_%s', ucfirst(strtolower($pieces[0])), $pieces[1]);
                 $name_ci = strtolower($name);
-                $type = isset($this->earning_type[$name_ci]) ? $name_ci : $e['event'];
+                $type = isset($this->earningType[$name_ci]) ? $name_ci : $e['event'];
                 $note = '';
                 if ($type == $e['event']) {
                     $note = $name;
@@ -285,11 +285,11 @@ class ParseLogHelper
                     $this->addEarningHistory($em, $user, $type, $game_datetime, $e['Reward'], $minor_faction, 0, $note);
                     $this->addMinorFactionActivity($em, $user, $type, $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 }
-                $this->activity_counter->addMissionsCompleted(1);
+                $this->activityCounter->addMissionsCompleted(1);
                 break;
 
             case 'CommitCrime':
-                $this->activity_counter->addCrimesCommitted(1);
+                $this->activityCounter->addCrimesCommitted(1);
                 $crime_committed = isset($e['CrimeType']) ? $e['CrimeType'] : "";
                 $minor_faction = isset($e['Faction']) ? $e['Faction'] : null;
                 if (isset($e['Victim_Localised'])) {
@@ -316,7 +316,7 @@ class ParseLogHelper
         }
 
         $eh->setUser($user)
-            ->setEarningType($this->earning_type[$type])
+            ->setEarningType($this->earningType[$type])
             ->setSquadron($user->getSquadron())
             ->setEarnedOn(new \DateTime($date, $this->utc))
             ->setReward($reward)
@@ -336,7 +336,7 @@ class ParseLogHelper
         $type = strtolower($type);
 
         $mfa->setUser($user)
-            ->setEarningType($this->earning_type[$type])
+            ->setEarningType($this->earningType[$type])
             ->setSquadron($user->getSquadron())
             ->setEarnedOn(new \DateTime($date, $this->utc))
             ->setReward($reward)
@@ -353,14 +353,14 @@ class ParseLogHelper
         $crime_committed_ci = strtolower($crime_committed);
         $notes = null;
 
-        if (!isset($this->crime_type[$crime_committed_ci])) {
+        if (!isset($this->crimeType[$crime_committed_ci])) {
             $notes = $crime_committed;
             $crime_committed_ci = "other";
         }
 
         $crime->setUser($user)
             ->setSquadron($user->getSquadron())
-            ->setCrimeType($this->crime_type[$crime_committed_ci])
+            ->setCrimeType($this->crimeType[$crime_committed_ci])
             ->setMinorFaction($minor_faction_obj)
             ->setVictim($victim)
             ->setFine($fine)

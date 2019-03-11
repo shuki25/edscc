@@ -99,7 +99,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/members/list/{token}", name="ajax_members", methods={"POST"} )
      */
-    public function ajax_members($token, Request $request, UserRepository $repository, TranslatorInterface $translator)
+    public function ajaxMembers($token, Request $request, UserRepository $repository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -146,7 +146,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/members/manage", name="ajax_manage_member", methods={"POST"})
      */
-    public function manage_member(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator, NotificationHelper $notificationHelper)
+    public function manageMember(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator, NotificationHelper $notificationHelper)
     {
         /**
          * @var User $user
@@ -182,7 +182,7 @@ class AjaxController extends AbstractController
                         $target_user->setStatus($status);
                         $target_user->setStatusComment(null);
                         if ($previous_status == "Pending") {
-                            $notificationHelper->user_status_change($target_user);
+                            $notificationHelper->userStatusChange($target_user);
                         }
                         break;
                     case 'lock':
@@ -200,7 +200,7 @@ class AjaxController extends AbstractController
                         $target_user->setStatus($status);
                         $data['require_reason'] = true;
                         if ($previous_status == "Pending") {
-                            $notificationHelper->user_status_change($target_user);
+                            $notificationHelper->userStatusChange($target_user);
                         }
                         break;
                 }
@@ -221,7 +221,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/members/comment", name="ajax_manage_member_comment", methods={"POST"})
      */
-    public function manage_member_comment(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator)
+    public function manageMemberComment(Request $request, UserRepository $userRepository, StatusRepository $statusRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -258,7 +258,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/announcements/list", name="ajax_announcements", methods={"POST"} )
      */
-    public function ajax_announcements(Request $request, AnnouncementRepository $repository, TranslatorInterface $translator)
+    public function ajaxAnnouncements(Request $request, AnnouncementRepository $repository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -303,7 +303,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/announcements/manage", name="ajax_manage_announcements", methods={"POST"})
      */
-    public function manage_announcements(Request $request, AnnouncementRepository $announcementRepository, TranslatorInterface $translator)
+    public function manageAnnouncements(Request $request, AnnouncementRepository $announcementRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -358,7 +358,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/motd/list", name="ajax_motd", methods={"POST"} )
      */
-    public function ajax_motd(Request $request, MotdRepository $repository, TranslatorInterface $translator)
+    public function ajaxMotd(Request $request, MotdRepository $repository, TranslatorInterface $translator)
     {
         $this->em = $this->getDoctrine()->getManager();
         $this->translator = $translator;
@@ -398,7 +398,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/motd/manage", name="ajax_manage_motd", methods={"POST"})
      */
-    public function manage_motd(Request $request, MotdRepository $motdRepository, TranslatorInterface $translator)
+    public function manageMotd(Request $request, MotdRepository $motdRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -447,7 +447,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/newapi", name="ajax_newapi", methods={"POST"} )
      */
-    public function ajax_newapi(Request $request, UserRepository $repository, TranslatorInterface $translator)
+    public function ajaxNewapi(Request $request, UserRepository $repository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -476,7 +476,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/upload", name="ajax_upload", methods={"POST"})
      */
-    public function ajax_upload(Request $request, TranslatorInterface $translator, ImportQueueRepository $repository)
+    public function ajaxUpload(Request $request, TranslatorInterface $translator, ImportQueueRepository $repository)
     {
         /**
          * @var UploadedFile $file
@@ -665,7 +665,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/queue/{token}", name="ajax_queue_list", methods={"POST"} )
      */
-    public function ajax_queue_list($token, Request $request, ImportQueueRepository $repository, TranslatorInterface $translator)
+    public function ajaxQueueList($token, Request $request, ImportQueueRepository $repository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -714,7 +714,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/squadron/info", name="ajax_squadron_info", methods={"POST"} )
      */
-    public function ajax_squadron_info(Request $request, SquadronRepository $squadronRepository)
+    public function ajaxSquadronInfo(Request $request, SquadronRepository $squadronRepository)
     {
         $json_response = new JsonResponse();
         $token = $request->request->get('_token');
@@ -744,7 +744,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/tags", name="ajax_tags", methods={"POST"} )
      */
-    public function ajax_tags(Request $request, UserRepository $userRepository, TagsRepository $tagsRepository, SquadronTagsRepository $squadronTagsRepository, TranslatorInterface $translator)
+    public function ajaxTags(Request $request, UserRepository $userRepository, TagsRepository $tagsRepository, SquadronTagsRepository $squadronTagsRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -786,7 +786,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/password/strength", name="ajax_password_strength", methods={"POST"} )
      */
-    public function ajax_password_strength(Request $request, UserRepository $userRepository, TranslatorInterface $translator)
+    public function ajaxPasswordStrength(Request $request, UserRepository $userRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
