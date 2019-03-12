@@ -16,6 +16,7 @@ use App\Entity\EarningHistory;
 use App\Entity\EarningType;
 use App\Entity\FactionActivity;
 use App\Entity\MinorFaction;
+use App\Entity\SessionTracker;
 use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
@@ -26,6 +27,7 @@ use App\Repository\ImportQueueRepository;
 use App\Repository\MinorFactionRepository;
 use App\Repository\RankRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ParseLogHelper
@@ -121,10 +123,11 @@ class ParseLogHelper
         }
     }
 
-    public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, $api = false)
+    public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, SessionTracker $session_tracker, $api = false)
     {
         if ($api) {
             $e = $data;
+            $session = $session_tracker->getSessionData();
             $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
             $this->activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
             if (!is_object($this->activityCounter)) {
@@ -136,6 +139,7 @@ class ParseLogHelper
             $em->persist($this->activityCounter);
         } else {
             $e = json_decode($data, true);
+            $session = $session_tracker->getSessionData();
             $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
         }
 
@@ -180,6 +184,18 @@ class ParseLogHelper
                 $commander->setAsset($bank_acct['Current_Wealth']);
                 break;
 
+            case 'Docked':
+                $session = $e;
+                $session_tracker->setSessionData($session);
+                $em->flush();
+                break;
+
+            case 'Undocked':
+                $session = $e;
+                $session_tracker->setSessionData($session);
+                $em->flush();
+                break;
+
             case 'Bounty':
                 $reward = isset($e['TotalReward']) ? $e['TotalReward'] : $e['Reward'];
                 $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
@@ -222,8 +238,12 @@ class ParseLogHelper
                 foreach ($e['Discovered'] as $system) {
                     $num_bodies += $system['NumBodies'];
                 }
+
+                $minor_faction = isset($session['StationFaction']['Name']) ? $session['StationFaction']['Name'] : (isset($session['StationFaction']) ? $session['StationFaction'] : null);
+                $station_name = isset($session['StationName']) ? $session['StationName'] : null;
+
                 $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
-                $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], null, $crew_wage);
+                $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], $minor_faction, $crew_wage, $station_name);
                 $this->activityCounter->addBodiesFound($num_bodies)
                     ->addSystemsScanned($num_systems);
                 break;
@@ -232,11 +252,14 @@ class ParseLogHelper
                 $num_systems = count($e['Systems']);
                 $num_bodies = count($e['Discovered']);
 
+                $minor_faction = isset($session['StationFaction']['Name']) ? $session['StationFaction']['Name'] : (isset($session['StationFaction']) ? $session['StationFaction'] : null);
+                $station_name = isset($session['StationName']) ? $session['StationName'] : null;
+
                 if (isset($e['TotalEarnings'])) {
                     $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
-                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], null, $crew_wage);
+                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], $minor_faction, $crew_wage, $station_name);
                 } else {
-                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['BaseValue'] + $e['Bonus']);
+                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['BaseValue'] + $e['Bonus'], $minor_faction, null, $station_name);
                 }
                 $this->activityCounter->addBodiesFound($num_bodies)
                     ->addSystemsScanned($num_systems);
@@ -304,6 +327,27 @@ class ParseLogHelper
                 break;
 
         }
+    }
+
+    public function getSpecificSession(EntityManagerInterface &$em, User $user, bool $api): ?SessionTracker
+    {
+        $session = $user->getSessionTrackers();
+
+        foreach ($session as $item) {
+            if ($item->getApiFlag() && $api) {
+                return $item;
+            } elseif (!$item->getApiFlag() && !$api) {
+                return $item;
+            }
+        }
+        $item = new SessionTracker();
+        $item->setUser($user)
+            ->setSessionData([])
+            ->setApiFlag($api);
+
+        $em->persist($item);
+        $em->flush();
+        return $item;
     }
 
     private function addEarningHistory(EntityManagerInterface &$em, User &$user, $type, $date, $reward, $minorFaction = null, $crewWage = 0, $notes = '')

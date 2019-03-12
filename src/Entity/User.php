@@ -137,10 +137,16 @@ class User implements UserInterface
      */
     private $importQueues;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SessionTracker", mappedBy="user")
+     */
+    private $sessionTrackers;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
         $this->importQueues = new ArrayCollection();
+        $this->sessionTrackers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -525,6 +531,37 @@ class User implements UserInterface
     public function setTmpPassword(?string $tmp_password): self
     {
         $this->tmp_password = $tmp_password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SessionTracker[]
+     */
+    public function getSessionTrackers(): Collection
+    {
+        return $this->sessionTrackers;
+    }
+
+    public function addSessionTracker(SessionTracker $sessionTracker): self
+    {
+        if (!$this->sessionTrackers->contains($sessionTracker)) {
+            $this->sessionTrackers[] = $sessionTracker;
+            $sessionTracker->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionTracker(SessionTracker $sessionTracker): self
+    {
+        if ($this->sessionTrackers->contains($sessionTracker)) {
+            $this->sessionTrackers->removeElement($sessionTracker);
+            // set the owning side to null (unless already changed)
+            if ($sessionTracker->getUser() === $this) {
+                $sessionTracker->setUser(null);
+            }
+        }
 
         return $this;
     }

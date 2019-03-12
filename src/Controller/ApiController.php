@@ -75,9 +75,7 @@ class ApiController extends AbstractController
                     $edmc->setUser($user);
                     $edmc->setEntry($data['data']);
                     $edmc->setEnteredAt(new \DateTime('now', $this->utc));
-                    $edmc->setProcessedFlag(true);
-                    $em->persist($edmc);
-                    $em->flush();
+                    $edmc->setProcessedFlag(false);
 
                     /**
                      * @var Commander $commander
@@ -90,19 +88,37 @@ class ApiController extends AbstractController
                     }
 
                     $json_data = json_decode($data['data'], true);
+                    $session_tracker = $parseLogHelper->getSpecificSession($em, $user, true);
 
-                    foreach ($json_data as $json_datum) {
-                        $parseLogHelper->parseEntry($em, $user, $commander, $json_datum, true);
+                    try {
+                        foreach ($json_data as $json_datum) {
+                            $parseLogHelper->parseEntry($em, $user, $commander, $json_datum, $session_tracker, true);
+                        }
+
+                        $edmc->setProcessedFlag(true);
+                        $em->persist($edmc);
+                        $em->flush();
+
+                        $response = [
+                            'status_code' => 200,
+                            'user' => $user->getCommanderName(),
+                            'debug' => $data
+                        ];
+                        $json_response->setStatusCode(200);
+
+                    } catch (\Exception $e) {
+                        $edmc->setProcessedFlag(false);
+                        $em->persist($edmc);
+                        $em->flush();
+
+                        $response = [
+                            'status_code' => 500,
+                            'message' => 'Internal Server Error.' . $e->getMessage() . $e->getTraceAsString(),
+                            'user' => $user->getCommanderName(),
+                            'debug' => $data
+                        ];
                     }
 
-                    $em->flush();
-
-                    $response = [
-                        'status_code' => 200,
-                        'user' => $user->getCommanderName(),
-                        'debug' => $data
-                    ];
-                    $json_response->setStatusCode(200);
                 }
                 $json_response->setData($response);
             } catch (\Exception $e) {

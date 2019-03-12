@@ -88,6 +88,7 @@ class ImportQueueCommand extends Command
         }
 
         $entry = $this->importQueueRepository->findOneBy(['progress_code' => 'Q'], ['game_datetime' => 'asc']);
+        $session_tracker = $this->parseLogHelper->getSpecificSession($em, $entry->getUser(), false);
 
         $max = $this->importQueueRepository->totalCountInQueue();
         $progressBar = new ProgressBar($output, $max);
@@ -121,7 +122,7 @@ class ImportQueueCommand extends Command
                 $em->flush();
             } else {
                 while (($data = fgets($fh)) !== false) {
-                    $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data);
+                    $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data, $session_tracker);
                     time_nanosleep(0, 1000000);
                 }
                 $entry->setProgressCode('P');
