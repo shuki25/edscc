@@ -259,7 +259,7 @@ class ParseLogHelper
                     $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
                     $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], $minor_faction, $crew_wage, $station_name);
                 } else {
-                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['BaseValue'] + $e['Bonus'], $minor_faction, null, $station_name);
+                    $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['BaseValue'] + $e['Bonus'], $minor_faction, 0, $station_name);
                 }
                 $this->activityCounter->addBodiesFound($num_bodies)
                     ->addSystemsScanned($num_systems);
