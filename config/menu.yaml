@@ -42,6 +42,29 @@ user:
         item: "My Profile"
         route: "app_profile"
         icon: "fa fa-cog"
+    12:
+        header: "Management"
+        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
+    13:
+        item: "Criminal History"
+        route: ""
+        icon: "fa fa-shield-alt"
+        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
+    14:
+        item: "Commander Performance"
+        route: ""
+        icon: "fa fa-tachometer-alt"
+        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
+    15:
+        item: "Commander Activities"
+        route: ""
+        icon: "fa fa-fighter-jet"
+        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
+    16:
+        item: "Promotion Voting"
+        route: ""
+        icon: "fa fa-check-square"
+        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
 admin:
     1:
         item: "Squadron Settings"
