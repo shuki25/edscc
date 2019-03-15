@@ -198,7 +198,7 @@ class ParseLogHelper
 
             case 'Bounty':
                 $reward = isset($e['TotalReward']) ? $e['TotalReward'] : $e['Reward'];
-                $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
+                $target_faction = isset($e['VictimFaction']) ? $this->getLocalizedString($e, 'VictimFaction') : "";
                 $this->activityCounter->addBountiesClaimed(1);
                 if (isset($e['Rewards'])) {
                     foreach ($e['Rewards'] as $i => $row) {
@@ -206,15 +206,15 @@ class ParseLogHelper
                         $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $row['Reward'], $minor_faction, $target_faction);
                     }
                 } else {
-                    $minor_faction = isset($e['Faction']) ? $e['Faction'] : "";
+                    $minor_faction = isset($e['Faction']) ? $this->getLocalizedString($e, 'Faction') : "";
                     $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $reward, $minor_faction, $target_faction);
                 }
                 break;
 
             case 'CapShipBond':
             case 'FactionKillBond':
-                $minor_faction = isset($e['AwardingFaction']) ? $e['AwardingFaction'] : "";
-                $target_faction = isset($e['VictimFaction']) ? $e['VictimFaction'] : "";
+                $minor_faction = isset($e['AwardingFaction']) ? $this->getLocalizedString($e, 'AwardingFaction') : "";
+                $target_faction = isset($e['VictimFaction']) ? $this->getLocalizedString($e, 'VictimFaction') : "";
                 $this->activityCounter->addBountiesClaimed(1);
                 $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 break;
@@ -224,11 +224,11 @@ class ParseLogHelper
 
                 if (isset($e['Factions'])) {
                     foreach ($e['Factions'] as $i => $row) {
-                        $minor_faction = isset($row['Faction']) ? $row['Faction'] : "";
+                        $minor_faction = isset($row['Faction']) ? $this->getLocalizedString($row, 'Faction') : "";
                         $this->addEarningHistory($em, $user, $type, $game_datetime, $row['Amount'], $minor_faction);
                     }
                 } elseif (isset($e['Faction'])) {
-                    $this->addEarningHistory($em, $user, $type, $game_datetime, $e['Amount'], $e['Faction']);
+                    $this->addEarningHistory($em, $user, $type, $game_datetime, $e['Amount'], $this->getLocalizedString($e, 'Faction'));
                 }
                 break;
 
@@ -239,8 +239,8 @@ class ParseLogHelper
                     $num_bodies += $system['NumBodies'];
                 }
 
-                $minor_faction = isset($session['StationFaction']['Name']) ? $session['StationFaction']['Name'] : (isset($session['StationFaction']) ? $session['StationFaction'] : null);
-                $station_name = isset($session['StationName']) ? $session['StationName'] : null;
+                $minor_faction = isset($session['StationFaction']['Name']) ? $this->getLocalizedString($session['StationFaction'], 'Name') : (isset($session['StationFaction']) ? $this->getLocalizedString($session, 'StationFaction') : null);
+                $station_name = isset($session['StationName']) ? $this->getLocalizedString($session, 'StationName') : null;
 
                 $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
                 $this->addEarningHistory($em, $user, 'ExplorationData', $game_datetime, $e['TotalEarnings'], $minor_faction, $crew_wage, $station_name);
@@ -252,8 +252,8 @@ class ParseLogHelper
                 $num_systems = count($e['Systems']);
                 $num_bodies = count($e['Discovered']);
 
-                $minor_faction = isset($session['StationFaction']['Name']) ? $session['StationFaction']['Name'] : (isset($session['StationFaction']) ? $session['StationFaction'] : null);
-                $station_name = isset($session['StationName']) ? $session['StationName'] : null;
+                $minor_faction = isset($session['StationFaction']['Name']) ? $this->getLocalizedString($session['StationFaction'], 'Name') : (isset($session['StationFaction']) ? $this->getLocalizedString($session, 'StationFaction') : null);
+                $station_name = isset($session['StationName']) ? $this->getLocalizedString($session, 'StationName') : null;
 
                 if (isset($e['TotalEarnings'])) {
                     $crew_wage = $e['BaseValue'] + $e['Bonus'] - $e['TotalEarnings'];
@@ -294,7 +294,7 @@ class ParseLogHelper
                 break;
 
             case 'MissionCompleted':
-                $name = isset($e['Name']) ? $e['Name'] : '';
+                $name = isset($e['Name']) ? $this->getLocalizedString($e, 'Name') : '';
                 $pieces = explode('_', $name);
                 $name = sprintf('%s_%s', ucfirst(strtolower($pieces[0])), $pieces[1]);
                 $name_ci = strtolower($name);
@@ -304,8 +304,8 @@ class ParseLogHelper
                     $note = $name;
                 }
                 if (isset($e['Reward'])) {
-                    $minor_faction = isset($e['Faction']) ? $e['Faction'] : "";
-                    $target_faction = isset($e['TargetFaction']) ? $e['TargetFaction'] : "";
+                    $minor_faction = isset($e['Faction']) ? $this->getLocalizedString($e, 'Faction') : "";
+                    $target_faction = isset($e['TargetFaction']) ? $this->getLocalizedString($e, 'TargetFaction') : "";
                     $this->addEarningHistory($em, $user, $type, $game_datetime, $e['Reward'], $minor_faction, 0, $note);
                     $this->addMinorFactionActivity($em, $user, $type, $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 }
@@ -314,12 +314,12 @@ class ParseLogHelper
 
             case 'CommitCrime':
                 $this->activityCounter->addCrimesCommitted(1);
-                $crime_committed = isset($e['CrimeType']) ? $e['CrimeType'] : "";
-                $minor_faction = isset($e['Faction']) ? $e['Faction'] : null;
+                $crime_committed = isset($e['CrimeType']) ? $this->getLocalizedString($e, 'CrimeType') : "";
+                $minor_faction = isset($e['Faction']) ? $this->getLocalizedString($e, 'Faction') : null;
                 if (isset($e['Victim_Localised'])) {
                     $victim = $e['Victim_Localised'];
                 } else {
-                    $victim = isset($e['Victim']) ? $e['Victim'] : null;
+                    $victim = isset($e['Victim']) ? $this->getLocalizedString($e, 'Victim') : null;
                 }
                 $fine = isset($e['Fine']) ? $e['Fine'] : null;
                 $bounty = isset($e['Bounty']) ? $e['Bounty'] : null;
@@ -327,6 +327,13 @@ class ParseLogHelper
                 break;
 
         }
+    }
+
+    public function getLocalizedString($data, $key): ?String
+    {
+        $original_string = isset($data[$key]) ? $data[$key] : "";
+        $match = preg_match("/^[\$](.)*/i", $original_string);
+        return $match ? isset($data[$key . '_Localised']) ? $data[$key . '_Localised'] : $original_string : $original_string;
     }
 
     public function getSpecificSession(EntityManagerInterface &$em, User $user, bool $api): ?SessionTracker
