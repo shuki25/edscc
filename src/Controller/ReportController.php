@@ -6,8 +6,8 @@ use App\Entity\User;
 use Nyholm\DSN;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -36,7 +36,7 @@ class ReportController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"']);
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"', \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'']);
         } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
@@ -89,7 +89,9 @@ class ReportController extends AbstractController
             $datatable = [
                 'error' => $translator->trans('Unauthorized')
             ];
-            return new JsonResponse($datatable);
+            $response = new Response(json_encode($datatable, JSON_UNESCAPED_UNICODE));
+            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
+            return $response;
         }
 
         $datatable_params = $request->request->all();
@@ -176,9 +178,9 @@ class ReportController extends AbstractController
 //        $datatable['sql'] = $sql;
 //        $datatable['params'] = $params;
 
-        // dd($datatable);
-        $response = new JsonResponse($datatable);
-
+//        dd($datatable);
+        $response = new Response(json_encode($datatable, JSON_UNESCAPED_UNICODE));
+        $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         return $response;
     }
 }
