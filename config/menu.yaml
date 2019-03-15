@@ -5,6 +5,10 @@ user:
         item: "Announcements"
         route: "show_announcements"
         icon: "fa fa-bullhorn"
+        counter: true
+        counter_sql: "select a.counter + b.counter as counter from (select 1 as id, count(a.id) as counter from announcement a left join user u on a.squadron_id=u.squadron_id left join read_history rh on rh.announcement_id=a.id and rh.user_id=u.id where u.id=:user and a.published_flag=1 and a.publish_at < now() and rh.id is null) a, (select 1 as id, count(m.id) as counter from motd m left join read_history rh on rh.motd_id=m.id and rh.user_id=:user where m.show_flag=1 and rh.id is null) b where a.id=b.id;"
+        counter_color: "red"
+        counter_title: "Unread Messages"
     3:
         item: "Squadron Dashboard"
         route: "dashboard"
@@ -13,7 +17,6 @@ user:
         item: "Squadron Leaderboard"
         route: "leaderboard"
         icon: "ed-asset ed-asset-icon-leaderboard_website margin-r-5"
-        star: false
 #    5:
 #        item: "Squadron Activities"
 #        icon: "fa fa-line-chart"
@@ -21,7 +24,6 @@ user:
         item: "Squadron Roster"
         route: "app_members"
         icon: "fa fa-user-astronaut"
-        star: false
     7:
         header: "Player"
     8:
@@ -32,7 +34,6 @@ user:
         item: "Player Activities Report"
         route: "app_player_reports"
         icon: "fa fa-chart-line"
-        star: true
     10:
         item: "Player Journal Log"
         route: "app_import"
@@ -58,6 +59,10 @@ admin:
         route: "admin_list_members"
         routes: ["admin_list_members","admin_edit_member"]
         icon: "ed-asset-icon-members margin-r-5"
+        counter: true
+        counter_sql: "select count(u.id) as counter from user u where u.squadron_id in (select squadron_id from user where id=:user) and u.status_id=1"
+        counter_color: "orange"
+        counter_title: "Pending Members"
         roles: ["ROLE_ADMIN","CAN_EDIT_USER","CAN_CHANGE_STATUS","CAN_EDIT_PERMISSIONS","CAN_VIEW_HISTORY"]
     4:
         item: "MOTD"
