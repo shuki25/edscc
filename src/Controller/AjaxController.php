@@ -305,7 +305,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/announcements/manage", name="ajax_manage_announcements", methods={"POST"})
      */
-    public function manageAnnouncements(Request $request, AnnouncementRepository $announcementRepository, TranslatorInterface $translator)
+    public function manageAnnouncements(Request $request, AnnouncementRepository $announcementRepository, ReadHistoryRepository $readHistoryRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -341,6 +341,10 @@ class AjaxController extends AbstractController
                         $article->setPublishedFlag(true);
                         break;
                     case 'remove':
+                        $rh = $readHistoryRepository->findBy(['announcement' => $article->getId()]);
+                        foreach ($rh as $item) {
+                            $em->remove($item);
+                        }
                         $em->remove($article);
                         break;
                 }
@@ -400,7 +404,7 @@ class AjaxController extends AbstractController
     /**
      * @Route("/ajax/motd/manage", name="ajax_manage_motd", methods={"POST"})
      */
-    public function manageMotd(Request $request, MotdRepository $motdRepository, TranslatorInterface $translator)
+    public function manageMotd(Request $request, MotdRepository $motdRepository, ReadHistoryRepository $readHistoryRepository, TranslatorInterface $translator)
     {
         /**
          * @var User $user
@@ -430,7 +434,12 @@ class AjaxController extends AbstractController
                         $motd->setShowFlag(true);
                         break;
                     case 'remove':
+                        $rh = $readHistoryRepository->findBy(['motd' => $motd]);
+                        foreach ($rh as $item) {
+                            $em->remove($item);
+                        }
                         $em->remove($motd);
+                        $em->flush();
                         break;
                 }
                 $data['status'] = 200;
