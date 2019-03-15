@@ -20,6 +20,16 @@ class MotdRepository extends ServiceEntityRepository
         parent::__construct($registry, Motd::class);
     }
 
+    public function findAllWithReadHistory($user)
+    {
+        $now = new \DateTime('now');
+
+        $query = $this->getEntityManager()->createQuery("select m.id as id, m.title as title, m.message as message, m.createdAt as createdAt, case when rh.user is not null then 1 else 0 end as read_flag from App\Entity\Motd m left join App\Entity\ReadHistory rh with m.id = rh.motd and rh.user = :user where m.show_flag=1 order by m.id DESC")
+            ->setParameter('user', $user);
+
+        return $query->getResult();
+    }
+
     public function recordsTotal(?string $value = "")
     {
         $qb = $this->createQueryBuilder('q')

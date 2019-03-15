@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Announcement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,21 +21,16 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
-    public function findAllbyPublishStatus(?string $value)
+    public function findAllbyPublishStatus(?string $squadron, $user)
     {
         $now = new \DateTime('now');
 
-        $qb = $this->createQueryBuilder('a');
-        return $qb->select('a.id as id', 'a.title as title', 'a.message as message', 'a.pinned_flag as pinned_flag', 'a.publish_at as publish_in', 'a.createdAt as created_in')
-            ->addSelect('u.commander_name as author')
-            ->join('a.user', 'u')
-            ->andWhere('a.squadron = :val and a.publish_at < :now and a.published_flag=1')
-            ->setParameter('val', $value)
-            ->setParameter('now', $now)
-            ->orderBy('a.pinned_flag', 'DESC')
-            ->addOrderBy('a.publish_at', 'DESC')
-            ->getQuery()
-            ->getResult();
+        $query = $this->getEntityManager()->createQuery("select a.id as id, a.title as title, a.message as message, a.pinned_flag as pinned_flag, a.publish_at as publish_in, a.createdAt as created_in, u.commander_name as author, case when rh.user is not null then 1 else 0 end as read_flag from App\Entity\Announcement a left join App\Entity\User u with a.user=u.id left join App\Entity\ReadHistory rh with a.id = rh.announcement and rh.user = :user where a.squadron = :val and a.publish_at < :now and a.published_flag=1 order by a.pinned_flag DESC, a.publish_at DESC")
+            ->setParameter('val', $squadron)
+            ->setParameter('user', $user)
+            ->setParameter('now', $now);
+
+        return $query->getResult();
     }
 
     public function recordsTotal(?string $value = "")

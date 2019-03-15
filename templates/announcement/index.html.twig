@@ -17,6 +17,11 @@
             </div>
             <div class="box-footer">
                 <div class="clearfix pull-right">{% trans %}Posted by Site Administrator{% endtrans %}</div>
+                <div class="announcement-action">
+                    <span><a href="#" class="read-button" data-id="{{ msg.id }}" data-motd="1"
+                             data-marked="{{ msg.read_flag }}"><i
+                                    class="{% if msg.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> Mark as Read</a> </span>
+                </div>
             </div>
         </div>
         <!-- /.box -->
@@ -35,13 +40,57 @@
             <div class="box-footer">
                 <div class="clearfix pull-right">{% trans with {"%author%": article.author} %}Posted by CMDR %author%{% endtrans %}</div>
                 <div class="announcement-action">
-                    <span><a href="#"><i class="far fa-thumbs-up text-white"></i> Like</a> </span>
+                    <span>11 <a href="#"> <i class="far fa-thumbs-up text-white"></i> Like</a> </span>
                     <span><a href="#"><i class="far fa-comments text-white"></i> Comments</a> </span>
+                    <span><a href="#" class="read-button" data-id="{{ article.id }}" data-motd="0"
+                             data-marked="{{ article.read_flag }}"><i
+                                    class="{% if article.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> Mark as Read</a> </span>
                 </div>
             </div>
         </div>
         <!-- /.box -->
     {% endfor %}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(".read-button").click(function (e) {
+            e.preventDefault();
+            mark_read($(this), $(this).data("id"), $(this).data("motd"), $(this).data("marked"));
+        });
+
+        function mark_read(e, id, motd, mark_flag) {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_mark_read') }}",
+                data: {
+                    _token: "{{ csrf_token('mark_read') }}",
+                    id: id,
+                    motd: motd,
+                    mark_flag: mark_flag
+                },
+                success: function (result) {
+                    if (result.status == 200) {
+                        e.data('marked', result.new_flag);
+                        i = e.children();
+                        if (result.new_flag == 1) {
+                            i.removeClass("far fa-square");
+                            i.addClass("far fa-check-square");
+                        } else {
+                            i.removeClass("far fa-check-square");
+                            i.addClass("far fa-square");
+                        }
+                    } else {
+                        console.log('Error: ' + result.errorMessage);
+                    }
+                },
+                error: function (result) {
+                    console.log('Error thrown.');
+                }
+            });
+        }
+
+    </script>
 {% endblock %}
 

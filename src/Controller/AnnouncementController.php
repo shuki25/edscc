@@ -25,8 +25,8 @@ class AnnouncementController extends AbstractController
     {
         $this->user = $this->getUser();
 
-        $articles = $announcementRepository->findAllbyPublishStatus($this->user->getSquadron()->getId());
-        $motd = $motdRepository->findBy(['show_flag' => true], ['id' => 'desc']);
+        $articles = $announcementRepository->findAllbyPublishStatus($this->user->getSquadron()->getId(), $this->user->getId());
+        $motd = $motdRepository->findAllWithReadHistory($this->user->getId());
 
         return $this->render('announcement/index.html.twig', [
             'articles' => $articles,

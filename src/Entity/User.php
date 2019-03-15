@@ -142,11 +142,17 @@ class User implements UserInterface
      */
     private $sessionTrackers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ReadHistory", mappedBy="user")
+     */
+    private $readHistories;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
         $this->importQueues = new ArrayCollection();
         $this->sessionTrackers = new ArrayCollection();
+        $this->readHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -560,6 +566,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($sessionTracker->getUser() === $this) {
                 $sessionTracker->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReadHistory[]
+     */
+    public function getReadHistories(): Collection
+    {
+        return $this->readHistories;
+    }
+
+    public function addReadHistory(ReadHistory $readHistory): self
+    {
+        if (!$this->readHistories->contains($readHistory)) {
+            $this->readHistories[] = $readHistory;
+            $readHistory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReadHistory(ReadHistory $readHistory): self
+    {
+        if ($this->readHistories->contains($readHistory)) {
+            $this->readHistories->removeElement($readHistory);
+            // set the owning side to null (unless already changed)
+            if ($readHistory->getUser() === $this) {
+                $readHistory->setUser(null);
             }
         }
 

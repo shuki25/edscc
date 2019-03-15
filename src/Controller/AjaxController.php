@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use Alchemy\Zippy\Zippy;
 use App\Entity\ImportQueue;
+use App\Entity\ReadHistory;
 use App\Entity\SquadronTags;
 use App\Entity\User;
 use App\Repository\AnnouncementRepository;
 use App\Repository\ImportQueueRepository;
 use App\Repository\MotdRepository;
+use App\Repository\ReadHistoryRepository;
 use App\Repository\SquadronRepository;
 use App\Repository\SquadronTagsRepository;
 use App\Repository\StatusRepository;
@@ -816,6 +818,61 @@ class AjaxController extends AbstractController
 
         $strength['message'] = $translator->trans('Strength: %strength% (cracked in %number% %unit%)', ['%strength%' => $strengthText, '%number%' => $human_readable_time['number'], '%unit%' => $human_readable_time['unit']]);
         return new JsonResponse($strength);
+    }
+
+    /**
+     * @Route("/ajax/read/history", name="ajax_mark_read", methods={"POST"})
+     */
+    public function ajaxMarkRead(Request $request, ReadHistoryRepository $readHistoryRepository, MotdRepository $motdRepository, AnnouncementRepository $announcementRepository)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $token = $request->request->get('_token');
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        if ($this->isCsrfTokenValid('mark_read', $token)) {
+            $query = $request->request->all();
+//            $data['query'] = $query;
+
+            if ($query['motd'] == true) {
+                $rh = $readHistoryRepository->findOneBy(['motd' => $query['id'], 'user' => $user->getId()]);
+            } else {
+                $rh = $readHistoryRepository->findOneBy(['announcement' => $query['id'], 'user' => $user->getId()]);
+            }
+
+            if ($query['mark_flag']) {
+                if (is_object($rh)) {
+                    $em->remove($rh);
+                    $em->flush();
+                    $data['new_flag'] = 0;
+                }
+            } else {
+                if (!is_object($rh)) {
+                    $rh = new ReadHistory();
+                    $rh->setUser($user);
+                    if ($query['motd']) {
+                        $motd = $motdRepository->findOneBy(['id' => $query['id']]);
+                        $rh->setMotd($motd);
+                    } else {
+                        $announcement = $announcementRepository->findOneBy(['id' => $query['id']]);
+                        $rh->setAnnouncement($announcement);
+                    }
+                    $em->persist($rh);
+                    $em->flush();
+                }
+                $data['new_flag'] = 1;
+            }
+            $data['status'] = 200;
+        } else {
+            $data['status'] = 401;
+            $data['errorMessage'] = "Invalid CSRF Token";
+        }
+
+        $response = new JsonResponse($data);
+        return $response;
     }
 
     private function displayTime($ms)
