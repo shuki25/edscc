@@ -13,9 +13,9 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details" data-toggle="tab">{% trans %}Squadron Details{% endtrans %}</a></li>
-                    <li><a href="#tags" data-toggle="tab">{% trans %}Manage Tags</a>{% endtrans %}</li>
-                    <li><a href="#ranks" data-toggle="tab">{% trans %}Ranks</a>{% endtrans %}</li>
-                    <li><a href="#roles" data-toggle="tab">{% trans %}Roles</a>{% endtrans %}</li>
+                    <li><a href="#tags" data-toggle="tab">{% trans %}Manage Tags{% endtrans %}</a></li>
+                    <li><a href="#ranks" data-toggle="tab">{% trans %}Ranks{% endtrans %}</a></li>
+                    <li><a href="#roles" data-toggle="tab">{% trans %}Roles{% endtrans %}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="details">
@@ -36,7 +36,8 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                <button class="btn btn-primary btn-flat" type="submit">Save Changes</button>
+                                <button class="btn btn-primary btn-flat"
+                                        type="submit">{% trans %}Save Changes{% endtrans %}</button>
                                 {{ form_end(form_template) }}
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                                 <div class="box box-warning">
                                     <div class="box-body">
                                         <div style="padding-top: 5px; padding-bottom: 10px;">
-                                            {% trans %}In the game, Squadrons are able to customize their own rank classifications to integrate Squadron's lore. In the left column, the default rank names are listed, enter customized rank names in the right column accordingly.{% endtrans %}
+                                            {% trans %}custom_rank_instructions{% endtrans %}
                                         </div>
                                         <table class="table table-bordered table-striped">
                                             <tbody><tr>

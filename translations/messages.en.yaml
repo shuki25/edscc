@@ -288,3 +288,86 @@ Timestamp: Timestamp
 Targeted Minor Faction: Targeted Minor Faction
 Previous: Previous
 Next: Next
+Anti-Xeno Activists: Anti-Xeno Activists
+Bounty Hunters: Bounty Hunters
+Explorers: Explorers
+Faction Supporters: Faction Supporters
+Humanitarian Aid Providers: Humanitarian Aid Providers
+Pirates: Pirates
+Power Supporters: Power Supporters
+Traders: Traders
+Miners: Miners
+Fuel Rats: Fuel Rats
+Seals: Seals
+Occasional: Occasional
+Weekdays: Weekdays
+Weekends: Weekends
+Weeknights: Weeknights
+Relaxed: Relaxed
+Family: Family
+Devoted: Devoted
+PvE: PvE
+PvP: PvP
+Roleplay: Roleplay
+English: English
+Portuguese: Portuguese
+German: German
+French: French
+Spanish: Spanish
+Russian: Russian
+Solo: Solo
+Open: Open
+Private Group: Private Group
+FA off: FA off
+Activities: Activities
+Attitude: Attitude
+Availability: Availability
+Game Mode: Game Mode
+Language: Language
+custom_rank_instructions: In the game, Squadrons are able to customize their own rank classifications to integrate Squadron's lore. In the left column, the default rank names are listed, enter customized rank names in the right column accordingly.
+Ranks: Ranks
+Squadron Leader: Squadron Leader
+Faction / Superpower Affiliations: Faction / Superpower Affiliations
+Membership: Membership
+Total Members: Total Members
+Publish At: Publish At
+Mark this post as published (will be visible in announcements after the published date): Mark this post as published (will be visible in announcements after the published date)
+This post is pinned (always will appear on the top of page): This post is pinned (always will appear on the top of page)
+Cancel: Cancel
+Commander E-mail: Commander E-mail
+Commander Login Email: Commander Login Email
+Current Squadron Rank: Current Squadron Rank
+Choose the commander's rank: Choose the commander's rank
+Squadron Membership Status: Squadron Membership Status
+Choose the status to determine user's access privilege to the squadron: Choose the status to determine user's access privilege to the squadron
+Status Comment: Status Comment
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Please enter reason why the status is assigned as needed (if the access is being denied, etc.)
+Date that this Commander has joined the squadron (may be different from signing up for this account): Date that this Commander has joined the squadron (may be different from signing up for this account)
+E-mail address verified: E-mail address verified
+User has read the welcome message after logging in: User has read the welcome message after logging in
+Permissions: Permissions
+Commander Details: Commander Details
+Last Updated: Last Updated
+User Permission Settings: User Permission Settings
+User has full administrative rights (overrides everything below): User has full administrative rights (overrides everything below)
+User can view management reports: User can view management reports
+User can add, edit, delete announcements: User can add, edit, delete announcements
+User can approve, deny, ban or lock out a squadron member: User can approve, deny, ban or lock out a squadron member
+User can edit a squadron member account settings: User can edit a squadron member account settings
+User can modify access permissions of a squadron member: User can modify access permissions of a squadron member
+User can view a history log of a squadron member: User can view a history log of a squadron member
+User can modify settings or permissions for himself/herself: User can modify settings or permissions for himself/herself
+Yes: Yes
+No: No
+History Log: History Log
+Manage MOTD: Manage MOTD
+Add New MOTD: Add New MOTD
+Add New Announcement: Add New Announcement
+Mark this MOTD as visible: Mark this MOTD as visible
+Mark this MOTD as visible on the login screen: Mark this MOTD as visible on the login screen
+Journal Log File: Journal Log File
+Game Date: Game Date
+Date Processed: Date Processed
+EDMC Plug-in: EDMC Plug-in
+Regenerate API Key: Regenerate API Key
+Refresh: Refresh
