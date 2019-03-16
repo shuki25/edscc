@@ -147,7 +147,7 @@ Criminal History: Criminal History
 Commander Performance: Commander Performance
 Commander Activities: Commander Activities
 Promotion Voting: Promotion Voting
-Sign Out: Sign Out
+Sign out: Sign out
 Total Daily Earnings over last 30 days: Total Daily Earnings over last 30 days
 Bounties Collected over last 30 days: Bounties Collected over last 30 days
 Exploration Data Sold over last 30 days: Exploration Data Sold over last 30 days
@@ -390,3 +390,47 @@ You: You
 Other Players in Your Squadron (Average): Other Players in Your Squadron (Average)
 Your Squadron: Your Squadron
 Other Squadrons (Average): Other Squadrons (Average)
+Reset: Reset
+Start Upload: Start Upload
+Upload Progress: Upload Progress
+First: First
+Last: Last
+Member since: Member since
+You do not have permissions to access to this resource.: You do not have permissions to access to this resource.
+Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.
+Your squadron leader has banned you.: Your squadron leader has banned you.
+You Have Been Banned: You Have Been Banned
+Application Denied: Application Denied
+Access Denied: Access Denied
+Create New Squadron: Create New Squadron
+To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.: To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.
+API Key not generated: API Key not generated
+Your account has been locked: Your account has been locked
+Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.: Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.
+Reason: Reason
+Register a new Squadron Member: Register a new Squadron Member
+Commander Name (without CMDR): Commander Name (without CMDR)
+Retype password: Retype password
+I agree to the terms: I agree to the terms
+Register: Register
+pending_access_message: Your access is pending approval from the squadron leader.  Because you have joined the squadron that requires an approval from one of squadron leaders, you will receive an e-mail indicating your access has been granted as soon as you are approved.  If you have any questions, please contact your squadron leader, CMDR %cmdr%, in the game.
+Resetting Your Password: Resetting Your Password
+Temporary Password: Temporary Password
+Enter the temporary password.: Enter the temporary password.
+New Password: New Password
+Verify Password: Verify Password
+Finishing up your registration &mdash; Please select your Squadron: Finishing up your registration &mdash; Please select your Squadron
+Choose a squadron on the left.: Choose a squadron on the left.
+Create a New Squadron: Create a New Squadron
+Complete Registration: Complete Registration
+I did not get the activation e-mail. Please resend.: I did not get the activation e-mail. Please resend.
+Verify Your E-mail Address: Verify Your E-mail Address
+An e-mail address verification is required to activate your account.  An email has been sent to <b>%email%</b> with a token to continue with the new: An e-mail address verification is required to activate your account.  An email has been sent to <b>%email%</b> with a token to continue with the new account creation.
+Welcome to %name%: Welcome to %name%
+No Data: No Data
+No Power Allied: No Power Allied
+Approval Required: Approval Required
+Approval is not Required: Approval is not Required
+Approval is required to join this squad.: Approval is required to join this squad.
+Approval is not required to join this squadron.: Approval is not required to join this squadron.
+Creating a New Squadron: Creating a New Squadron
