@@ -83,7 +83,7 @@ $(() => {
                 position: "nearest",
                 callbacks: {
                     title: function (tooltipItems, data) {
-                        return "Daily Total Earning on " + tooltipItems[0].xLabel;
+                        return "{% trans %}Daily Total Earning on{% endtrans %} " + tooltipItems[0].xLabel;
                     },
                     label: function (tooltipItems, data) {
                         return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel.toLocaleString();
@@ -92,7 +92,7 @@ $(() => {
                         var numerator = parseInt(tooltipItems[0].yLabel);
                         var denominator = parseInt(tooltipItems[1].yLabel);
                         var delta_percent = ((numerator-denominator)/denominator) * 100;
-                        return "Percentage difference: " + delta_percent.toFixed(1) + "%";
+                        return "{% trans %}Percentage difference{% endtrans %}: " + delta_percent.toFixed(1) + "%";
                     }
                 }
 
@@ -104,7 +104,7 @@ $(() => {
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: "Credits"
+                        labelString: "{% trans %}Credits{% endtrans %}"
                     },
                     ticks: {
                         callback: function (value) {
