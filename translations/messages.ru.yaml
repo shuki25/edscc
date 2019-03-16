@@ -1,0 +1,225 @@
+---
+"#": "#"
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Нет
+  записей | {1} Одна запись |] 1, Inf [% start% to% end% of% count% записей"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Нет элементов | {1} один элемент
+  |] 1, Inf [% count% элементов"
+'Access Denied: Account status is %status%': 'Доступ запрещен: статус учетной записи%
+  status%'
+Action: действие
+Activated: активированная
+Activation Code for ED:SCC: 'Код активации для ED: SCC'
+Activities: мероприятия
+Activities Report for CMDR %name%: Отчет о деятельности для CMDR% name%
+Add New Announcement: Добавить новое объявление
+Add New MOTD: Добавить новый MOTD
+Admin: Администратор
+Amount: Количество
+Announcements: Объявления
+Anti-Xeno Activists: Активисты анти-ксено
+API Key: Ключ API
+Approved: Одобренный
+Attitude: Отношение
+Avoid using the same password for multiple sites: Не используйте один и тот же пароль
+  для нескольких сайтов.
+Bad: Плохой
+Besides letters, include at least a number or symbol: Помимо букв, включите хотя бы
+  число или символ
+Bodies Discovered: Обнаруженные тела
+Cadet: кадет
+CG Participated: CG Участвовал
+Change Password: Изменить пароль
+Changes were not saved.: Изменения не были сохранены.
+Chief Petty Officer: Главный старшина
+Choose a Faction: Выберите фракцию
+Choose a Superpower affiliation if applicable: Выберите принадлежность к Superpower,
+  если применимо
+CMDR %name%: CMDR% name%
+Commander Details: Детали командира
+CQC: CQC
+Created In: Создано в
+Creating a new announcement: Создание нового объявления
+Criminal History Summary: Криминальная история
+Data: Данные
+Date: Дата
+Date Committed: Дата совершения
+Date Processed: Дата обработки
+Denied: Отказано
+Description: Описание
+Devoted: Посвящается
+Editing an announcement: Редактирование объявления
+EDMC Plug-in: Плагин EDMC
+Email: Эл. адрес
+E-mail address verified: Адрес электронной почты подтвержден
+Enter a new password.: Введите новый пароль.
+Enter your current password.: Введи свой текущий пароль.
+Expired CSRF Token. Please refresh the page to continue.: Токен CSRF с истекшим сроком
+  действия. Пожалуйста, обновите страницу, чтобы продолжить.
+Expired CSRF Token. Please try again.: Токен CSRF с истекшим сроком действия. Пожалуйста,
+  попробуйте еще раз.
+Exploration: Исследование
+Explorer: исследователь
+Faction Affiliation: Принадлежность фракции
+Faction / Superpower Affiliations: Фракция / Сверхдержавы
+Faction Supporters: Сторонники фракций
+'false': ложный
+Family: семья
+FA off: FA выключен
+French: Французский
+Fuel Rats: Топливные Крысы
+Game Date: Дата игры
+Game Mode: Игровой режим
+Gaming Platform: Игровая платформа
+German: Немецкий
+Good: Хорошо
+Helpless: беспомощный
+History Log: Журнал истории
+Home base: Домашняя база
+Home Base: Домашняя база
+Humanitarian Aid Providers: Поставщики гуманитарной помощи
+Import History: История импорта
+Import Queue Status: Состояние очереди импорта
+Invalid token, please reload the page: Неверный токен, перезагрузите страницу
+Items: Предметы
+label_previous: предыдущий
+Language: язык
+Last Updated: Последнее обновление
+Lieutenant: Лейтенант
+Manage Announcements: Управление объявлениями
+Manage Members: Управление участниками
+Manage MOTD: Управлять MOTD
+Manage Tags: Управление тегами
+Mark as Published: Отметить как опубликованный
+Master: Мастер
+Message Content: Содержание сообщения
+Miners: Шахтеры
+Mission Rewards Collected over last 30 days: Награды за миссии, собранные за последние
+  30 дней
+Missions Completed: Миссии завершены
+Mostly Aimless: В основном бесполезный
+Mostly Helpless: В основном беспомощный
+Mostly Penniless: В основном без гроша
+MOTD: MOTD
+My Account: Мой аккаунт
+Net Units: Чистые единицы
+Never: Никогда
+New announcement has been added.: Новое объявление было добавлено.
+None: Никто
+Occasional: случайный
+Officer: сотрудник
+Overall Combat (Non-mission): Общий бой (без миссии)
+Overall Community Goal: Общая цель сообщества
+Overall Exploration: Общее исследование
+Overall Missions: Общие миссии
+Overall Trade: Общая торговля
+Password: пароль
+Password is case sensitive: Пароль чувствителен к регистру
+Password is not part of old password: Пароль не является частью старого пароля
+Pending Members: Ожидающие участники
+Percentage difference: Разница в процентах
+Permission Denied. Unable to access to this resource.: Доступ запрещен. Невозможно
+  получить доступ к этому ресурсу.
+Permissions: права доступа
+Petty Officer: Старшина
+Pioneer: первопроходец
+Pirates: Пираты
+Player: игрок
+Player Activities Report: Отчет о действиях игрока
+Player Dashboard: Панель инструментов игрока
+Player Journal Log: Журнал игрока
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Пожалуйста,
+  укажите причину, по которой статус присваивается при необходимости (если доступ
+  запрещен и т. Д.)
+Please enter your email: Пожалуйста, введите ваш адрес электронной почты
+Portuguese: португальский
+Power Supporters: Сторонники власти
+Previous: предыдущий
+Private Group: Частная группа
+Promotion Voting: Рекламное голосование
+Publish At: Опубликовать в
+Published In: Опубликовано в
+Publish In: Опубликовать в
+Purge the Data: Очистить данные
+PvE: PvE
+PvP: PvP
+Rank: Ранг
+Rear Admiral: Контр-адмирал
+Recruit: Новобранец
+Regenerate API Key: Восстановить ключ API
+Relaxed: расслабленный
+Re-type the new password to verify.: Введите новый пароль еще раз для подтверждения.
+Roleplay: Ролевая игра
+Roles: Роли
+Role Tags: Ролевые метки
+Rookie: Новобранец
+Save Changes: Сохранить изменения
+Seals: Морские котики
+Search...: Поиск...
+Select Log Files: Выберите файлы журнала
+Semi Professional: Полу профессиональный
+Senior Officer: Старший офицер
+Serf: раб
+Showing items: Показ предметов
+Sign In: Войти в систему
+Sign Out: Выход
+Solo: Соло
+Status: Статус
+Status Comment: Комментарий к статусу
+Strong: сильный
+Superpower Affiliation: Сверхдержавы
+Surveyor: геодезист
+System Scanned: Система отсканирована
+The date that the announcement will automatically appear in the feed: Дата, когда
+  объявление автоматически появится в ленте
+This post is pinned (always will appear on the top of page): Это сообщение прикреплено
+  (всегда будет отображаться в верхней части страницы)
+Timestamp: Отметка
+Total: Всего
+Total Asset: Всего активов
+Total Daily Earnings over last 30 days: Общий ежедневный доход за последние 30 дней
+Total Earned: Всего заработано
+Total Members: Всего участников
+Total Reward: Общая награда
+Trade Profit over last 30 days: Торговая прибыль за последние 30 дней
+Traders: Трейдеры
+'true': правда
+Tycoon: магнат
+Type: Тип
+Unable to fetch data.: Невозможно получить данные.
+Unable to generate a new API Key. Invalid token, please reload the page.: Невозможно
+  сгенерировать новый ключ API. Неверный токен, пожалуйста, перезагрузите страницу.
+Units Sold: Проданных единиц
+Up %count%%% from prior day: Увеличение% count %%% с предыдущего дня
+Upload Files: Загрузить файлы
+Uploading Players Journal Log Files: Загрузка файлов журнала игроков
+Use 8 to 64 characters: Используйте от 8 до 64 символов
+User Avatar: Аватар пользователя
+User can add, edit, delete announcements: Пользователь может добавлять, редактировать,
+  удалять объявления
+User can modify settings or permissions for himself/herself: Пользователь может изменить
+  настройки или разрешения для себя
+User can view management reports: Пользователь может просматривать отчеты управления
+User has read the welcome message after logging in: Пользователь прочитал приветственное
+  сообщение после входа в систему
+User not found: Пользователь не найден
+Using EDMC Plug-in to Capture Data: Использование плагина EDMC для сбора данных
+Vice Admiral: Вице-адмирал
+Victim: Потерпевший
+Viscount: Виконт
+Warrant Officer: Мичман
+Wealth: богатство
+Weekdays: Будние дни
+Weekends: Выходные дни
+Weeknights: Будние вечера
+Welcome message: Приветственное сообщение
+Welcome Message: Приветственное сообщение
+Worst: Наихудший
+You only can select a maximum of 20 files (web browser limitation).: Вы можете выбрать
+  не более 20 файлов (ограничение веб-браузера).
+Your account has been activated.  Please login to continue.: Ваш аккаунт был активирован.
+  Пожалуйста, войдите, чтобы продолжить.
+Your account is already activated.: Ваша учетная запись уже активирована.
+Your changes have been updated.: Ваши изменения были обновлены.
+Your password change has been updated: Ваш пароль изменен
+Your password has been reset: Ваш пароль был сброшен
+Your settings have been saved.: Ваши настройки были сохранены.
