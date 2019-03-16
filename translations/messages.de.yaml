@@ -1,9 +1,9 @@
 ---
 "#": "#"
 "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Keine
-  Einträge | {1} Ein Eintrag |] 1, Inf [% start% bis% end% von% count% Einträge"
+  Einträge | {1} Ein Eintrag |] 1, Inf [ %start% bis %end% von %count% Einträge"
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Keine Artikel | {1} ein Artikel
-  |] 1, Inf [% count% items"
+  |] 1, Inf [ %count% items"
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
   Heute sind keine neuen Mitglieder beigetreten. | {1} Ein neues Mitglied ist heute
   beigetreten"
@@ -68,6 +68,8 @@ Join Date: Beitrittsdatum
 Keep me logged in (for 7 days): Lass mich eingeloggt (für 7 Tage)
 label_next: Nächster
 label_previous: Bisherige
+Next: Nächster
+Previous: Bisherige
 Last Login: Letzte Anmeldung
 Leader: Führer
 Lock Out: Sperren
