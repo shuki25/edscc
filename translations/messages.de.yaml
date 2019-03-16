@@ -276,3 +276,6 @@ Your account has been activated.  Please login to continue.: Dein Konto wurde ak
 Your account is already activated.: Dein Benutzerkonto ist bereits aktiviert.
 Your activation code has been resent. Check your INBOX.: Ihr Aktivierungscode wurde
   erneut gesendet. Überprüfe deinen Posteingang.
+'Strength: %strength% (cracked in %number% %unit%)': 'Strength: %strength% (cracked
+  in %number% %unit%)'
+Up %count%%% from prior day: Up %count%%% vom vorherigen Tag
