@@ -1,131 +1,238 @@
-'Name of your Squadron': 'Name of your Squadron'
-'Squadron ID': 'Squadron ID'
-'Gaming Platform': 'Gaming Platform'
-'Faction Affiliation': 'Faction Affiliation'
-'Superpower Affiliation': 'Superpower Affiliation'
-'Requires approval from squad leaders to join': 'Requires approval from squad leaders to join'
-admin: ''
-welcome_message: ''
-description: ''
-home_base: ''
-'Choose a Faction': 'Choose a Faction'
-'None': 'None'
-'Your account has been activated.  Please login to continue.': ''
-'Your account is already activated.': ''
-'Your activation code has been resent. Check your INBOX.': ''
-'Please enter your email': ''
-'Exact spelling as depicted in the game': 'Exact spelling as depicted in the game'
-'A 4-character indicator for your Squadron in the game': 'A 4-character indicator for your Squadron in the game'
-'Choose the gaming platform this Squadron plays on': 'Choose the gaming platform this Squadron plays on'
-'Choose a Superpower affiliation if applicable': 'Choose a Superpower affiliation if applicable'
-'Home base': 'Home base'
-'Manage Squadron Announcements': 'Manage Squadron Announcements'
-'Description': 'Description'
-'Welcome message': 'Welcome message'
-'Write a brief description about your Squadron. New members will see this when picking which squadron to join.': 'Write a brief description about your Squadron. New members will see this when picking which squadron to join.'
-'The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.': 'The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.'
-'Admin': 'Admin'
-'Title': 'Title'
-'Use Markdown to format your content': 'Use Markdown to format your content'
-'Message Content': 'Message Content'
-'Your changes have been updated.': 'Your changes have been updated.'
-'Your settings have been saved.': 'Your settings have been saved.'
-'Editing an announcement': 'Editing an announcement'
-'Expired CSRF Token. Please refresh the page to continue.': 'Expired CSRF Token. Please refresh the page to continue.'
-'Creating a new announcement': 'Creating a new announcement'
-'Manage Announcements': 'Manage Announcements'
-'Changes were not saved.': 'Changes were not saved.'
-'New announcement has been added.': 'New announcement has been added.'
-'CMDR %name%': 'CMDR %name%'
-'Email': 'Email'
-'Password': 'Password'
-'Keep me logged in (for 7 days)': 'Keep me logged in (for 7 days)'
-'Sign In': 'Sign In'
-'I forgot my password': 'I forgot my password'
-'Register a new membership': 'Register a new membership'
-'#': '#'
-'Author': 'Author'
-'Published In': 'Published In'
-'Publish In': 'Publish In'
-'The date that the announcement will automatically appear in the feed': 'The date that the announcement will automatically appear in the feed'
-'Created In': 'Created In'
-'Action': 'Action'
-'Save Changes': 'Save Changes'
-'Create': 'Create'
-'Sign in to start your session': 'Sign in to start your session'
-'Mark as Published': 'Mark as Published'
-'ED:SCC Squadron Owner': 'ED:SCC Squadron Owner'
-'This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.': 'This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.'
-label_previous: 'Previous'
-label_next: 'Next'
-'Total': 'Total'
-'Items': 'Items'
-'{0} No items|{1} one item|]1,Inf[ %count% items': '{0} No items|{1} one item|]1,Inf[ %count% items'
-'Showing items': 'Showing items'
-'Permission Denied. Unable to access to this resource.': 'Permission Denied. Unable to access to this resource.'
-'{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries': '{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries'
-'Commander Name': 'Commander Name'
-'Activated': 'Activated'
-'Join Date': 'Join Date'
-'Last Login': 'Last Login'
-'Never': 'Never'
-'New': 'New'
-'Approved': 'Approved'
-'Lock Out': 'Lock Out'
-'Banned': 'Banned'
-'Denied': 'Denied'
-'Status': 'Status'
-'Rank': 'Rank'
-'Rookie': 'Rookie'
-'Agent': 'Agent'
-'Officer': 'Officer'
-'Senior Officer': 'Senior Officer'
-'Leader': 'Leader'
-'Unable to fetch data.': 'Unable to fetch data.'
-'Search...': 'Search...'
-'Unauthorized': 'Unauthorized'
-'No Date Available': 'No Date Available'
-'Squadron: %name%': 'Squadron: %name%'
-'Squadron Details': 'Squadron Details'
-'About Your Squadron': 'About Your Squadron'
-'Manage Tags': 'Manage Tags'
-'Tags Associated with Your Squadron': 'Tags Associated with Your Squadron'
-'Roles': 'Roles'
-'Customizing Commander Roles': 'Customizing Commander Roles'
-'Trade': 'Trade'
-'Combat': 'Combat'
-'Exploration': 'Exploration'
-'Import Queue Status': 'Import Queue Status'
-'Upload Files': 'Upload Files'
-'Import History': 'Import History'
-"Uploading Player's Journal Log Files": "Uploading Player's Journal Log Files"
-'Unable to generate a new API Key. Invalid token, please reload the page.': 'Unable to generate a new API Key. Invalid token, please reload the page.'
-'API Key': 'API Key'
-'You only can select a maximum of 20 files (web browser limitation).': 'You only can select a maximum of 20 files (web browser limitation).'
-'{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today': '{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today'
-'Up %count%%% from prior day': 'Up %count%%% from prior day'
-'%count%%% from prior day': '%count%%% from prior day'
-'Yesterday Earnings': 'Yesterday Earnings'
-'Commanders Joined': 'Commanders Joined'
-'Invalid token, please reload the page': 'Invalid token, please reload the page'
-'User not found': 'User not found'
-'Access Denied: Account status is %status%': 'Access Denied: Account status is %status%'
-'Strength: %strength% (cracked in %number% %unit%)': 'Strength: %strength% (cracked in %number% %unit%)'
-'Worst': 'Worst'
-'Bad': 'Bad'
-'Weak': 'Weak'
-'Good': 'Good'
-'Strong': 'Strong'
-'Your password change has been updated': 'Your password change has been updated'
-'The current password is incorrect, and your password is not changed': 'The current password is incorrect, and your password is not changed'
-'Your new password did not match with verify password. Password is not changed.': 'Your new password did not match with verify password. Password is not changed.'
-'Commander data has been purged from the system.': 'Commander data has been purged from the system.'
-'ED:SCC Approval Requested': 'ED:SCC Approval Requested'
-'Activation Code for ED:SCC': 'Activation Code for ED:SCC'
-'Squadron Join Request Update': 'Squadron Join Request Update'
-'Default Rank Name': 'Default Rank Name'
-'Custom Rank Name': 'Custom Rank Name'
-'Squadron Rank Classifications Saved.': 'Squadron Rank Classifications Saved.'
-'Your password has been reset': 'Your password has been reset'
-'Invalid temporary password or mismatched new/verify password pairs.': 'Invalid temporary password or mismatched new/verify password pairs.'
-'Expired CSRF Token. Please try again.': 'Expired CSRF Token. Please try again.'
+Name of your Squadron: Name of your Squadron
+Squadron ID: Squadron ID
+Gaming Platform: Gaming Platform
+Faction Affiliation: Faction Affiliation
+Superpower Affiliation: Superpower Affiliation
+Requires approval from squad leaders to join: Requires approval from squad leaders to join
+Welcome Message: Welcome Message
+Home Base: Home Base
+Choose a Faction: Choose a Faction
+None: None
+Your account has been activated.  Please login to continue.: Your account has been activated.  Please login to continue.
+Your account is already activated.: Your account is already activated.
+Your activation code has been resent. Check your INBOX.: Your activation code has been resent. Check your INBOX.
+Please enter your email: Please enter your email
+Exact spelling as depicted in the game: Exact spelling as depicted in the game
+A 4-character indicator for your Squadron in the game: A 4-character indicator for your Squadron in the game
+Choose the gaming platform this Squadron plays on: Choose the gaming platform this Squadron plays on
+Choose a Superpower affiliation if applicable: Choose a Superpower affiliation if applicable
+Home base: Home base
+Manage Squadron Announcements: Manage Squadron Announcements
+Description: Description
+Welcome message: Welcome message
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Write a brief description about your Squadron. New members will see this when picking which squadron to join.
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.
+Admin: Admin
+Title: Title
+Use Markdown to format your content: Use Markdown to format your content
+Message Content: Message Content
+Your changes have been updated.: Your changes have been updated.
+Your settings have been saved.: Your settings have been saved.
+Editing an announcement: Editing an announcement
+Expired CSRF Token. Please refresh the page to continue.: Expired CSRF Token. Please refresh the page to continue.
+Creating a new announcement: Creating a new announcement
+Manage Announcements: Manage Announcements
+Changes were not saved.: Changes were not saved.
+New announcement has been added.: New announcement has been added.
+"CMDR %name%": "CMDR %name%"
+Email: Email
+Password: Password
+Keep me logged in (for 7 days): Keep me logged in (for 7 days)
+Sign In: Sign In
+I forgot my password: I forgot my password
+Register a new membership: Register a new membership
+"#": "#"
+Author: Author
+Published In: Published In
+Publish In: Publish In
+The date that the announcement will automatically appear in the feed: The date that the announcement will automatically appear in the feed
+Created In: Created In
+Action: Action
+Save Changes: Save Changes
+Create: Create
+Sign in to start your session: Sign in to start your session
+Mark as Published: Mark as Published
+"ED:SCC Squadron Owner": "ED:SCC Squadron Owner"
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.
+label_previous: Previous
+label_next: Next
+Total: Total
+Items: Items
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No items|{1} one item|]1,Inf[ %count% items"
+Showing items: Showing items
+Permission Denied. Unable to access to this resource.: Permission Denied. Unable to access to this resource.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries"
+Commander Name: Commander Name
+Activated: Activated
+Join Date: Join Date
+Last Login: Last Login
+Never: Never
+New: New
+Approved: Approved
+Lock Out: Lock Out
+Banned: Banned
+Denied: Denied
+Status: Status
+Rank: Rank
+Rookie: Rookie
+Agent: Agent
+Officer: Officer
+Senior Officer: Senior Officer
+Leader: Leader
+Unable to fetch data.: Unable to fetch data.
+Search...: Search...
+Unauthorized: Unauthorized
+No Date Available: No Date Available
+"Squadron: %name%": "Squadron: %name%"
+Squadron Details: Squadron Details
+About Your Squadron: About Your Squadron
+Manage Tags: Manage Tags
+Tags Associated with Your Squadron: Tags Associated with Your Squadron
+Roles: Roles
+Customizing Commander Roles: Customizing Commander Roles
+Trade: Trade
+Combat: Combat
+Exploration: Exploration
+Import Queue Status: Import Queue Status
+Upload Files: Upload Files
+Import History: Import History
+Uploading Players Journal Log Files: Uploading Players Journal Log Files
+Unable to generate a new API Key. Invalid token, please reload the page.: Unable to generate a new API Key. Invalid token, please reload the page.
+API Key: API Key
+You only can select a maximum of 20 files (web browser limitation).: You only can select a maximum of 20 files (web browser limitation).
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today"
+"Up %count%%% from prior day": "Up %count%%% from prior day"
+"%count%%% from prior day": "%count%%% from prior day"
+Yesterday Earnings: Yesterday Earnings
+Commanders Joined: Commanders Joined
+Invalid token, please reload the page: Invalid token, please reload the page
+User not found: User not found
+"Access Denied: Account status is %status%": "Access Denied: Account status is %status%"
+"Strength: %strength% (cracked in %number% %unit%)": "Strength: %strength% (cracked in %number% %unit%)"
+Worst: Worst
+Bad: Bad
+Weak: Weak
+Good: Good
+Strong: Strong
+Your password change has been updated: Your password change has been updated
+The current password is incorrect, and your password is not changed: The current password is incorrect, and your password is not changed
+Your new password did not match with verify password. Password is not changed.: Your new password did not match with verify password. Password is not changed.
+Commander data has been purged from the system.: Commander data has been purged from the system.
+"ED:SCC Approval Requested": "ED:SCC Approval Requested"
+"Activation Code for ED:SCC": "Activation Code for ED:SCC"
+Squadron Join Request Update: Squadron Join Request Update
+Default Rank Name: Default Rank Name
+Custom Rank Name: Custom Rank Name
+Squadron Rank Classifications Saved.: Squadron Rank Classifications Saved.
+Your password has been reset: Your password has been reset
+Invalid temporary password or mismatched new/verify password pairs.: Invalid temporary password or mismatched new/verify password pairs.
+Expired CSRF Token. Please try again.: Expired CSRF Token. Please try again.
+Announcements: Announcements
+Squadron Dashboard: Squadron Dashboard
+Squadron Leaderboard: Squadron Leaderboard
+Squadron Roster: Squadron Roster
+Player Dashboard: Player Dashboard
+Player Activities Report: Player Activities Report
+Player Journal Log: Player Journal Log
+My Profile: My Profile
+Squadron Settings: Squadron Settings
+Manage Members: Manage Members
+MOTD: MOTD
+Squadron: Squadron
+Player: Player
+Administration: Administration
+Management: Management
+Criminal History: Criminal History
+Commander Performance: Commander Performance
+Commander Activities: Commander Activities
+Promotion Voting: Promotion Voting
+Sign Out: Sign Out
+Total Daily Earnings over last 30 days: Total Daily Earnings over last 30 days
+Bounties Collected over last 30 days: Bounties Collected over last 30 days
+Exploration Data Sold over last 30 days: Exploration Data Sold over last 30 days
+Trade Profit over last 30 days: Trade Profit over last 30 days
+Mission Rewards Collected over last 30 days: Mission Rewards Collected over last 30 days
+Pending Members: Pending Members
+purge_commander_data_body: Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. This will only purge any data associated with your current squadron. If you were previously in a different squadron, that data will not be purged. Remember, before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.
+I understand that by purging the data, it is irreversible.: I understand that by purging the data, it is irreversible.
+Purge Commander Data: Purge Commander Data
+Change Password: Change Password
+Enter your current password.: Enter your current password.
+Enter a new password.: Enter a new password.
+Re-type the new password to verify.: Re-type the new password to verify.
+My Account: My Account
+User Avatar: User Avatar
+Role Tags: Role Tags
+Use 8 to 64 characters: Use 8 to 64 characters
+Besides letters, include at least a number or symbol: Besides letters, include at least a number or symbol
+Password is case sensitive: Password is case sensitive
+Password is not part of your username: Password is not part of your username
+Password is not part of old password: Password is not part of old password
+Avoid using the same password for multiple sites: Avoid using the same password for multiple sites
+Password strength is either good or strong: Password strength is either good or strong
+Purge the Data: Purge the Data
+Wealth: Wealth
+Total Asset: Total Asset
+Loan: Loan
+Federation: Federation
+CQC: CQC
+Harmless: Harmless
+Mostly Harmless: Mostly Harmless
+Novice: Novice
+Competent: Competent
+Expert: Expert
+Dangerous: Dangerous
+Deadly: Deadly
+Penniless: Penniless
+Mostly Penniless: Mostly Penniless
+Peddler: Peddler
+Dealer: Dealer
+Merchant: Merchant
+Broker: Broker
+Entrepreneur: Entrepreneur
+Tycoon: Tycoon
+Aimless: Aimless
+Mostly Aimless: Mostly Aimless
+Scout: Scout
+Surveyor: Surveyor
+Explorer: Explorer
+Pathfinder: Pathfinder
+Ranger: Ranger
+Pioneer: Pioneer
+Recruit: Recruit
+Cadet: Cadet
+Midshipman: Midshipman
+Petty Officer: Petty Officer
+Chief Petty Officer: Chief Petty Officer
+Warrant Officer: Warrant Officer
+Ensign: Ensign
+Lieutenant: Lieutenant
+Lt. Commander: Lt. Commander
+Post Commander: Post Commander
+Post Captain: Post Captain
+Rear Admiral: Rear Admiral
+Vice Admiral: Vice Admiral
+Admiral: Admiral
+Outsider: Outsider
+Serf: Serf
+Master: Master
+Squire: Squire
+Knight: Knight
+Lord: Lord
+Baron: Baron
+Viscount: Viscount
+Count: Count
+Earl: Earl
+Marquis: Marquis
+Duke: Duke
+Prince: Prince
+King: King
+Helpless: Helpless
+Mostly Helpless: Mostly Helpless
+Amateur: Amateur
+Semi Professional: Semi Professional
+Professional: Professional
+Champion: Champion
+Hero: Hero
+Legend: Legend
+Elite: Elite

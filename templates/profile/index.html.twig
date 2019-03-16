@@ -23,7 +23,9 @@
                     <div class="active tab-pane" id="my-account">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-key margin-r-5"></i> Change Password</h3>
+                                <h3 class="panel-title"><i
+                                            class="fa fa-key margin-r-5"></i> {% trans %}Change Password{% endtrans %}
+                                </h3>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -32,19 +34,19 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <input type="password" class="form-control input-sm" id="current-password" name="current_password" placeholder="Current Password">
-                                                <small>Enter your current password.</small>
+                                                <small>{% trans %}Enter your current password.{% endtrans %}</small>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <input type="password" class="form-control input-sm" id="new-password" name="new_password" placeholder="New Password">
-                                                <small id="new-password-message">Enter a new password.</small>
+                                                <small id="new-password-message">{% trans %}Enter a new password.{% endtrans %}</small>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <input type="password" class="form-control input-sm" id="verify-password" name="verify_password" placeholder="Verify Password">
-                                                <small id="verify-password-message">Re-type the new password to verify.</small>
+                                                <small id="verify-password-message">{% trans %}Re-type the new password to verify.{% endtrans %}</small>
                                             </div>
                                         </div>
                                         <input type="hidden" name="_token" value="{{ csrf_token('change_password') }}">
@@ -52,33 +54,41 @@
                                     <div class="col-md-6">
                                         {#<p>When choosing a new password, please consider the following:</p>#}
                                         <ul style="padding-left: 15px;">
-                                            <li>Use 8 to 64 characters</li>
-                                            <li>Besides letters, include at least a number or symbol</li>
-                                            <li>Password is case sensitive</li>
-                                            <li>Password is not part of your username</li>
-                                            <li>Password is not part of old password</li>
-                                            <li>Avoid using the same password for multiple sites</li>
-                                            <li>Password strength is either good or strong</li>
+                                            <li>{% trans %}Use 8 to 64 characters{% endtrans %}</li>
+                                            <li>{% trans %}Besides letters, include at least a number or symbol{% endtrans %}</li>
+                                            <li>{% trans %}Password is case sensitive{% endtrans %}</li>
+                                            <li>{% trans %}Password is not part of your username{% endtrans %}</li>
+                                            <li>{% trans %}Password is not part of old password{% endtrans %}</li>
+                                            <li>{% trans %}Avoid using the same password for multiple sites{% endtrans %}</li>
+                                            <li>{% trans %}Password strength is either good or strong{% endtrans %}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <button id="change-password-button" type="submit" class="btn btn-default btn-flat pull-right" disabled="disabled">Change Password</button>
-                                <button id="reset-button" type="reset" class="btn btn-primary btn-flat pull-right margin-r-5">Reset</button>
+                                <button id="change-password-button" type="submit"
+                                        class="btn btn-default btn-flat pull-right"
+                                        disabled="disabled">{% trans %}Change Password{% endtrans %}</button>
+                                <button id="reset-button" type="reset"
+                                        class="btn btn-primary btn-flat pull-right margin-r-5">{% trans %}Reset{% endtrans %}</button>
                                 </form>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-trash-alt margin-r-5"></i> Purge Commander Data</h3>
+                                <h3 class="panel-title"><i
+                                            class="fa fa-trash-alt margin-r-5"></i> {% trans %}Purge Commander Data{% endtrans %}
+                                </h3>
                             </div>
                             <div class="panel-body">
                                 <div>
-                                    <p>Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. This will only purge any data associated with your current squadron. If you were previously in a different squadron, that data will not be purged. Remember, before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.</p>
+                                    <p>{% trans %}purge_commander_data_body{% endtrans %}</p>
                                     <form method="post" action="{{ path('app_profile_purge_data') }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token('purge_data') }}">
-                                        <input id="purge-confirm" type="checkbox" name="confirmed" value="1"> <b>I understand that by purging the data, it is irreversible.</b>
+                                        <input id="purge-confirm" type="checkbox" name="confirmed" value="1">
+                                        <b>{% trans %}I understand that by purging the data, it is irreversible.{% endtrans %}</b>
                                         <br>
-                                        <button id="purge-button" type="submit" class="btn btn-danger btn-flat pull-right" disabled="disabled">Purge the Data</button>
+                                        <button id="purge-button" type="submit"
+                                                class="btn btn-danger btn-flat pull-right"
+                                                disabled="disabled">{% trans %}Purge the Data{% endtrans %}</button>
                                     </form>
                                 </div>
                             </div>

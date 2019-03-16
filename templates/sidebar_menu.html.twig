@@ -6,7 +6,7 @@
     <ul class="sidebar-menu" data-widget="tree">
     {% for item in menu %}
         {% if item.header is defined %}
-            <li class="header">{{ item.header|upper }}</li>
+            <li class="header">{{ item.header|trans|upper }}</li>
         {% else %}
             {% set isGranted = true %}
             {% if item.roles is defined %}
@@ -25,7 +25,7 @@
                 <li {% if (item.route is defined and item.route == currentRoute) or isCurrent == true %}class="active"{% endif %}>
                     <a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}">{% if item.icon %}
                         <i class="{{ item.icon }}"></i>{% endif %}
-                        <span>{{ item.item }}</span> {% if item.star is defined and item.star == true %}<span
+                        <span>{{ item.item|trans }}</span> {% if item.star is defined and item.star == true %}<span
                                 class="pull-right-container"><small class="label pull-right bg-green"><i
                                         class="fa fa-star"></i></small>{% endif %}{% if item.counter is defined and item.counter == true and item.counter_value > 0 %}<span
                                     class="pull-right-container"{% if item.counter_title is defined %} data-toggle="tooltip" data-placement="right" title="{{ item.counter_title }}"{% endif %}><small
@@ -55,13 +55,13 @@
         {% endif %}
         {% if isGranted %}
             {% if printHeader %}
-                <li class="header">ADMINISTRATION</li>
+                <li class="header">{{ "Administration"|trans|upper }}</li>
                 {% set printHeader = false %}
             {% endif %}
             <li {% if (item.route is defined and item.route == currentRoute) or isCurrent == true %}class="active"{% endif %}>
                 <a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}">{% if item.icon %}
                     <i class="{{ item.icon }}"></i>{% endif %}
-                    <span>{{ item.item }}</span> {% if item.star is defined and item.star == true %}<span
+                    <span>{{ item.item|trans }}</span> {% if item.star is defined and item.star == true %}<span
                             class="pull-right-container"><small class="label pull-right bg-green"><i
                                     class="fa fa-star"></i></small>{% endif %}{% if item.counter is defined and item.counter == true and item.counter_value > 0 %}<span
                                 class="pull-right-container"{% if item.counter_title is defined %} data-toggle="tooltip" data-placement="right" title="{{ item.counter_title }}"{% endif %}><small
