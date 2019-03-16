@@ -223,3 +223,8 @@ Your changes have been updated.: Ваши изменения были обнов
 Your password change has been updated: Ваш пароль изменен
 Your password has been reset: Ваш пароль был сброшен
 Your settings have been saved.: Ваши настройки были сохранены.
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  Сегодня нет новых участников | {1} Сегодня присоединился один участник |] 1, Inf
+  [%count% новых участников сегодня"
+"%count%%% from prior day": "% count%%% с предыдущего дня"
+'Squadron: %name%': 'Сквадрон: %name%'
