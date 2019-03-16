@@ -1,5 +1,7 @@
 ---
 "#": "#"
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No
+  hay entradas | {1} Una entrada |] 1, Inf [ %start% a %end% de %count% entradas"
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No hay artículos | {1} un
   artículo |] 1, Inf [ %count% items"
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
@@ -8,10 +10,13 @@
 A 4-character indicator for your Squadron in the game: Un indicador de 4 caracteres
   para tu escuadrón en el juego.
 About Your Squadron: Sobre tu escuadron
+'Access Denied: Account status is %status%': 'Acceso denegado: el estado de la cuenta
+  es %status%'
 Action: Acción
 Activated: Activado
 Activation Code for ED:SCC: 'Código de activación para ED: SCC'
 Activities: Ocupaciones
+Activities Report for CMDR %name%: Informe de actividades para CMDR %name%
 Add New Announcement: Añadir nuevo anuncio
 Add New MOTD: Añadir nuevo MOTD
 Admin: Administración
@@ -58,6 +63,7 @@ Choose the gaming platform this Squadron plays on: Elige la plataforma de juego 
   la que juega este Escuadrón.
 Choose the status to determine user's access privilege to the squadron: Elija el estado
   para determinar el privilegio de acceso del usuario al escuadrón
+CMDR %name%: CMDR %name%
 Combat: Combate
 Commander: Comandante
 Commander Activities: Actividades de comandante
@@ -72,6 +78,7 @@ Commanders Joined: Comandantes unidos
 Competent: Competente
 Complete SAA Scans: Exploraciones completas de SAA
 Count: Contar
+"%count%%% from prior day": "%count%%% del día anterior"
 CQC: CQC
 Create: Crear
 Created In: Creado en
@@ -329,12 +336,15 @@ Squadron Join Request Update: Actualización de la solicitud de incorporación a
 Squadron Leader: líder de escuadrón
 Squadron Leaderboard: Tabla de líderes de escuadrón
 Squadron Membership Status: Estado de miembro del escuadrón
+'Squadron: %name%': 'Escuadrón: %name%'
 Squadron Rank Classifications Saved.: Clasificaciones de rango de escuadrón guardadas.
 Squadron Roster: Lista de escuadrones
 Squadron Settings: Ajustes de escuadron
 Squire: Escudero
 Status: Estado
 Status Comment: Comentario de estado
+'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
+  en %number% %unit%)'
 Strong: Fuerte
 Superpower Affiliation: Afiliación de superpotencia
 Surveyor: Topógrafo
@@ -375,6 +385,7 @@ Unauthorized: No autorizado
 Units Bought: Unidades compradas
 Units Sold: Unidades vendidas
 Upload Files: Subir archivos
+Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
 Uploading Players Journal Log Files: Cargar archivos de registro de diario de jugadores
 Use 8 to 64 characters: Usa de 8 a 64 caracteres.
 Use Markdown to format your content: Usa Markdown para formatear tu contenido
@@ -429,15 +440,20 @@ Your new password did not match with verify password. Password is not changed.: 
 Your password change has been updated: Su cambio de contraseña ha sido actualizado
 Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
-"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No
-  hay entradas | {1} Una entrada |] 1, Inf [ %start% a %end% de %count% entradas"
-'Access Denied: Account status is %status%': 'Acceso denegado: el estado de la cuenta
-  es %status%'
-Activities Report for CMDR %name%: Informe de actividades para CMDR %name%
-CMDR %name%: CMDR %name%
-"%count%%% from prior day": "%count%%% del día anterior"
-'Squadron: %name%': 'Escuadrón: %name%'
-'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
-  en %number% %unit%)'
-Up %count%%% from prior day: Hasta %count %%% del día anterior
-Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
+Creating a new MOTD: Creando un nuevo MOTD
+Customizing Rank Classifications: Personalización de clasificaciones de rango
+Earning Rank: Rango de ganancia
+Editing an MOTD: Editando un MOTD
+Empire: Imperio
+Joined: Unido
+Message: Mensaje
+Other Players in Your Squadron (Average): Otros jugadores en tu escuadrón (promedio)
+Other Squadrons (Average): Otros Escuadrones (Promedio)
+Pending: Pendiente
+Squadron Members: Miembros del Escuadrón
+Total Earning: Ganancia total
+Write your content, use Markdown to format your message.: Escribe tu contenido, usa
+  Markdown para formatear tu mensaje.
+You: Tú
+Your Squadron: Tu escuadron
+Up %count%%% from prior day: Hasta %count%%% del día anterior
