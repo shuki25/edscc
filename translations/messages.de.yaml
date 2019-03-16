@@ -7,9 +7,11 @@
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
   Heute sind keine neuen Mitglieder beigetreten. | {1} Ein neues Mitglied ist heute
   beigetreten"
-A 4-character indicator for your Squadron in the game: Eine 4-Zeichen-Anzeige für Ihr Geschwader im Spiel
+A 4-character indicator for your Squadron in the game: Eine 4-Zeichen-Anzeige für
+  Ihr Geschwader im Spiel
 About Your Squadron: Über dein Geschwader
-'Access Denied: Account status is %status%': 'Zugriff verweigert: Kontostatus ist %status%'
+'Access Denied: Account status is %status%': 'Zugriff verweigert: Kontostatus ist
+  %status%'
 Action: Aktion
 Activated: Aktiviert
 Activation Code for ED:SCC: 'Aktivierungscode für ED: SCC'
@@ -23,10 +25,12 @@ Banned: Verboten
 Changes were not saved.: Änderungen wurden nicht gespeichert.
 Choose a Faction: Wähle eine Fraktion
 Choose a Superpower affiliation if applicable: Wählen Sie ggf. eine Supermacht-Zugehörigkeit
-Choose the gaming platform this Squadron plays on: Wählen Sie die Gaming-Plattform, auf der diese Staffel spielt
+Choose the gaming platform this Squadron plays on: Wählen Sie die Gaming-Plattform,
+  auf der diese Staffel spielt
 CMDR %name%: CMDR %name%
 Combat: Kampf
-Commander data has been purged from the system.: Commander-Daten wurden aus dem System gelöscht.
+Commander data has been purged from the system.: Commander-Daten wurden aus dem System
+  gelöscht.
 Commander Name: Name des Kommandanten
 Commanders Joined: Kommandanten beigetreten
 "%count%%% from prior day": "%count%%% vom Vortag"
@@ -43,8 +47,10 @@ ED:SCC Approval Requested: 'ED: SCC-Genehmigung beantragt'
 ED:SCC Squadron Owner: 'ED: SCC Squadron Owner'
 Email: Email
 Exact spelling as depicted in the game: Genaue Schreibweise wie im Spiel dargestellt
-Expired CSRF Token. Please refresh the page to continue.: Abgelaufenes CSRF-Token. Bitte aktualisieren Sie die Seite, um fortzufahren.
-Expired CSRF Token. Please try again.: Abgelaufenes CSRF-Token. Bitte versuche es erneut.
+Expired CSRF Token. Please refresh the page to continue.: Abgelaufenes CSRF-Token.
+  Bitte aktualisieren Sie die Seite, um fortzufahren.
+Expired CSRF Token. Please try again.: Abgelaufenes CSRF-Token. Bitte versuche es
+  erneut.
 Exploration: Erkundung
 Faction Affiliation: Fraktionszugehörigkeit
 Gaming Platform: Spielplattform
@@ -53,8 +59,10 @@ Home base: Heimatbasis
 I forgot my password: Ich habe mein Passwort vergessen
 Import History: Historie importieren
 Import Queue Status: Warteschlangenstatus importieren
-Invalid temporary password or mismatched new/verify password pairs.: Ungültiges temporäres Passwort oder nicht übereinstimmende neue / Überprüfungs-Passwortpaare
-Invalid token, please reload the page: Ungültiger Token, bitte laden Sie die Seite neu
+Invalid temporary password or mismatched new/verify password pairs.: Ungültiges temporäres
+  Passwort oder nicht übereinstimmende neue / Überprüfungs-Passwortpaare
+Invalid token, please reload the page: Ungültiger Token, bitte laden Sie die Seite
+  neu
 Items: Artikel
 Join Date: Beitrittsdatum
 Keep me logged in (for 7 days): Lass mich eingeloggt (für 7 Tage)
@@ -76,12 +84,14 @@ No Date Available: Kein Datum verfügbar
 None: Keiner
 Officer: Offizier
 Password: Passwort
-Permission Denied. Unable to access to this resource.: Zugang verweigert. Zugriff auf diese Ressource nicht möglich.
+Permission Denied. Unable to access to this resource.: Zugang verweigert. Zugriff
+  auf diese Ressource nicht möglich.
 Published In: Veröffentlicht in
 Publish In: In veröffentlichen
 Rank: Rang
 Register a new membership: Registrieren Sie eine neue Mitgliedschaft
-Requires approval from squad leaders to join: Erfordert die Zustimmung der Gruppenführer, um teilzunehmen
+Requires approval from squad leaders to join: Erfordert die Zustimmung der Gruppenführer,
+  um teilzunehmen
 Roles: Rollen
 Rookie: Anfänger
 Save Changes: Änderungen speichern
@@ -96,33 +106,173 @@ Squadron Join Request Update: Squadron Join Request Update
 'Squadron: %name%': 'Staffel: %name%'
 Squadron Rank Classifications Saved.: Geschwader Rang Klassifikationen gespeichert.
 Status: Status
-'Strength: %strength% (cracked in %number% %unit%)': 'Stärke:% Stärke% (in% Anzahl%% Einheit% gerissen)'
 Strong: Stark
 Superpower Affiliation: Supermacht-Zugehörigkeit
 Tags Associated with Your Squadron: Mit Ihrem Geschwader verknüpfte Tags
-The current password is incorrect, and your password is not changed: Das aktuelle Passwort ist falsch und Ihr Passwort wird nicht geändert
-The date that the announcement will automatically appear in the feed: Das Datum, an dem die Ankündigung automatisch im Feed angezeigt wird
-The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader beigetreten ist. Verwenden Sie Markdown, um Ihre Nachricht zu formatieren.
-This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn Sie zu einem anderen Benutzer wechseln, verlieren Sie Ihre Berechtigungen.
+The current password is incorrect, and your password is not changed: Das aktuelle
+  Passwort ist falsch und Ihr Passwort wird nicht geändert
+The date that the announcement will automatically appear in the feed: Das Datum, an
+  dem die Ankündigung automatisch im Feed angezeigt wird
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die
+  Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader
+  beigetreten ist. Verwenden Sie Markdown, um Ihre Nachricht zu formatieren.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
+  ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn Sie zu einem anderen
+  Benutzer wechseln, verlieren Sie Ihre Berechtigungen.
 Title: Titel
 Total: Gesamt
 Trade: Handel
 Unable to fetch data.: Daten können nicht abgerufen werden.
-Unable to generate a new API Key. Invalid token, please reload the page.: Es kann kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte laden Sie die Seite neu.
+Unable to generate a new API Key. Invalid token, please reload the page.: Es kann
+  kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte laden Sie die
+  Seite neu.
 Unauthorized: Nicht autorisiert
-Up %count%%% from prior day: Up %count %%% vom vorherigen Tag
 Upload Files: Daten hochladen
-Uploading Player's Journal Log Files: Journal-Protokolldateien des Players hochladen
 Use Markdown to format your content: Verwenden Sie Markdown, um Ihren Inhalt zu formatieren
 User not found: Benutzer wurde nicht gefunden
 Weak: Schwach
 Welcome message: Willkommensnachricht
 Worst: Am schlimmsten
-Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Schreiben Sie eine kurze Beschreibung Ihres Geschwaders. Neue Mitglieder sehen dies, wenn sie auswählen, welches Staffel sie beitreten möchten.
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Schreiben
+  Sie eine kurze Beschreibung Ihres Geschwaders. Neue Mitglieder sehen dies, wenn
+  sie auswählen, welches Staffel sie beitreten möchten.
 Yesterday Earnings: Gesternes Einkommen
-You only can select a maximum of 20 files (web browser limitation).: Sie können maximal 20 Dateien auswählen (Einschränkung für Webbrowser).
+You only can select a maximum of 20 files (web browser limitation).: Sie können maximal
+  20 Dateien auswählen (Einschränkung für Webbrowser).
 Your changes have been updated.: Ihre Änderungen wurden aktualisiert.
-Your new password did not match with verify password. Password is not changed.: Ihr neues Passwort stimmte nicht mit dem bestätigten Passwort überein. Passwort wird nicht geändert.
+Your new password did not match with verify password. Password is not changed.: Ihr
+  neues Passwort stimmte nicht mit dem bestätigten Passwort überein. Passwort wird
+  nicht geändert.
 Your password change has been updated: Ihre Passwortänderung wurde aktualisiert
 Your password has been reset: Dein Passwort wurde zurück gesetzt
 Your settings have been saved.: Deine Einstellungen wurden gespeichert.
+Administration: Verwaltung
+Admiral: Admiral
+Aimless: Ziellos
+Amateur: Amateur
+Announcements: Ankündigungen
+Avoid using the same password for multiple sites: Verwenden Sie dasselbe Kennwort
+  nicht für mehrere Sites
+Baron: Baron
+Besides letters, include at least a number or symbol: Fügen Sie neben Buchstaben mindestens
+  eine Zahl oder ein Symbol ein
+Bounties Collected over last 30 days: In den letzten 30 Tagen gesammelte Prämien
+Broker: Makler
+Cadet: Kadett
+Champion: Champion
+Change Password: Ändere das Passwort
+Chief Petty Officer: Chief Petty Officer
+Commander Activities: Commander-Aktivitäten
+Commander Performance: Kommandant Leistung
+Competent: Kompetent
+Count: Anzahl
+CQC: CQC
+Criminal History: Kriminalgeschichte
+Dangerous: Gefährlich
+Deadly: Tötlich
+Dealer: Händler
+Duke: Herzog
+Earl: Graf
+Elite: Elite
+Ensign: Fähnrich
+Enter a new password.: Geben Sie ein neues Kennwort ein.
+Enter your current password.: Gib dein aktuelles Passwort ein.
+Entrepreneur: Unternehmer
+Expert: Experte
+Exploration Data Sold over last 30 days: Explorationsdaten In den letzten 30 Tagen
+  verkauft
+Explorer: Forscher
+Federation: Föderation
+Harmless: Harmlos
+Helpless: Hilflos
+Hero: Held
+Home Base: Heimatbasis
+I understand that by purging the data, it is irreversible.: Ich verstehe, dass das
+  Löschen der Daten nicht rückgängig gemacht werden kann.
+King: König
+Knight: Ritter
+Legend: Legende
+Lieutenant: Leutnant
+Loan: Darlehen
+Lord: Herr
+Lt. Commander: Lt. Commander
+Manage Members: Mitglieder verwalten
+Management: Verwaltung
+Marquis: Marquis
+Master: Meister
+Merchant: Händler
+Midshipman: Midshipman
+Mission Rewards Collected over last 30 days: Missionsbelohnungen über die letzten
+  30 Tage gesammelt
+Mostly Aimless: Meistens Aimless
+Mostly Harmless: Meistens harmlos
+Mostly Helpless: Meist hilflos
+Mostly Penniless: Meistens Penniless
+MOTD: MOTD
+My Account: Mein Konto
+My Profile: Mein Profil
+Novice: Anfänger
+Outsider: Außenseiter
+Password is case sensitive: Passwort ist case sensitive
+Password is not part of old password: Passwort ist nicht Teil des alten Passworts
+Password is not part of your username: Passwort ist nicht Teil Ihres Benutzernamens
+Password strength is either good or strong: Passwortstärke ist entweder gut oder stark
+Pathfinder: Pfadfinder
+Peddler: Hausierer
+Pending Members: Ausstehende Mitglieder
+Penniless: Mittellos
+Petty Officer: Unteroffizier
+Pioneer: Pionier
+Player: Spieler
+Player Activities Report: Spieleraktivitätsbericht
+Player Dashboard: Spieler-Dashboard
+Player Journal Log: Spieler-Journal-Protokoll
+Please enter your email: Bitte geben Sie ihre E-Mail-Adresse ein
+Post Captain: Post Kapitän
+Post Commander: Post Commander
+Prince: Prinz
+Professional: Professionel
+Promotion Voting: Promotion-Abstimmung
+Purge Commander Data: Commander-Daten löschen
+purge_commander_data_body: Manchmal löschten Kommandeure ihre Daten, weil die Daten
+  nicht richtig aussehen. Durch das Löschen Ihrer Daten aus der Datenbank können Sie
+  Ihre Journaldateien erneut importieren, um Ihre Daten aktueller und aktueller zu
+  machen. Dadurch werden nur die Daten Ihres aktuellen Geschwaders gelöscht. Wenn
+  Sie zuvor in einer anderen Staffel waren, werden diese Daten nicht gelöscht. Denken
+  Sie daran, bevor Sie Ihre Daten bereinigen und alle Spielerjournaldateien erneut
+  importieren, beenden Sie bitte Ihr Spiel und Ihren EDMC, falls er ausgeführt wird.
+Purge the Data: Bereinigen Sie die Daten
+Ranger: Ranger
+Rear Admiral: Konteradmiral
+Recruit: Rekrutieren
+Re-type the new password to verify.: Geben Sie das neue Kennwort zur Bestätigung erneut
+  ein.
+Role Tags: Rollen-Tags
+Scout: Erkunden
+Semi Professional: Semi Professional
+Serf: Leibeigene
+Sign Out: Ausloggen
+Squadron: Geschwader
+Squadron Dashboard: Staffel-Dashboard
+Squadron Leaderboard: Squadron Leaderboard
+Squadron Roster: Staffelaufstellung
+Squadron Settings: Staffeleinstellungen
+Squire: Knappe
+Surveyor: Landvermesser
+Total Asset: Gesamtvermögen
+Total Daily Earnings over last 30 days: Tägliche Gesamteinnahmen der letzten 30 Tage
+Trade Profit over last 30 days: Trade Profit über die letzten 30 Tage
+Tycoon: Tycoon
+Uploading Players Journal Log Files: Protokolldateien für Spielerjournal hochladen
+Use 8 to 64 characters: Verwenden Sie 8 bis 64 Zeichen
+User Avatar: Benutzer-Avatar
+Vice Admiral: Vizeadmiral
+Viscount: Viscount
+Warrant Officer: Warrant Officer
+Wealth: Reichtum
+Welcome Message: Willkommensnachricht
+Your account has been activated.  Please login to continue.: Dein Konto wurde aktiviert.
+  Bitte einloggen zum Fortfahren.
+Your account is already activated.: Dein Benutzerkonto ist bereits aktiviert.
+Your activation code has been resent. Check your INBOX.: Ihr Aktivierungscode wurde
+  erneut gesendet. Überprüfe deinen Posteingang.
