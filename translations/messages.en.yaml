@@ -68,6 +68,7 @@ Join Date: Join Date
 Last Login: Last Login
 Never: Never
 New: New
+Pending: Pending
 Approved: Approved
 Lock Out: Lock Out
 Banned: Banned
@@ -175,6 +176,7 @@ Wealth: Wealth
 Total Asset: Total Asset
 Loan: Loan
 Federation: Federation
+Empire: Empire
 CQC: CQC
 Harmless: Harmless
 Mostly Harmless: Mostly Harmless
@@ -375,3 +377,16 @@ Uploading Player's Journal Log Files: Uploading Player's Journal Log Files
 Player Journal Log Import History: Player Journal Log Import History
 Select Log Files: Select Log Files
 Using EDMC Plug-in to Capture Data: Using EDMC Plug-in to Capture Data
+Write your content, use Markdown to format your message.: Write your content, use Markdown to format your message.
+Squadron Members: Squadron Members
+Message: Message
+Editing an MOTD: Editing an MOTD
+Creating a new MOTD: Creating a new MOTD
+Customizing Rank Classifications: Customizing Rank Classifications
+Joined: Joined
+Total Earning: Total Earning
+Earning Rank: Earning Rank
+You: You
+Other Players in Your Squadron (Average): Other Players in Your Squadron (Average)
+Your Squadron: Your Squadron
+Other Squadrons (Average): Other Squadrons (Average)
