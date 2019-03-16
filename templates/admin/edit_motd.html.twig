@@ -19,7 +19,10 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button class="btn btn-flat btn-default" name="cancel" value="cancel" type="submit">Cancel</button> <button class="btn btn-flat btn-primary" type="submit">{% if isEdit is defined %}{% trans %}Save Changes{% endtrans %}{% else %}{% trans %}Create{% endtrans %}{% endif %}</button>
+                <button class="btn btn-flat btn-default" name="cancel" value="cancel"
+                        type="submit">{% trans %}Cancel{% endtrans %}</button>
+                <button class="btn btn-flat btn-primary"
+                        type="submit">{% if isEdit is defined %}{% trans %}Save Changes{% endtrans %}{% else %}{% trans %}Create{% endtrans %}{% endif %}</button>
                 {{ form_end(form_template) }}
             </div>
             <!-- ./box-body -->

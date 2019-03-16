@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ChartsController extends AbstractController
 {
@@ -20,8 +21,12 @@ class ChartsController extends AbstractController
      */
     private $bag;
     private $utc;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translation;
 
-    public function __construct(ParameterBagInterface $bag)
+    public function __construct(ParameterBagInterface $bag, TranslatorInterface $translation)
     {
         $this->bag = $bag;
         $params = $this->bag->get('pdo_connection_string');
@@ -39,6 +44,7 @@ class ChartsController extends AbstractController
         }
 
         $this->utc = new \DateTimeZone('UTC');
+        $this->translation = $translation;
     }
 
     /**
@@ -71,7 +77,7 @@ class ChartsController extends AbstractController
     public function dailyEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
-        $results['label'] = ["Your Squadron", "Other Squadrons (Average)"];
+        $results['label'] = [$this->translation->trans("Your Squadron"), $this->translation->trans("Other Squadrons (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -102,7 +108,7 @@ class ChartsController extends AbstractController
     public function bountyEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
-        $results['label'] = ["Your Squadron", "Other Squadrons (Average)"];
+        $results['label'] = [$this->translation->trans("Your Squadron"), $this->translation->trans("Other Squadrons (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='1' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -133,7 +139,7 @@ class ChartsController extends AbstractController
     public function explorationEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
-        $results['label'] = ["Your Squadron", "Other Squadrons (Average)"];
+        $results['label'] = [$this->translation->trans("Your Squadron"), $this->translation->trans("Other Squadrons (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='4' and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -164,7 +170,7 @@ class ChartsController extends AbstractController
     public function tradeEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
-        $results['label'] = ["Your Squadron", "Other Squadrons (Average)"];
+        $results['label'] = [$this->translation->trans("Your Squadron"), $this->translation->trans("Other Squadrons (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id in ('5','6') and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -202,7 +208,7 @@ class ChartsController extends AbstractController
     public function missionEarning(Request $request)
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
-        $results['label'] = ["Your Squadron", "Other Squadrons (Average)"];
+        $results['label'] = [$this->translation->trans("Your Squadron"), $this->translation->trans("Other Squadrons (Average)")];
         $data = [];
 
         $sql = "select total_earned as y, earned_on as x from v_squadron_mission_total where squadron_id=? and earned_on between now() - interval 30 day and now()";

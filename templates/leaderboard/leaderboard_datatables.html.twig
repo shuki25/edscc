@@ -8,7 +8,9 @@
     <div class="content">
         <div class="box box-warning">
             <div class="box-header with-border pb-2">
-                <h3 class="box-title"><i class="ed-asset ed-asset-lg ed-asset-icon-leaderboard_website margin-r-5"></i>Squadron Leaderboard</h3>
+                <h3 class="box-title"><i
+                            class="ed-asset ed-asset-lg ed-asset-icon-leaderboard_website margin-r-5"></i>{% trans %}Squadron Leaderboard{% endtrans %}
+                </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -79,7 +81,13 @@
             language: {
                 lengthMenu: {% include 'datatables_length_menu.html.twig' %},
                 search: '_INPUT_',
-                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}',
+                paginate: {
+                    first: '{% trans %}First{% endtrans %}',
+                    previous: '{% trans %}Previous{% endtrans %}',
+                    next: '{% trans %}Next{% endtrans %}',
+                    last: '{% trans %}Last{% endtrans %}'
+                }
             },
             initComplete: function () {
                 $('.dataTables_filter input[type="search"]').css({

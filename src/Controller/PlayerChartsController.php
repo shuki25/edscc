@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PlayerChartsController extends AbstractController
 {
@@ -20,8 +21,12 @@ class PlayerChartsController extends AbstractController
      */
     private $bag;
     private $utc;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
-    public function __construct(ParameterBagInterface $bag)
+    public function __construct(ParameterBagInterface $bag, TranslatorInterface $translator)
     {
         $this->bag = $bag;
         $params = $this->bag->get('pdo_connection_string');
@@ -39,6 +44,7 @@ class PlayerChartsController extends AbstractController
         }
 
         $this->utc = new \DateTimeZone('UTC');
+        $this->translator = $translator;
     }
 
     /**
@@ -72,7 +78,7 @@ class PlayerChartsController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
-        $results['label'] = ["You", "Other Players in Your Squadron (Average)"];
+        $results['label'] = [$this->translator->trans("You"), $this->translator->trans("Other Players in Your Squadron (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -104,7 +110,7 @@ class PlayerChartsController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
-        $results['label'] = ["You", "Other Players in Your Squadron (Average)"];
+        $results['label'] = [$this->translator->trans("You"), $this->translator->trans("Other Players in Your Squadron (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='1' and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -135,7 +141,7 @@ class PlayerChartsController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
-        $results['label'] = ["You", "Other Players in Your Squadron (Average)"];
+        $results['label'] = [$this->translator->trans("You"), $this->translator->trans("Other Players in Your Squadron (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id='4' and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -166,7 +172,7 @@ class PlayerChartsController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
-        $results['label'] = ["You", "Other Players in Your Squadron (Average)"];
+        $results['label'] = [$this->translator->trans("You"), $this->translator->trans("Other Players in Your Squadron (Average)")];
         $data = [];
 
         $sql = "select sum(reward) as y, earned_on as x from earning_history where earning_type_id in ('5','6') and user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now() group by earned_on";
@@ -207,7 +213,7 @@ class PlayerChartsController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getID();
         $user_id = $this->getUser()->getID();
-        $results['label'] = ["You", "Other Players in Your Squadron (Average)"];
+        $results['label'] = [$this->translator->trans("You"), $this->translator->trans("Other Players in Your Squadron (Average)")];
         $data = [];
 
         $sql = "select total_earned as y, earned_on as x from v_commander_mission_total where user_id=? and squadron_id=? and earned_on between now() - interval 30 day and now()";

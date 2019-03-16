@@ -81,7 +81,13 @@
             language: {
                 lengthMenu: {% include 'datatables_length_menu.html.twig' %},
                 search: '_INPUT_',
-                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}',
+                paginate: {
+                    first: '{% trans %}First{% endtrans %}',
+                    previous: '{% trans %}Previous{% endtrans %}',
+                    next: '{% trans %}Next{% endtrans %}',
+                    last: '{% trans %}Last{% endtrans %}'
+                }
             },
             initComplete: function () {
                 $('.dataTables_filter input[type="search"]').css({
