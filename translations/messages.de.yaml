@@ -417,3 +417,20 @@ User Permission Settings: Benutzerberechtigungseinstellungen
 Weekdays: Wochentage
 Weekends: Wochenenden
 Weeknights: Wochentage
+Post Commander: Fregattenkapitän
+Previous: Vorherige
+purge_commander_data_body: Manchmal löschten Kommendanten ihre Daten, weil die Daten
+  nicht richtig aussehen. Durch das Löschen der Daten aus der Datenbank kannst du
+  deine Journaldateien erneut importieren, um diese aktueller zu gestalten. Dadurch
+  werden nur die Daten deines aktuellen Geschwaders gelöscht. Wenn du zuvor in einer
+  anderen Staffel gewesen bist, werden diese Daten nicht gelöscht. Denken daran, dass
+  du zuerst dein Spiel und EDMC beendest bevor du deine Daten bereinigst und alle
+  Spielerjournaldateien erneut importierst.
+Purge the Data: Daten bereinigen
+Scout: Späher
+Senior Officer: Leitender Offizier
+Serf: Leibeigener
+Squadron Leaderboard: Staffel Rangliste
+'Strength: %strength% (cracked in %number% %unit%)': 'Stärke: %strength% (cracked
+  in %number% %unit%)'
+Surveyor: Landkundiger
