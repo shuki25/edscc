@@ -1,11 +1,10 @@
 ---
 "#": "#"
 "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Нет
-  записей | {1} Одна запись |] 1, Inf [% start% to% end% of% count% записей"
+  записей | {1} Одна запись |] 1, Inf [ %start% to %end% of %count% записей"
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Нет элементов | {1} один элемент
-  |] 1, Inf [% count% элементов"
-'Access Denied: Account status is %status%': 'Доступ запрещен: статус учетной записи%
-  status%'
+  |] 1, Inf [ %count% элементов"
+'Access Denied: Account status is %status%': 'Доступ запрещен: статус учетной записи %status%'
 Action: действие
 Activated: активированная
 Activation Code for ED:SCC: 'Код активации для ED: SCC'
@@ -34,7 +33,7 @@ Chief Petty Officer: Главный старшина
 Choose a Faction: Выберите фракцию
 Choose a Superpower affiliation if applicable: Выберите принадлежность к Superpower,
   если применимо
-CMDR %name%: CMDR% name%
+CMDR %name%: CMDR %name%
 Commander Details: Детали командира
 CQC: CQC
 Created In: Создано в
@@ -189,7 +188,7 @@ Unable to fetch data.: Невозможно получить данные.
 Unable to generate a new API Key. Invalid token, please reload the page.: Невозможно
   сгенерировать новый ключ API. Неверный токен, пожалуйста, перезагрузите страницу.
 Units Sold: Проданных единиц
-Up %count%%% from prior day: Увеличение% count %%% с предыдущего дня
+Up %count%%% from prior day: Увеличение %count%%% с предыдущего дня
 Upload Files: Загрузить файлы
 Uploading Players Journal Log Files: Загрузка файлов журнала игроков
 Use 8 to 64 characters: Используйте от 8 до 64 символов
@@ -226,7 +225,7 @@ Your settings have been saved.: Ваши настройки были сохра�
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
   Сегодня нет новых участников | {1} Сегодня присоединился один участник |] 1, Inf
   [%count% новых участников сегодня"
-"%count%%% from prior day": "% count%%% с предыдущего дня"
+"%count%%% from prior day": "%count%%% с предыдущего дня"
 'Squadron: %name%': 'Сквадрон: %name%'
 A 4-character indicator for your Squadron in the game: 4-символьный индикатор для
   вашего сквадрона в игре
@@ -293,7 +292,7 @@ Earning History (Detailed): История дохода (подробно)
 Earning History Summary: Общая история дохода
 Earning History Summary by Minor Faction: Общая история дохода Минорной фракции
 EDMC Transaction: EDMC передача данных
-ED:SCC Approval Requested: 'ED:SCC Требуется разрешение '
+ED:SCC Approval Requested: 'ED:SCC Требуется разрешение'
 ED:SCC Squadron Owner: 'ED: SCC Командующий Сквадроном'
 Efficiency Rate: Рейтинг эффективности
 Efficient Scans: Рейтинг сканирования
@@ -359,7 +358,7 @@ Pathfinder: Исследователь
 Paying Minor Faction: Расходы Минорной Фракции
 Peddler: Мелкий торговец
 Penniless: Безденежный
-Player Journal Log Import History: " История игрока Журнал импорта"
+Player Journal Log Import History: История игрока Журнал импорта
 Post Captain: Капитан 1 ранга
 Post Commander: Старший помошник
 Prince: Принц
@@ -394,7 +393,7 @@ Squadron Roster: Состав Сквадрона
 Squadron Settings: Настройки Сквадрона
 Squire: Оруженосец
 'Strength: %strength% (cracked in %number% %unit%)': 'Прочность: %strength% (повреждено
-  в% число%% единица%)'
+  в %number% %unit%)'
 Tags Associated with Your Squadron: Теги, связанные с вашим Сквадроном
 Targeted Minor Faction: Цели Минорной Фракции
 The current password is incorrect, and your password is not changed: Этот пароль неверен,
