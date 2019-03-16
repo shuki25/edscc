@@ -89,10 +89,12 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{ path('app_profile') }}" class="btn btn-primary btn-flat">My Profile</a>
+                                    <a href="{{ path('app_profile') }}"
+                                       class="btn btn-primary btn-flat">{% trans %}My Profile{% endtrans %}</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ path('app_logout') }}" class="btn btn-primary btn-flat">Sign out</a>
+                                    <a href="{{ path('app_logout') }}"
+                                       class="btn btn-primary btn-flat">{% trans %}Sign out{% endtrans %}</a>
                                 </div>
                             </li>
                         </ul>

@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4><b>{% trans with {'%name%': app.user.squadron.name} %}Welcome to %name% squadron!{% endtrans %}</b></h4>
-                    <p style="padding-top: 10px;">{% trans with {'%cmdr%': app.user.Squadron.admin.commandername} %}Your access is pending approval from the squadron leader.  Because you have joined the squadron that requires an approval from one of squadron leaders, you will receive an e-mail indicating your access has been granted as soon as you are approved.  If you have any questions, please contact your squadron leader, CMDR %cmdr%, in the game.{% endtrans %}</p>
+                    <p style="padding-top: 10px;">{% trans with {'%cmdr%': app.user.Squadron.admin.commandername} %}pending_access_message{% endtrans %}</p>
                 </div>
             </div>
             <div class="row text-center" style="padding-top: 15px;">

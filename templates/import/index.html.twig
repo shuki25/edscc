@@ -80,7 +80,7 @@
                                                         accept="text/plain">
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Upload Progress:</label>
+                                                <label>{% trans %}Upload Progress{% endtrans %}:</label>
                                                 <div class="progress" id="progressDivId">
                                                     <div class="progress-bar progress-bar-primary" id="progressBar"></div>
                                                     <span class="text-center text-sm" id="percent">0%</span>
@@ -105,10 +105,10 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-9">
                                             <h3 class="panel-title"><i class="fa fa-lg fa-list margin-r-5"></i> {% trans %}Player Journal Log Import History{% endtrans %}</h3>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-3">
                                             <div class="input-group input-group-sm pull-right">
                                                 <button id="refreshButton" class="btn btn-xs btn-primary"><i
                                                             class="fa fa-refresh"></i> {% trans %}Refresh{% endtrans %}
@@ -228,14 +228,21 @@
         searching: false,
         searchDelay: 400,
         pageLength: 10,
+        pagingType: "full_numbers",
         order: [[1, 'asc']],
         dom: "<'row'<'col-sm-6'i><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+            "<'row'<'col-sm-3'l><'col-sm-9'p>>",
         language: {
             lengthMenu: {% include 'datatables_length_menu.html.twig' %},
             search: '_INPUT_',
-            searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+            searchPlaceholder: '{% trans %}Search...{% endtrans %}',
+            paginate: {
+                first: '&laquo;',
+                previous: '&lsaquo;',
+                next: '&rsaquo;',
+                last: '&raquo;'
+            }
         },
         initComplete: function () {
             $('.dataTables_filter input[type="search"]').css({

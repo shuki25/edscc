@@ -12,37 +12,42 @@
         {% if error %}
             {% include 'error2.html.twig' %}
         {% endif %}
-        <p class="login-box-msg">Register a new Squadron Member</p>
+        <p class="login-box-msg">{% trans %}Register a new Squadron Member{% endtrans %}</p>
 
         <form action="{{ path('app_new_member') }}" method="post">
             <div class="form-group has-feedback">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('new_acct') }}">
-                <input type="text" name="commander_name" value="{{ app.request.get('commander_name') }}" class="form-control" placeholder="Commander Name (without CMDR)">
+                <input type="text" name="commander_name" value="{{ app.request.get('commander_name') }}"
+                       class="form-control" placeholder="{% trans %}Commander Name (without CMDR){% endtrans %}">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" name="email" value="{{ app.request.get('email') }}" class="form-control" placeholder="Email">
+                <input type="email" name="email" value="{{ app.request.get('email') }}" class="form-control"
+                       placeholder="{% trans %}Email{% endtrans %}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password1" class="form-control" placeholder="Password">
+                <input type="password" name="password1" class="form-control"
+                       placeholder="{% trans %}Password{% endtrans %}">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password2" class="form-control" placeholder="Retype password">
+                <input type="password" name="password2" class="form-control"
+                       placeholder="{% trans %}Retype password{% endtrans %}">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input name="_terms" type="checkbox"> I agree to the <a href="#">terms</a>
+                            <input name="_terms" type="checkbox"> {% trans %}I agree to the terms{% endtrans %}
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                    <button type="submit"
+                            class="btn btn-primary btn-block btn-flat">{% trans %}Register{% endtrans %}</button>
                 </div>
                 <!-- /.col -->
             </div>

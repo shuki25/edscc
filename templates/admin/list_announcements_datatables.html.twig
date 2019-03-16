@@ -75,6 +75,7 @@
             searching: true,
             searchDelay: 400,
             pageLength: 10,
+            pagingType: "full_numbers",
             order: [[1, 'asc']],
             dom: "<'row'<'col-sm-6'i><'col-sm-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
@@ -84,10 +85,10 @@
                 search: '_INPUT_',
                 searchPlaceholder: '{% trans %}Search...{% endtrans %}',
                 paginate: {
-                    first: '{% trans %}First{% endtrans %}',
-                    previous: '{% trans %}Previous{% endtrans %}',
-                    next: '{% trans %}Next{% endtrans %}',
-                    last: '{% trans %}Last{% endtrans %}'
+                    first: '&laquo;',
+                    previous: '&lsaquo;',
+                    next: '&rsaquo;',
+                    last: '&raquo;'
                 }
             },
             initComplete: function () {

@@ -27,8 +27,10 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button class="btn btn-primary" type="submit" name="cancel" value="1">Cancel</button>
-                <button class="btn btn-default" type="submit" name="create" value="1">Create New Squadron</button>
+                <button class="btn btn-primary" type="submit" name="cancel"
+                        value="1">{% trans %}Cancel{% endtrans %}</button>
+                <button class="btn btn-default" type="submit" name="create"
+                        value="1">{% trans %}Create New Squadron{% endtrans %}</button>
                 {{ form_end(form_template) }}
             </div>
         </div>

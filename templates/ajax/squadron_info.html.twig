@@ -5,34 +5,36 @@
 
         <h3 class="profile-username text-center">{{ squad.name }}</h3>
         <hr>
-        <strong><i class="fa fa-align-left margin-r-5"></i> Description</strong>
+        <strong><i class="fa fa-align-left margin-r-5"></i> {% trans %}Description{% endtrans %}</strong>
         <p class="text-muted">
             {{ squad.description }}
         </p>
         {% if squad.squadronTags is not empty %}
             <p class="text-muted">
                 {% for tag in squad.squadronTags %}
-                    <span class="badge {{ tag.tag.badgeColor }}">{{ tag.tag.name }}</span>
+                    <span class="badge {{ tag.tag.badgeColor }}">{{ tag.tag.name|trans }}</span>
                 {% endfor %}
             </p>
         {% endif %}
         <hr>
-        <strong><i class="ed-asset-icon-surface_port_pm margin-r-5"></i> Home Base</strong>
+        <strong><i class="ed-asset-icon-surface_port_pm margin-r-5"></i> {% trans %}Home Base{% endtrans %}</strong>
         <p class="text-muted">
             {{ squad.homebase }}
         </p>
         <hr>
-        <strong><i class="ed-asset-icon-manage-ranks margin-r-5"></i> Squadron Leader</strong>
+        <strong><i class="ed-asset-icon-manage-ranks margin-r-5"></i> {% trans %}Squadron Leader{% endtrans %}</strong>
         <p class="text-muted">
             CMDR {{ squad.admin.commandername }}
         </p>
         <hr>
-        <strong><i class="ed-asset-icon-elite-dangerous-minimalistic margin-r-5"></i> Faction / Superpower Affiliations</strong>
+        <strong><i class="ed-asset-icon-elite-dangerous-minimalistic margin-r-5"></i> {% trans %}Faction / Superpower Affiliations{% endtrans %}
+        </strong>
         <p class="text-muted">
-            {{ squad.faction.name|default('No Faction Allied') }} / {{ squad.power.name|default('No Power Allied') }}
+            {{ squad.faction.name|default('No Faction Allied')|trans }}
+            / {{ squad.power.name|default('No Power Allied')|trans }}
         </p>
         <hr>
-        <strong><i class="ed-asset ed-asset-icon-members margin-r-5"></i> Membership</strong>
+        <strong><i class="ed-asset ed-asset-icon-members margin-r-5"></i> {% trans %}Membership{% endtrans %}</strong>
         <p class="text-muted">
             Total Members: {{ squad.user.count }}<br>
         </p>

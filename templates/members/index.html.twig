@@ -23,9 +23,12 @@
                     </div>
                     <div class="box-footer">
                             <ul class="nav">
-                                <li>Joined <span class="pull-right">{{ member.dateJoined|ago }}</span></li>
-                                <li>Total Earning <span class="pull-right">{{ total_earned[member.id]|localizednumber }}</span></li>
-                                <li>Earning Rank <span class="pull-right">{{ rank[member.id] }}</span></li>
+                                <li>{% trans %}Joined{% endtrans %} <span
+                                            class="pull-right">{{ member.dateJoined|ago }}</span></li>
+                                <li>{% trans %}Total Earning{% endtrans %} <span
+                                            class="pull-right">{{ total_earned[member.id]|localizednumber }}</span></li>
+                                <li>{% trans %}Earning Rank{% endtrans %} <span
+                                            class="pull-right">{{ rank[member.id] }}</span></li>
                             </ul>
                     </div>
                 </div>

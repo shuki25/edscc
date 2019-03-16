@@ -16,7 +16,8 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <p>{% trans %}Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.{% endtrans %}</p>
-                    {% if app.user.statuscomment is not empty %}<p><b>Reason:</b> {{ app.user.statuscomment }}</p>{% endif %}
+                    {% if app.user.statuscomment is not empty %}<p><b>{% trans %}Reason{% endtrans %}
+                        :</b> {{ app.user.statuscomment }}</p>{% endif %}
                 </div>
             </div>
             <div class="row text-center" style="padding-top: 15px;">

@@ -71,15 +71,22 @@
             info: true,
             searching: false,
             pageLength: 10,
+            pagingType: "full_numbers",
             order: [[{{ report.order_id }}, '{{ report.order_dir }}']],
             dom: "<'row'<'col-sm-3'i>>" +
                 "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'l><'col-sm-7'p>>",
+                "<'row'<'col-sm-3'l><'col-sm-9'p>>",
             // dom: '<"top"i>rt<"bottom"flp><"clear">',
             language: {
                 lengthMenu: {% include 'datatables_length_menu.html.twig' %},
                 search: '_INPUT_',
-                searchPlaceholder: '{% trans %}Search...{% endtrans %}'
+                searchPlaceholder: '{% trans %}Search...{% endtrans %}',
+                paginate: {
+                    first: '&laquo;',
+                    previous: '&lsaquo;',
+                    next: '&rsaquo;',
+                    last: '&raquo;'
+                }
             },
             initComplete: function () {
                 $('.dataTables_filter input[type="search"]').css({
