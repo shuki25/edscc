@@ -1,0 +1,443 @@
+---
+"#": "#"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No hay artículos | {1} un
+  artículo |] 1, Inf [% count% items"
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  No se han unido nuevos miembros hoy | {1} Se ha unido un nuevo miembro hoy |] 1,
+  Inf [% count% nuevos miembros se han unido hoy"
+A 4-character indicator for your Squadron in the game: Un indicador de 4 caracteres
+  para tu escuadrón en el juego.
+About Your Squadron: Sobre tu escuadron
+Action: Acción
+Activated: Activado
+Activation Code for ED:SCC: 'Código de activación para ED: SCC'
+Activities: Ocupaciones
+Add New Announcement: Añadir nuevo anuncio
+Add New MOTD: Añadir nuevo MOTD
+Admin: Administración
+Administration: Administración
+Admiral: Almirante
+Agent: Agente
+Aimless: Sin objetivo
+Amateur: Aficionado
+Amount: Cantidad
+Amt Earned: Amt Earned
+Amt Paid: Amt pagado
+Announcements: Anuncios
+Anti-Xeno Activists: Activistas Anti-Xeno
+API Key: Clave API
+Approved: Aprobado
+Attitude: Actitud
+Author: Autor
+Availability: Disponibilidad
+Avoid using the same password for multiple sites: Evite usar la misma contraseña para
+  múltiples sitios
+Bad: Malo
+Banned: Prohibido
+Baron: Barón
+Besides letters, include at least a number or symbol: Además de las letras, incluya
+  al menos un número o símbolo
+Bodies Discovered: Cuerpos descubiertos
+Bounties Collected over last 30 days: Las recompensas recogidas en los últimos 30
+  días
+Bounty: Generosidad
+Bounty Hunters: Caza recompensas
+Broker: Corredor
+Cadet: Cadete
+Cancel: Cancelar
+CG Participated: CG Participó
+Champion: Campeón
+Change Password: Cambia la contraseña
+Changes were not saved.: Los cambios no fueron guardados.
+Chief Petty Officer: Suboficial jefe
+Choose a Faction: Elige una facción
+Choose a Superpower affiliation if applicable: Elija una afiliación de superpotencia
+  si es aplicable
+Choose the commander's rank: Elige el rango del comandante
+Choose the gaming platform this Squadron plays on: Elige la plataforma de juego en
+  la que juega este Escuadrón.
+Choose the status to determine user's access privilege to the squadron: Elija el estado
+  para determinar el privilegio de acceso del usuario al escuadrón
+Combat: Combate
+Commander: Comandante
+Commander Activities: Actividades de comandante
+Commander data has been purged from the system.: Los datos del comandante se han eliminado
+  del sistema.
+Commander Details: Detalles del Comandante
+Commander E-mail: Comandante E-mail
+Commander Login Email: Comandante Login Email
+Commander Name: Nombre del Comandante
+Commander Performance: Comandante de rendimiento
+Commanders Joined: Comandantes unidos
+Competent: Competente
+Complete SAA Scans: Exploraciones completas de SAA
+Count: Contar
+CQC: CQC
+Create: Crear
+Created In: Creado en
+Creating a new announcement: Creando un nuevo anuncio.
+Credits: Creditos
+Crew Paid: Tripulación pagada
+Crime: Crimen
+Criminal History: Historia criminal
+Criminal History (Detailed): Antecedentes penales (detallado)
+Criminal History Summary: Resumen de antecedentes penales
+Criminal History Summary by Faction: Resumen de antecedentes penales por facción
+Cr/Unit: Cr / Unidad
+Current Squadron Rank: Rango de escuadrón actual
+Customizing Commander Roles: Personalizando los roles de comandante
+custom_rank_instructions: En el juego, los Escuadrones pueden personalizar sus propias
+  clasificaciones de rango para integrar la tradición de Escuadrón. En la columna
+  de la izquierda, se enumeran los nombres de rango predeterminados, ingrese los nombres
+  de rango personalizados en la columna de la derecha según corresponda.
+Custom Rank Name: Nombre de rango personalizado
+Daily Total Earning on: Ingreso total diario en
+Dangerous: Peligroso
+Data: Datos
+Date: Fecha
+Date Committed: Fecha comprometida
+Date Processed: Fecha procesada
+Date that this Commander has joined the squadron (may be different from signing up for this account): Fecha
+  en que este Comandante se ha unido al escuadrón (puede ser diferente de registrarse
+  en esta cuenta)
+Deadly: Mortal
+Dealer: Comerciante
+Default Rank Name: Nombre de rango predeterminado
+Denied: Negado
+Description: Descripción
+Devoted: Devoto
+Duke: Duque
+Earl: Conde
+Earning History (Detailed): Historial de ganancias (detallado)
+Earning History Summary: Resumen del historial de ganancias
+Earning History Summary by Minor Faction: Resumen de historial de ganancias por facción
+  menor
+Editing an announcement: Editando un anuncio
+EDMC Plug-in: Plugin EDMC
+EDMC Transaction: Transacción EDMC
+ED:SCC Approval Requested: 'ED: Solicitud de aprobación de SCC'
+ED:SCC Squadron Owner: 'ED: Propietario del Escuadrón SCC'
+Efficiency Rate: Tasa de eficiencia
+Efficient Scans: Exploraciones eficientes
+Elite: Élite
+Email: Email
+E-mail address verified: Correo electrónico verificado
+English: Inglés
+Ensign: Bandera
+Enter a new password.: Introduzca una nueva contraseña.
+Enter your current password.: Introduce tu contraseña actual.
+Entrepreneur: Empresario
+Exact spelling as depicted in the game: La ortografía exacta como se muestra en el
+  juego
+Expert: Experto
+Expired CSRF Token. Please refresh the page to continue.: Token CSRF caducado. Por
+  favor, actualice la página para continuar.
+Expired CSRF Token. Please try again.: Token CSRF caducado. Inténtalo de nuevo.
+Exploration: Exploración
+Exploration Data Sold over last 30 days: Datos de exploración vendidos en los últimos
+  30 días
+Explorer: Explorador
+Explorers: Exploradores
+Faction Affiliation: Afiliación de facciones
+Faction / Superpower Affiliations: Afiliaciones de facción / superpotencia
+Faction Supporters: Partidarios de la facción
+'false': falso
+Family: Familia
+FA off: FA apagado
+Federation: Federación
+Fine: Multa
+French: francés
+Fuel Rats: Ratas de combustible
+Game Date: Fecha de juego
+Game Mode: Modo de juego
+Gaming Platform: Plataforma de juegos
+German: alemán
+Good: Bueno
+Harmless: Inofensivo
+Helpless: Impotente
+Hero: Héroe
+History Log: Historial de registro
+Home base: Base
+Home Base: Base
+Humanitarian Aid Providers: Proveedores de ayuda humanitaria
+ID: CARNÉ DE IDENTIDAD
+I forgot my password: Olvidé mi contraseña
+Import History: Historial de importación
+Import Queue Status: Estado de la cola de importación
+Invalid temporary password or mismatched new/verify password pairs.: Contraseña temporal
+  no válida o pares de contraseñas nuevas / verificadas no coincidentes.
+Invalid token, please reload the page: Token inválido, por favor recarga la página
+Items: Artículos
+I understand that by purging the data, it is irreversible.: Entiendo que al purgar
+  los datos, es irreversible.
+Join Date: Fecha de Ingreso
+Journal Log File: Archivo de registro de diario
+Keep me logged in (for 7 days): Mantenerme conectado (durante 7 días)
+King: Rey
+Knight: Caballero
+label_next: Siguiente
+label_previous: Anterior
+Language: Idioma
+Last Login: Último acceso
+Last Updated: Última actualización
+Leader: Líder
+Legend: Leyenda
+Lieutenant: Teniente
+Loan: Préstamo
+Lock Out: Cerrar
+Lord: Señor
+Lt. Commander: Teniente comandante
+Manage Announcements: Gestionar anuncios
+Manage Members: Administrar Miembros
+Management: administración
+Manage MOTD: Manejar MOTD
+Manage Squadron Announcements: Administrar anuncios de escuadrón
+Manage Tags: Administrar etiquetas
+Mark as Published: Marcar como publicado
+Mark this MOTD as visible: Marque este MOTD como visible
+Mark this MOTD as visible on the login screen: Marque este MOTD como visible en la
+  pantalla de inicio de sesión
+Mark this post as published (will be visible in announcements after the published date): Marcar
+  esta publicación como publicada (será visible en los anuncios después de la fecha
+  publicada)
+Marquis: Marqués
+Master: Dominar
+Membership: Afiliación
+Merchant: Comerciante
+Message Content: Contenido del mensaje
+Midshipman: Guardia marina
+Miners: Mineros
+Minor Faction Activities Summary: Resumen de actividades de facciones menores
+Minor Faction Issued By: Facción menor emitida por
+Mission Rewards Collected over last 30 days: Recompensas de la misión recogidas en
+  los últimos 30 días
+Missions Completed: Misiones completadas
+Mostly Aimless: En su mayoría sin objetivo
+Mostly Harmless: Sobre todo inofensivo
+Mostly Helpless: En su mayoría desamparados
+Mostly Penniless: En su mayoría sin dinero
+MOTD: MOTD
+My Account: Mi cuenta
+My Profile: Mi perfil
+Name of your Squadron: Nombre de tu escuadrón
+Net Earned: Neto ganado
+Net Units: Unidades netas
+Never: Nunca
+New: Nuevo
+New announcement has been added.: Se ha añadido un nuevo anuncio.
+Next: Siguiente
+No Date Available: Sin fecha disponible
+None: Ninguna
+Novice: Principiante
+Occasional: Ocasional
+Officer: Oficial
+Open: Abierto
+Outsider: Forastero
+Overall Combat (Non-mission): Combate general (no misión)
+Overall Community Goal: Objetivo general de la comunidad
+Overall Earning: Ganancia general
+Overall Exploration: Exploración general
+Overall Missions: Misiones generales
+Overall Trade: Comercio global
+Password: Contraseña
+Password is case sensitive: La contraseña es sensible a mayúsculas
+Password is not part of old password: La contraseña no es parte de la contraseña antigua
+Password is not part of your username: La contraseña no es parte de su nombre de usuario
+Password strength is either good or strong: La seguridad de la contraseña es buena
+  o fuerte
+Pathfinder: Pionero
+Paying Minor Faction: Facción menor de pago
+Peddler: Vendedor ambulante
+Pending Members: Miembros pendientes
+Penniless: Sin dinero
+Percentage difference: Diferencia porcentual
+Permission Denied. Unable to access to this resource.: Permiso denegado. No se puede
+  acceder a este recurso.
+Permissions: Permisos
+Petty Officer: Contramaestre
+Pioneer: Pionero
+Pirates: Piratas
+Player: Jugador
+Player Activities Report: Informe de Actividades del Jugador
+Player Dashboard: Tablero del jugador
+Player Journal Log: Diario del Jugador
+Player Journal Log Import History: Historial de importación del registro del diario
+  del jugador
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Por
+  favor, ingrese la razón por la cual el estado se asigna según sea necesario (si
+  se niega el acceso, etc.)
+Please enter your email: Por favor introduzca su correo electrónico
+Portuguese: portugués
+Post Captain: Capitán del puesto
+Post Commander: Puesto de comandante
+Power Supporters: Partidarios del poder
+Previous: Anterior
+Prince: Príncipe
+Private Group: Grupo privado
+Professional: Profesional
+Promotion Voting: Promoción votacion
+Publish At: Publicar en
+Published In: Publicado en
+Publish In: Publicar en
+Purge Commander Data: Purgar datos del comandante
+purge_commander_data_body: A veces, los comandantes purgan sus datos porque los datos
+  no se ven bien. Al borrar sus datos de la base de datos, puede volver a importar
+  sus archivos de diario para hacer que sus datos estén más actualizados y actualizados.
+  Esto solo purgará cualquier dato asociado con tu escuadrón actual. Si estuvo anteriormente
+  en un escuadrón diferente, esos datos no se eliminarán. Recuerde, antes de eliminar
+  sus datos y volver a importar todos los archivos del diario de su jugador, salga
+  de su juego y su EDMC si se está ejecutando.
+Purge the Data: Purgar los datos
+PvE: PvE
+PvP: PvP
+Ranger: guardabosque
+Rank: Rango
+Ranks: Rangos
+Rear Admiral: Contraalmirante
+Recruit: Recluta
+Refresh: Refrescar
+Regenerate API Key: Regenerar clave de API
+Register a new membership: Registrar una nueva membresía
+Relaxed: Relajado
+Requires approval from squad leaders to join: Requiere la aprobación de los líderes
+  del escuadrón para unirse.
+Re-type the new password to verify.: Vuelva a escribir la nueva contraseña para verificar.
+Roleplay: Juego de rol
+Roles: Roles
+Role Tags: Etiquetas de rol
+Rookie: Novato
+Russian: ruso
+Save Changes: Guardar cambios
+Scout: Explorar
+Seals: focas
+Search...: Buscar...
+Select Log Files: Seleccione los archivos de registro
+Semi Professional: Semi profesional
+Senior Officer: Oficial Mayor
+Serf: Siervo
+Showing items: Mostrando artículos
+Sign In: Registrarse
+Sign in to start your session: Inicia sesión para iniciar tu sesión.
+Sign Out: Desconectar
+Solo: Solo
+Spanish: Español
+Squadron: Escuadrón
+Squadron Dashboard: Tablero de escuadrones
+Squadron Details: Detalles del Escuadrón
+Squadron ID: Identificación del escuadrón
+Squadron Join Request Update: Actualización de la solicitud de incorporación al escuadrón
+Squadron Leader: líder de escuadrón
+Squadron Leaderboard: Tabla de líderes de escuadrón
+Squadron Membership Status: Estado de miembro del escuadrón
+Squadron Rank Classifications Saved.: Clasificaciones de rango de escuadrón guardadas.
+Squadron Roster: Lista de escuadrones
+Squadron Settings: Ajustes de escuadron
+Squire: Escudero
+Status: Estado
+Status Comment: Comentario de estado
+Strong: Fuerte
+Superpower Affiliation: Afiliación de superpotencia
+Surveyor: Topógrafo
+System Scanned: Sistema escaneado
+Tags Associated with Your Squadron: Etiquetas asociadas a tu escuadrón
+Targeted Minor Faction: Facción menor dirigida
+The current password is incorrect, and your password is not changed: La contraseña
+  actual es incorrecta, y su contraseña no se cambia
+The date that the announcement will automatically appear in the feed: La fecha en
+  que el anuncio aparecerá automáticamente en el feed.
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: El
+  mensaje de bienvenida se mostrará al nuevo miembro después de unirse al escuadrón.
+  Utilice Markdown para dar formato a su mensaje.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Este
+  es el titular de la cuenta que maneja este Escuadrón. Si cambias a otro usuario,
+  perderás privilegios.
+This post is pinned (always will appear on the top of page): Esta publicación está
+  anclada (siempre aparecerá en la parte superior de la página)
+Timestamp: Marca de tiempo
+Title: Título
+Total: Total
+Total Asset: Activos totales
+Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
+  30 días
+Total Earned: Total de Ganancias
+Total Members: Miembros totales
+Total Reward: Recompensa total
+Trade: Comercio
+Trade Profit over last 30 days: Beneficios comerciales en los últimos 30 días
+Traders: Comerciantes
+'true': cierto
+Tycoon: Magnate
+Type: Tipo
+Unable to fetch data.: No se pueden obtener datos.
+Unable to generate a new API Key. Invalid token, please reload the page.: No se puede
+  generar una nueva clave API. Token inválido, por favor recarga la página.
+Unauthorized: No autorizado
+Units Bought: Unidades compradas
+Units Sold: Unidades vendidas
+Upload Files: Subir archivos
+Uploading Players Journal Log Files: Cargar archivos de registro de diario de jugadores
+Use 8 to 64 characters: Usa de 8 a 64 caracteres.
+Use Markdown to format your content: Usa Markdown para formatear tu contenido
+User Avatar: Usuario avatar
+User can add, edit, delete announcements: El usuario puede agregar, editar, borrar
+  anuncios
+User can approve, deny, ban or lock out a squadron member: El usuario puede aprobar,
+  denegar, prohibir o bloquear a un miembro del escuadrón
+User can edit a squadron member account settings: El usuario puede editar la configuración
+  de la cuenta de un miembro del escuadrón
+User can modify access permissions of a squadron member: El usuario puede modificar
+  los permisos de acceso de un miembro del escuadrón
+User can modify settings or permissions for himself/herself: El usuario puede modificar
+  la configuración o los permisos por sí mismo
+User can view a history log of a squadron member: El usuario puede ver un registro
+  histórico de un miembro del escuadrón
+User can view management reports: El usuario puede ver los informes de gestión
+User has full administrative rights (overrides everything below): El usuario tiene
+  derechos administrativos completos (anula todo lo que se indica a continuación)
+User has read the welcome message after logging in: El usuario ha leído el mensaje
+  de bienvenida después de iniciar sesión
+User not found: Usuario no encontrado
+User Permission Settings: Configuración de permisos de usuario
+Using EDMC Plug-in to Capture Data: Uso del complemento EDMC para capturar datos
+Vice Admiral: Vice Almirante
+Victim: Víctima
+Viscount: Vizconde
+Warrant Officer: Oficial de captura
+Weak: Débiles
+Wealth: Riqueza
+Weekdays: Entre semana
+Weekends: Fines de semana
+Weeknights: Noches de semana
+Welcome message: Mensaje de bienvenida
+Welcome Message: Mensaje de bienvenida
+Worst: Peor
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Escribe
+  una breve descripción de tu escuadrón. Los nuevos miembros verán esto cuando elijan
+  a qué escuadrón unirse.
+Yesterday Earnings: Ganancias de ayer
+You only can select a maximum of 20 files (web browser limitation).: Solo puede seleccionar
+  un máximo de 20 archivos (limitación del navegador web).
+Your account has been activated.  Please login to continue.: Tu cuenta ha sido activada.
+  Por favor inicie sesión para continuar.
+Your account is already activated.: Su cuenta ya está activada.
+Your activation code has been resent. Check your INBOX.: Su código de activación ha
+  sido reenviado. Revisa tu correo.
+Your changes have been updated.: Tus cambios han sido actualizados.
+Your new password did not match with verify password. Password is not changed.: Su
+  nueva contraseña no coincide con la contraseña de verificación. La contraseña no
+  se cambia.
+Your password change has been updated: Su cambio de contraseña ha sido actualizado
+Your password has been reset: Tu contraseña ha sido restablecida
+Your settings have been saved.: Su configuración ha sido guardada.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No
+  hay entradas | {1} Una entrada |] 1, Inf [ %start% a %end% de %count% entradas"
+'Access Denied: Account status is %status%': 'Acceso denegado: el estado de la cuenta
+  es %status%'
+Activities Report for CMDR %name%: Informe de actividades para CMDR %name%
+CMDR %name%: CMDR %name%
+"%count%%% from prior day": "%count%%% del día anterior"
+'Squadron: %name%': 'Escuadrón: %name%'
+'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
+  en %number% %unit%)'
+Up %count%%% from prior day: Hasta %count %%% del día anterior
+Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
