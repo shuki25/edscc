@@ -505,3 +505,21 @@ Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
   squadron leader in the game to get your account unlocked.
 : El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
   de escuadrón en el juego para desbloquear tu cuenta.
+? An e-mail address verification is required to activate your account.  An email has
+  been sent to <b>%email%</b> with a token to continue with the new
+: Se requiere una verificación de la dirección de correo electrónico para activar
+  su cuenta. Se ha enviado un correo electrónico a %email%&gt; con un token para continuar
+  con la creación de la nueva cuenta.
+First: Primero
+French: Francés
+German: Alemán
+I agree to the terms: Acepto los términos
+Management: Administración
+pending_access_message: Tu acceso está pendiente de aprobación por parte del líder
+  del escuadrón. Debido a que se unió al escuadrón que requiere la aprobación de uno
+  de los líderes del escuadrón, recibirá un correo electrónico indicando que su acceso
+  ha sido otorgado tan pronto como sea aprobado. Si tiene alguna pregunta, comuníquese
+  con su líder de escuadrón, CMDR %cmdr%, en el juego.
+Sign out: Desconectar
+Temporary Password: Contraseña temporal
+Welcome to %name%: Bienvenido a %name%
