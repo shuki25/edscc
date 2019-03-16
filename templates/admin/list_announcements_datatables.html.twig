@@ -12,7 +12,9 @@
 
             <div class="box-tools">
                     <div class="input-group input-group-sm" style="padding-top: 5px;">
-                        <a class="btn btn-xs btn-primary pull-right" href="{{ path('admin_announcements_new', {token: csrf_token('new_announcement')}) }}"><i class="fa fa-plus margin-l-5"></i> Add New Announcement</a>
+                        <a class="btn btn-xs btn-primary pull-right"
+                           href="{{ path('admin_announcements_new', {token: csrf_token('new_announcement')}) }}"><i
+                                    class="fa fa-plus margin-l-5"></i> {% trans %}Add New Announcement{% endtrans %}</a>
                 </div>
             </div> </div>
             <!-- /.box-header -->

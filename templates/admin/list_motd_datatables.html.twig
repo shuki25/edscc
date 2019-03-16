@@ -12,7 +12,9 @@
 
                 <div class="box-tools">
                     <div class="input-group input-group-sm" style="padding-top: 5px;">
-                        <a class="btn btn-xs btn-primary pull-right" href="{{ path('admin_motd_new', {token: csrf_token('new_motd')}) }}"><i class="fa fa-plus margin-l-5"></i> Add New MOTD</a>
+                        <a class="btn btn-xs btn-primary pull-right"
+                           href="{{ path('admin_motd_new', {token: csrf_token('new_motd')}) }}"><i
+                                    class="fa fa-plus margin-l-5"></i> {% trans %}Add New MOTD{% endtrans %}</a>
                     </div>
                 </div> </div>
             <!-- /.box-header -->
