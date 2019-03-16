@@ -83,6 +83,7 @@ CQC: CQC
 Create: Crear
 Created In: Creado en
 Creating a new announcement: Creando un nuevo anuncio.
+Creating a new MOTD: Creando un nuevo MOTD
 Credits: Creditos
 Crew Paid: Tripulación pagada
 Crime: Crimen
@@ -93,6 +94,7 @@ Criminal History Summary by Faction: Resumen de antecedentes penales por facció
 Cr/Unit: Cr / Unidad
 Current Squadron Rank: Rango de escuadrón actual
 Customizing Commander Roles: Personalizando los roles de comandante
+Customizing Rank Classifications: Personalización de clasificaciones de rango
 custom_rank_instructions: En el juego, los Escuadrones pueden personalizar sus propias
   clasificaciones de rango para integrar la tradición de Escuadrón. En la columna
   de la izquierda, se enumeran los nombres de rango predeterminados, ingrese los nombres
@@ -119,7 +121,9 @@ Earning History (Detailed): Historial de ganancias (detallado)
 Earning History Summary: Resumen del historial de ganancias
 Earning History Summary by Minor Faction: Resumen de historial de ganancias por facción
   menor
+Earning Rank: Rango de ganancia
 Editing an announcement: Editando un anuncio
+Editing an MOTD: Editando un MOTD
 EDMC Plug-in: Plugin EDMC
 EDMC Transaction: Transacción EDMC
 ED:SCC Approval Requested: 'ED: Solicitud de aprobación de SCC'
@@ -129,6 +133,7 @@ Efficient Scans: Exploraciones eficientes
 Elite: Élite
 Email: Email
 E-mail address verified: Correo electrónico verificado
+Empire: Imperio
 English: Inglés
 Ensign: Bandera
 Enter a new password.: Introduzca una nueva contraseña.
@@ -153,12 +158,10 @@ Family: Familia
 FA off: FA apagado
 Federation: Federación
 Fine: Multa
-French: francés
 Fuel Rats: Ratas de combustible
 Game Date: Fecha de juego
 Game Mode: Modo de juego
 Gaming Platform: Plataforma de juegos
-German: alemán
 Good: Bueno
 Harmless: Inofensivo
 Helpless: Impotente
@@ -178,6 +181,7 @@ Items: Artículos
 I understand that by purging the data, it is irreversible.: Entiendo que al purgar
   los datos, es irreversible.
 Join Date: Fecha de Ingreso
+Joined: Unido
 Journal Log File: Archivo de registro de diario
 Keep me logged in (for 7 days): Mantenerme conectado (durante 7 días)
 King: Rey
@@ -196,7 +200,6 @@ Lord: Señor
 Lt. Commander: Teniente comandante
 Manage Announcements: Gestionar anuncios
 Manage Members: Administrar Miembros
-Management: administración
 Manage MOTD: Manejar MOTD
 Manage Squadron Announcements: Administrar anuncios de escuadrón
 Manage Tags: Administrar etiquetas
@@ -211,6 +214,7 @@ Marquis: Marqués
 Master: Dominar
 Membership: Afiliación
 Merchant: Comerciante
+Message: Mensaje
 Message Content: Contenido del mensaje
 Midshipman: Guardia marina
 Miners: Mineros
@@ -239,6 +243,8 @@ Novice: Principiante
 Occasional: Ocasional
 Officer: Oficial
 Open: Abierto
+Other Players in Your Squadron (Average): Otros jugadores en tu escuadrón (promedio)
+Other Squadrons (Average): Otros Escuadrones (Promedio)
 Outsider: Forastero
 Overall Combat (Non-mission): Combate general (no misión)
 Overall Community Goal: Objetivo general de la comunidad
@@ -255,6 +261,7 @@ Password strength is either good or strong: La seguridad de la contraseña es bu
 Pathfinder: Pionero
 Paying Minor Faction: Facción menor de pago
 Peddler: Vendedor ambulante
+Pending: Pendiente
 Pending Members: Miembros pendientes
 Penniless: Sin dinero
 Percentage difference: Diferencia porcentual
@@ -335,6 +342,7 @@ Squadron ID: Identificación del escuadrón
 Squadron Join Request Update: Actualización de la solicitud de incorporación al escuadrón
 Squadron Leader: líder de escuadrón
 Squadron Leaderboard: Tabla de líderes de escuadrón
+Squadron Members: Miembros del Escuadrón
 Squadron Membership Status: Estado de miembro del escuadrón
 'Squadron: %name%': 'Escuadrón: %name%'
 Squadron Rank Classifications Saved.: Clasificaciones de rango de escuadrón guardadas.
@@ -370,6 +378,7 @@ Total Asset: Activos totales
 Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
   30 días
 Total Earned: Total de Ganancias
+Total Earning: Ganancia total
 Total Members: Miembros totales
 Total Reward: Recompensa total
 Trade: Comercio
@@ -384,6 +393,7 @@ Unable to generate a new API Key. Invalid token, please reload the page.: No se 
 Unauthorized: No autorizado
 Units Bought: Unidades compradas
 Units Sold: Unidades vendidas
+Up %count%%% from prior day: Hasta %count%%% del día anterior
 Upload Files: Subir archivos
 Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
 Uploading Players Journal Log Files: Cargar archivos de registro de diario de jugadores
@@ -425,7 +435,10 @@ Worst: Peor
 Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Escribe
   una breve descripción de tu escuadrón. Los nuevos miembros verán esto cuando elijan
   a qué escuadrón unirse.
+Write your content, use Markdown to format your message.: Escribe tu contenido, usa
+  Markdown para formatear tu mensaje.
 Yesterday Earnings: Ganancias de ayer
+You: Tú
 You only can select a maximum of 20 files (web browser limitation).: Solo puede seleccionar
   un máximo de 20 archivos (limitación del navegador web).
 Your account has been activated.  Please login to continue.: Tu cuenta ha sido activada.
@@ -440,20 +453,55 @@ Your new password did not match with verify password. Password is not changed.: 
 Your password change has been updated: Su cambio de contraseña ha sido actualizado
 Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
-Creating a new MOTD: Creando un nuevo MOTD
-Customizing Rank Classifications: Personalización de clasificaciones de rango
-Earning Rank: Rango de ganancia
-Editing an MOTD: Editando un MOTD
-Empire: Imperio
-Joined: Unido
-Message: Mensaje
-Other Players in Your Squadron (Average): Otros jugadores en tu escuadrón (promedio)
-Other Squadrons (Average): Otros Escuadrones (Promedio)
-Pending: Pendiente
-Squadron Members: Miembros del Escuadrón
-Total Earning: Ganancia total
-Write your content, use Markdown to format your message.: Escribe tu contenido, usa
-  Markdown para formatear tu mensaje.
-You: Tú
 Your Squadron: Tu escuadron
-Up %count%%% from prior day: Hasta %count%%% del día anterior
+Access Denied: Acceso denegado
+API Key not generated: Clave API no generada
+Application Denied: Solicitud denegada
+Approval is not Required: No se requiere aprobación
+Approval is not required to join this squadron.: No se requiere aprobación para unirse
+  a este escuadrón.
+Approval is required to join this squad.: Se requiere aprobación para unirse a este
+  equipo.
+Approval Required: Aprobación requerida
+Choose a squadron on the left.: Elige un escuadrón a la izquierda.
+Commander Name (without CMDR): Nombre del comandante (sin CMDR)
+Complete Registration: Registro completo
+Create a New Squadron: Crear un nuevo escuadrón
+Create New Squadron: Crear nuevo escuadrón
+Creating a New Squadron: Creando un nuevo escuadrón
+Enter the temporary password.: Introduzca la contraseña temporal.
+Finishing up your registration &mdash; Please select your Squadron: Terminando su
+  registro - Por favor seleccione su Escuadrón
+I did not get the activation e-mail. Please resend.: No recibí el correo de activación.
+  Por favor, reenviar.
+Last: Último
+Member since: Miembro desde
+New Password: Nueva contraseña
+No Data: Sin datos
+No Power Allied: Sin poder aliado
+Reason: Razón
+Register: Registro
+Register a new Squadron Member: Registrar un nuevo miembro del escuadrón
+Reset: Reiniciar
+Resetting Your Password: Restableciendo su contraseña
+Retype password: Vuelva a escribir la contraseña
+Start Upload: Iniciar la subida
+? To reset your password, please enter your e-mail address registered with your account
+  and an e-mail will be sent with further instructions.
+: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
+  en su cuenta y se le enviará un correo electrónico con más instrucciones.
+Upload Progress: Subir el progreso
+Verify Password: Verificar contraseña
+Verify Your E-mail Address: Verifique su dirección de correo electrónico
+You do not have permissions to access to this resource.: No tienes permisos para acceder
+  a este recurso.
+You Have Been Banned: Has sido baneado
+Your account has been locked: Su cuenta ha sido bloqueada
+Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Su
+  solicitud para unirse al escuadrón elegido fue denegada. Si tiene alguna pregunta,
+  póngase en contacto con el líder de su escuadrón.
+Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
+? Your squadron leader has locked down your account. You will need to contact your
+  squadron leader in the game to get your account unlocked.
+: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
+  de escuadrón en el juego para desbloquear tu cuenta.
