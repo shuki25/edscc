@@ -1,0 +1,152 @@
+---
+"#": "#"
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Keine
+  Einträge | {1} Ein Eintrag |] 1, Inf [% start% bis% end% von% count% Einträge"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Keine Artikel | {1} ein Artikel
+  |] 1, Inf [% count% items"
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  Heute sind keine neuen Mitglieder beigetreten. | {1} Ein neues Mitglied ist heute
+  beigetreten"
+A 4-character indicator for your Squadron in the game: Eine 4-Zeichen-Anzeige für
+  Ihr Geschwader im Spiel
+About Your Squadron: Über dein Geschwader
+'Access Denied: Account status is %status%': 'Zugriff verweigert: Kontostatus ist%
+  status%'
+Action: Aktion
+Activated: Aktiviert
+Activation Code for ED:SCC: 'Aktivierungscode für ED: SCC'
+Admin: Administrator
+Agent: Agent
+API Key: API-Schlüssel
+Approved: Genehmigt
+Author: Autor
+Bad: Schlecht
+Banned: Verboten
+Changes were not saved.: Änderungen wurden nicht gespeichert.
+Choose a Faction: Wähle eine Fraktion
+Choose a Superpower affiliation if applicable: Wählen Sie ggf. eine Supermacht-Zugehörigkeit
+Choose the gaming platform this Squadron plays on: Wählen Sie die Gaming-Plattform,
+  auf der diese Staffel spielt
+CMDR %name%: CMDR% name%
+Combat: Kampf
+Commander data has been purged from the system.: Commander-Daten wurden aus dem System
+  gelöscht.
+Commander Name: Name des Kommandanten
+Commanders Joined: Kommandanten beigetreten
+"%count%%% from prior day": "% count %%% vom Vortag"
+Create: Erstellen
+Created In: Erstellt in
+Creating a new announcement: Neue Ankündigung erstellen
+Customizing Commander Roles: Anpassen der Commander-Rollen
+Custom Rank Name: Benutzerdefinierter Rangname
+Default Rank Name: Standard-Rangname
+Denied: Verweigert
+Description: Beschreibung
+Editing an announcement: Ankündigung bearbeiten
+ED:SCC Approval Requested: 'ED: SCC-Genehmigung beantragt'
+ED:SCC Squadron Owner: 'ED: SCC Squadron Owner'
+Email: Email
+Exact spelling as depicted in the game: Genaue Schreibweise wie im Spiel dargestellt
+Expired CSRF Token. Please refresh the page to continue.: Abgelaufenes CSRF-Token.
+  Bitte aktualisieren Sie die Seite, um fortzufahren.
+Expired CSRF Token. Please try again.: Abgelaufenes CSRF-Token. Bitte versuche es
+  erneut.
+Exploration: Erkundung
+Faction Affiliation: Fraktionszugehörigkeit
+Gaming Platform: Spielplattform
+Good: Gut
+Home base: Heimatbasis
+I forgot my password: Ich habe mein Passwort vergessen
+Import History: Historie importieren
+Import Queue Status: Warteschlangenstatus importieren
+Invalid temporary password or mismatched new/verify password pairs.: Ungültiges temporäres
+  Passwort oder nicht übereinstimmende neue / Überprüfungs-Passwortpaare
+Invalid token, please reload the page: Ungültiger Token, bitte laden Sie die Seite
+  neu
+Items: Artikel
+Join Date: Beitrittsdatum
+Keep me logged in (for 7 days): Lass mich eingeloggt (für 7 Tage)
+label_next: Nächster
+label_previous: Bisherige
+Last Login: Letzte Anmeldung
+Leader: Führer
+Lock Out: Sperren
+Manage Announcements: Ankündigungen verwalten
+Manage Squadron Announcements: Verwalten von Staffelankündigungen
+Manage Tags: Tags verwalten
+Mark as Published: Als veröffentlicht markieren
+Message Content: Nachrichteninhalt
+Name of your Squadron: Name Ihres Geschwaders
+Never: noch nie
+New: Neu
+New announcement has been added.: Neue Ankündigung wurde hinzugefügt.
+No Date Available: Kein Datum verfügbar
+None: Keiner
+Officer: Offizier
+Password: Passwort
+Permission Denied. Unable to access to this resource.: Zugang verweigert. Zugriff
+  auf diese Ressource nicht möglich.
+Published In: Veröffentlicht in
+Publish In: In veröffentlichen
+Rank: Rang
+Register a new membership: Registrieren Sie eine neue Mitgliedschaft
+Requires approval from squad leaders to join: Erfordert die Zustimmung der Gruppenführer,
+  um teilzunehmen
+Roles: Rollen
+Rookie: Anfänger
+Save Changes: Änderungen speichern
+Search...: Suche...
+Senior Officer: Senior Offizier
+Showing items: Elemente anzeigen
+Sign In: Einloggen
+Sign in to start your session: Melden Sie sich an, um Ihre Sitzung zu beginnen
+Squadron Details: Geschwader Details
+Squadron ID: Staffel Nr
+Squadron Join Request Update: Squadron Join Request Update
+'Squadron: %name%': Staffel:% name%
+Squadron Rank Classifications Saved.: Geschwader Rang Klassifikationen gespeichert.
+Status: Status
+'Strength: %strength% (cracked in %number% %unit%)': Stärke:% Stärke% (in% Anzahl%%
+  Einheit% gerissen)
+Strong: Stark
+Superpower Affiliation: Supermacht-Zugehörigkeit
+Tags Associated with Your Squadron: Mit Ihrem Geschwader verknüpfte Tags
+The current password is incorrect, and your password is not changed: Das aktuelle
+  Passwort ist falsch und Ihr Passwort wird nicht geändert
+The date that the announcement will automatically appear in the feed: Das Datum, an
+  dem die Ankündigung automatisch im Feed angezeigt wird
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die
+  Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader
+  beigetreten ist. Verwenden Sie Markdown, um Ihre Nachricht zu formatieren.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
+  ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn Sie zu einem anderen
+  Benutzer wechseln, verlieren Sie Ihre Berechtigungen.
+Title: Titel
+Total: Gesamt
+Trade: Handel
+Unable to fetch data.: Daten können nicht abgerufen werden.
+Unable to generate a new API Key. Invalid token, please reload the page.: Es kann
+  kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte laden Sie die
+  Seite neu.
+Unauthorized: Nicht autorisiert
+Up %count%%% from prior day: Up% count %%% vom vorherigen Tag
+Upload Files: Daten hochladen
+Uploading Player's Journal Log Files: Journal-Protokolldateien des Players hochladen
+Use Markdown to format your content: Verwenden Sie Markdown, um Ihren Inhalt zu formatieren
+User not found: Benutzer wurde nicht gefunden
+Weak: Schwach
+Welcome message: Willkommensnachricht
+Worst: Am schlimmsten
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Schreiben
+  Sie eine kurze Beschreibung Ihres Geschwaders. Neue Mitglieder sehen dies, wenn
+  sie auswählen, welches Staffel sie beitreten möchten.
+Yesterday Earnings: Gesternes Einkommen
+You only can select a maximum of 20 files (web browser limitation).: Sie können maximal
+  20 Dateien auswählen (Einschränkung für Webbrowser).
+Your changes have been updated.: Ihre Änderungen wurden aktualisiert.
+Your new password did not match with verify password. Password is not changed.: Ihr
+  neues Passwort stimmte nicht mit dem bestätigten Passwort überein. Passwort wird
+  nicht geändert.
+Your password change has been updated: Ihre Passwortänderung wurde aktualisiert
+Your password has been reset: Dein Passwort wurde zurück gesetzt
+Your settings have been saved.: Deine Einstellungen wurden gespeichert.
