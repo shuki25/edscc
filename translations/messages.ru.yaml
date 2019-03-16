@@ -1,0 +1,434 @@
+---
+"#": "#"
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Нет
+  записей | {1} Одна запись |] 1, Inf [% start% to% end% of% count% записей"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Нет элементов | {1} один элемент
+  |] 1, Inf [% count% элементов"
+'Access Denied: Account status is %status%': 'Доступ запрещен: статус учетной записи%
+  status%'
+Action: действие
+Activated: активированная
+Activation Code for ED:SCC: 'Код активации для ED: SCC'
+Activities: мероприятия
+Activities Report for CMDR %name%: Отчет о деятельности для CMDR% name%
+Add New Announcement: Добавить новое объявление
+Add New MOTD: Добавить новый MOTD
+Admin: Администратор
+Amount: Количество
+Announcements: Объявления
+Anti-Xeno Activists: Активисты анти-ксено
+API Key: Ключ API
+Approved: Одобренный
+Attitude: Отношение
+Avoid using the same password for multiple sites: Не используйте один и тот же пароль
+  для нескольких сайтов.
+Bad: Плохой
+Besides letters, include at least a number or symbol: Помимо букв, включите хотя бы
+  число или символ
+Bodies Discovered: Обнаруженные тела
+Cadet: кадет
+CG Participated: CG Участвовал
+Change Password: Изменить пароль
+Changes were not saved.: Изменения не были сохранены.
+Chief Petty Officer: Главный старшина
+Choose a Faction: Выберите фракцию
+Choose a Superpower affiliation if applicable: Выберите принадлежность к Superpower,
+  если применимо
+CMDR %name%: CMDR% name%
+Commander Details: Детали командира
+CQC: CQC
+Created In: Создано в
+Creating a new announcement: Создание нового объявления
+Criminal History Summary: Криминальная история
+Data: Данные
+Date: Дата
+Date Committed: Дата совершения
+Date Processed: Дата обработки
+Denied: Отказано
+Description: Описание
+Devoted: Посвящается
+Editing an announcement: Редактирование объявления
+EDMC Plug-in: Плагин EDMC
+Email: Эл. адрес
+E-mail address verified: Адрес электронной почты подтвержден
+Enter a new password.: Введите новый пароль.
+Enter your current password.: Введи свой текущий пароль.
+Expired CSRF Token. Please refresh the page to continue.: Токен CSRF с истекшим сроком
+  действия. Пожалуйста, обновите страницу, чтобы продолжить.
+Expired CSRF Token. Please try again.: Токен CSRF с истекшим сроком действия. Пожалуйста,
+  попробуйте еще раз.
+Exploration: Исследование
+Explorer: исследователь
+Faction Affiliation: Принадлежность фракции
+Faction / Superpower Affiliations: Фракция / Сверхдержавы
+Faction Supporters: Сторонники фракций
+'false': ложный
+Family: семья
+FA off: FA выключен
+French: Французский
+Fuel Rats: Топливные Крысы
+Game Date: Дата игры
+Game Mode: Игровой режим
+Gaming Platform: Игровая платформа
+German: Немецкий
+Good: Хорошо
+Helpless: беспомощный
+History Log: Журнал истории
+Home base: Домашняя база
+Home Base: Домашняя база
+Humanitarian Aid Providers: Поставщики гуманитарной помощи
+Import History: История импорта
+Import Queue Status: Состояние очереди импорта
+Invalid token, please reload the page: Неверный токен, перезагрузите страницу
+Items: Предметы
+label_previous: предыдущий
+Language: язык
+Last Updated: Последнее обновление
+Lieutenant: Лейтенант
+Manage Announcements: Управление объявлениями
+Manage Members: Управление участниками
+Manage MOTD: Управлять MOTD
+Manage Tags: Управление тегами
+Mark as Published: Отметить как опубликованный
+Master: Мастер
+Message Content: Содержание сообщения
+Miners: Шахтеры
+Mission Rewards Collected over last 30 days: Награды за миссии, собранные за последние
+  30 дней
+Missions Completed: Миссии завершены
+Mostly Aimless: В основном бесполезный
+Mostly Helpless: В основном беспомощный
+Mostly Penniless: В основном без гроша
+MOTD: MOTD
+My Account: Мой аккаунт
+Net Units: Чистые единицы
+Never: Никогда
+New announcement has been added.: Новое объявление было добавлено.
+None: Никто
+Occasional: случайный
+Officer: сотрудник
+Overall Combat (Non-mission): Общий бой (без миссии)
+Overall Community Goal: Общая цель сообщества
+Overall Exploration: Общее исследование
+Overall Missions: Общие миссии
+Overall Trade: Общая торговля
+Password: пароль
+Password is case sensitive: Пароль чувствителен к регистру
+Password is not part of old password: Пароль не является частью старого пароля
+Pending Members: Ожидающие участники
+Percentage difference: Разница в процентах
+Permission Denied. Unable to access to this resource.: Доступ запрещен. Невозможно
+  получить доступ к этому ресурсу.
+Permissions: права доступа
+Petty Officer: Старшина
+Pioneer: первопроходец
+Pirates: Пираты
+Player: игрок
+Player Activities Report: Отчет о действиях игрока
+Player Dashboard: Панель инструментов игрока
+Player Journal Log: Журнал игрока
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Пожалуйста,
+  укажите причину, по которой статус присваивается при необходимости (если доступ
+  запрещен и т. Д.)
+Please enter your email: Пожалуйста, введите ваш адрес электронной почты
+Portuguese: португальский
+Power Supporters: Сторонники власти
+Previous: предыдущий
+Private Group: Частная группа
+Promotion Voting: Рекламное голосование
+Publish At: Опубликовать в
+Published In: Опубликовано в
+Publish In: Опубликовать в
+Purge the Data: Очистить данные
+PvE: PvE
+PvP: PvP
+Rank: Ранг
+Rear Admiral: Контр-адмирал
+Recruit: Новобранец
+Regenerate API Key: Восстановить ключ API
+Relaxed: расслабленный
+Re-type the new password to verify.: Введите новый пароль еще раз для подтверждения.
+Roleplay: Ролевая игра
+Roles: Роли
+Role Tags: Ролевые метки
+Rookie: Новобранец
+Save Changes: Сохранить изменения
+Seals: Морские котики
+Search...: Поиск...
+Select Log Files: Выберите файлы журнала
+Semi Professional: Полу профессиональный
+Senior Officer: Старший офицер
+Serf: раб
+Showing items: Показ предметов
+Sign In: Войти в систему
+Sign Out: Выход
+Solo: Соло
+Status: Статус
+Status Comment: Комментарий к статусу
+Strong: сильный
+Superpower Affiliation: Сверхдержавы
+Surveyor: геодезист
+System Scanned: Система отсканирована
+The date that the announcement will automatically appear in the feed: Дата, когда
+  объявление автоматически появится в ленте
+This post is pinned (always will appear on the top of page): Это сообщение прикреплено
+  (всегда будет отображаться в верхней части страницы)
+Timestamp: Отметка
+Total: Всего
+Total Asset: Всего активов
+Total Daily Earnings over last 30 days: Общий ежедневный доход за последние 30 дней
+Total Earned: Всего заработано
+Total Members: Всего участников
+Total Reward: Общая награда
+Trade Profit over last 30 days: Торговая прибыль за последние 30 дней
+Traders: Трейдеры
+'true': правда
+Tycoon: магнат
+Type: Тип
+Unable to fetch data.: Невозможно получить данные.
+Unable to generate a new API Key. Invalid token, please reload the page.: Невозможно
+  сгенерировать новый ключ API. Неверный токен, пожалуйста, перезагрузите страницу.
+Units Sold: Проданных единиц
+Up %count%%% from prior day: Увеличение% count %%% с предыдущего дня
+Upload Files: Загрузить файлы
+Uploading Players Journal Log Files: Загрузка файлов журнала игроков
+Use 8 to 64 characters: Используйте от 8 до 64 символов
+User Avatar: Аватар пользователя
+User can add, edit, delete announcements: Пользователь может добавлять, редактировать,
+  удалять объявления
+User can modify settings or permissions for himself/herself: Пользователь может изменить
+  настройки или разрешения для себя
+User can view management reports: Пользователь может просматривать отчеты управления
+User has read the welcome message after logging in: Пользователь прочитал приветственное
+  сообщение после входа в систему
+User not found: Пользователь не найден
+Using EDMC Plug-in to Capture Data: Использование плагина EDMC для сбора данных
+Vice Admiral: Вице-адмирал
+Victim: Потерпевший
+Viscount: Виконт
+Warrant Officer: Мичман
+Wealth: богатство
+Weekdays: Будние дни
+Weekends: Выходные дни
+Weeknights: Будние вечера
+Welcome message: Приветственное сообщение
+Welcome Message: Приветственное сообщение
+Worst: Наихудший
+You only can select a maximum of 20 files (web browser limitation).: Вы можете выбрать
+  не более 20 файлов (ограничение веб-браузера).
+Your account has been activated.  Please login to continue.: Ваш аккаунт был активирован.
+  Пожалуйста, войдите, чтобы продолжить.
+Your account is already activated.: Ваша учетная запись уже активирована.
+Your changes have been updated.: Ваши изменения были обновлены.
+Your password change has been updated: Ваш пароль изменен
+Your password has been reset: Ваш пароль был сброшен
+Your settings have been saved.: Ваши настройки были сохранены.
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  Сегодня нет новых участников | {1} Сегодня присоединился один участник |] 1, Inf
+  [%count% новых участников сегодня"
+"%count%%% from prior day": "% count%%% с предыдущего дня"
+'Squadron: %name%': 'Сквадрон: %name%'
+A 4-character indicator for your Squadron in the game: 4-символьный индикатор для
+  вашего сквадрона в игре
+About Your Squadron: О вашем сквадроне
+Administration: Администрация
+Admiral: Адмирал
+Agent: Агент
+Aimless: Бесцельный
+Amateur: Любитель
+Amt Earned: Amt Доход
+Amt Paid: Amt Расход
+Author: Автор
+Availability: Доступно
+Banned: Заблокирован
+Baron: Барон
+Bounties Collected over last 30 days: Баунти, собранные за последние 30 дней
+Bounty: Баунти
+Bounty Hunters: Охотники за Баунти
+Broker: Торговец
+Cancel: Отмена
+Champion: Чемпион
+Choose the commander's rank: Выберите ранг командира
+Choose the gaming platform this Squadron plays on: Выберите игровую платформу, на
+  которой играет сквадрон
+Choose the status to determine user's access privilege to the squadron: Выберите статус,
+  чтобы определить права доступа пользователя в Сквадроне.
+Combat: Бой
+Commander: Командир
+Commander Activities: Активность командира
+Commander data has been purged from the system.: Данные Командира были удалены из
+  системы.
+Commander E-mail: E-mail Командира
+Commander Login Email: Командир Логин Email
+Commander Name: Имя Командира
+Commander Performance: Эффективность Командира
+Commanders Joined: Присоединенные Командиры
+Competent: Компетентный
+Complete SAA Scans: 'Полное SAA сканирование '
+Count: Счетчик
+Create: Создай
+Credits: Кредиты
+Crew Paid: Оплата экипажа
+Crime: Преступление
+Criminal History: История преступлений
+Criminal History (Detailed): История преступлений (подробно)
+Criminal History Summary by Faction: Краткая история преступлений по фракции
+Cr/Unit: Кредит / Единицу
+Current Squadron Rank: Текущий ранг Сквадрона
+Customizing Commander Roles: Настройка ролей
+custom_rank_instructions: В игре Сквадроны могут настраивать свои собственные ранговые
+  классификации согласно своим требованиям. В левом столбце перечислены ранги по умолчанию,
+  вводите свои ранги в правом столбце.
+Custom Rank Name: Пользовательский ранг
+Daily Total Earning on: Ежедневный общий доход на
+Dangerous: Опасный
+Date that this Commander has joined the squadron (may be different from signing up for this account): Дата
+  вступления этого командира в Сквадрон (может отличаться от регистрации в этом аккаунте)
+Deadly: Смертоносный
+Dealer: Дилер
+Default Rank Name: Ранг по умолчанию
+Duke: Герцог
+Earl: Граф
+Earning History (Detailed): История дохода (подробно)
+Earning History Summary: Общая история дохода
+Earning History Summary by Minor Faction: Общая история дохода Минорной фракции
+EDMC Transaction: EDMC передача данных
+ED:SCC Approval Requested: 'ED:SCC Требуется разрешение '
+ED:SCC Squadron Owner: 'ED: SCC Командующий Сквадроном'
+Efficiency Rate: Рейтинг эффективности
+Efficient Scans: Рейтинг сканирования
+Elite: Элита
+English: Английский
+Ensign: Знак/Вымпел
+Entrepreneur: Предприниматель
+Exact spelling as depicted in the game: Точное написание, как указанно в игре
+Expert: Эксперт
+Exploration Data Sold over last 30 days: Исследовательские данные за последние 30
+  дней (сумма)
+Explorers: Исследователи
+Federation: Федерация
+Fine: Отлично
+Harmless: Безвредный
+Hero: Герой
+ID: Индификационный номер (ID)
+I forgot my password: Я не помню свой пароль
+Invalid temporary password or mismatched new/verify password pairs.: Неверный временный
+  пароль или не соответствует пара нового и проверенного пароля
+I understand that by purging the data, it is irreversible.: Я понимаю, что очистка
+  данных будет необратима.
+Join Date: Дата вступления
+Journal Log File: Журнал игры (Lof File)
+Keep me logged in (for 7 days): Оставить меня в системе (в течение 7 дней)
+King: Король
+Knight: Рыцарь
+label_next: Следующий
+Last Login: Последний используемый Логин
+Leader: Лидер
+Legend: Легенда
+Loan: Долг
+Lock Out: Заблокировано
+Lord: Лорд
+Lt. Commander: Лейтенант-коммандер
+Management: Управление
+Manage Squadron Announcements: Управление объявлениями Сквадрона
+Mark this MOTD as visible: Сделать этот MOTD видимым
+Mark this MOTD as visible on the login screen: Сделать этот MOTD видимым на экране
+  входа
+Mark this post as published (will be visible in announcements after the published date): Сделать
+  этот пост как публичным (будет виден в объявлениях после даты опубликования )
+Marquis: Маркиз
+Membership: Участник
+Merchant: Торговец
+Midshipman: Гардемарин
+Minor Faction Activities Summary: Общая деятельность фракции
+Minor Faction Issued By: Минорная фракция, выданно
+Mostly Harmless: В большинстве случаев безвреден
+My Profile: Мой профиль
+Name of your Squadron: Название вашего Сквадрона
+Net Earned: Чистый доход
+New: Новый
+Next: Следующий
+No Date Available: Информация недоступна
+Novice: Новичок
+Open: Открыто
+Outsider: Аутсайдер
+Overall Earning: Общий Доход
+Password is not part of your username: Пароль не должен повторять ваш Логин / Имя
+Password strength is either good or strong: Пароль не достаточно хороший или надежный.
+Pathfinder: Исследователь
+Paying Minor Faction: Расходы Минорной Фракции
+Peddler: Мелкий торговец
+Penniless: Безденежный
+Player Journal Log Import History: " История игрока Журнал импорта"
+Post Captain: Капитан 1 ранга
+Post Commander: Старший помошник
+Prince: Принц
+Professional: Профессионал
+Purge Commander Data: Очистить данные Коммандира
+purge_commander_data_body: Иногда командиры очищают свои данные, потому что данные
+  не верны. Очистив данные из базы, вы можете повторно импортировать файлы журнала,
+  чтобы сделать ваши данные более актуальными и точными. Это только удалит все данные,
+  связанные с вашим текущим сквадроном. Если вы ранее находились в другом сквадроне,
+  эти данные не будут удалены. Помните, что прежде чем очищать свои данные и повторно
+  импортировать все файлы журнала игрока, выйдите из игры и своей EDMC, если она работает.
+Ranger: Рейнджер
+Ranks: Ранги
+Refresh: Обновить
+Register a new membership: Зарегистрировать нового участника
+Requires approval from squad leaders to join: Требуется одобрение ответственных Сквадрона,
+  чтобы присоединиться
+Russian: Русский
+Scout: Разведчик
+Sign in to start your session: Войдите, чтобы начать
+Spanish: Испанский
+Squadron: Сквадрон
+Squadron Dashboard: Панель инструментов Сквадрона
+Squadron Details: Детали Сквадрона
+Squadron ID: ID Сквадрона
+Squadron Join Request Update: Обновление запроса присоединения Сквадрона
+Squadron Leader: Командир Сквадрона
+Squadron Leaderboard: Таблица лидеров Сквадрона
+Squadron Membership Status: Статус участников Сквадрона
+Squadron Rank Classifications Saved.: Классификация ранга в Сквадроне сохранена.
+Squadron Roster: Состав Сквадрона
+Squadron Settings: Настройки Сквадрона
+Squire: Оруженосец
+'Strength: %strength% (cracked in %number% %unit%)': 'Прочность: %strength% (повреждено
+  в% число%% единица%)'
+Tags Associated with Your Squadron: Теги, связанные с вашим Сквадроном
+Targeted Minor Faction: Цели Минорной Фракции
+The current password is incorrect, and your password is not changed: Этот пароль неверен,
+  и ваш пароль не изменился
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Это
+  приветствие будет показано новому участнику после присоединения к Сквадрону. Используйте
+  редактор для форматирования вашего сообщения.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Это
+  аккаунт администратора, который управляет этим Сквадроном. Если вы перейдете на
+  другого пользователя, вы потеряете права администратора.
+Title: Оглавление
+Trade: Торговля
+Unauthorized: Неавторизированый пользователь
+Units Bought: Купленных единиц
+Uploading Player's Journal Log Files: Загрузка Журнала игрока (Log Files)
+Use Markdown to format your content: Используйте редактирование для форматирования
+  вашего контента
+User can approve, deny, ban or lock out a squadron member: Пользователь может утвердить,
+  отклонить или заблокировать участника
+User can edit a squadron member account settings: Пользователь может редактировать
+  настройки учетной записи участника Сквадрона
+User can modify access permissions of a squadron member: Пользователь может изменять
+  права доступа члена Сквадрона
+User can view a history log of a squadron member: Пользователь может просматривать
+  журнал истории участника Сквадрона
+User has full administrative rights (overrides everything below): Пользователь имеет
+  полные права администратора (распределяет все прочие)
+User Permission Settings: Настройки прав пользователя
+Weak: Ослабление
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Напишите
+  краткое описание вашего Сквадрона. Новые члены увидят это при выборе Сквадрона,
+  к которому хотят присоединиться
+Yesterday Earnings: Доход за прошлый день
+Your activation code has been resent. Check your INBOX.: Ваш код активации был повторно
+  отправлен. Проверьте свои входящие на указанной при регистрации электронной почте.
+Your new password did not match with verify password. Password is not changed.: Ваш
+  новый пароль не должен совпадать с ранее установленным паролем. Пароль не изменен.
