@@ -1,10 +1,10 @@
 ---
 "#": "#"
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No hay artículos | {1} un
-  artículo |] 1, Inf [% count% items"
+  artículo |] 1, Inf [ %count% items"
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
   No se han unido nuevos miembros hoy | {1} Se ha unido un nuevo miembro hoy |] 1,
-  Inf [% count% nuevos miembros se han unido hoy"
+  Inf [ %count% nuevos miembros se han unido hoy"
 A 4-character indicator for your Squadron in the game: Un indicador de 4 caracteres
   para tu escuadrón en el juego.
 About Your Squadron: Sobre tu escuadron
