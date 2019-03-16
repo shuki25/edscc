@@ -23,7 +23,8 @@
                         <p id="errorMessage"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline pull-left"
+                                data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -41,7 +42,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#upload" data-toggle="tab">{% trans %}Upload Files{% endtrans %}</a></li>
                         <li><a href="#import_history" data-toggle="tab">{% trans %}Import History{% endtrans %}</a></li>
-                        <li><a href="#edmc_plugin" data-toggle="tab">EDMC Plug-in</a></li>
+                        <li><a href="#edmc_plugin" data-toggle="tab">{% trans %}EDMC Plug-in{% endtrans %}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="upload">
@@ -70,9 +71,13 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="uploadFile" class="btn btn-primary">
-                                                    <i class="fa fa-upload"></i> Select Log Files
+                                                    <i class="fa fa-upload"></i> {% trans %}Select Log Files{% endtrans %}
                                                 </label>
-                                                <input type="file" id="uploadFile" name="uploadFile[]" multiple><input id="uploadButton" type="submit" name='btnSubmit' value="Start Upload" class="btn btn-primary form-control" style="width: 150px;" accept="text/plain">
+                                                <input type="file" id="uploadFile" name="uploadFile[]" multiple><input
+                                                        id="uploadButton" type="submit" name='btnSubmit'
+                                                        value="{% trans %}Start Upload{% endtrans %}"
+                                                        class="btn btn-primary form-control" style="width: 150px;"
+                                                        accept="text/plain">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Upload Progress:</label>
@@ -105,7 +110,9 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="input-group input-group-sm pull-right">
-                                                <button id="refreshButton" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+                                                <button id="refreshButton" class="btn btn-xs btn-primary"><i
+                                                            class="fa fa-refresh"></i> {% trans %}Refresh{% endtrans %}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +170,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 align-bottom">
-                                                    <button id="regenerate_api" type="button" class="btn btn-danger">Regenerate API Key</button>
+                                                    <button id="regenerate_api" type="button"
+                                                            class="btn btn-danger">{% trans %}Regenerate API Key{% endtrans %}</button>
                                                 </div>
 
                                             </div>

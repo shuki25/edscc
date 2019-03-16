@@ -20,8 +20,14 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs pull-left">
                         {% if is_granted('CAN_EDIT_USER') %}{% set isActive = true %}<li class="active"><a href="#details" data-toggle="tab">{% trans %}Commander{% endtrans %}</a></li>{% endif %}
-                        {% if is_granted('CAN_EDIT_PERMISSIONS') %}<li{% if isActive == false %} class="active"{% endif %}><a href="#permissions" data-toggle="tab">{% trans %}Permissions</a>{% endtrans %}</li>{% set isActive = true %}{% endif %}
-                        {% if is_granted('CAN_VIEW_HISTORY') %}<li{% if isActive == false %} class="active"{% endif %}><a href="#history" data-toggle="tab">{% trans %}History Log</a>{% endtrans %}</li>{% endif %}
+                        {% if is_granted('CAN_EDIT_PERMISSIONS') %}
+                            <li{% if isActive == false %} class="active"{% endif %}><a href="#permissions"
+                                                                                       data-toggle="tab">{% trans %}Permissions{% endtrans %}</a>
+                            </li>{% set isActive = true %}{% endif %}
+                        {% if is_granted('CAN_VIEW_HISTORY') %}
+                            <li{% if isActive == false %} class="active"{% endif %}><a href="#history"
+                                                                                       data-toggle="tab">{% trans %}History Log{% endtrans %}</a>
+                            </li>{% endif %}
                     </ul>
                     {% set isActive = false %}
                     <div class="pull-right" style="padding: 6px;">
