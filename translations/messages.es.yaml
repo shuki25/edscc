@@ -429,3 +429,15 @@ Your new password did not match with verify password. Password is not changed.: 
 Your password change has been updated: Su cambio de contraseña ha sido actualizado
 Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No
+  hay entradas | {1} Una entrada |] 1, Inf [ %start% a %end% de %count% entradas"
+'Access Denied: Account status is %status%': 'Acceso denegado: el estado de la cuenta
+  es %status%'
+Activities Report for CMDR %name%: Informe de actividades para CMDR %name%
+CMDR %name%: CMDR %name%
+"%count%%% from prior day": "%count%%% del día anterior"
+'Squadron: %name%': 'Escuadrón: %name%'
+'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
+  en %number% %unit%)'
+Up %count%%% from prior day: Hasta %count %%% del día anterior
+Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
