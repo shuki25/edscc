@@ -29,9 +29,6 @@ Amateur: Aficionado
 Amount: Cantidad
 Amt Earned: Amt Earned
 Amt Paid: Amt pagado
-An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.: Se requiere una verificación de la dirección de correo electrónico para activar
-  su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
-  con la creación de la nueva cuenta.
 Announcements: Anuncios
 Anti-Xeno Activists: Activistas Anti-Xeno
 API Key: Clave API
@@ -227,6 +224,8 @@ Leader: Líder
 Legend: Leyenda
 Lieutenant: Teniente
 Loan: Préstamo
+lockdown_message: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar
+  a tu líder de escuadrón en el juego para desbloquear tu cuenta.
 Locked - Processing: Bloqueado - Procesamiento
 Lock Out: Cerrar
 Lord: Señor
@@ -273,6 +272,7 @@ New: Nuevo
 New announcement has been added.: Se ha añadido un nuevo anuncio.
 New Password: Nueva contraseña
 Next: Siguiente
+'No': 'No'
 No Data: Sin datos
 No Date Available: Sin fecha disponible
 None: Ninguna
@@ -365,6 +365,9 @@ Relaxed: Relajado
 Requires approval from squad leaders to join: Requiere la aprobación de los líderes
   del escuadrón para unirse.
 Reset: Reiniciar
+reset_password_instruction: Para restablecer su contraseña, ingrese su dirección de
+  correo electrónico registrada en su cuenta y se le enviará un correo electrónico
+  con más instrucciones.
 Resetting Your Password: Restableciendo su contraseña
 Retype password: Vuelva a escribir la contraseña
 Re-type the new password to verify.: Vuelva a escribir la nueva contraseña para verificar.
@@ -428,8 +431,6 @@ This post is pinned (always will appear on the top of page): Esta publicación e
   anclada (siempre aparecerá en la parte superior de la página)
 Timestamp: Marca de tiempo
 Title: Título
-reset_password_instruction: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
-  en su cuenta y se le enviará un correo electrónico con más instrucciones.
 Total: Total
 Total Asset: Activos totales
 Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
@@ -498,6 +499,7 @@ Write a brief description about your Squadron. New members will see this when pi
   a qué escuadrón unirse.
 Write your content, use Markdown to format your message.: Escribe tu contenido, usa
   Markdown para formatear tu mensaje.
+'Yes': Sí
 Yesterday Earnings: Ganancias de ayer
 You: Tú
 You do not have permissions to access to this resource.: No tienes permisos para acceder
@@ -523,7 +525,6 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-lockdown_message: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
-  de escuadrón en el juego para desbloquear tu cuenta.
-'No': 'No'
-'Yes': Sí
+email_verification_message: Se requiere una verificación de la dirección de correo
+  electrónico para activar su cuenta. Se ha enviado un correo electrónico a %email%
+  con un token para continuar con la creación de la nueva cuenta.
