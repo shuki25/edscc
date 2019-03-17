@@ -359,8 +359,8 @@ User can edit a squadron member account settings: User can edit a squadron membe
 User can modify access permissions of a squadron member: User can modify access permissions of a squadron member
 User can view a history log of a squadron member: User can view a history log of a squadron member
 User can modify settings or permissions for himself/herself: User can modify settings or permissions for himself/herself
-Yes: Yes
-No: No
+'Yes': Yes
+'No': No
 History Log: History Log
 Manage MOTD: Manage MOTD
 Add New MOTD: Add New MOTD
