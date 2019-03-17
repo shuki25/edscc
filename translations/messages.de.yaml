@@ -16,7 +16,7 @@ Action: Aktion
 Activated: Aktiviert
 Activation Code for ED:SCC: 'Aktivierungscode für ED: SCC'
 Activities: Aktivitäten
-Activities Report for CMDR %name%: Aktivitätsbericht für CMDR% name%
+Activities Report for CMDR %name%: Aktivitätsbericht für CMDR %name%
 Add New Announcement: Neue Ankündigung hinzufügen
 Add New MOTD: Neuen MOTD hinzufügen
 Admin: Administrator
@@ -401,10 +401,8 @@ Your password change has been updated: Deine Passwortänderung wurde aktualisier
 Your password has been reset: Dein Passwort wurde zurück gesetzt
 Your settings have been saved.: Deine Einstellungen wurden gespeichert.
 Access Denied: Zugriff verweigert
-? An e-mail address verification is required to activate your account.  An email has
-  been sent to %email% with a token to continue with the new
-: Zur Bestätigung Ihres Kontos ist eine Bestätigung der E-Mail-Adresse erforderlich.
-  Eine E-Mail wurde mit einem Token an% email% gesendet, um mit der Erstellung des
+An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.: Zur Bestätigung Ihres Kontos ist eine Bestätigung der E-Mail-Adresse erforderlich.
+    Eine E-Mail wurde mit einem Token an %email% gesendet, um mit der Erstellung des
   neuen Kontos fortzufahren.
 Application Denied: Bewerbung abgelehnt
 Approval is not Required: Genehmigung ist nicht erforderlich
@@ -449,7 +447,7 @@ Chief Petty Officer: Obermaat
 Choose the commander's rank: Wähle den Rang des Kommandanten
 Choose the status to determine user's access privilege to the squadron: Wähle den
   Status aus, um das Zugriffsrecht des Benutzers auf das Geschwader festzulegen
-Commander Activities: 'Aktionen des Kommandanten '
+Commander Activities: Aktionen des Kommandanten
 Commander Details: Details des Kommandanten
 Commander Name (without CMDR): Name des Kommandanten (ohne CMDR)
 Commander Performance: Leistung des Kommandanten
@@ -500,12 +498,9 @@ The welcome message will be shown to new member after joining the squadron. Use 
 This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
   ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn du es auf einem anderen
   Benutzer umstellst, verlierst du deine Berechtigungen.
-? To reset your password, please enter your e-mail address registered with your account
-  and an e-mail will be sent with further instructions.
-: Um dein Passwort zurückzusetzen, gib bitte die mit deinem Konto registrierte E-Mail-Adresse
-  ein. Eine E-Mail mit weiteren Anweisungen wird gesendet.
+'To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.': Um dein Passwort zurückzusetzen, gib bitte die mit deinem Konto registrierte E-Mail-Adresse ein. Eine E-Mail mit weiteren Anweisungen wird gesendet.
 Use 8 to 64 characters: Verwende 8 bis 64 Zeichen
-Welcome to %name%: Willkommen bei % name%
+Welcome to %name%: Willkommen bei %name%
 Write your content, use Markdown to format your message.: Schreibe hier deinen Inhalt
   und verwende Markdown, um deine Nachricht zu formatieren.
 You: Du
@@ -517,7 +512,4 @@ Your application to join the chosen squadron was denied. If you have any questio
   Bewerbung für das ausgewählte Geschwader wurde abgelehnt. Wenn du Fragen hast, wende
   dich bitte an deinen Geschwaderführer.
 Your squadron leader has banned you.: Dein Geschwaderführer hat dich gebannt
-? Your squadron leader has locked down your account. You will need to contact your
-  squadron leader in the game to get your account unlocked.
-: Dein Geschwaderführer hat dein Konto gesperrt. Du musst dich im Spiel an deinen
-  Geschwaderführer wenden, um dein Konto freizuschalten.
+'Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.': Dein Geschwaderführer hat dein Konto gesperrt. Du musst dich im Spiel an deinen Geschwaderführer wenden, um dein Konto freizuschalten.
