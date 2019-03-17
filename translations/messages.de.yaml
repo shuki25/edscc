@@ -42,8 +42,6 @@ Banned: Gesperrt
 Baron: Baron
 Besides letters, include at least a number or symbol: Gib außer Buchstaben mindestens
   eine Zahl oder ein Symbol ein
-Bodies Discovered: Entdeckte Körper
-Bounties Collected over last 30 days: In den letzten 30 Tagen gesammelte Prämien
 Bounty: Kopfgeld
 Bounty Hunters: Kopfgeldjäger
 Broker: Makler
@@ -53,29 +51,21 @@ CG Participated: CG nahm teil
 Champion: Champion
 Change Password: Ändere das Passwort
 Changes were not saved.: Änderungen wurden nicht gespeichert.
-Chief Petty Officer: Chief Petty Officer
 Choose a Faction: Wähle eine Fraktion
 Choose a Superpower affiliation if applicable: Wähle eine Supermacht-Zugehörigkeit
   falls zutreffend
-Choose the commander's rank: Wählen Sie den Rang des Kommandanten
 Choose the gaming platform this Squadron plays on: Wähle die Spiele-Plattform die
   dein Geschwader nutzt um zu spielen
-Choose the status to determine user's access privilege to the squadron: Wählen Sie
-  den Status aus, um das Zugriffsrecht des Benutzers auf das Geschwader festzulegen
 CMDR %name%: CMDR %name%
 Combat: Kampf
 Commander: Kommandant
-Commander Activities: Commander-Aktivitäten
 Commander data has been purged from the system.: Daten des Kommandanten wurden aus
   dem System gelöscht.
-Commander Details: Kommandant Details
 Commander E-mail: E-Mail des Kommandanten
 Commander Login Email: Commander Login E-Mail
 Commander Name: Name des Kommandanten
-Commander Performance: Kommandant Leistung
 Commanders Joined: Kommandanten beigetreten
 Competent: Kompetent
-Complete SAA Scans: Führen Sie SAA-Scans durch
 Count: Graf
 "%count%%% from prior day": "%count%%% vom Vortag"
 CQC: CQC
@@ -86,9 +76,6 @@ Credits: Credits
 Crew Paid: Crew bezahlt
 Crime: Kriminalität
 Criminal History: Kriminelle Vergangenheit
-Criminal History (Detailed): Kriminalgeschichte (detailliert)
-Criminal History Summary: Kriminalgeschichte Zusammenfassung
-Criminal History Summary by Faction: Criminal History Summary von Faction
 Cr/Unit: Cr / Einheit
 Current Squadron Rank: Aktueller Geschwaderrang
 Customizing Commander Roles: Anpassen der Kommendanten-Rollen
@@ -122,6 +109,7 @@ Editing an announcement: Ankündigung bearbeiten
 EDMC Plug-in: EDMC-Plug-in
 EDMC Transaction: EDMC-Transaktion
 ED:SCC Approval Requested: 'ED: SCC-Genehmigung beantragt'
+ED:SCC Squadron Owner: 'ED: SCC Geschwader-Besitzer'
 Efficiency Rate: Wirkungsgrad
 Efficient Scans: Effiziente Scans
 Elite: Elite
@@ -149,7 +137,6 @@ Faction Supporters: Faction-Unterstützer
 Family: Familie
 FA off: FA aus
 Federation: Föderation
-Fine: Fein
 French: Französisch
 Fuel Rats: Kraftstoff Ratten
 Game Date: Spieldatum
@@ -164,7 +151,6 @@ History Log: Verlaufsprotokoll
 Home base: Heimatbasis
 Home Base: Heimatbasis
 Humanitarian Aid Providers: Anbieter humanitärer Hilfe
-ID: ICH WÜRDE
 I forgot my password: Ich habe mein Passwort vergessen
 Import History: Historie importieren
 Import Queue Status: Warteschlangenstatus importieren
@@ -194,11 +180,10 @@ Lt. Commander: Korvettenleutnant
 Manage Announcements: Ankündigungen verwalten
 Manage Members: Mitglieder verwalten
 Management: Verwaltung
+Manage MOTD: NDT verwalten
+Manage Squadron Announcements: Geschwaderankündigungen verwalten
 Manage Tags: Tags verwalten
 Mark as Published: Als veröffentlicht markieren
-Mark this MOTD as visible: Markieren Sie diesen MOTD als sichtbar
-Mark this MOTD as visible on the login screen: Markieren Sie diesen MOTD auf dem Anmeldebildschirm
-  als sichtbar
 Mark this post as published (will be visible in announcements after the published date): Diesen
   Beitrag als veröffentlicht markieren (wird nach dem Veröffentlichungsdatum in Ankündigungen
   sichtbar)
@@ -221,7 +206,10 @@ Mostly Penniless: Sehr Arm
 MOTD: NDT
 My Account: Mein Konto
 My Profile: Mein Profil
+Name of your Squadron: Name des Geschwaders
+Net Earned: Nettoerträge
 Net Units: Netto-Einheiten
+Never: Nie
 New: Neu
 New announcement has been added.: Neue Ankündigung wurde hinzugefügt.
 Next: Nächste
@@ -230,9 +218,12 @@ None: Keiner
 Novice: Novize
 Occasional: Gelegentlich
 Officer: Offizier
+Open: Offen
 Outsider: Außenseiter
+Overall Combat (Non-mission): Kampf Insgesamt (Außer Missionen)
 Overall Community Goal: Gesamtziel der Gemeinschaft
 Overall Earning: Gesamteinkommen
+Overall Exploration: Übersicht Erkundung
 Overall Missions: Gesamtmissionen
 Overall Trade: Handel insgesamt
 Password: Passwort
@@ -256,16 +247,26 @@ Player: Spieler
 Player Activities Report: Spieleraktivitätsbericht
 Player Dashboard: Spieler-Dashboard
 Player Journal Log: Spieler-Journal-Protokoll
-Please enter your email: Bitte geben Sie ihre E-Mail-Adresse ein
+Player Journal Log Import History: Importprotokoll des Spielerjournals
 Portuguese: Portugiesisch
 Post Captain: Kapitän
 Post Commander: Fregattenkapitän
-Power Supporters: Power Supporters
 Previous: Vorherige
 Prince: Prinz
 Private Group: Private Gruppe
+Professional: Profi
+Promotion Voting: Beförderungsabstimmung
 Publish At: Veröffentlichen bei
 Published In: Veröffentlicht in
+Publish In: Veröffentliche in
+Purge Commander Data: Daten des Kommandanten löschen
+purge_commander_data_body: Manchmal löschten Kommandanten ihre Daten, weil die Daten
+  nicht richtig aussehen. Durch das Löschen der Daten aus der Datenbank kannst du
+  deine Journaldateien erneut importieren, um diese aktueller zu gestalten. Dadurch
+  werden nur die Daten deines aktuellen Geschwaders gelöscht. Wenn du zuvor in einer
+  anderen Staffel gewesen bist, werden diese Daten nicht gelöscht. Denken daran, dass
+  du zuerst dein Spiel und EDMC beendest bevor du deine Daten bereinigst und alle
+  Spielerjournaldateien erneut importierst.
 Purge the Data: Daten bereinigen
 PvE: PvE
 PvP: PvP
@@ -274,11 +275,11 @@ Rank: Rang
 Ranks: Ränge
 Rear Admiral: Konteradmiral
 Recruit: Rekrutieren
+Refresh: Aktualisieren
 Regenerate API Key: API-Schlüssel neu generieren
-Register a new membership: Registrieren Sie eine neue Mitgliedschaft
 Relaxed: Entspannt
-Re-type the new password to verify.: Geben Sie das neue Kennwort zur Bestätigung erneut
-  ein.
+Requires approval from squad leaders to join: Erfordert die Zustimmung der Geschwaderführer,
+  um teilzunehmen
 Roleplay: Rollenspiel
 Roles: Rollen
 Role Tags: Rollen-Tags
@@ -286,6 +287,7 @@ Rookie: Anfänger
 Russian: Russisch
 Save Changes: Änderungen speichern
 Scout: Späher
+Seals: Seals
 Search...: Suche...
 Select Log Files: Wählen Sie Protokolldateien aus
 Semi Professional: Semi Professional
@@ -293,13 +295,17 @@ Senior Officer: Leitender Offizier
 Serf: Leibeigener
 Showing items: Elemente anzeigen
 Sign In: Einloggen
-Sign in to start your session: Melden Sie sich an, um Ihre Sitzung zu beginnen
-Sign Out: Ausloggen
 Solo: Solo
 Spanish: Spanisch
 Squadron: Geschwader
-Squadron Details: Geschwader Details
+Squadron Dashboard: Geschwader-Dashboard
+Squadron Join Request Update: 'Aktualisierung Geschwader Beitrittsanfrage '
+Squadron Leader: Geschwaderführer
+Squadron Membership Status: Geschwader-Mitgliedschaftsstatus
+'Squadron: %name%': 'Geschwader: %name%'
 Squadron Rank Classifications Saved.: Geschwader Rang Klassifikationen gespeichert.
+Squadron Roster: Geschwaderaufstellung
+Squadron Settings: Geschwadereinstellungen
 Squire: Knappe
 Status: Status
 Status Comment: Status Kommentar
@@ -311,14 +317,12 @@ Surveyor: Landkundiger
 System Scanned: System gescannt
 Tags Associated with Your Squadron: Mit Ihrem Geschwader verknüpfte Tags
 Targeted Minor Faction: Gezielte kleine Fraktion
+The current password is incorrect, and your password is not changed: Das aktuelle
+  Passwort ist falsch und dein Passwort wird nicht geändert
 The date that the announcement will automatically appear in the feed: Das Datum, an
   dem die Ankündigung automatisch im Feed angezeigt wird
-The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die
-  Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader
-  beigetreten ist. Verwenden Sie Markdown, um Ihre Nachricht zu formatieren.
-This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
-  ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn Sie zu einem anderen
-  Benutzer wechseln, verlieren Sie Ihre Berechtigungen.
+This post is pinned (always will appear on the top of page): Dieser Beitrag ist angepinnt
+  (wird immer oben auf der Seite angezeigt)
 Timestamp: Zeitstempel
 Title: Titel
 Total: Gesamt
@@ -328,22 +332,36 @@ Total Earned: insgesamt verdient
 Total Members: Mitglieder insgesamt
 Total Reward: Gesamtbelohnung
 Trade: Handel
+Trade Profit over last 30 days: Handelsprofit über die letzten 30 Tage
 Traders: Händler
 'true': wahr
 Tycoon: Tycoon
 Type: Art
 Unable to fetch data.: Daten können nicht abgerufen werden.
+Unable to generate a new API Key. Invalid token, please reload the page.: Es kann
+  kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte lade die Seite
+  neu.
 Unauthorized: Nicht autorisiert
 Units Bought: Einheiten gekauft
 Units Sold: Einheiten verkauft
+Up %count%%% from prior day: " %count%%% mehr als am vorherigen Tag"
 Upload Files: Daten hochladen
 Uploading Player's Journal Log Files: Protokolldateien für Spielerjournal hochladen
 Uploading Players Journal Log Files: Protokolldateien für Spielerjournal hochladen
+Use Markdown to format your content: Verwende Markdown, um deinen Inhalt zu formatieren
 User Avatar: Benutzer-Avatar
 User can add, edit, delete announcements: Der Benutzer kann Ankündigungen hinzufügen,
   bearbeiten und löschen
+User can approve, deny, ban or lock out a squadron member: Der Benutzer kann ein Geschwadermitglied
+  genehmigen, ablehnen, sperren oder sperren
+User can edit a squadron member account settings: Der Benutzer kann die Kontoeinstellungen
+  eines Geschwadermitglieds bearbeiten
+User can modify access permissions of a squadron member: Der Benutzer kann die Zugriffsberechtigungen
+  eines Geschwadermitglieds ändern
 User can modify settings or permissions for himself/herself: Der Benutzer kann Einstellungen
   oder Berechtigungen für sich selbst ändern
+User can view a history log of a squadron member: Der Benutzer kann ein Verlaufsprotokoll
+  eines Geschwadermitglieds anzeigen
 User can view management reports: Benutzer können Verwaltungsberichte anzeigen
 User has full administrative rights (overrides everything below): Benutzer hat volle
   Administratorrechte (überschreibt alles unten)
@@ -351,90 +369,155 @@ User has read the welcome message after logging in: Der Benutzer hat die Willkom
   nach der Anmeldung gelesen
 User not found: Benutzer wurde nicht gefunden
 User Permission Settings: Benutzerberechtigungseinstellungen
+Using EDMC Plug-in to Capture Data: Verwendet das EDMC-Plug-In zum Erfassen von Daten
 Vice Admiral: Vizeadmiral
 Victim: Opfer
 Viscount: Viscount
+Warrant Officer: Oberfähnrich
 Weak: Schwach
 Wealth: Reichtum
 Weekdays: Wochentage
 Weekends: Wochenenden
+Weeknights: Wochennächte
 Welcome message: Willkommensnachricht
 Welcome Message: Willkommensnachricht
 Worst: Am schlimmsten
-Your account has been activated.  Please login to continue.: Dein Konto wurde aktiviert.
-  Bitte einloggen zum Fortfahren.
-Your account is already activated.: Dein Benutzerkonto ist bereits aktiviert.
-Your activation code has been resent. Check your INBOX.: Ihr Aktivierungscode wurde
-  erneut gesendet. Überprüfe deinen Posteingang.
-Your password has been reset: Dein Passwort wurde zurück gesetzt
-Your settings have been saved.: Deine Einstellungen wurden gespeichert.
-ED:SCC Squadron Owner: 'ED: SCC Geschwader-Besitzer'
-Manage MOTD: NDT verwalten
-Manage Squadron Announcements: Geschwaderankündigungen verwalten
-Name of your Squadron: Name des Geschwaders
-Net Earned: Nettoerträge
-Never: Nie
-Open: Offen
-Overall Combat (Non-mission): Kampf Insgesamt (Außer Missionen)
-Overall Exploration: Übersicht Erkundung
-Player Journal Log Import History: Importprotokoll des Spielerjournals
-Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Bitte
-  geben Sie einen Grund dafür an, warum der Status zugewiesen wird (wenn der Zugriff
-  verweigert wird usw.).
-Professional: Profi
-Promotion Voting: Beförderungsabstimmung
-Publish In: Veröffentliche in
-Purge Commander Data: Daten des Kommandanten löschen
-purge_commander_data_body: Manchmal löschten Kommandanten ihre Daten, weil die Daten
-  nicht richtig aussehen. Durch das Löschen der Daten aus der Datenbank kannst du
-  deine Journaldateien erneut importieren, um diese aktueller zu gestalten. Dadurch
-  werden nur die Daten deines aktuellen Geschwaders gelöscht. Wenn du zuvor in einer
-  anderen Staffel gewesen bist, werden diese Daten nicht gelöscht. Denken daran, dass
-  du zuerst dein Spiel und EDMC beendest bevor du deine Daten bereinigst und alle
-  Spielerjournaldateien erneut importierst.
-Refresh: Aktualisieren
-Requires approval from squad leaders to join: Erfordert die Zustimmung der Geschwaderführer,
-  um teilzunehmen
-Seals: Seals
-Squadron Dashboard: Geschwader-Dashboard
-Squadron ID: Geschwader ID
-Squadron Join Request Update: 'Aktualisierung Geschwader Beitrittsanfrage '
-Squadron Leader: Geschwaderführer
-Squadron Leaderboard: Geschwader Rangliste
-Squadron Membership Status: Geschwader-Mitgliedschaftsstatus
-'Squadron: %name%': 'Geschwader: %name%'
-Squadron Roster: Geschwaderaufstellung
-Squadron Settings: Geschwadereinstellungen
-The current password is incorrect, and your password is not changed: Das aktuelle
-  Passwort ist falsch und dein Passwort wird nicht geändert
-This post is pinned (always will appear on the top of page): Dieser Beitrag ist angepinnt
-  (wird immer oben auf der Seite angezeigt)
-Trade Profit over last 30 days: Handelsprofit über die letzten 30 Tage
-Unable to generate a new API Key. Invalid token, please reload the page.: Es kann
-  kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte lade die Seite
-  neu.
-Up %count%%% from prior day: " %count%%% mehr als am vorherigen Tag"
-Use 8 to 64 characters: Verwenden 8 bis 64 Zeichen
-Use Markdown to format your content: Verwende Markdown, um deinen Inhalt zu formatieren
-User can approve, deny, ban or lock out a squadron member: Der Benutzer kann ein Geschwadermitglied
-  genehmigen, ablehnen, sperren oder sperren
-User can edit a squadron member account settings: Der Benutzer kann die Kontoeinstellungen
-  eines Geschwadermitglieds bearbeiten
-User can modify access permissions of a squadron member: Der Benutzer kann die Zugriffsberechtigungen
-  eines Geschwadermitglieds ändern
-User can view a history log of a squadron member: Der Benutzer kann ein Verlaufsprotokoll
-  eines Geschwadermitglieds anzeigen
-Using EDMC Plug-in to Capture Data: Verwendet das EDMC-Plug-In zum Erfassen von Daten
-Warrant Officer: Oberfähnrich
-Weeknights: Wochennächte
 Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Schreibe
   eine kurze Beschreibung deines Geschwaders. Neue Mitglieder sehen dies, wenn sie
   auswählen, welchem Geschwader sie beitreten möchten.
 Yesterday Earnings: Gestriges Einkommen
 You only can select a maximum of 20 files (web browser limitation).: Du kannst maximal
   20 Dateien auswählen (Einschränkung für Webbrowser).
+Your account has been activated.  Please login to continue.: Dein Konto wurde aktiviert.
+  Bitte einloggen zum Fortfahren.
+Your account is already activated.: Dein Benutzerkonto ist bereits aktiviert.
+Your activation code has been resent. Check your INBOX.: Ihr Aktivierungscode wurde
+  erneut gesendet. Überprüfe deinen Posteingang.
 Your changes have been updated.: Deine Änderungen wurden aktualisiert.
 Your new password did not match with verify password. Password is not changed.: Dein
   neues Passwort stimmte nicht mit dem bestätigten Passwort überein. Passwort wird
   nicht geändert.
 Your password change has been updated: Deine Passwortänderung wurde aktualisiert
+Your password has been reset: Dein Passwort wurde zurück gesetzt
+Your settings have been saved.: Deine Einstellungen wurden gespeichert.
+Access Denied: Zugriff verweigert
+? An e-mail address verification is required to activate your account.  An email has
+  been sent to %email% with a token to continue with the new
+: Zur Bestätigung Ihres Kontos ist eine Bestätigung der E-Mail-Adresse erforderlich.
+  Eine E-Mail wurde mit einem Token an% email% gesendet, um mit der Erstellung des
+  neuen Kontos fortzufahren.
+Application Denied: Bewerbung abgelehnt
+Approval is not Required: Genehmigung ist nicht erforderlich
+Approval is not required to join this squadron.: Für die Teilnahme an diesem Geschwader
+  ist keine Genehmigung erforderlich.
+Approval Required: Genehmigung erforderlich
+Choose a squadron on the left.: Wähle ein Geschwader auf der linken Seite.
+Continue: Fortsetzen
+Create a New Squadron: Erstelle ein neues Geschwader
+Create New Squadron: Neues Geschwader erstellen
+Customizing Rank Classifications: Rangklassifizierungen anpassen
+Earning Rank: Verdienstrang
+Enter the temporary password.: Geben Sie das temporäre Passwort ein.
+Finishing up your registration - Please select your Squadron: Registrierung abschließen
+  - Bitte wählen Sie Ihr Geschwader aus
+I agree to the terms: Ich stimme den Bedingungen zu
+I did not get the activation e-mail. Please resend.: Ich habe die Aktivierungs-E-Mail
+  nicht erhalten. Bitte sende es erneut.
+Joined: Beigetreten
+Member since: Mitglied seit
+New Password: Neues Kennwort
+No Data: Keine Daten
+Other Squadrons (Average): Andere Staffeln (Durchschnitt)
+Reason: Grund
+Register: Registrieren
+Reset: Zurücksetzen
+Retype password: Passwort erneut eingeben
+Sign out: Ausloggen
+Start Upload: Upload starten
+Temporary Password: Temporäres Passwort
+Total Earning: Gesamtverdienst
+Upload Progress: Upload-Fortschritt
+Verify Password: Passwort bestätigen
+Verify Your E-mail Address: Bestätige deine Email-Adresse
+Your Squadron: Dein Geschwader
+API Key not generated: API-Schlüssel nicht generiert
+Approval is required to join this squad.: Um diesem Geschwader beizutreten, ist eine
+  Genehmigung erforderlich.
+Bodies Discovered: Entdeckte Himmelskörper
+Bounties Collected over last 30 days: In den letzten 30 Tagen gesammeltes Kopfgeld
+Chief Petty Officer: Obermaat
+Choose the commander's rank: Wähle den Rang des Kommandanten
+Choose the status to determine user's access privilege to the squadron: Wähle den
+  Status aus, um das Zugriffsrecht des Benutzers auf das Geschwader festzulegen
+Commander Activities: 'Aktionen des Kommandanten '
+Commander Details: Details des Kommandanten
+Commander Name (without CMDR): Name des Kommandanten (ohne CMDR)
+Commander Performance: Leistung des Kommandanten
+Complete Registration: Registrierung abschließen
+Complete SAA Scans: Komplette SAA-Scans
+Creating a new MOTD: Neue NDT erstellen
+Creating a New Squadron: Ein neues Geschwader erstellen
+Criminal History (Detailed): Kriminelle Vergangenheit (detailliert)
+Criminal History Summary: Zusammenfassung der kriminellen Vergangenheit
+Criminal History Summary by Faction: Zusammenfassung der kriminellen Vergangenheit
+  nach Fraktion
+Editing an MOTD: NDT Bearbeiten
+Empire: Imperium
+Fine: Strafe
+First: Erste
+ID: ID
+Last: Letzte
+Mark this MOTD as visible: Markiere diese NDT als sichtbar
+Mark this MOTD as visible on the login screen: Markiere diese NDT als sichtbar auf
+  dem Anmeldebildschirm
+Message: Nachricht
+No Power Allied: Mit keiner Lokalmacht verbündet
+Other Players in Your Squadron (Average): Andere Spieler in deinem Geschwader (Durchschnitt)
+Pending: Ausstehend
+pending_access_message: Dein Zugang wurde vom zuständigen Geschwaderführer noch nicht
+  genehmigt. Da du sich einem Geschwader angeschlossen hast, für das eine Genehmigung
+  von einem der Geschwaderführer erforderlich ist, erhältst du eine E-Mail mit der
+  Bestätigung, dass dein Zugang gewährt wurde, sobald die Genehmigung erteilt wurde.
+  Wenn du Fragen hast, wende dich im Spiel an deinen Geschwaderführer CMDR% cmdr%.
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Bitte
+  gib einen Grund dafür an, warum der Status zugewiesen wird (wenn der Zugriff verweigert
+  wird usw.).
+Please enter your email: Bitte gib deine E-Mail-Adresse ein
+Power Supporters: Unterstützer der Lokalmacht
+Register a new membership: Registriere eine neue Mitgliedschaft
+Register a new Squadron Member: Registriere ein neues Geschwadermitglied
+Resetting Your Password: Passwort zurücksetzen
+Re-type the new password to verify.: Gib das neue Passwort zur Bestätigung erneut
+  ein.
+Sign in to start your session: Melde dich an, um deine Sitzung zu beginnen
+Squadron Details: Geschwader-Details
+Squadron ID: Geschwader-ID
+Squadron Leaderboard: Geschwader-Rangliste
+Squadron Members: Geschwadermitglieder
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die
+  Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader
+  beigetreten ist. Verwende Markdown, um deine Nachricht zu formatieren.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
+  ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn du es auf einem anderen
+  Benutzer umstellst, verlierst du deine Berechtigungen.
+? To reset your password, please enter your e-mail address registered with your account
+  and an e-mail will be sent with further instructions.
+: Um dein Passwort zurückzusetzen, gib bitte die mit deinem Konto registrierte E-Mail-Adresse
+  ein. Eine E-Mail mit weiteren Anweisungen wird gesendet.
+Use 8 to 64 characters: Verwende 8 bis 64 Zeichen
+Welcome to %name%: Willkommen bei % name%
+Write your content, use Markdown to format your message.: Schreibe hier deinen Inhalt
+  und verwende Markdown, um deine Nachricht zu formatieren.
+You: Du
+You do not have permissions to access to this resource.: Du hast keine Zugriffsberechtigung
+  für diese Ressource.
+You Have Been Banned: 'Du wurdest gebannt '
+Your account has been locked: Dein Konto wurde gesperrt
+Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Deine
+  Bewerbung für das ausgewählte Geschwader wurde abgelehnt. Wenn du Fragen hast, wende
+  dich bitte an deinen Geschwaderführer.
+Your squadron leader has banned you.: Dein Geschwaderführer hat dich gebannt
+? Your squadron leader has locked down your account. You will need to contact your
+  squadron leader in the game to get your account unlocked.
+: Dein Geschwaderführer hat dein Konto gesperrt. Du musst dich im Spiel an deinen
+  Geschwaderführer wenden, um dein Konto freizuschalten.
