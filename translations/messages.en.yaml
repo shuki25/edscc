@@ -403,10 +403,10 @@ You Have Been Banned: You Have Been Banned
 Application Denied: Application Denied
 Access Denied: Access Denied
 Create New Squadron: Create New Squadron
-To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.: To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.
+reset_password_instruction: To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.
 API Key not generated: API Key not generated
 Your account has been locked: Your account has been locked
-'Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.': Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.
+lockdown_message: Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.
 Reason: Reason
 Register a new Squadron Member: Register a new Squadron Member
 Commander Name (without CMDR): Commander Name (without CMDR)
@@ -425,7 +425,7 @@ Create a New Squadron: Create a New Squadron
 Complete Registration: Complete Registration
 I did not get the activation e-mail. Please resend.: I did not get the activation e-mail. Please resend.
 Verify Your E-mail Address: Verify Your E-mail Address
-'An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.': An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.
+email_verification_message: An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.
 Welcome to %name%: Welcome to %name%
 No Data: No Data
 No Power Allied: No Power Allied

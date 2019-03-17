@@ -13,8 +13,7 @@
     {% endif %}
     <div class="register-box-body">
         <p class="login-box-msg"><b>{% trans %}Verify Your E-mail Address{% endtrans %}</b></p>
-        <p>{% trans with {'%email%': app.request.get('email')} %}An e-mail address verification is required to activate your account.  An email has been sent to
-                <b>%email%</b> with a token to continue with the new account creation.{% endtrans %}</p>
+        <p>{% trans with {'%email%': app.request.get('email')} %}email_verification_message{% endtrans %}</p>
 
         <form action="{{ path('app_confirm_email') }}" method="post">
             <div class="form-group has-feedback">

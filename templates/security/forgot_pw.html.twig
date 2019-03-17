@@ -4,7 +4,7 @@
 <div class="login-box">
     {% include 'security/logo.html.twig' %}
     <div class="login-box-body">
-        <p class="login-box-msg">To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.</p>
+        <p class="login-box-msg">{% trans %}reset_password_instruction{% endtrans %}</p>
 
         <form action="{{ path('app_forgot_pw') }}" method="post">
             <div class="form-group has-feedback">

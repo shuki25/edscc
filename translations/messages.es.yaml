@@ -29,9 +29,7 @@ Amateur: Aficionado
 Amount: Cantidad
 Amt Earned: Amt Earned
 Amt Paid: Amt pagado
-? An e-mail address verification is required to activate your account.  An email has
-  been sent to %email% with a token to continue with the new account creation.
-: Se requiere una verificación de la dirección de correo electrónico para activar
+An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.: Se requiere una verificación de la dirección de correo electrónico para activar
   su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
   con la creación de la nueva cuenta.
 Announcements: Anuncios
@@ -430,9 +428,7 @@ This post is pinned (always will appear on the top of page): Esta publicación e
   anclada (siempre aparecerá en la parte superior de la página)
 Timestamp: Marca de tiempo
 Title: Título
-? To reset your password, please enter your e-mail address registered with your account
-  and an e-mail will be sent with further instructions.
-: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
+reset_password_instruction: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
   en su cuenta y se le enviará un correo electrónico con más instrucciones.
 Total: Total
 Total Asset: Activos totales
@@ -527,9 +523,7 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-? Your squadron leader has locked down your account. You will need to contact your
-  squadron leader in the game to get your account unlocked.
-: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
+lockdown_message: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
   de escuadrón en el juego para desbloquear tu cuenta.
 'No': 'No'
 'Yes': Sí
