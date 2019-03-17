@@ -470,7 +470,7 @@ Create a New Squadron: Crear un nuevo escuadrón
 Create New Squadron: Crear nuevo escuadrón
 Creating a New Squadron: Creando un nuevo escuadrón
 Enter the temporary password.: Introduzca la contraseña temporal.
-Finishing up your registration &mdash; Please select your Squadron: Terminando su
+Finishing up your registration - Please select your Squadron: Terminando su
   registro - Por favor seleccione su Escuadrón
 I did not get the activation e-mail. Please resend.: No recibí el correo de activación.
   Por favor, reenviar.
@@ -486,10 +486,7 @@ Reset: Reiniciar
 Resetting Your Password: Restableciendo su contraseña
 Retype password: Vuelva a escribir la contraseña
 Start Upload: Iniciar la subida
-? To reset your password, please enter your e-mail address registered with your account
-  and an e-mail will be sent with further instructions.
-: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
-  en su cuenta y se le enviará un correo electrónico con más instrucciones.
+To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada en su cuenta y se le enviará un correo electrónico con más instrucciones.
 Upload Progress: Subir el progreso
 Verify Password: Verificar contraseña
 Verify Your E-mail Address: Verifique su dirección de correo electrónico
@@ -501,14 +498,9 @@ Your application to join the chosen squadron was denied. If you have any questio
   solicitud para unirse al escuadrón elegido fue denegada. Si tiene alguna pregunta,
   póngase en contacto con el líder de su escuadrón.
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-? Your squadron leader has locked down your account. You will need to contact your
-  squadron leader in the game to get your account unlocked.
-: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
-  de escuadrón en el juego para desbloquear tu cuenta.
-? An e-mail address verification is required to activate your account.  An email has
-  been sent to <b>%email%</b> with a token to continue with the new
-: Se requiere una verificación de la dirección de correo electrónico para activar
-  su cuenta. Se ha enviado un correo electrónico a %email%&gt; con un token para continuar
+Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder de escuadrón en el juego para desbloquear tu cuenta.
+An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new: Se requiere una verificación de la dirección de correo electrónico para activar
+    su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
   con la creación de la nueva cuenta.
 First: Primero
 French: Francés
