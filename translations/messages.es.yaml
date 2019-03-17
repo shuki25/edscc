@@ -29,6 +29,11 @@ Amateur: Aficionado
 Amount: Cantidad
 Amt Earned: Amt Earned
 Amt Paid: Amt pagado
+? An e-mail address verification is required to activate your account.  An email has
+  been sent to %email% with a token to continue with the new account creation.
+: Se requiere una verificación de la dirección de correo electrónico para activar
+  su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
+  con la creación de la nueva cuenta.
 Announcements: Anuncios
 Anti-Xeno Activists: Activistas Anti-Xeno
 API Key: Clave API
@@ -89,6 +94,7 @@ Commanders Joined: Comandantes unidos
 Competent: Competente
 Complete Registration: Registro completo
 Complete SAA Scans: Exploraciones completas de SAA
+Continue: Continuar
 Count: Contar
 "%count%%% from prior day": "%count%%% del día anterior"
 CQC: CQC
@@ -155,6 +161,7 @@ Enter a new password.: Introduzca una nueva contraseña.
 Enter the temporary password.: Introduzca la contraseña temporal.
 Enter your current password.: Introduce tu contraseña actual.
 Entrepreneur: Empresario
+Errors: Los errores
 Exact spelling as depicted in the game: La ortografía exacta como se muestra en el
   juego
 Expert: Experto
@@ -198,6 +205,8 @@ I did not get the activation e-mail. Please resend.: No recibí el correo de act
 I forgot my password: Olvidé mi contraseña
 Import History: Historial de importación
 Import Queue Status: Estado de la cola de importación
+In Queue: En fila
+Internal Error: Error interno
 Invalid temporary password or mismatched new/verify password pairs.: Contraseña temporal
   no válida o pares de contraseñas nuevas / verificadas no coincidentes.
 Invalid token, please reload the page: Token inválido, por favor recarga la página
@@ -220,6 +229,7 @@ Leader: Líder
 Legend: Leyenda
 Lieutenant: Teniente
 Loan: Préstamo
+Locked - Processing: Bloqueado - Procesamiento
 Lock Out: Cerrar
 Lord: Señor
 Lt. Commander: Teniente comandante
@@ -323,6 +333,8 @@ Power Supporters: Partidarios del poder
 Previous: Anterior
 Prince: Príncipe
 Private Group: Grupo privado
+Processed: Procesada
+Processed with Errors: Procesado con errores
 Professional: Profesional
 Promotion Voting: Promoción votacion
 Publish At: Publicar en
@@ -350,6 +362,7 @@ Regenerate API Key: Regenerar clave de API
 Register: Registro
 Register a new membership: Registrar una nueva membresía
 Register a new Squadron Member: Registrar un nuevo miembro del escuadrón
+Rejected: Rechazado
 Relaxed: Relajado
 Requires approval from squad leaders to join: Requiere la aprobación de los líderes
   del escuadrón para unirse.
@@ -417,7 +430,9 @@ This post is pinned (always will appear on the top of page): Esta publicación e
   anclada (siempre aparecerá en la parte superior de la página)
 Timestamp: Marca de tiempo
 Title: Título
-To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
+? To reset your password, please enter your e-mail address registered with your account
+  and an e-mail will be sent with further instructions.
+: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
   en su cuenta y se le enviará un correo electrónico con más instrucciones.
 Total: Total
 Total Asset: Activos totales
@@ -512,16 +527,9 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
+? Your squadron leader has locked down your account. You will need to contact your
+  squadron leader in the game to get your account unlocked.
+: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
   de escuadrón en el juego para desbloquear tu cuenta.
-An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.: Se requiere una verificación de la dirección de correo electrónico para activar
-  su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
-  con la creación de la nueva cuenta.
-Continue: Continuar
-Errors: Los errores
-In Queue: En fila
-Internal Error: Error interno
-Locked - Processing: Bloqueado - Procesamiento
-Processed: Procesada
-Processed with Errors: Procesado con errores
-Rejected: Rechazado
+'No': 'No'
+'Yes': Sí
