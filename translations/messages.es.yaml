@@ -10,6 +10,7 @@
 A 4-character indicator for your Squadron in the game: Un indicador de 4 caracteres
   para tu escuadrón en el juego.
 About Your Squadron: Sobre tu escuadron
+Access Denied: Acceso denegado
 'Access Denied: Account status is %status%': 'Acceso denegado: el estado de la cuenta
   es %status%'
 Action: Acción
@@ -31,6 +32,14 @@ Amt Paid: Amt pagado
 Announcements: Anuncios
 Anti-Xeno Activists: Activistas Anti-Xeno
 API Key: Clave API
+API Key not generated: Clave API no generada
+Application Denied: Solicitud denegada
+Approval is not Required: No se requiere aprobación
+Approval is not required to join this squadron.: No se requiere aprobación para unirse
+  a este escuadrón.
+Approval is required to join this squad.: Se requiere aprobación para unirse a este
+  equipo.
+Approval Required: Aprobación requerida
 Approved: Aprobado
 Attitude: Actitud
 Author: Autor
@@ -56,6 +65,7 @@ Change Password: Cambia la contraseña
 Changes were not saved.: Los cambios no fueron guardados.
 Chief Petty Officer: Suboficial jefe
 Choose a Faction: Elige una facción
+Choose a squadron on the left.: Elige un escuadrón a la izquierda.
 Choose a Superpower affiliation if applicable: Elija una afiliación de superpotencia
   si es aplicable
 Choose the commander's rank: Elige el rango del comandante
@@ -73,17 +83,22 @@ Commander Details: Detalles del Comandante
 Commander E-mail: Comandante E-mail
 Commander Login Email: Comandante Login Email
 Commander Name: Nombre del Comandante
+Commander Name (without CMDR): Nombre del comandante (sin CMDR)
 Commander Performance: Comandante de rendimiento
 Commanders Joined: Comandantes unidos
 Competent: Competente
+Complete Registration: Registro completo
 Complete SAA Scans: Exploraciones completas de SAA
 Count: Contar
 "%count%%% from prior day": "%count%%% del día anterior"
 CQC: CQC
 Create: Crear
+Create a New Squadron: Crear un nuevo escuadrón
 Created In: Creado en
+Create New Squadron: Crear nuevo escuadrón
 Creating a new announcement: Creando un nuevo anuncio.
 Creating a new MOTD: Creando un nuevo MOTD
+Creating a New Squadron: Creando un nuevo escuadrón
 Credits: Creditos
 Crew Paid: Tripulación pagada
 Crime: Crimen
@@ -137,6 +152,7 @@ Empire: Imperio
 English: Inglés
 Ensign: Bandera
 Enter a new password.: Introduzca una nueva contraseña.
+Enter the temporary password.: Introduzca la contraseña temporal.
 Enter your current password.: Introduce tu contraseña actual.
 Entrepreneur: Empresario
 Exact spelling as depicted in the game: La ortografía exacta como se muestra en el
@@ -158,10 +174,15 @@ Family: Familia
 FA off: FA apagado
 Federation: Federación
 Fine: Multa
+Finishing up your registration - Please select your Squadron: Terminando su registro
+  - Por favor seleccione su Escuadrón
+First: Primero
+French: Francés
 Fuel Rats: Ratas de combustible
 Game Date: Fecha de juego
 Game Mode: Modo de juego
 Gaming Platform: Plataforma de juegos
+German: Alemán
 Good: Bueno
 Harmless: Inofensivo
 Helpless: Impotente
@@ -170,7 +191,10 @@ History Log: Historial de registro
 Home base: Base
 Home Base: Base
 Humanitarian Aid Providers: Proveedores de ayuda humanitaria
+I agree to the terms: Acepto los términos
 ID: CARNÉ DE IDENTIDAD
+I did not get the activation e-mail. Please resend.: No recibí el correo de activación.
+  Por favor, reenviar.
 I forgot my password: Olvidé mi contraseña
 Import History: Historial de importación
 Import Queue Status: Estado de la cola de importación
@@ -189,6 +213,7 @@ Knight: Caballero
 label_next: Siguiente
 label_previous: Anterior
 Language: Idioma
+Last: Último
 Last Login: Último acceso
 Last Updated: Última actualización
 Leader: Líder
@@ -200,6 +225,7 @@ Lord: Señor
 Lt. Commander: Teniente comandante
 Manage Announcements: Gestionar anuncios
 Manage Members: Administrar Miembros
+Management: Administración
 Manage MOTD: Manejar MOTD
 Manage Squadron Announcements: Administrar anuncios de escuadrón
 Manage Tags: Administrar etiquetas
@@ -213,6 +239,7 @@ Mark this post as published (will be visible in announcements after the publishe
 Marquis: Marqués
 Master: Dominar
 Membership: Afiliación
+Member since: Miembro desde
 Merchant: Comerciante
 Message: Mensaje
 Message Content: Contenido del mensaje
@@ -236,9 +263,12 @@ Net Units: Unidades netas
 Never: Nunca
 New: Nuevo
 New announcement has been added.: Se ha añadido un nuevo anuncio.
+New Password: Nueva contraseña
 Next: Siguiente
+No Data: Sin datos
 No Date Available: Sin fecha disponible
 None: Ninguna
+No Power Allied: Sin poder aliado
 Novice: Principiante
 Occasional: Ocasional
 Officer: Oficial
@@ -262,6 +292,11 @@ Pathfinder: Pionero
 Paying Minor Faction: Facción menor de pago
 Peddler: Vendedor ambulante
 Pending: Pendiente
+pending_access_message: Tu acceso está pendiente de aprobación por parte del líder
+  del escuadrón. Debido a que se unió al escuadrón que requiere la aprobación de uno
+  de los líderes del escuadrón, recibirá un correo electrónico indicando que su acceso
+  ha sido otorgado tan pronto como sea aprobado. Si tiene alguna pregunta, comuníquese
+  con su líder de escuadrón, CMDR %cmdr%, en el juego.
 Pending Members: Miembros pendientes
 Penniless: Sin dinero
 Percentage difference: Diferencia porcentual
@@ -308,13 +343,19 @@ Ranger: guardabosque
 Rank: Rango
 Ranks: Rangos
 Rear Admiral: Contraalmirante
+Reason: Razón
 Recruit: Recluta
 Refresh: Refrescar
 Regenerate API Key: Regenerar clave de API
+Register: Registro
 Register a new membership: Registrar una nueva membresía
+Register a new Squadron Member: Registrar un nuevo miembro del escuadrón
 Relaxed: Relajado
 Requires approval from squad leaders to join: Requiere la aprobación de los líderes
   del escuadrón para unirse.
+Reset: Reiniciar
+Resetting Your Password: Restableciendo su contraseña
+Retype password: Vuelva a escribir la contraseña
 Re-type the new password to verify.: Vuelva a escribir la nueva contraseña para verificar.
 Roleplay: Juego de rol
 Roles: Roles
@@ -332,6 +373,7 @@ Serf: Siervo
 Showing items: Mostrando artículos
 Sign In: Registrarse
 Sign in to start your session: Inicia sesión para iniciar tu sesión.
+Sign out: Desconectar
 Sign Out: Desconectar
 Solo: Solo
 Spanish: Español
@@ -349,6 +391,7 @@ Squadron Rank Classifications Saved.: Clasificaciones de rango de escuadrón gua
 Squadron Roster: Lista de escuadrones
 Squadron Settings: Ajustes de escuadron
 Squire: Escudero
+Start Upload: Iniciar la subida
 Status: Estado
 Status Comment: Comentario de estado
 'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
@@ -359,6 +402,7 @@ Surveyor: Topógrafo
 System Scanned: Sistema escaneado
 Tags Associated with Your Squadron: Etiquetas asociadas a tu escuadrón
 Targeted Minor Faction: Facción menor dirigida
+Temporary Password: Contraseña temporal
 The current password is incorrect, and your password is not changed: La contraseña
   actual es incorrecta, y su contraseña no se cambia
 The date that the announcement will automatically appear in the feed: La fecha en
@@ -373,6 +417,10 @@ This post is pinned (always will appear on the top of page): Esta publicación e
   anclada (siempre aparecerá en la parte superior de la página)
 Timestamp: Marca de tiempo
 Title: Título
+? To reset your password, please enter your e-mail address registered with your account
+  and an e-mail will be sent with further instructions.
+: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada
+  en su cuenta y se le enviará un correo electrónico con más instrucciones.
 Total: Total
 Total Asset: Activos totales
 Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
@@ -397,6 +445,7 @@ Up %count%%% from prior day: Hasta %count%%% del día anterior
 Upload Files: Subir archivos
 Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
 Uploading Players Journal Log Files: Cargar archivos de registro de diario de jugadores
+Upload Progress: Subir el progreso
 Use 8 to 64 characters: Usa de 8 a 64 caracteres.
 Use Markdown to format your content: Usa Markdown para formatear tu contenido
 User Avatar: Usuario avatar
@@ -420,6 +469,8 @@ User has read the welcome message after logging in: El usuario ha leído el mens
 User not found: Usuario no encontrado
 User Permission Settings: Configuración de permisos de usuario
 Using EDMC Plug-in to Capture Data: Uso del complemento EDMC para capturar datos
+Verify Password: Verificar contraseña
+Verify Your E-mail Address: Verifique su dirección de correo electrónico
 Vice Admiral: Vice Almirante
 Victim: Víctima
 Viscount: Vizconde
@@ -431,6 +482,7 @@ Weekends: Fines de semana
 Weeknights: Noches de semana
 Welcome message: Mensaje de bienvenida
 Welcome Message: Mensaje de bienvenida
+Welcome to %name%: Bienvenido a %name%
 Worst: Peor
 Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Escribe
   una breve descripción de tu escuadrón. Los nuevos miembros verán esto cuando elijan
@@ -439,13 +491,20 @@ Write your content, use Markdown to format your message.: Escribe tu contenido, 
   Markdown para formatear tu mensaje.
 Yesterday Earnings: Ganancias de ayer
 You: Tú
+You do not have permissions to access to this resource.: No tienes permisos para acceder
+  a este recurso.
+You Have Been Banned: Has sido baneado
 You only can select a maximum of 20 files (web browser limitation).: Solo puede seleccionar
   un máximo de 20 archivos (limitación del navegador web).
 Your account has been activated.  Please login to continue.: Tu cuenta ha sido activada.
   Por favor inicie sesión para continuar.
+Your account has been locked: Su cuenta ha sido bloqueada
 Your account is already activated.: Su cuenta ya está activada.
 Your activation code has been resent. Check your INBOX.: Su código de activación ha
   sido reenviado. Revisa tu correo.
+Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Su
+  solicitud para unirse al escuadrón elegido fue denegada. Si tiene alguna pregunta,
+  póngase en contacto con el líder de su escuadrón.
 Your changes have been updated.: Tus cambios han sido actualizados.
 Your new password did not match with verify password. Password is not changed.: Su
   nueva contraseña no coincide con la contraseña de verificación. La contraseña no
@@ -454,64 +513,13 @@ Your password change has been updated: Su cambio de contraseña ha sido actualiz
 Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
-Access Denied: Acceso denegado
-API Key not generated: Clave API no generada
-Application Denied: Solicitud denegada
-Approval is not Required: No se requiere aprobación
-Approval is not required to join this squadron.: No se requiere aprobación para unirse
-  a este escuadrón.
-Approval is required to join this squad.: Se requiere aprobación para unirse a este
-  equipo.
-Approval Required: Aprobación requerida
-Choose a squadron on the left.: Elige un escuadrón a la izquierda.
-Commander Name (without CMDR): Nombre del comandante (sin CMDR)
-Complete Registration: Registro completo
-Create a New Squadron: Crear un nuevo escuadrón
-Create New Squadron: Crear nuevo escuadrón
-Creating a New Squadron: Creando un nuevo escuadrón
-Enter the temporary password.: Introduzca la contraseña temporal.
-Finishing up your registration - Please select your Squadron: Terminando su
-  registro - Por favor seleccione su Escuadrón
-I did not get the activation e-mail. Please resend.: No recibí el correo de activación.
-  Por favor, reenviar.
-Last: Último
-Member since: Miembro desde
-New Password: Nueva contraseña
-No Data: Sin datos
-No Power Allied: Sin poder aliado
-Reason: Razón
-Register: Registro
-Register a new Squadron Member: Registrar un nuevo miembro del escuadrón
-Reset: Reiniciar
-Resetting Your Password: Restableciendo su contraseña
-Retype password: Vuelva a escribir la contraseña
-Start Upload: Iniciar la subida
-To reset your password, please enter your e-mail address registered with your account and an e-mail will be sent with further instructions.: Para restablecer su contraseña, ingrese su dirección de correo electrónico registrada en su cuenta y se le enviará un correo electrónico con más instrucciones.
-Upload Progress: Subir el progreso
-Verify Password: Verificar contraseña
-Verify Your E-mail Address: Verifique su dirección de correo electrónico
-You do not have permissions to access to this resource.: No tienes permisos para acceder
-  a este recurso.
-You Have Been Banned: Has sido baneado
-Your account has been locked: Su cuenta ha sido bloqueada
-Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Su
-  solicitud para unirse al escuadrón elegido fue denegada. Si tiene alguna pregunta,
-  póngase en contacto con el líder de su escuadrón.
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-Your squadron leader has locked down your account. You will need to contact your squadron leader in the game to get your account unlocked.: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder de escuadrón en el juego para desbloquear tu cuenta.
-An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new: Se requiere una verificación de la dirección de correo electrónico para activar
-    su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
+? Your squadron leader has locked down your account. You will need to contact your
+  squadron leader in the game to get your account unlocked.
+: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar a tu líder
+  de escuadrón en el juego para desbloquear tu cuenta.
+? An e-mail address verification is required to activate your account.  An email has
+  been sent to %email% with a token to continue with the new account creation.
+: Se requiere una verificación de la dirección de correo electrónico para activar
+  su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
   con la creación de la nueva cuenta.
-First: Primero
-French: Francés
-German: Alemán
-I agree to the terms: Acepto los términos
-Management: Administración
-pending_access_message: Tu acceso está pendiente de aprobación por parte del líder
-  del escuadrón. Debido a que se unió al escuadrón que requiere la aprobación de uno
-  de los líderes del escuadrón, recibirá un correo electrónico indicando que su acceso
-  ha sido otorgado tan pronto como sea aprobado. Si tiene alguna pregunta, comuníquese
-  con su líder de escuadrón, CMDR %cmdr%, en el juego.
-Sign out: Desconectar
-Temporary Password: Contraseña temporal
-Welcome to %name%: Bienvenido a %name%
