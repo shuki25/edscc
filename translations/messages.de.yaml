@@ -440,3 +440,84 @@ Upload Progress: Upload-Fortschritt
 Verify Password: Passwort bestätigen
 Verify Your E-mail Address: Bestätige deine Email-Adresse
 Your Squadron: Dein Geschwader
+API Key not generated: API-Schlüssel nicht generiert
+Approval is required to join this squad.: Um diesem Geschwader beizutreten, ist eine
+  Genehmigung erforderlich.
+Bodies Discovered: Entdeckte Himmelskörper
+Bounties Collected over last 30 days: In den letzten 30 Tagen gesammeltes Kopfgeld
+Chief Petty Officer: Obermaat
+Choose the commander's rank: Wähle den Rang des Kommandanten
+Choose the status to determine user's access privilege to the squadron: Wähle den
+  Status aus, um das Zugriffsrecht des Benutzers auf das Geschwader festzulegen
+Commander Activities: 'Aktionen des Kommandanten '
+Commander Details: Details des Kommandanten
+Commander Name (without CMDR): Name des Kommandanten (ohne CMDR)
+Commander Performance: Leistung des Kommandanten
+Complete Registration: Registrierung abschließen
+Complete SAA Scans: Komplette SAA-Scans
+Creating a new MOTD: Neue NDT erstellen
+Creating a New Squadron: Ein neues Geschwader erstellen
+Criminal History (Detailed): Kriminelle Vergangenheit (detailliert)
+Criminal History Summary: Zusammenfassung der kriminellen Vergangenheit
+Criminal History Summary by Faction: Zusammenfassung der kriminellen Vergangenheit
+  nach Fraktion
+Editing an MOTD: NDT Bearbeiten
+Empire: Imperium
+Fine: Strafe
+First: Erste
+ID: ID
+Last: Letzte
+Mark this MOTD as visible: Markiere diese NDT als sichtbar
+Mark this MOTD as visible on the login screen: Markiere diese NDT als sichtbar auf
+  dem Anmeldebildschirm
+Message: Nachricht
+No Power Allied: Mit keiner Lokalmacht verbündet
+Other Players in Your Squadron (Average): Andere Spieler in deinem Geschwader (Durchschnitt)
+Pending: Ausstehend
+pending_access_message: Dein Zugang wurde vom zuständigen Geschwaderführer noch nicht
+  genehmigt. Da du sich einem Geschwader angeschlossen hast, für das eine Genehmigung
+  von einem der Geschwaderführer erforderlich ist, erhältst du eine E-Mail mit der
+  Bestätigung, dass dein Zugang gewährt wurde, sobald die Genehmigung erteilt wurde.
+  Wenn du Fragen hast, wende dich im Spiel an deinen Geschwaderführer CMDR% cmdr%.
+Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Bitte
+  gib einen Grund dafür an, warum der Status zugewiesen wird (wenn der Zugriff verweigert
+  wird usw.).
+Please enter your email: Bitte gib deine E-Mail-Adresse ein
+Power Supporters: Unterstützer der Lokalmacht
+Register a new membership: Registriere eine neue Mitgliedschaft
+Register a new Squadron Member: Registriere ein neues Geschwadermitglied
+Resetting Your Password: Passwort zurücksetzen
+Re-type the new password to verify.: Gib das neue Passwort zur Bestätigung erneut
+  ein.
+Sign in to start your session: Melde dich an, um deine Sitzung zu beginnen
+Squadron Details: Geschwader-Details
+Squadron ID: Geschwader-ID
+Squadron Leaderboard: Geschwader-Rangliste
+Squadron Members: Geschwadermitglieder
+The welcome message will be shown to new member after joining the squadron. Use Markdown to format your message.: Die
+  Begrüßungsnachricht wird dem neuen Mitglied angezeigt, nachdem es dem Geschwader
+  beigetreten ist. Verwende Markdown, um deine Nachricht zu formatieren.
+This is the account holder who manages this Squadron. If you change to another user, you will lose privileges.: Dies
+  ist der Kontoinhaber, der dieses Geschwader verwaltet. Wenn du es auf einem anderen
+  Benutzer umstellst, verlierst du deine Berechtigungen.
+? To reset your password, please enter your e-mail address registered with your account
+  and an e-mail will be sent with further instructions.
+: Um dein Passwort zurückzusetzen, gib bitte die mit deinem Konto registrierte E-Mail-Adresse
+  ein. Eine E-Mail mit weiteren Anweisungen wird gesendet.
+Use 8 to 64 characters: Verwende 8 bis 64 Zeichen
+Welcome to %name%: Willkommen bei % name%
+Write your content, use Markdown to format your message.: Schreibe hier deinen Inhalt
+  und verwende Markdown, um deine Nachricht zu formatieren.
+You: Du
+You do not have permissions to access to this resource.: Du hast keine Zugriffsberechtigung
+  für diese Ressource.
+You Have Been Banned: 'Du wurdest gebannt '
+Your account has been locked: Dein Konto wurde gesperrt
+Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Deine
+  Bewerbung für das ausgewählte Geschwader wurde abgelehnt. Wenn du Fragen hast, wende
+  dich bitte an deinen Geschwaderführer.
+Your squadron leader has banned you.: Dein Geschwaderführer hat dich gebannt
+? Your squadron leader has locked down your account. You will need to contact your
+  squadron leader in the game to get your account unlocked.
+: Dein Geschwaderführer hat dein Konto gesperrt. Du musst dich im Spiel an deinen
+  Geschwaderführer wenden, um dein Konto freizuschalten.
