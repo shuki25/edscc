@@ -419,13 +419,13 @@ Temporary Password: Temporary Password
 Enter the temporary password.: Enter the temporary password.
 New Password: New Password
 Verify Password: Verify Password
-Finishing up your registration &mdash; Please select your Squadron: Finishing up your registration &mdash; Please select your Squadron
+Finishing up your registration - Please select your Squadron: Finishing up your registration - Please select your Squadron
 Choose a squadron on the left.: Choose a squadron on the left.
 Create a New Squadron: Create a New Squadron
 Complete Registration: Complete Registration
 I did not get the activation e-mail. Please resend.: I did not get the activation e-mail. Please resend.
 Verify Your E-mail Address: Verify Your E-mail Address
-An e-mail address verification is required to activate your account.  An email has been sent to <b>%email%</b> with a token to continue with the new: An e-mail address verification is required to activate your account.  An email has been sent to <b>%email%</b> with a token to continue with the new account creation.
+An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new: An e-mail address verification is required to activate your account.  An email has been sent to %email% with a token to continue with the new account creation.
 Welcome to %name%: Welcome to %name%
 No Data: No Data
 No Power Allied: No Power Allied
@@ -434,3 +434,4 @@ Approval is not Required: Approval is not Required
 Approval is required to join this squad.: Approval is required to join this squad.
 Approval is not required to join this squadron.: Approval is not required to join this squadron.
 Creating a New Squadron: Creating a New Squadron
+Continue: Continue
