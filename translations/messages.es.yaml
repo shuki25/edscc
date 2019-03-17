@@ -523,3 +523,11 @@ Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
 : Se requiere una verificación de la dirección de correo electrónico para activar
   su cuenta. Se ha enviado un correo electrónico a %email% con un token para continuar
   con la creación de la nueva cuenta.
+Continue: Continuar
+Errors: Los errores
+In Queue: En fila
+Internal Error: Error interno
+Locked - Processing: Bloqueado - Procesamiento
+Processed: Procesada
+Processed with Errors: Procesado con errores
+Rejected: Rechazado
