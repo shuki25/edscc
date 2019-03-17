@@ -688,7 +688,8 @@ class AjaxController extends AbstractController
             'Q' => 'In Queue',
             'L' => 'Locked - Processing',
             'P' => 'Processed',
-            'E' => 'Error when Processing',
+            'F' => 'Internal Error',
+            'E' => 'Processed with Errors',
             'R' => 'Rejected'
         ];
 

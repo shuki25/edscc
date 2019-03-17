@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\CommanderRepository;
 use App\Repository\ImportQueueRepository;
 use App\Repository\UserRepository;
+use App\Service\ErrorLogHelper;
 use App\Service\ParseLogHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -53,8 +54,12 @@ class ImportQueueCommand extends Command
      * @var ParseLogHelper
      */
     private $parseLogHelper;
+    /**
+     * @var ErrorLogHelper
+     */
+    private $errorLogHelper;
 
-    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, EntityManagerInterface $entityManager, ParameterBagInterface $bag, ParseLogHelper $parseLogHelper)
+    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, EntityManagerInterface $entityManager, ParameterBagInterface $bag, ParseLogHelper $parseLogHelper, ErrorLogHelper $errorLogHelper)
     {
         parent::__construct();
 
@@ -67,6 +72,7 @@ class ImportQueueCommand extends Command
 
         $this->utc = new \DateTimeZone('UTC');
 
+        $this->errorLogHelper = $errorLogHelper;
     }
 
     protected function configure()
@@ -114,19 +120,44 @@ class ImportQueueCommand extends Command
                 $fh = fopen($file_path, 'r');
             } catch (\Exception $e) {
                 $io->error($e->getMessage());
+                $this->errorLogHelper->addErrorMsgToErrorLog('ImportQueue', $entry->getId(), $e);
             }
+
+            $line = 0;
+            $error_count = 0;
 
             if (!is_readable($file_path) || $fh === false) {
                 $io->error($file_path . ' is not readable. Skipping.');
-                $entry->setProgressCode('E');
+                $entry->setProgressCode('F');
+                $e = new \Exception("File not readable");
+                $this->errorLogHelper->addErrorMsgToErrorLog('ImportQueue', $entry->getId(), $e, null, ['file' => $file_path]);
                 $em->persist($entry);
                 $em->flush();
             } else {
                 while (($data = fgets($fh)) !== false) {
-                    $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data, $session_tracker);
+                    try {
+                        $line++;
+                        $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data, $session_tracker);
+                    } catch (\Exception $e) {
+                        $debug = [
+                            'user_id' => $this->user->getId(),
+                            'file' => [
+                                'path' => $file_path,
+                                'line' => $line
+                            ],
+                        ];
+                        $this->errorLogHelper->addErrorMsgToErrorLog('ImportQueue', $entry->getId(), $e, $debug, $data);
+                        $error_count++;
+                    }
                     time_nanosleep(0, 1000000);
                 }
-                $entry->setProgressCode('P');
+                if (!$error_count) {
+                    $entry->setProgressCode('P');
+                } else {
+                    $entry->setProgressCode('E');
+                    $entry->setErrorCount($error_count);
+                }
+
                 $em->persist($entry);
                 $em->persist($this->commander);
                 $em->flush();

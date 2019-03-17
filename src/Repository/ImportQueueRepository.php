@@ -55,7 +55,7 @@ class ImportQueueRepository extends ServiceEntityRepository
             ->where('iq.user = :val')
             ->setParameter('val', $value);
 
-        $qb->select('iq.id as id', 'iq.original_filename as original_filename', 'iq.game_datetime as game_datetime', 'iq.progress_code as progress_code', 'iq.time_started as time_started, iq.progress_percent as progress_percent')
+        $qb->select('iq.id as id', 'iq.original_filename as original_filename', 'iq.game_datetime as game_datetime', 'iq.progress_code as progress_code', 'iq.time_started as time_started, iq.progress_percent as progress_percent, iq.error_count as error_count')
             ->andWhere('iq.user = :val')
             ->setParameter('val', $value);
 

@@ -127,6 +127,7 @@
                                             <th>{% trans %}Game Date{% endtrans %}</th>
                                             <th>{% trans %}Status{% endtrans %}</th>
                                             <th>{% trans %}Date Processed{% endtrans %}</th>
+                                            <th>{% trans %}Errors{% endtrans %}</th>
                                         </tr>
                                         </thead>
                                         <!-- /.tr Header -->
@@ -207,14 +208,15 @@
             {name: "game_datetime", targets: 2},
             {name: "progress_code", targets: 3},
             {name: "time_started", targets: 4},
-
+            {name: "error_count", targets: 5},
         ],
         columns: [
             {data: "id", width: "20px"},
             {data: "original_filename"},
             {data: "game_datetime", width: "135px"},
             {data: "progress_code", width: "65px" },
-            {data: "time_started", width: "135px"},
+            {data: "time_started", width: "125px"},
+            {data: "error_count", width: "40px"},
         ],
         serverSide: true,
         processing: false,

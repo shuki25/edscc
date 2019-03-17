@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Commander;
 use App\Entity\Edmc;
 use App\Entity\User;
-use App\Repository\CommanderRepository;
 use App\Repository\UserRepository;
+use App\Service\ErrorLogHelper;
 use App\Service\ParseLogHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +26,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/edmc", name="api_edmc")
      */
-    public function apiEdmc(Request $request, ParseLogHelper $parseLogHelper, UserRepository $userRepository, CommanderRepository $commanderRepository)
+    public function apiEdmc(Request $request, ParseLogHelper $parseLogHelper, UserRepository $userRepository, ErrorLogHelper $errorLogHelper)
     {
 
         $json_response = new JsonResponse();
@@ -83,7 +83,7 @@ class ApiController extends AbstractController
                     $commander = $user->getCommander();
                     if (is_null($commander)) {
                         $commander = new Commander();
-                        $commander->setUser($entry->getUser());
+                        $commander->setUser($user);
                         $em->persist($commander);
                     }
 
@@ -111,6 +111,8 @@ class ApiController extends AbstractController
                         $em->persist($edmc);
                         $em->flush();
 
+                        $errorLogHelper->addErrorMsgToErrorLog("EDMC", $edmc->getId(), $e, null, $data['data']);
+
                         $response = [
                             'status_code' => 500,
                             'message' => 'Internal Server Error.' . $e->getMessage() . $e->getTraceAsString(),
@@ -128,6 +130,7 @@ class ApiController extends AbstractController
                     'message' => 'Internal Server Error. ' . $e->getMessage() . $e->getTraceAsString()
                 ];
                 $json_response->setData($response);
+                $errorLogHelper->addErrorMsgToErrorLog("EDMC", 0, $e);
             }
 
         }

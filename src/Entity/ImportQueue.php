@@ -52,6 +52,11 @@ class ImportQueue
      */
     private $progress_percent = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $error_count = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +141,18 @@ class ImportQueue
     public function setGameDatetime(\DateTimeInterface $game_datetime): self
     {
         $this->game_datetime = $game_datetime;
+
+        return $this;
+    }
+
+    public function getErrorCount(): ?int
+    {
+        return $this->error_count;
+    }
+
+    public function setErrorCount(int $error_count): self
+    {
+        $this->error_count = $error_count;
 
         return $this;
     }
