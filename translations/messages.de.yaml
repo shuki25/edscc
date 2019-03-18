@@ -525,3 +525,55 @@ Scannable: Scannbar
 Settlement: Siedlung
 Today's Earnings: Heutige Einnahmen
 'Yes': Ja
+Bodies Found Today: Heute gefundene Himmelskörper
+CapShipBond: Kopfgeld für Großkampfschiffe
+CG Participated: CG Teilnahme
+CollidedAtSpeedInNoFireZone: In der Flugverbotszone kollidiert
+CollidedAtSpeedInNoFireZoneHullDamage: In der Flugverbotszone kollidiert (Rumpfschaden)
+CommunityGoalReward: Community-Ziel Belohnung
+Credit: Credit
+DisobeyPolice: 'Der Polizei nicht Folge geleistet '
+DockingMajorBlockingAirlock: Andocken schwerwiegendes Blockieren der Luftschleuse
+DockingMajorBlockingLandingPad: Andocken schwerwiegendes Blockieren des Landeplatzes
+DockingMajorTrespass: Andocken schwerwiegendes unbefugtes Betreten
+DockingMinorBlockingAirlock: Andocken geringfügiges Blockieren der Luftschleuse
+DockingMinorBlockingLandingPad: Andocken geringfügiges Blockieren des Landeplatzes
+DockingMinorTrespass: Andocken geringfügiges unbefugtes Betreten
+DumpingDangerous: Verklappen gefährlich
+DumpingNearStation: Verklappen in der Nähe von Station
+Editing an MOTD: MOTD Bearbeiten
+E-mail address verified: E-Mail Adresse verifiziert
+FactionKillBond: Fraktionskopfgeld
+FireInNoFireZone: Schießen in der Sicherheitszone
+FireInStation: Schießen in der Station
+In Queue: In Warteschlange
+Interdiction: Abfangmanöver
+lockdown_message: Ihr Geschwaderführer hat dein Konto gesperrt. Du musst dich im Spiel
+  an deinen Geschwaderführer wenden, um dein Konto freizuschalten.
+MarketBuy: Markt Käufe
+MarketSell: Markt Verkäufe
+Mark this MOTD as visible: Markiere diese MOTD als sichtbar
+Mark this MOTD as visible on the login screen: Markiere diese MOTD als sichtbar auf
+  dem Anmeldebildschirm
+Minor Faction Issued By: Geringe Fraktion ausgestellt von
+Mission_AssassinateWing: Mission - Attentat (Staffel)
+MissionCompleted: Mission abgeschlossen (nicht spezifiziert)
+Mission_DeliveryWing: Mission - Lieferung (Staffel)
+Mission_PassengerBulk: Mission - Passagiere Massentransport
+Mission - Rewards Collected over last 30 days: 'Mission - Belohnungen gesammelt in
+  den letzten 30 Tagen '
+Mission_Scan: Mission - Scan
+Mission_Sightseeing: Mission - Besichtigungstour
+PerMission - Denied. Unable to access to this resource.: PerMission - Zugriff auf
+  diese Ressource nicht möglich.
+RecklessWeaponsDischarge: Rücksichtslose Waffenennutzung
+reset_password_instruction: Um dein Passwort zurückzusetzen, gib bitte deine mit deinem
+  Konto registrierte E-Mail-Adresse ein. Eine E-Mail mit weiteren Anweisungen wird
+  gesendet.
+SearchAndRescue: Such- und Rettungsdienst
+Select Log Files: Protokolldateien auswählen
+Select Report: Bericht auswählen
+'Strength: %strength% (cracked in %number% %unit%)': 'Stärke: %strength% (gecracked
+  in %number% %unit%)'
+User Avatar: Benutzer Avatar
+User PerMission - Settings: Benutzer PerMission - Einstellungen
