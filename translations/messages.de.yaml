@@ -566,3 +566,18 @@ ED:SCC Approval Requested: ED:SCC-Genehmigung beantragt
 ED:SCC Squadron Owner: ED:SCC Staffel-Besitzer
 Password is case sensitive: Passwort beachtet Groß- und Kleinschreibung
 You Have Been Banned: Du wurdest gebannt
+Creating a New Squadron: Eine neue Staffel erstellen
+Current Squadron Rank: Aktueller Staffelrang
+Squadron Dashboard: Staffel-Dashboard
+Squadron Leader: Staffelführer
+Squadron Members: Staffelmitglieder
+Squadron Roster: Staffelaufstellung
+Squadron Settings: Staffeleinstellungen
+User can approve, deny, ban or lock out a squadron member: Der Benutzer kann ein Staffelmitglied
+  genehmigen, ablehnen, sperren oder sperren
+User can edit a squadron member account settings: Der Benutzer kann die Kontoeinstellungen
+  eines Staffelmitglieds bearbeiten
+User can modify access permissions of a squadron member: Der Benutzer kann die Zugriffsberechtigungen
+  eines Staffelmitglieds ändern
+User can view a history log of a squadron member: Der Benutzer kann ein Verlaufsprotokoll
+  eines Staffelmitglieds anzeigen
