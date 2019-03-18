@@ -1,66 +1,148 @@
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE x_player_report;
+
+DROP TABLE x_player_report;
+CREATE TABLE IF NOT EXISTS x_player_report
+(
+  id             int(11) unsigned auto_increment primary key,
+  title          varchar(255)  null,
+  header         varchar(512)  null,
+  columns        varchar(512)  null,
+  `sql`          varchar(1024) null,
+  count_sql      varchar(512)  null,
+  parameters     varchar(512)  null,
+  parameters_sql varchar(512)  null,
+  order_id       tinyint(11)   null,
+  order_dir      varchar(4)    null,
+  cast_columns   varchar(512)  null,
+  sort_columns   varchar(512)  null,
+  trans_columns  varchar(512)  null
+);
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (1, 'Earning History (Detailed)', '["Date","Type","Paying Minor Faction","Amount","Crew Paid"]',
         '["earned_on","earning_type","minor_faction","reward","crew_wage"]',
         'select u.commander_name, eh.user_id, eh.squadron_id, eh.earned_on, if(eh.earning_type_id=''8'' and eh.notes is not null,concat(et.name, '' ('', eh.notes, '')'') ,et.name) as earning_type, mf.name as minor_faction, format(eh.reward,0) as reward, eh.reward as sort_reward, format(eh.crew_wage,0) as crew_wage, eh.crew_wage as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id left join earning_type et on eh.earning_type_id = et.id left join minor_faction mf on eh.minor_faction_id=mf.id where eh.user_id=?',
         'select count(*) from earning_history where user_id=?', '[["id"],["id"]]', 'select * from user where id=?', 0,
-        'desc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}');
+        'desc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', '["earning_type"]');
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (2, 'Earning History Summary', '["Type","Count","Amount","Crew Paid"]',
         '["earning_type","num_transactions","reward","crew_wage"]',
         'select u.commander_name, eh.user_id, eh.squadron_id, et.name as earning_type, count(eh.id) as num_transactions, format(sum(eh.reward),0) as reward, sum(eh.reward) as sort_reward, format(sum(eh.crew_wage),0) as crew_wage, sum(eh.crew_wage) as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id left join earning_type et on eh.earning_type_id = et.id where eh.user_id=? group by earning_type_id',
         'select count(*) from (select id from earning_history where user_id=? group by earning_type_id) a',
         '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null,
-        '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}');
+        '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (3, 'EDMC Transaction', '["ID","Data","Timestamp"]', '["id","entry","entered_at"]',
         'select id, entry, entered_at from edmc where user_id=?', 'select count(*) from edmc where user_id=?',
-        '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null, null);
+        '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null, null, null);
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (4, 'Earning History Summary by Minor Faction', '["Type","Paying Minor Faction","Count","Amount","Crew Paid"]',
         '["earning_type","minor_faction","num_transactions","reward","crew_wage"]',
         'select u.commander_name, eh.user_id, eh.squadron_id, et.name as earning_type, mf.name as minor_faction, count(eh.id) as num_transactions, format(sum(eh.reward),0) as reward, sum(eh.reward) as sort_reward, format(sum(eh.crew_wage),0) as crew_wage, sum(eh.crew_wage) as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id left join earning_type et on eh.earning_type_id = et.id left join minor_faction mf on eh.minor_faction_id = mf.id where eh.user_id=? group by earning_type_id, minor_faction_id',
         'select count(*) from (select id from earning_history where user_id=? group by earning_type_id, minor_faction_id) a',
         '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null,
-        '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}');
+        '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (5, 'Minor Faction Activities Summary',
         '["Type","Paying Minor Faction","Targeted Minor Faction","Count","Amount"]',
         '["earning_type","minor_faction","target_minor_faction","num_transactions","reward"]',
         'select u.commander_name, fa.user_id, fa.squadron_id, et.name as earning_type, mf.name as minor_faction, tmf.name as target_minor_faction, count(fa.id) as num_transactions, format(sum(fa.reward),0) as reward, sum(fa.reward) as sort_reward from faction_activity fa right outer join user u on fa.user_id = u.id left join earning_type et on fa.earning_type_id = et.id left join minor_faction mf on fa.minor_faction_id = mf.id left join minor_faction tmf on fa.target_minor_faction_id = tmf.id where fa.user_id=? group by earning_type_id, minor_faction_id, target_minor_faction_id',
         'select count(*) from (select id from faction_activity where user_id=? group by earning_type_id, minor_faction_id, target_minor_faction_id) a',
-        '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null, '{"reward":"sort_reward"}');
+        '[["id"],["id"]]', 'select * from user where id=?', 0, 'desc', null, '{"reward":"sort_reward"}', null);
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (6, 'Criminal History (Detailed)',
         '["Date Committed","Crime","Minor Faction Issued By","Victim","Fine","Bounty"]',
         '["committed_on","crime_committed","minor_faction","victim","fine","bounty"]',
         'select c.committed_on as committed_on, if(c.notes is not null, concat(ct.name, '' ('', c.notes, '')''), ct.name) as crime_committed, mf.name as minor_faction, c.victim as victim, format(c.fine,0) as fine, c.fine as sort_fine, format(c.bounty,0) as bounty, c.bounty as sort_bounty from crime c left join crime_type ct on c.crime_type_id = ct.id left join minor_faction mf on c.minor_faction_id = mf.id where c.user_id=? and c.squadron_id=?',
         'select count(*) from (select id from crime where user_id=? and squadron_id=?) a',
         '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 0, 'desc', null,
-        '{"fine":"sort_fine","bounty":"sort_bounty"}');
+        '{"fine":"sort_fine","bounty":"sort_bounty"}', '["crime_committed"]');
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (7, 'Criminal History Summary', '["Crime","Count","Fine","Bounty"]',
         '["crime_committed","num_committed","fine","bounty"]',
         'select if(c.notes is not null, concat(ct.name, '' ('', c.notes, '')''), ct.name) as crime_committed, count(c.id) as num_committed, format(sum(c.fine),0) as fine, sum(c.fine) as sort_fine, format(sum(c.bounty),0) as bounty, sum(c.bounty) as sort_bounty from crime c left join crime_type ct on c.crime_type_id = ct.id left join minor_faction mf on c.minor_faction_id = mf.id where c.user_id=? and c.squadron_id=? group by crime_committed',
         'select count(*) from (select id from crime where user_id=? and squadron_id=? group by crime_type_id) a',
         '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 1, 'desc', null,
-        '{"fine":"sort_fine","bounty":"sort_bounty"}');
+        '{"fine":"sort_fine","bounty":"sort_bounty"}', '["crime_committed"]');
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
-                             order_dir, cast_columns, sort_columns)
+                             order_dir, cast_columns, sort_columns, trans_columns)
 VALUES (8, 'Criminal History Summary by Faction', '["Crime","Minor Faction Issued By","Count","Fine","Bounty"]',
         '["crime_committed","minor_faction","num_committed","fine","bounty"]',
         'select if(c.notes is not null, concat(ct.name, '' ('', c.notes, '')''), ct.name) as crime_committed, mf.name as minor_faction, count(c.id) as num_committed, format(sum(c.fine),0) as fine, sum(c.fine) as sort_fine, format(sum(c.bounty),0) as bounty, sum(c.bounty) as sort_bounty from crime c left join crime_type ct on c.crime_type_id = ct.id left join minor_faction mf on c.minor_faction_id = mf.id where c.user_id=? and c.squadron_id=? group by crime_committed, c.minor_faction_id',
         'select count(*) from (select id from crime where user_id=? and squadron_id=? group by crime_type_id, minor_faction_id) a',
         '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 0, 'asc', null,
-        '{"fine":"sort_fine","bounty":"sort_bounty"}');
+        '{"fine":"sort_fine","bounty":"sort_bounty"}', null);
+
+DROP TABLE x_leaderboard_report;
+CREATE TABLE IF NOT EXISTS x_leaderboard_report
+(
+  id             int(11) unsigned auto_increment
+    primary key,
+  title          varchar(255)  null,
+  header         varchar(512)  null,
+  columns        varchar(512)  null,
+  `sql`          varchar(1024) null,
+  count_sql      varchar(512)  null,
+  parameters     varchar(512)  null,
+  parameters_sql varchar(512)  null,
+  order_id       tinyint(11)   null,
+  order_dir      varchar(4)    null,
+  cast_columns   varchar(512)  null,
+  sort_columns   varchar(512)  null,
+  trans_columns  varchar(512)  null
+);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (1, 'Overall Earning', '["Rank", "Commander Name", "Total Earned"]',
+        '["rank", "commander_name", "total_earned"]',
+        'select user_id, commander_name, b.squadron_id, format(total_earned,0) as total_earned, 1+(select count(*) from v_commander_total_earning a where a.total_earned > b.total_earned and a.squadron_id=?) as rank from v_commander_total_earning b left join user u on u.id=b.user_id where b.squadron_id=?',
+        'select count(user_id) from v_commander_total_earning b left join user u on u.id=b.user_id where b.squadron_id=?',
+        '[["squadron_id","squadron_id"],["squadron_id"]]', 'select * from user where id=?', 0, 'asc',
+        '{"total_earned":"signed"}', null, null);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (2, 'Overall Exploration',
+        '["Commander Name","System Scanned","Bodies Discovered","Complete SAA Scans","Efficient Scans","Efficiency Rate"]',
+        '["commander_name","systems_scanned","bodies_found","saa_scan_completed","efficiency_achieved","efficiency_rate"]',
+        'select * from v_commander_exploration_total where squadron_id=?',
+        'select count(user_id) from v_commander_exploration_total where squadron_id=?',
+        '[["squadron_id"],["squadron_id"]]', 'select * from user where id=?', 0, 'asc', null, null, null);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (3, 'Overall Trade',
+        '["Commander Name","Units Bought","Units Sold","Net Units","Amt Paid","Amt Earned","Net Earned","Cr/Unit"]',
+        '["commander_name","units_bought","units_sold","net_units","market_buy","market_sell","total","cr_per_unit"]',
+        'select u.commander_name, v1.*, format(v2.market_buy,0) as market_buy, format(v2.market_sell,0) as market_sell, format(v2.total,0) as total, format((v2.total/v1.units_sold),2) as cr_per_unit from v_commander_market_net_units v1 left join v_commander_market_net_earning v2 on v1.user_id = v2.id and v1.squadron_id=v2.squadron_id right outer join user u on v1.user_id=u.id where u.squadron_id=?',
+        'select count(*) from user where squadron_id=?', '[["squadron_id"],["squadron_id"]]',
+        'select * from user where id=?', 0, 'asc',
+        '{"market_buy":"signed","market_sell":"signed","total":"signed","cr_per_unit":"signed"}', null, null);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (4, 'Overall Combat (Non-mission)', '["Commander","Num Combat Bonds","Total Reward","Crew Wage"]',
+        '["commander_name","num_bonds","reward","crew_wage"]',
+        'select u.commander_name, eh.user_id, eh.squadron_id, count(eh.id) as num_bonds, format(sum(eh.reward),0) as reward, sum(eh.reward) as sort_reward, format(sum(eh.crew_wage),0) as crew_wage, sum(eh.crew_wage) as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id where eh.squadron_id=? and earning_type_id in (1,2,3) group by eh.user_id',
+        'select count(*) from user where squadron_id=?', '[["squadron_id"],["squadron_id"]]',
+        'select * from user where id=?', 0, 'asc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (5, 'Overall Community Goal', '["Commander","CG Participated","Total Reward","Crew Wage"]',
+        '["commander_name","cg_participated","reward","crew_wage"]',
+        'select u.commander_name, eh.user_id, eh.squadron_id, count(eh.id) as cg_participated, format(sum(eh.reward),0) as reward, sum(eh.reward) as sort_reward, format(sum(eh.crew_wage),0) as crew_wage, sum(eh.crew_wage) as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id where eh.squadron_id=? and earning_type_id=''7'' group by eh.user_id',
+        'select count(*) from user where squadron_id=?', '[["squadron_id"],["squadron_id"]]',
+        'select * from user where id=?', 0, 'asc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
+INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                                  order_dir, cast_columns, sort_columns, trans_columns)
+VALUES (6, 'Overall Missions', '["Commander","Missions Completed","Total Reward","Crew Wage"]',
+        '["commander_name","missions_completed","reward","crew_wage"]',
+        'select u.commander_name, eh.user_id, eh.squadron_id, count(eh.id) as missions_completed, format(sum(eh.reward),0) as reward, sum(eh.reward) as sort_reward, format(sum(eh.crew_wage),0) as crew_wage, sum(eh.crew_wage) as sort_crew_wage from earning_history eh right outer join user u on eh.user_id = u.id where eh.squadron_id=? and earning_type_id>7 group by eh.user_id',
+        'select count(*) from user where squadron_id=?', '[["squadron_id"],["squadron_id"]]',
+        'select * from user where id=?', 0, 'asc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
 
 CREATE OR REPLACE VIEW v_commander_mission_total as
 select eh.squadron_id as squadron_id, eh.user_id as user_id, sum(eh.reward) as total_earned, earned_on
@@ -126,6 +208,10 @@ INSERT INTO earning_type (id, name, mission_flag)
 VALUES (27, 'Settlement', 0);
 INSERT INTO earning_type (id, name, mission_flag)
 VALUES (28, 'Scannable', 0);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (29, 'Codex', 0);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (30, 'SearchAndRescue', 0);
 
 TRUNCATE TABLE crime_type;
 INSERT INTO crime_type (id, name, alias)

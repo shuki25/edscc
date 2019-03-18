@@ -165,8 +165,16 @@ class ReportController extends AbstractController
 
         if ($has_data) {
             if (isset($datatable['data'][0]['commander_name'])) {
-                foreach ($datatable['data'] as $i => $row) {
-                    $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%', ['%name%' => $row['commander_name']]);
+                foreach ($datatable['data'] as $i => $datum) {
+                    $datatable['data'][$i]['commander_name'] = $this->translator->trans('CMDR %name%', ['%name%' => $datum['commander_name']]);
+                }
+            }
+            if (isset($report['trans_columns'])) {
+                $trans_columns = json_decode($report['trans_columns'], true);
+                foreach ($datatable['data'] as $i => $datum) {
+                    foreach ($trans_columns as $column) {
+                        $datatable['data'][$i][$column] = $this->translator->trans($datatable['data'][$i][$column]);
+                    }
                 }
             }
         }
