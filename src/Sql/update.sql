@@ -212,6 +212,14 @@ INSERT INTO earning_type (id, name, mission_flag)
 VALUES (29, 'Codex', 0);
 INSERT INTO earning_type (id, name, mission_flag)
 VALUES (30, 'SearchAndRescue', 0);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (31, 'Mission_Rescue', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (32, 'Mission_PassengerVIP', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (33, 'Mission_Mining', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (34, 'Mission_MassacreWing', 1);
 
 TRUNCATE TABLE crime_type;
 INSERT INTO crime_type (id, name, alias)
