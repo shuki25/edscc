@@ -14,7 +14,7 @@ About Your Squadron: О вашем сквадроне
   %status%'
 Action: действие
 Activated: активированная
-Activation Code for ED:SCC: 'Код активации для ED: SCC'
+Activation Code for ED:SCC: 'Код активации для ED:SCC'
 Add New Announcement: Добавить новое объявление
 Add New MOTD: Добавить новый MOTD
 Admin: Администратор
@@ -57,8 +57,8 @@ CMDR %name%: CMDR %name%
 Combat: Бой
 Commander: Командир
 Competent: Компетентный
-Complete SAA Scans: 'Полное SAA сканирование '
-"%count%%% from prior day": "%count%%% с предыдущего дня"
+Complete SAA Scans: Полное SAA сканирование
+count_prior_day: "%count%% с предыдущего дня"
 CQC: CQC
 Create: Создай
 Created In: Создано в
@@ -87,8 +87,8 @@ Earning History Summary by Minor Faction: Общая история дохода
 Editing an announcement: Редактирование объявления
 EDMC Plug-in: Плагин EDMC
 EDMC Transaction: EDMC передача данных
-ED:SCC Approval Requested: ED:SCC Требуется разрешение
-ED:SCC Squadron Owner: 'ED: SCC Командующий Сквадроном'
+'ED:SCC Approval Requested': 'ED:SCC Требуется разрешение'
+'ED:SCC Squadron Owner': 'ED:SCC Командующий Сквадроном'
 Efficiency Rate: Рейтинг эффективности
 Efficient Scans: Рейтинг сканирования
 Elite: Элита
@@ -136,7 +136,7 @@ Invalid token, please reload the page: Неверный токен, переза
 I understand that by purging the data, it is irreversible.: Я понимаю, что очистка
   данных будет необратима.
 Join Date: Дата вступления
-Journal Log File: Журнал игры (Lof File)
+Journal Log File: Журнал игры (Log File)
 King: Король
 Knight: Рыцарь
 label_next: Следующий
