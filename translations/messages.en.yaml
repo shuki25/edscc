@@ -325,6 +325,7 @@ Attitude: Attitude
 Availability: Availability
 Game Mode: Game Mode
 Language: Language
+Play Style: Play Style
 custom_rank_instructions: In the game, Squadrons are able to customize their own rank classifications to integrate Squadron's lore. In the left column, the default rank names are listed, enter customized rank names in the right column accordingly.
 Ranks: Ranks
 Squadron Leader: Squadron Leader
@@ -411,6 +412,7 @@ Register a new Squadron Member: Register a new Squadron Member
 Commander Name (without CMDR): Commander Name (without CMDR)
 Retype password: Retype password
 I agree to the terms: I agree to the terms
+I already have a membership: I already have a membership
 Register: Register
 pending_access_message: Your access is pending approval from the squadron leader.  Because you have joined the squadron that requires an approval from one of squadron leaders, you will receive an e-mail indicating your access has been granted as soon as you are approved.  If you have any questions, please contact your squadron leader, CMDR %cmdr%, in the game.
 Resetting Your Password: Resetting Your Password
@@ -470,6 +472,10 @@ Mission_Salvage: Mission - Salvage
 Mission_Scan: Mission - Scan
 Mission_Sightseeing: Mission - Sightseeing
 Mission_TheDead: Mission - The Dead
+Mission_Rescue: Mission - Rescue
+Mission_PassengerVIP: Mission - VIP Passenger
+Mission_Mining: Mission - Mining
+Mission_MassacreWing: Mission - Massacre (Wing)
 CombatBond: Combat Bond
 Settlement: Settlement
 Scannable: Scannable
