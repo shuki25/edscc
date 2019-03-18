@@ -60,7 +60,7 @@ Total: Total
 Items: Items
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No items|{1} one item|]1,Inf[ %count% items"
 Showing items: Showing items
-PerMission - Denied. Unable to access to this resource.: PerMission - Denied. Unable to access to this resource.
+Permission Denied. Unable to access to this resource.: Permission Denied. Unable to access to this resource.
 "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries"
 Commander Name: Commander Name
 Activated: Activated
@@ -151,7 +151,7 @@ Total Daily Earnings over last 30 days: Total Daily Earnings over last 30 days
 Bounties Collected over last 30 days: Bounties Collected over last 30 days
 Exploration Data Sold over last 30 days: Exploration Data Sold over last 30 days
 Trade Profit over last 30 days: Trade Profit over last 30 days
-Mission - Rewards Collected over last 30 days: Mission - Rewards Collected over last 30 days
+Mission Rewards Collected over last 30 days: Mission Rewards Collected over last 30 days
 Pending Members: Pending Members
 purge_commander_data_body: Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. This will only purge any data associated with your current squadron. If you were previously in a different squadron, that data will not be purged. Remember, before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.
 I understand that by purging the data, it is irreversible.: I understand that by purging the data, it is irreversible.
@@ -350,7 +350,7 @@ User has read the welcome message after logging in: User has read the welcome me
 Permissions: Permissions
 Commander Details: Commander Details
 Last Updated: Last Updated
-User PerMission - Settings: User PerMission - Settings
+User Permission Settings: User Permission Settings
 User has full administrative rights (overrides everything below): User has full administrative rights (overrides everything below)
 User can view management reports: User can view management reports
 User can add, edit, delete announcements: User can add, edit, delete announcements
