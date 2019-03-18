@@ -577,3 +577,12 @@ Select Report: Bericht auswählen
   in %number% %unit%)'
 User Avatar: Benutzer Avatar
 User PerMission - Settings: Benutzer PerMission - Einstellungen
+count_prior_day: "%count%% vom Vortag"
+email_verification_message: Zur Bestätigung Ihres Kontos ist eine Bestätigung der
+  E-Mail-Adresse erforderlich. Eine E-Mail wurde mit einem Token an %email% gesendet,
+  um mit der Erstellung des neuen Kontos fortzufahren.
+pending_access_message: Dein Zugang wurde vom zuständigen Geschwaderführer noch nicht
+  genehmigt. Da du sich einem Geschwader angeschlossen hast, für das eine Genehmigung
+  von einem der Geschwaderführer erforderlich ist, erhältst du eine E-Mail mit der
+  Bestätigung, dass dein Zugang gewährt wurde, sobald die Genehmigung erteilt wurde.
+  Wenn du Fragen hast, wende dich im Spiel an deinen Geschwaderführer CMDR %cmdr%.
