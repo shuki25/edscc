@@ -60,7 +60,7 @@ Total: Total
 Items: Items
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} No items|{1} one item|]1,Inf[ %count% items"
 Showing items: Showing items
-Permission Denied. Unable to access to this resource.: Permission Denied. Unable to access to this resource.
+PerMission - Denied. Unable to access to this resource.: PerMission - Denied. Unable to access to this resource.
 "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries"
 Commander Name: Commander Name
 Activated: Activated
@@ -102,8 +102,7 @@ Unable to generate a new API Key. Invalid token, please reload the page.: Unable
 API Key: API Key
 You only can select a maximum of 20 files (web browser limitation).: You only can select a maximum of 20 files (web browser limitation).
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today"
-"Up %count%%% from prior day": "Up %count%%% from prior day"
-"%count%%% from prior day": "%count%%% from prior day"
+count_prior_day: "%count%% from prior day"
 Yesterday Earnings: Yesterday Earnings
 Commanders Joined: Commanders Joined
 Invalid token, please reload the page: Invalid token, please reload the page
@@ -152,7 +151,7 @@ Total Daily Earnings over last 30 days: Total Daily Earnings over last 30 days
 Bounties Collected over last 30 days: Bounties Collected over last 30 days
 Exploration Data Sold over last 30 days: Exploration Data Sold over last 30 days
 Trade Profit over last 30 days: Trade Profit over last 30 days
-Mission Rewards Collected over last 30 days: Mission Rewards Collected over last 30 days
+Mission - Rewards Collected over last 30 days: Mission - Rewards Collected over last 30 days
 Pending Members: Pending Members
 purge_commander_data_body: Sometimes commanders would purge their data because the data doesn't look right. By clearing your data from the database, you can re-import your journal files to make your data more current and up-to-date. This will only purge any data associated with your current squadron. If you were previously in a different squadron, that data will not be purged. Remember, before you purge your data and re-import all of your player journal files, please quit your game and your EDMC if it is running.
 I understand that by purging the data, it is irreversible.: I understand that by purging the data, it is irreversible.
@@ -350,7 +349,7 @@ User has read the welcome message after logging in: User has read the welcome me
 Permissions: Permissions
 Commander Details: Commander Details
 Last Updated: Last Updated
-User Permission Settings: User Permission Settings
+User PerMission - Settings: User PerMission - Settings
 User has full administrative rights (overrides everything below): User has full administrative rights (overrides everything below)
 User can view management reports: User can view management reports
 User can add, edit, delete announcements: User can add, edit, delete announcements
@@ -442,3 +441,62 @@ Internal Error: Internal Error
 Processed with Errors: Processed with Errors
 Rejected: Rejected
 Errors: Errors
+Crew Wage: Crew Wage
+Credit: Credit
+"Today's Earnings": "Today's Earnings"
+Missions Completed Today: Missions Completed Today
+Bodies Found Today: Bodies Found Today
+Select Report: Select Report
+CapShipBond: Captial Ship Bond
+FactionKillBond: Faction Kill Bond
+ExplorationData: Exploration Data
+MarketBuy: Market Buy
+MarketSell: Market Sell
+CommunityGoalReward: Community Goal Reward
+MissionCompleted: Mission Completed (Non-specified)
+Mission_Altruism: Mission - Altruism
+Mission_Assassinate: Mission - Assassinate
+Mission_AssassinateWing: Mission - Assassinate (Wing)
+Mission_Collect: Mission - Collect
+Mission_Courier: Mission - Courier
+Mission_Delivery: Mission - Delivery
+Mission_DeliveryWing: Mission - Delivery (Wing)
+Mission_Disable: Mission - Disable
+Mission_DS: Mission - DS (???)
+Mission_Hack: Mission - Hack
+Mission_Massacre: Mission - Massacre
+Mission_PassengerBulk: Mission - Passenger Bulk
+Mission_Salvage: Mission - Salvage
+Mission_Scan: Mission - Scan
+Mission_Sightseeing: Mission - Sightseeing
+Mission_TheDead: Mission - The Dead
+CombatBond: Combat Bond
+Settlement: Settlement
+Scannable: Scannable
+Codex: Codex
+SearchAndRescue: Search and Rescue
+Assault: Assault
+Murder: Murder
+Piracy: Piracy
+Interdiction: Interdiction
+IllegalCargo: Illegal Cargo
+DisobeyPolice: Disobey Police
+FireInNoFireZone: Fire in No Fire Zone
+FireInStation: Fire in Station
+DumpingDangerous: Dumping Dangerous
+DumpingNearStation: Dumping Near Station
+DockingMinorBlockingAirlock: Docking Minor Blocking Airlock
+DockingMajorBlockingAirlock: Docking Major Blocking Airlock
+DockingMinorBlockingLandingPad: Docking Minor Blocking Landing Pad
+DockingMajorBlockingLandingPad: Docking Major Blocking Landing Pad
+DockingMinorTrespass: Docking Minor Trespass
+DockingMajorTrespass: Docking Major Trespass
+CollidedAtSpeedInNoFireZone: Collided at Speed in No Fire Zone
+CollidedAtSpeedInNoFireZoneHullDamage: Collided at Speed in No Fire Zone (Hull Damage)
+RecklessWeaponsDischarge: Reckless Weapons Discharge
+Other: Other
+datatable_info: Showing _START_ to _END_ of _TOTAL_ entries
+datatable_info_empty: Showing 0 to 0 of 0 entries
+datatable_info_filtered: (filtered from _MAX_ total entries)
+datatable_empty_table: No data available in table
+datatable_zero_records: No matching records found
