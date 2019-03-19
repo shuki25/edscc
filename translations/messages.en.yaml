@@ -507,7 +507,8 @@ datatable_info_filtered: (filtered from _MAX_ total entries)
 datatable_empty_table: No data available in table
 datatable_zero_records: No matching records found
 Mark as Read: Mark as Read
-"Posted by %name%": "Posted by %name%"
+"Posted by CMDR %author%": "Posted by CMDR %author%"
 Like: Like
 Comments: Comments
 Current Password: Current Password
+Posted by Site Administrator: Posted by Site Administrator
