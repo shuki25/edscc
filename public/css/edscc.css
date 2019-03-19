@@ -17,10 +17,7 @@ input[type="file"] {
 }
 
 .report-picker {
-    /*+placement: -40px 0px;*/
-    position: relative;
-    left: -40px;
-    top: 0px;
+    width: 500px;
 }
 
 .tag-button {
