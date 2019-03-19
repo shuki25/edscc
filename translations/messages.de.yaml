@@ -13,6 +13,7 @@ About Your Squadron: Über deine Staffel
 Access Denied: Zugriff verweigert
 'Access Denied: Account status is %status%': 'Zugriff verweigert: Kontostatus ist
   %status%'
+Action: Aktionen
 Activated: Aktiviert
 Activation Code for ED:SCC: Aktivierungscode für ED:SCC
 Activities: Aktivitäten
@@ -67,6 +68,8 @@ Changes were not saved.: Änderungen wurden nicht gespeichert.
 Chief Petty Officer: Obermaat
 Choose a Faction: Wähle eine Fraktion
 Choose a squadron on the left.: Wähle eine Staffel auf der linken Seite.
+Choose a Superpower affiliation if applicable: Wähle eine Supermacht-Zugehörigkeit
+  (falls zutreffend)
 Choose the commander's rank: Wähle den Rang des Kommandanten
 Choose the gaming platform this Squadron plays on: Wähle die Spiele-Plattform die
   deine Staffel nutzt um zu spielen
@@ -94,19 +97,25 @@ Competent: Kompetent
 Complete Registration: Registrierung abschließen
 Complete SAA Scans: Komplette SAA-Scans
 Continue: Fortsetzen
+Count: Anzahl
+count_prior_day: "%count%% des Vortags"
 CQC: CQC
 Create: Erstellen
 Create a New Squadron: Erstelle ein neue Staffel
+Created In: Erstellt am
 Create New Squadron: Neue Staffel erstellen
 Creating a new announcement: Neue Ankündigung erstellen
 Creating a new MOTD: Neue MOTD erstellen
 Creating a New Squadron: Eine neue Staffel erstellen
+Credit: Credits
 Credits: Credits
 Crew Paid: Crew bezahlt
 Crew Wage: Mannschaftslohn
 Crime: Kriminalität
 Criminal History: Kriminelle Vergangenheit
 Criminal History (Detailed): Kriminelle Vergangenheit (detailliert)
+Criminal History Summary: Kriminelle Vergangenheit (zusammengefasst)
+Criminal History Summary by Faction: Kriminelle Vergangenheit (nach Fraktion)
 Cr/Unit: Cr / Einheit
 Current Squadron Rank: Aktueller Staffelrang
 Customizing Commander Roles: Anpassen der Kommendanten-Rollen
@@ -137,7 +146,15 @@ Denied: Verweigert
 Description: Beschreibung
 Devoted: Hingebungsvoll
 DisobeyPolice: Der Polizei nicht Folge geleistet
+DockingMajorBlockingAirlock: Schwerwiegendes Blockieren der Luftschleuse beim Andocken
+DockingMajorBlockingLandingPad: Schwerwiegendes Blockieren des Landeplatzes  beim
+  Andocken
+DockingMajorTrespass: Schwerwiegendes unbefugtes Betreten beim Andocken
+DockingMinorBlockingAirlock: Geringfügiges Blockieren der Luftschleuse beim Andocken
+DockingMinorBlockingLandingPad: Geringfügiges Blockieren des Landeplatzes beim Andocken
+DockingMinorTrespass: Geringfügiges unbefugtes Betreten beim Andocken
 Duke: Herzog
+DumpingDangerous: Verklappen gefährlicher Güter
 DumpingNearStation: Verklappen in der Nähe von Station
 Earl: Earl
 Earning History (Detailed): Verdiensthistorie (detailliert)
@@ -192,6 +209,7 @@ FireInNoFireZone: Schießen in der Sicherheitszone
 FireInStation: Schießen in der Station
 First: Erste
 French: Französisch
+Fuel Rats: Fuel Rats
 Game Date: Spieldatum
 Game Mode: Spielmodus
 Gaming Platform: Spielplattform
@@ -205,11 +223,13 @@ Home base: Heimatbasis
 Home Base: Heimatbasis
 Humanitarian Aid Providers: Anbieter humanitärer Hilfe
 I agree to the terms: Ich stimme den Bedingungen zu
+I already have a membership: Ich bin bereits Mitglied
 ID: ID
 I did not get the activation e-mail. Please resend.: Ich habe die Aktivierungs-E-Mail
   nicht erhalten. Bitte sende es erneut.
 I forgot my password: Ich habe mein Passwort vergessen
 IllegalCargo: Illegale Fracht
+Import History: Protokolldateien Hochladen
 Import Queue Status: Warteschlangenstatus importieren
 In Queue: In Warteschlange
 Interdiction: Abfangmanöver
@@ -280,7 +300,13 @@ Mission_Disable: Mission - Deaktivieren
 Mission_DS: Mission - DS (???)
 Mission_Hack: Mission - Hack
 Mission_Massacre: Mission - Massaker
+Mission_MassacreWing: Mission - Massaker (Geschwader)
+Mission_Mining: Mission - Bergbau
 Mission_PassengerBulk: Mission - Passagiere Massentransport
+Mission_PassengerVIP: Mission - VIP Passagier
+Mission_Rescue: Mission - Rettung
+Mission Rewards Collected over last 30 days: Missionsbelohnungen gesammelt über die
+  letzten 30 Tage
 Mission_Salvage: Mission - Bergung
 Mission_Scan: Mission - Scan
 Missions Completed: Missionen abgeschlossen
@@ -306,6 +332,7 @@ Next: Nächste
 'No': Nein
 No Data: Keine Daten
 No Date Available: Kein Datum verfügbar
+None: Keine
 No Power Allied: Mit keiner Lokalmacht verbündet
 Novice: Novize
 Occasional: Gelegentlich
@@ -338,6 +365,8 @@ pending_access_message: Dein Zugang wurde vom zuständigen Staffelführer noch n
 Pending Members: Ausstehende Mitglieder
 Penniless: Bettelarm
 Percentage difference: Prozentuale Differenz
+Permission Denied. Unable to access to this resource.: Zugang verweigert. Zugriff
+  auf diese Ressource nicht möglich.
 Permissions: Berechtigungen
 Petty Officer: Maat
 Pioneer: Pionier
@@ -348,6 +377,7 @@ Player Activities Report: Spieleraktivitätsbericht
 Player Dashboard: Spieler-Dashboard
 Player Journal Log: Spieler-Journal-Protokoll
 Player Journal Log Import History: Importprotokoll des Spielerjournals
+Play Style: Spielstil
 Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Bitte
   gib einen Grund dafür an, warum der Status zugewiesen wird (wenn der Zugriff verweigert
   wird usw.).
@@ -363,6 +393,9 @@ Processed: Verarbeitet
 Processed with Errors: Mit Fehlern verarbeitet
 Professional: Profi
 Promotion Voting: Beförderungsabstimmung
+Publish At: Veröffentlichen am
+Published In: Veröffentlicht am
+Publish In: Veröffentliche am
 Purge Commander Data: Daten des Kommandanten löschen
 purge_commander_data_body: Manchmal löschten Kommandanten ihre Daten, weil die Daten
   nicht richtig aussehen. Durch das Löschen der Daten aus der Datenbank kannst du
@@ -473,6 +506,7 @@ Trade: Handel
 Trade Profit over last 30 days: Handelsprofit über die letzten 30 Tage
 Traders: Händler
 Tycoon: Tycoon
+Type: Typ
 Unable to fetch data.: Daten können nicht abgerufen werden.
 Unable to generate a new API Key. Invalid token, please reload the page.: Es kann
   kein neuer API-Schlüssel generiert werden. Ungültiger Token, bitte lade die Seite
@@ -505,6 +539,7 @@ User has full administrative rights (overrides everything below): Benutzer hat v
 User has read the welcome message after logging in: Der Benutzer hat die Willkommensnachricht
   nach der Anmeldung gelesen
 User not found: Benutzer wurde nicht gefunden
+User Permission Settings: Benutzerberechtigungseinstellungen
 Using EDMC Plug-in to Capture Data: Verwendet das EDMC-Plug-In zum Erfassen von Daten
 Verify Password: Passwort bestätigen
 Verify Your E-mail Address: Bestätige deine Email-Adresse
@@ -552,38 +587,7 @@ Your password has been reset: Dein Passwort wurde zurück gesetzt
 Your settings have been saved.: Deine Einstellungen wurden gespeichert.
 Your Squadron: Deine Staffel
 Your squadron leader has banned you.: Dein Staffelführer hat dich gebannt
-Action: Aktionen
-Choose a Superpower affiliation if applicable: Wähle eine Supermacht-Zugehörigkeit
-  (falls zutreffend)
-count_prior_day: "%count%% des Vortags"
-Created In: Erstellt am
-Credit: Credits
-Criminal History Summary: Kriminelle Vergangenheit (zusammengefasst)
-Criminal History Summary by Faction: Kriminelle Vergangenheit (nach Fraktion)
-DockingMajorBlockingAirlock: Schwerwiegendes Blockieren der Luftschleuse beim Andocken
-DockingMajorBlockingLandingPad: Schwerwiegendes Blockieren des Landeplatzes  beim
-  Andocken
-DockingMajorTrespass: Schwerwiegendes unbefugtes Betreten beim Andocken
-DockingMinorBlockingAirlock: Geringfügiges Blockieren der Luftschleuse beim Andocken
-DockingMinorBlockingLandingPad: Geringfügiges Blockieren des Landeplatzes beim Andocken
-DockingMinorTrespass: Geringfügiges unbefugtes Betreten beim Andocken
-DumpingDangerous: Verklappen gefährlicher Güter
-Fuel Rats: Fuel Rats
-I already have a membership: Ich bin bereits Mitglied
-Import History: Protokolldateien Hochladen
-Mission_MassacreWing: Mission - Massaker (Geschwader)
-Mission Rewards Collected over last 30 days: Missionsbelohnungen gesammelt über die
-  letzten 30 Tage
-None: Keine
-Publish At: Veröffentlichen am
-Published In: Veröffentlicht am
-Publish In: Veröffentliche am
-Type: Typ
-Count: Anzahl
-Mission_Mining: Mission - Bergbau
-Mission_PassengerVIP: Mission - VIP Passagier
-Mission_Rescue: Mission - Rettung
-Permission Denied. Unable to access to this resource.: Zugang verweigert. Zugriff
-  auf diese Ressource nicht möglich.
-Play Style: Spielstil
-User Permission Settings: Benutzerberechtigungseinstellungen
+Comments: Kommentare
+Current Password: Derzeitiges Passwort
+Like: Like
+Posted by Site Administrator: Gepostet von Seitenadministrator
