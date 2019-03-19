@@ -24,8 +24,8 @@ Admiral: Адмирал
 Agent: Агент
 Aimless: Бесцельный
 Amateur: Любитель
-Amt Earned: Amt Доход
-Amt Paid: Amt Расход
+Amt Earned: Сумма Дохода
+Amt Paid: Сумма Расхода
 Announcements: Объявления
 API Key: Ключ API
 API Key not generated: API Ключ не активирован
@@ -527,7 +527,7 @@ DumpingDangerous: Опасный сброс
 DumpingNearStation: Опасный сброс около станции
 Earning History Summary: История дохода
 Earning History Summary by Minor Faction: Получение награды от фракции
-Earning Rank: 'Рейтинг полезности в Сквадроне '
+Earning Rank: Рейтинг полезности в Сквадроне
 ExplorationData: Исследовательских данных
 FactionKillBond: Награда фракции за убийство
 FireInNoFireZone: Ведение огня в безопасной зоне
