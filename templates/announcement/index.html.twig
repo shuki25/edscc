@@ -20,7 +20,7 @@
                 <div class="announcement-action">
                     <span><a href="#" class="read-button" data-id="{{ msg.id }}" data-motd="1"
                              data-marked="{{ msg.read_flag }}"><i
-                                    class="{% if msg.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> Mark as Read</a> </span>
+                                    class="{% if msg.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> {% trans %}Mark as Read{% endtrans %}</a> </span>
                 </div>
             </div>
         </div>
@@ -40,11 +40,12 @@
             <div class="box-footer">
                 <div class="clearfix pull-right">{% trans with {"%author%": article.author} %}Posted by CMDR %author%{% endtrans %}</div>
                 <div class="announcement-action">
-                    <span><a href="#"> <i class="far fa-thumbs-up text-white"></i> Like</a> </span>
-                    <span><a href="#"><i class="far fa-comments text-white"></i> Comments</a> </span>
+                    <span><a href="#"> <i
+                                    class="far fa-thumbs-up text-white"></i> {% trans %}Like{% endtrans %}</a> </span>
+                    <span><a href="#"><i class="far fa-comments text-white"></i> {% trans %}Comments{% endtrans %}</a> </span>
                     <span><a href="#" class="read-button" data-id="{{ article.id }}" data-motd="0"
                              data-marked="{{ article.read_flag }}"><i
-                                    class="{% if article.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> Mark as Read</a> </span>
+                                    class="{% if article.read_flag %}far fa-check-square{% else %}far fa-square{% endif %}"></i> {% trans %}Mark as Read{% endtrans %}</a> </span>
                 </div>
             </div>
         </div>
