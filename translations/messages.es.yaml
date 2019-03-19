@@ -91,7 +91,6 @@ Complete Registration: Registro completo
 Complete SAA Scans: Exploraciones completas de SAA
 Continue: Continuar
 Count: Contar
-"%count%%% from prior day": "%count%%% del día anterior"
 CQC: CQC
 Create: Crear
 Create a New Squadron: Crear un nuevo escuadrón
@@ -149,6 +148,9 @@ Efficient Scans: Exploraciones eficientes
 Elite: Élite
 Email: Email
 E-mail address verified: Correo electrónico verificado
+email_verification_message: Se requiere una verificación de la dirección de correo
+  electrónico para activar su cuenta. Se ha enviado un correo electrónico a %email%
+  con un token para continuar con la creación de la nueva cuenta.
 Empire: Imperio
 English: Inglés
 Ensign: Bandera
@@ -451,7 +453,6 @@ Unable to generate a new API Key. Invalid token, please reload the page.: No se 
 Unauthorized: No autorizado
 Units Bought: Unidades compradas
 Units Sold: Unidades vendidas
-Up %count%%% from prior day: Hasta %count%%% del día anterior
 Upload Files: Subir archivos
 Uploading Player's Journal Log Files: Cargar archivos de registro de diario de jugadores
 Uploading Players Journal Log Files: Cargar archivos de registro de diario de jugadores
@@ -525,6 +526,69 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-email_verification_message: Se requiere una verificación de la dirección de correo
-  electrónico para activar su cuenta. Se ha enviado un correo electrónico a %email%
-  con un token para continuar con la creación de la nueva cuenta.
+Assault: Asalto
+Bodies Found Today: Cuerpos encontrados hoy
+CapShipBond: Captial Ship Bond
+Codex: Códice
+CollidedAtSpeedInNoFireZone: Chocó a velocidad en la zona sin fuego
+CollidedAtSpeedInNoFireZoneHullDamage: Chocó a velocidad en la zona sin fuego (daño
+  del casco)
+CombatBond: Bono de combate
+CommunityGoalReward: Recompensa de la meta comunitaria
+Credit: Crédito
+Crew Wage: Salario de la tripulación
+datatable_empty_table: No hay datos disponibles en la tabla
+datatable_info: Mostrando _START_ a _END_ de _TOTAL_ entradas
+datatable_info_empty: Mostrando 0 a 0 de 0 entradas
+datatable_info_filtered: "(filtrado de _MAX_ entradas totales)"
+datatable_zero_records: No se encontraron registros coincidentes
+DisobeyPolice: Desobedecer policia
+DockingMajorBlockingAirlock: Docking Major Bloqueo Airlock
+DockingMajorBlockingLandingPad: Docking Major Blocking Landing Pad
+DockingMajorTrespass: Atracar mayor paso
+DockingMinorBlockingAirlock: Muelle de bloqueo de bloqueo menor
+DockingMinorBlockingLandingPad: Muelle de aterrizaje de bloqueo menor de acoplamiento
+DockingMinorTrespass: Atravesar un paso menor
+DumpingDangerous: Dumping peligroso
+DumpingNearStation: Dumping cerca de la estación
+ExplorationData: Datos de Exploración
+FactionKillBond: Faction Kill Bond
+FireInNoFireZone: Fuego en Zona Sin Fuego
+FireInStation: Fuego en estacion
+I already have a membership: Ya tengo membresia
+IllegalCargo: Carga ilegal
+Interdiction: Interdicción
+MarketBuy: Mercado de compra
+MarketSell: Venta en el mercado
+Mission_Altruism: Misión - Altruismo
+Mission_Assassinate: Misión - Asesinar
+Mission_AssassinateWing: Misión - Asesinar (Ala)
+Mission_Collect: Misión - recoger
+MissionCompleted: Misión completada (No especificado)
+Mission_Courier: Misión - mensajero
+Mission_Delivery: Misión - Entrega
+Mission_DeliveryWing: Misión - Entrega (Ala)
+Mission_Disable: Misión - Deshabilitar
+Mission_DS: Misión - DS (???)
+Mission_Hack: Misión - Hack
+Mission_Massacre: Misión - masacre
+Mission_MassacreWing: Misión - Masacre (Ala)
+Mission_Mining: Misión - Minería
+Mission_PassengerBulk: Misión - Granel de pasajeros
+Mission_PassengerVIP: Misión - Pasajero VIP
+Mission_Rescue: Misión - rescate
+Mission_Salvage: Misión - Salvamento
+Mission_Scan: Misión - Escanear
+Missions Completed Today: Misiones completadas hoy
+Mission_Sightseeing: Misión - Turismo
+Mission_TheDead: Misión - los muertos
+Murder: Asesinato
+Other: Otro
+Piracy: Piratería
+Play Style: Estilo de juego
+RecklessWeaponsDischarge: Descarga de armas imprudentes
+Scannable: Escaneable
+SearchAndRescue: Búsqueda y rescate
+Select Report: Seleccione Informe
+Settlement: Asentamiento
+Today's Earnings: Ganancias de hoy
