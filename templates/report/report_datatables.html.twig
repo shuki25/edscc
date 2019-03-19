@@ -15,11 +15,12 @@
                 <div class="clearfix pull-right no-padding no-margin report-picker">
                     <div class="row">
                         <div class="col-md-4 report-label text-right">
-                            Select Report:
+                            {% trans %}Select Report{% endtrans %}:
                         </div>
                         <div class="col-md-8 pull-right">
                             <form class="input-group-sm" method="post" href="{{ path('app_player_reports') }}">
-                                <select id="report-picker" class="form-control text-sm" name="report" style="width: 300px;">
+                                <select id="report-picker" class="form-control text-sm" name="report"
+                                        style="width: 320px;">
                                     {% for item in report_picker %}
                                         <option value="{{ item.id }}"{% if item.id == report_id %} selected="selected"{% endif %}>{{ item.title|trans }}</option>
                                     {% endfor %}
