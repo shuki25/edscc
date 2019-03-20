@@ -6,7 +6,7 @@ About Your Squadron: Sobre o seu esquadrão
 Access Denied: Acesso negado
 Action: Açao
 Activated: ativado
-Activation Code for ED:SCC: 'Código de Ativação para ED: SCC'
+Activation Code for ED:SCC: Código de Ativação para ED:SCC
 Activities: actividades
 Add New Announcement: Adicionar novo anúncio
 Add New MOTD: Adicionar novo MOTD
@@ -161,7 +161,7 @@ Elite: Elite
 Email: O email
 E-mail address verified: Endereço de Email verificado
 email_verification_message: Uma verificação de endereço de e-mail é necessária para
-  ativar sua conta. Um email foi enviado para% email% com um token para continuar
+    ativar sua conta. Um email foi enviado para %email% com um token para continuar
   com a criação da nova conta.
 Empire: Império
 English: Inglês
@@ -195,7 +195,7 @@ Finishing up your registration - Please select your Squadron: Finalizando seu ca
 FireInNoFireZone: Fogo em nenhuma zona de fogo
 FireInStation: Fogo, em, estação
 First: Primeiro
-French: francês
+French: Francês
 Fuel Rats: Ratos De Combustível
 Game Date: Data do Jogo
 Game Mode: Modo de jogo
@@ -431,7 +431,7 @@ Sign In: Assinar em
 Sign in to start your session: Entre para iniciar sua sessão
 Sign out: Sair
 Solo: Solo
-Spanish: espanhol
+Spanish: Espanhol
 Squadron: Esquadra
 Squadron Dashboard: Painel do Esquadrão
 Squadron Details: Detalhes do Esquadrão
@@ -563,7 +563,7 @@ Your squadron leader has banned you.: Seu líder de esquadrão baniu você.
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Sem itens | {1} um item |]
   1, Inf [ %count% itens"
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
-  Nenhum membro novo entrou hoje {1} Um novo associado entrou hoje |] 1, Inf [ %count%
+  Nenhum membro novo entrou hoje| {1} Um novo associado entrou hoje |] 1, Inf [ %count%
   novos membros cadastrados hoje"
 'Access Denied: Account status is %status%': 'Acesso negado: o status da conta é %status%'
 Activities Report for CMDR %name%: Relatório de atividades para o CMDR %name%
