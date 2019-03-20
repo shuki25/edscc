@@ -41,6 +41,7 @@ Approval is required to join this squad.: Se requiere aprobación para unirse a 
   equipo.
 Approval Required: Aprobación requerida
 Approved: Aprobado
+Assault: Asalto
 Attitude: Actitud
 Author: Autor
 Availability: Disponibilidad
@@ -52,6 +53,7 @@ Baron: Barón
 Besides letters, include at least a number or symbol: Además de las letras, incluya
   al menos un número o símbolo
 Bodies Discovered: Cuerpos descubiertos
+Bodies Found Today: Cuerpos encontrados hoy
 Bounties Collected over last 30 days: Las recompensas recogidas en los últimos 30
   días
 Bounty: Generosidad
@@ -59,6 +61,7 @@ Bounty Hunters: Caza recompensas
 Broker: Corredor
 Cadet: Cadete
 Cancel: Cancelar
+CapShipBond: Captial Ship Bond
 CG Participated: CG Participó
 Champion: Campeón
 Change Password: Cambia la contraseña
@@ -74,7 +77,12 @@ Choose the gaming platform this Squadron plays on: Elige la plataforma de juego 
 Choose the status to determine user's access privilege to the squadron: Elija el estado
   para determinar el privilegio de acceso del usuario al escuadrón
 CMDR %name%: CMDR %name%
+Codex: Códice
+CollidedAtSpeedInNoFireZone: Chocó a velocidad en la zona sin fuego
+CollidedAtSpeedInNoFireZoneHullDamage: Chocó a velocidad en la zona sin fuego (daño
+  del casco)
 Combat: Combate
+CombatBond: Bono de combate
 Commander: Comandante
 Commander Activities: Actividades de comandante
 Commander data has been purged from the system.: Los datos del comandante se han eliminado
@@ -86,11 +94,13 @@ Commander Name: Nombre del Comandante
 Commander Name (without CMDR): Nombre del comandante (sin CMDR)
 Commander Performance: Comandante de rendimiento
 Commanders Joined: Comandantes unidos
+CommunityGoalReward: Recompensa de la meta comunitaria
 Competent: Competente
 Complete Registration: Registro completo
 Complete SAA Scans: Exploraciones completas de SAA
 Continue: Continuar
 Count: Contar
+count_prior_day: "%count%% del día anterior"
 CQC: CQC
 Create: Crear
 Create a New Squadron: Crear un nuevo escuadrón
@@ -99,8 +109,10 @@ Create New Squadron: Crear nuevo escuadrón
 Creating a new announcement: Creando un nuevo anuncio.
 Creating a new MOTD: Creando un nuevo MOTD
 Creating a New Squadron: Creando un nuevo escuadrón
+Credit: Crédito
 Credits: Creditos
 Crew Paid: Tripulación pagada
+Crew Wage: Salario de la tripulación
 Crime: Crimen
 Criminal History: Historia criminal
 Criminal History (Detailed): Antecedentes penales (detallado)
@@ -118,6 +130,11 @@ Custom Rank Name: Nombre de rango personalizado
 Daily Total Earning on: Ingreso total diario en
 Dangerous: Peligroso
 Data: Datos
+datatable_empty_table: No hay datos disponibles en la tabla
+datatable_info: Mostrando _START_ a _END_ de _TOTAL_ entradas
+datatable_info_empty: Mostrando 0 a 0 de 0 entradas
+datatable_info_filtered: "(filtrado de _MAX_ entradas totales)"
+datatable_zero_records: No se encontraron registros coincidentes
 Date: Fecha
 Date Committed: Fecha comprometida
 Date Processed: Fecha procesada
@@ -130,7 +147,16 @@ Default Rank Name: Nombre de rango predeterminado
 Denied: Negado
 Description: Descripción
 Devoted: Devoto
+DisobeyPolice: Desobedecer policia
+DockingMajorBlockingAirlock: Docking Major Bloqueo Airlock
+DockingMajorBlockingLandingPad: Docking Major Blocking Landing Pad
+DockingMajorTrespass: Atracar mayor paso
+DockingMinorBlockingAirlock: Muelle de bloqueo de bloqueo menor
+DockingMinorBlockingLandingPad: Muelle de aterrizaje de bloqueo menor de acoplamiento
+DockingMinorTrespass: Atravesar un paso menor
 Duke: Duque
+DumpingDangerous: Dumping peligroso
+DumpingNearStation: Dumping cerca de la estación
 Earl: Conde
 Earning History (Detailed): Historial de ganancias (detallado)
 Earning History Summary: Resumen del historial de ganancias
@@ -166,11 +192,13 @@ Expired CSRF Token. Please refresh the page to continue.: Token CSRF caducado. P
   favor, actualice la página para continuar.
 Expired CSRF Token. Please try again.: Token CSRF caducado. Inténtalo de nuevo.
 Exploration: Exploración
+ExplorationData: Datos de Exploración
 Exploration Data Sold over last 30 days: Datos de exploración vendidos en los últimos
   30 días
 Explorer: Explorador
 Explorers: Exploradores
 Faction Affiliation: Afiliación de facciones
+FactionKillBond: Faction Kill Bond
 Faction / Superpower Affiliations: Afiliaciones de facción / superpotencia
 Faction Supporters: Partidarios de la facción
 'false': falso
@@ -180,6 +208,8 @@ Federation: Federación
 Fine: Multa
 Finishing up your registration - Please select your Squadron: Terminando su registro
   - Por favor seleccione su Escuadrón
+FireInNoFireZone: Fuego en Zona Sin Fuego
+FireInStation: Fuego en estacion
 First: Primero
 French: Francés
 Fuel Rats: Ratas de combustible
@@ -196,13 +226,16 @@ Home base: Base
 Home Base: Base
 Humanitarian Aid Providers: Proveedores de ayuda humanitaria
 I agree to the terms: Acepto los términos
+I already have a membership: Ya tengo membresia
 ID: CARNÉ DE IDENTIDAD
 I did not get the activation e-mail. Please resend.: No recibí el correo de activación.
   Por favor, reenviar.
 I forgot my password: Olvidé mi contraseña
+IllegalCargo: Carga ilegal
 Import History: Historial de importación
 Import Queue Status: Estado de la cola de importación
 In Queue: En fila
+Interdiction: Interdicción
 Internal Error: Error interno
 Invalid temporary password or mismatched new/verify password pairs.: Contraseña temporal
   no válida o pares de contraseñas nuevas / verificadas no coincidentes.
@@ -239,6 +272,8 @@ Manage MOTD: Manejar MOTD
 Manage Squadron Announcements: Administrar anuncios de escuadrón
 Manage Tags: Administrar etiquetas
 Mark as Published: Marcar como publicado
+MarketBuy: Mercado de compra
+MarketSell: Venta en el mercado
 Mark this MOTD as visible: Marque este MOTD como visible
 Mark this MOTD as visible on the login screen: Marque este MOTD como visible en la
   pantalla de inicio de sesión
@@ -256,14 +291,37 @@ Midshipman: Guardia marina
 Miners: Mineros
 Minor Faction Activities Summary: Resumen de actividades de facciones menores
 Minor Faction Issued By: Facción menor emitida por
+Mission_Altruism: Misión - Altruismo
+Mission_Assassinate: Misión - Asesinar
+Mission_AssassinateWing: Misión - Asesinar (Ala)
+Mission_Collect: Misión - recoger
+MissionCompleted: Misión completada (No especificado)
+Mission_Courier: Misión - mensajero
+Mission_Delivery: Misión - Entrega
+Mission_DeliveryWing: Misión - Entrega (Ala)
+Mission_Disable: Misión - Deshabilitar
+Mission_DS: Misión - DS (???)
+Mission_Hack: Misión - Hack
+Mission_Massacre: Misión - masacre
+Mission_MassacreWing: Misión - Masacre (Ala)
+Mission_Mining: Misión - Minería
+Mission_PassengerBulk: Misión - Granel de pasajeros
+Mission_PassengerVIP: Misión - Pasajero VIP
+Mission_Rescue: Misión - rescate
 Mission Rewards Collected over last 30 days: Recompensas de la misión recogidas en
   los últimos 30 días
+Mission_Salvage: Misión - Salvamento
+Mission_Scan: Misión - Escanear
 Missions Completed: Misiones completadas
+Missions Completed Today: Misiones completadas hoy
+Mission_Sightseeing: Misión - Turismo
+Mission_TheDead: Misión - los muertos
 Mostly Aimless: En su mayoría sin objetivo
 Mostly Harmless: Sobre todo inofensivo
 Mostly Helpless: En su mayoría desamparados
 Mostly Penniless: En su mayoría sin dinero
 MOTD: MOTD
+Murder: Asesinato
 My Account: Mi cuenta
 My Profile: Mi perfil
 Name of your Squadron: Nombre de tu escuadrón
@@ -283,6 +341,7 @@ Novice: Principiante
 Occasional: Ocasional
 Officer: Oficial
 Open: Abierto
+Other: Otro
 Other Players in Your Squadron (Average): Otros jugadores en tu escuadrón (promedio)
 Other Squadrons (Average): Otros Escuadrones (Promedio)
 Outsider: Forastero
@@ -315,6 +374,7 @@ Permission Denied. Unable to access to this resource.: Permiso denegado. No se p
 Permissions: Permisos
 Petty Officer: Contramaestre
 Pioneer: Pionero
+Piracy: Piratería
 Pirates: Piratas
 Player: Jugador
 Player Activities Report: Informe de Actividades del Jugador
@@ -322,6 +382,7 @@ Player Dashboard: Tablero del jugador
 Player Journal Log: Diario del Jugador
 Player Journal Log Import History: Historial de importación del registro del diario
   del jugador
+Play Style: Estilo de juego
 Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Por
   favor, ingrese la razón por la cual el estado se asigna según sea necesario (si
   se niega el acceso, etc.)
@@ -356,6 +417,7 @@ Rank: Rango
 Ranks: Rangos
 Rear Admiral: Contraalmirante
 Reason: Razón
+RecklessWeaponsDischarge: Descarga de armas imprudentes
 Recruit: Recluta
 Refresh: Refrescar
 Regenerate API Key: Regenerar clave de API
@@ -379,13 +441,17 @@ Role Tags: Etiquetas de rol
 Rookie: Novato
 Russian: ruso
 Save Changes: Guardar cambios
+Scannable: Escaneable
 Scout: Explorar
 Seals: focas
 Search...: Buscar...
+SearchAndRescue: Búsqueda y rescate
 Select Log Files: Seleccione los archivos de registro
+Select Report: Seleccione Informe
 Semi Professional: Semi profesional
 Senior Officer: Oficial Mayor
 Serf: Siervo
+Settlement: Asentamiento
 Showing items: Mostrando artículos
 Sign In: Registrarse
 Sign in to start your session: Inicia sesión para iniciar tu sesión.
@@ -433,6 +499,7 @@ This post is pinned (always will appear on the top of page): Esta publicación e
   anclada (siempre aparecerá en la parte superior de la página)
 Timestamp: Marca de tiempo
 Title: Título
+Today's Earnings: Ganancias de hoy
 Total: Total
 Total Asset: Activos totales
 Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
@@ -526,70 +593,9 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-Assault: Asalto
-Bodies Found Today: Cuerpos encontrados hoy
-CapShipBond: Captial Ship Bond
-Codex: Códice
-CollidedAtSpeedInNoFireZone: Chocó a velocidad en la zona sin fuego
-CollidedAtSpeedInNoFireZoneHullDamage: Chocó a velocidad en la zona sin fuego (daño
-  del casco)
-CombatBond: Bono de combate
-CommunityGoalReward: Recompensa de la meta comunitaria
-Credit: Crédito
-Crew Wage: Salario de la tripulación
-datatable_empty_table: No hay datos disponibles en la tabla
-datatable_info: Mostrando _START_ a _END_ de _TOTAL_ entradas
-datatable_info_empty: Mostrando 0 a 0 de 0 entradas
-datatable_info_filtered: "(filtrado de _MAX_ entradas totales)"
-datatable_zero_records: No se encontraron registros coincidentes
-DisobeyPolice: Desobedecer policia
-DockingMajorBlockingAirlock: Docking Major Bloqueo Airlock
-DockingMajorBlockingLandingPad: Docking Major Blocking Landing Pad
-DockingMajorTrespass: Atracar mayor paso
-DockingMinorBlockingAirlock: Muelle de bloqueo de bloqueo menor
-DockingMinorBlockingLandingPad: Muelle de aterrizaje de bloqueo menor de acoplamiento
-DockingMinorTrespass: Atravesar un paso menor
-DumpingDangerous: Dumping peligroso
-DumpingNearStation: Dumping cerca de la estación
-ExplorationData: Datos de Exploración
-FactionKillBond: Faction Kill Bond
-FireInNoFireZone: Fuego en Zona Sin Fuego
-FireInStation: Fuego en estacion
-I already have a membership: Ya tengo membresia
-IllegalCargo: Carga ilegal
-Interdiction: Interdicción
-MarketBuy: Mercado de compra
-MarketSell: Venta en el mercado
-Mission_Altruism: Misión - Altruismo
-Mission_Assassinate: Misión - Asesinar
-Mission_AssassinateWing: Misión - Asesinar (Ala)
-Mission_Collect: Misión - recoger
-MissionCompleted: Misión completada (No especificado)
-Mission_Courier: Misión - mensajero
-Mission_Delivery: Misión - Entrega
-Mission_DeliveryWing: Misión - Entrega (Ala)
-Mission_Disable: Misión - Deshabilitar
-Mission_DS: Misión - DS (???)
-Mission_Hack: Misión - Hack
-Mission_Massacre: Misión - masacre
-Mission_MassacreWing: Misión - Masacre (Ala)
-Mission_Mining: Misión - Minería
-Mission_PassengerBulk: Misión - Granel de pasajeros
-Mission_PassengerVIP: Misión - Pasajero VIP
-Mission_Rescue: Misión - rescate
-Mission_Salvage: Misión - Salvamento
-Mission_Scan: Misión - Escanear
-Missions Completed Today: Misiones completadas hoy
-Mission_Sightseeing: Misión - Turismo
-Mission_TheDead: Misión - los muertos
-Murder: Asesinato
-Other: Otro
-Piracy: Piratería
-Play Style: Estilo de juego
-RecklessWeaponsDischarge: Descarga de armas imprudentes
-Scannable: Escaneable
-SearchAndRescue: Búsqueda y rescate
-Select Report: Seleccione Informe
-Settlement: Asentamiento
-Today's Earnings: Ganancias de hoy
-count_prior_day: "%count%% del día anterior"
+Comments: Comentarios
+Current Password: contraseña actual
+Like: Me gusta
+Mark as Read: Marcar como leído
+Posted by CMDR %author%: Publicado por CMDR% autor%
+Posted by Site Administrator: Publicado por el administrador del sitio
