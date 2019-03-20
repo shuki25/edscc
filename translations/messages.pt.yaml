@@ -558,3 +558,35 @@ Your password has been reset: Sua senha foi alterada
 Your settings have been saved.: Suas configurações foram salvas.
 Your Squadron: Seu esquadrão
 Your squadron leader has banned you.: Seu líder de esquadrão baniu você.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Nenhuma
+  entrada | {1} Uma entrada |] 1, Inf [ %start% to %end% of %count% entries"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Sem itens | {1} um item |]
+  1, Inf [ %count% itens"
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  Nenhum membro novo entrou hoje {1} Um novo associado entrou hoje |] 1, Inf [ %count%
+  novos membros cadastrados hoje"
+'Access Denied: Account status is %status%': 'Acesso negado: o status da conta é %status%'
+Activities Report for CMDR %name%: Relatório de atividades para o CMDR %name%
+CMDR %name%: CMDR %name%
+count_prior_day: "%count%% do dia anterior"
+Current Password: Senha atual
+ED:SCC Approval Requested: ED:SCC aprovação de solicitada
+ED:SCC Squadron Owner: ED:SCC Squadron Owner
+German: Alemão
+ID: Identidade
+Master: Mestre
+pending_access_message: Seu acesso está aguardando a aprovação do líder do esquadrão.
+  Como você se juntou ao esquadrão que requer a aprovação de um dos líderes do esquadrão,
+  você receberá um e-mail indicando que seu acesso foi concedido assim que você for
+  aprovado. Se você tiver alguma dúvida, entre em contato com seu líder de esquadrão,
+  CMDR %cmdr%, no jogo.
+Posted by CMDR %author%: Postado por CMDR %author%
+Russian: Russo
+'Squadron: %name%': 'Esquadra: %name%'
+'Strength: %strength% (cracked in %number% %unit%)': 'Força: %strength% (rachado em
+  %number% %unit%)'
+Temporary Password: Senha temporária
+Total Earned: Ganho Total
+Verify Password: Verifique a senha
+Welcome to %name%: Bem vindo a %name%
+'Yes': Sim
