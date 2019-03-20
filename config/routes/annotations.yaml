@@ -8,3 +8,4 @@ controllers:
         fr: '/fr'
         ru: '/ru'
         de: '/de'
+        pt: '/pt'
