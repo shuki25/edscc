@@ -9,4 +9,5 @@ twig:
         layout_option: 'sidebar-mini'
         menuBuilder: "@app.menu_builder"
         baseUrl: '%env(BASE_URL)%'
+        capi_client_id: '%env(CAPI_CLIENT_ID)%'
 

@@ -4,6 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/custom-datatables.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
 {% endblock %}
@@ -41,8 +42,9 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#upload" data-toggle="tab">{% trans %}Upload Files{% endtrans %}</a></li>
-                        <li><a href="#import_history" data-toggle="tab">{% trans %}Import History{% endtrans %}</a></li>
                         <li><a href="#edmc_plugin" data-toggle="tab">{% trans %}EDMC Plug-in{% endtrans %}</a></li>
+                        <li><a href="#ps4_xbox" data-toggle="tab">{% trans %}PS4/Xbox{% endtrans %}</a></li>
+                        <li><a href="#import_history" data-toggle="tab">{% trans %}Import History{% endtrans %}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="upload">
@@ -143,7 +145,9 @@
                         <div class="tab-pane" id="edmc_plugin">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-feed fa-lg margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Using EDMC Plug-in to Capture Data{% endtrans %}</h3>
+                                    <h3 class="panel-title"><i class="fa fa-rss fa-lg margin-r-5 panel-title"
+                                                               style="font-size: 24px; vertical-align: middle"></i> {% trans %}Using EDMC Plug-in to Capture Data{% endtrans %}
+                                    </h3>
                                 </div>
                                 <div class="panel-body">
                                     <div>
@@ -183,6 +187,67 @@
                             <!-- /.panel -->
                         </div>
                         <!-- /.tab-pane -->
+                        <div class="tab-pane" id="ps4_xbox">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-gamepad fa-lg margin-r-5 panel-title"
+                                                               style="font-size: 24px; vertical-align: middle"></i> {% trans %}Getting Journal Data for Console Players{% endtrans %}
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="box box-warning">
+                                        <div class="box-header">
+                                            {% trans %}Connecting to Frontier{% endtrans %}
+                                        </div>
+                                        <div class="box-body">
+                                            <div>
+                                                <p>Frontier Development (FDev) provides an external service for console
+                                                    players to import their journal data to any 3rd party application.
+                                                    However, the journal data is only kept up to 24 days and will not
+                                                    download today's gameplay. The app will automatically download the
+                                                    players' journal logs. To enable this app to retrieve your data, you
+                                                    will need to log in through Frontier User Portal with your
+                                                    credentials and confirm that you authorize ED:SCC to download your
+                                                    journal data.</p>
+                                            </div>
+                                            <div class="box-body no-padding">
+                                                <div class="row">
+                                                    <div class="col-sm-6 pull-left">
+                                                        <span class="">{% trans %}Frontier User Portal Status{% endtrans %}:</span>
+                                                        <span class="badge bg-red">{% trans %}Not Connected{% endtrans %}</span>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a href=""
+                                                           class="btn btn-sm btn-primary pull-right">{% trans %}Connect to Frontier User Portal{% endtrans %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-warning">
+                                        <div class="box-header">
+                                            {% trans %}Feed Preferences{% endtrans %}
+                                        </div>
+                                        <div class="box-body">
+                                            <input id="capi-daily" type="checkbox" data-toggle="toggle" data-size="mini"
+                                                   data-on="{% trans %}Yes{% endtrans %}"
+                                                   data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
+                                                   data-offstyle="danger" name="capi_daily" value="1">
+                                            <label class="control-label" for="capi-daily"
+                                                   style="margin-left: 5px;">{% trans %}Automatically download journal data every day (at 01:00 UTC){% endtrans %}</label><br>
+                                            <input id="capi-ttl" type="checkbox" data-toggle="toggle" data-size="mini"
+                                                   data-on="{% trans %}Yes{% endtrans %}"
+                                                   data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
+                                                   data-offstyle="danger" name="capi_ttl" value="1">
+                                            <label class="control-label" for="capi-ttl"
+                                                   style="margin-left: 5px;">{% trans %}Keep Frontier User Portal access connection alive (don't have to reconnect){% endtrans %}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.tab-pane -->
                     </div>
                     <!-- /.tab-content -->
                 </div>
@@ -200,6 +265,7 @@
 {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>#}
 <script src="{{ asset('js/jquery.form.js') }}"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script>
     $('#table').DataTable({
         columnDefs: [

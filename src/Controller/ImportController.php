@@ -24,4 +24,13 @@ class ImportController extends AbstractController
             'user' => $user
         ]);
     }
+
+    /**
+     * @Route("/import/capi/auth", name="app_capi_auth")
+     */
+    public function capi_auth(Request $request)
+    {
+
+    }
+
 }
