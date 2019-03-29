@@ -34,20 +34,28 @@
         </div>
         <!-- /.modal -->
         <div class="row">
-            <div class="col-md-3">
-                {% include 'members/profile_sidebar.html.twig' %}
-            </div>
+            {#<div class="col-md-3">#}
+            {#{% include 'members/profile_sidebar.html.twig' %}#}
+            {#</div>#}
             <!-- /.col -->
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#upload" data-toggle="tab">{% trans %}Upload Files{% endtrans %}</a></li>
-                        <li><a href="#edmc_plugin" data-toggle="tab">{% trans %}EDMC Plug-in{% endtrans %}</a></li>
-                        <li><a href="#ps4_xbox" data-toggle="tab">{% trans %}PS4/Xbox{% endtrans %}</a></li>
-                        <li><a href="#import_history" data-toggle="tab">{% trans %}Import History{% endtrans %}</a></li>
+                        <li {% if tab == "upload" %}class="active"{% endif %}><a href="#upload"
+                                                                                 data-toggle="tab">{% trans %}Upload Files{% endtrans %}</a>
+                        </li>
+                        <li {% if tab == "edmc_plugin" %}class="active"{% endif %}><a href="#edmc_plugin"
+                                                                                      data-toggle="tab">{% trans %}EDMC Plug-in{% endtrans %}</a>
+                        </li>
+                        <li {% if tab == "ps4_xbox" %}class="active"{% endif %}><a href="#ps4_xbox"
+                                                                                   data-toggle="tab">{% trans %}PS4/Xbox{% endtrans %}</a>
+                        </li>
+                        <li {% if tab == "import_history" %}class="active"{% endif %}><a href="#import_history"
+                                                                                         data-toggle="tab">{% trans %}Import History{% endtrans %}</a>
+                        </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="upload">
+                        <div class="{% if tab == "upload" %}active {% endif %}tab-pane" id="upload">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><i class="fa fa-upload fa-lg margin-r-5 panel-title" style="font-size: 24px; vertical-align: middle"></i> {% trans %}Uploading Player's Journal Log Files{% endtrans %}</h3>
@@ -103,7 +111,7 @@
                             <!-- /.panel -->
                         </div>
                         <!-- /.tab-pane -->
-                        <div class="tab-pane" id="import_history">
+                        <div class="{% if tab == "import_history" %}active {% endif %}tab-pane" id="import_history">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -142,7 +150,7 @@
                         </div>
                         <!-- /.tab-pane -->
 
-                        <div class="tab-pane" id="edmc_plugin">
+                        <div class="{% if tab == "edmc_plugin" %}active {% endif %}tab-pane" id="edmc_plugin">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><i class="fa fa-rss fa-lg margin-r-5 panel-title"
@@ -187,7 +195,7 @@
                             <!-- /.panel -->
                         </div>
                         <!-- /.tab-pane -->
-                        <div class="tab-pane" id="ps4_xbox">
+                        <div class="{% if tab == "ps4_xbox" %}active {% endif %}tab-pane" id="ps4_xbox">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><i class="fa fa-gamepad fa-lg margin-r-5 panel-title"
@@ -197,52 +205,102 @@
                                 <div class="panel-body">
                                     <div class="box box-warning">
                                         <div class="box-header">
-                                            {% trans %}Connecting to Frontier{% endtrans %}
+                                            <i class="fas fa-link margin-r-5"></i> {% trans %}Connecting to Frontier{% endtrans %}
                                         </div>
                                         <div class="box-body">
                                             <div>
-                                                <p>Frontier Development (FDev) provides an external service for console
-                                                    players to import their journal data to any 3rd party application.
-                                                    However, the journal data is only kept up to 24 days and will not
-                                                    download today's gameplay. The app will automatically download the
-                                                    players' journal logs. To enable this app to retrieve your data, you
-                                                    will need to log in through Frontier User Portal with your
-                                                    credentials and confirm that you authorize ED:SCC to download your
-                                                    journal data.</p>
+                                                <p>{% trans %}capi_instruction{% endtrans %}</p>
                                             </div>
                                             <div class="box-body no-padding">
                                                 <div class="row">
                                                     <div class="col-sm-6 pull-left">
                                                         <span class="">{% trans %}Frontier User Portal Status{% endtrans %}:</span>
-                                                        <span class="badge bg-red">{% trans %}Not Connected{% endtrans %}</span>
+                                                        {% if oauth2.connectionFlag %}
+                                                            {% if current_time > oauth2.expiresIn %}
+                                                                <span class="badge bg-red">{% trans %}Token Expired{% endtrans %}</span>
+                                                            {% else %}
+                                                                <span class="badge bg-green">{% trans %}Connected{% endtrans %}</span>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <span class="badge bg-red">{% trans %}Not Connected{% endtrans %}</span>
+                                                        {% endif %}
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <a href=""
+                                                        {% if oauth2.connectionFlag == false or current_time > oauth2.expiresIn %}
+                                                            <a href="{{ path('app_capi_auth') }}?_token={{ csrf_token('capi_auth') }}"
                                                            class="btn btn-sm btn-primary pull-right">{% trans %}Connect to Frontier User Portal{% endtrans %}</a>
+                                                        {% else %}
+                                                            {% if oauth2.syncStatus %}
+                                                                <button type="button" disabled="disabled"
+                                                                        class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</button>
+                                                            {% else %}
+                                                                <a href="{{ path('app_capi_disconnect') }}?_token={{ csrf_token('capi_disconnect') }}"
+                                                                   class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</a>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 pull-left">
+                                                        <span class="">{% trans %}Journal data last fetched on{% endtrans %}:</span>
+                                                        {% if oauth2.lastFetchedOn %}
+                                                            {{ oauth2.lastFetchedOn|ago }}
+                                                        {% else %}
+                                                            {% trans %}Never{% endtrans %}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {% if oauth2.connectionFlag != false %}
+                                                            {% if oauth2.syncStatus == false %}
+                                                                <a href="{{ path('app_capi_sync') }}?_token={{ csrf_token('capi_sync') }}"
+                                                                   class="btn btn-sm btn-primary pull-right"><i
+                                                                            class="fas fa-sync margin-r-5"></i> {% trans %}Sync Journal Data{% endtrans %}
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="#"
+                                                                   class="btn btn-sm btn-danger pull-right">{% trans %}Stop Syncing{% endtrans %}</a>
+                                                                <button type="button" disabled="disabled"
+                                                                        class="btn btn-sm btn-primary pull-right"><i
+                                                                            class="fas fa-sync fa-spin margin-r-5"></i> {% trans %}Syncing{% endtrans %}
+                                                                </button>
+                                                            {% endif %}
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="box box-warning">
-                                        <div class="box-header">
-                                            {% trans %}Feed Preferences{% endtrans %}
+                                    {% if oauth2.connectionFlag == true %}
+                                        <div class="box box-warning">
+                                            <div class="box-header">
+                                                <i class="fas fa-sliders-h margin-r-5"></i> {% trans %}Journal Data Feed Preferences{% endtrans %}
+                                            </div>
+                                            <div class="box-body">
+                                                <form action="{{ path('app_capi_prefs') }}" method="post">
+                                                    <input id="capi-daily" type="checkbox" data-toggle="toggle"
+                                                           data-size="mini"
+                                                           data-on="{% trans %}Yes{% endtrans %}"
+                                                           data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
+                                                           data-offstyle="danger" name="capi_daily"
+                                                           value="1"{% if oauth2.autoDownload %} checked="checked"{% endif %}>
+                                                    <label class="control-label" for="capi-daily"
+                                                           style="margin-left: 5px;">{% trans %}Automatically download journal data every day (at 01:00 UTC){% endtrans %}</label><br>
+                                                    <input id="capi-ttl" type="checkbox" data-toggle="toggle"
+                                                           data-size="mini"
+                                                           data-on="{% trans %}Yes{% endtrans %}"
+                                                           data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
+                                                           data-offstyle="danger" name="capi_ttl"
+                                                           value="1"{% if oauth2.keepAlive %} checked="checked"{% endif %}{% if oauth2.autoDownload %} disabled="disabled"{% endif %}>
+                                                    <label class="control-label" for="capi-ttl"
+                                                           style="margin-left: 5px;">{% trans %}Keep Frontier User Portal access connection alive (don't have to reconnect){% endtrans %}</label><br><br>
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-primary">{% trans %}Save Settings{% endtrans %}</button>
+                                                    <input type="hidden" name="_token"
+                                                           value="{{ csrf_token('capi_prefs') }}">
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="box-body">
-                                            <input id="capi-daily" type="checkbox" data-toggle="toggle" data-size="mini"
-                                                   data-on="{% trans %}Yes{% endtrans %}"
-                                                   data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
-                                                   data-offstyle="danger" name="capi_daily" value="1">
-                                            <label class="control-label" for="capi-daily"
-                                                   style="margin-left: 5px;">{% trans %}Automatically download journal data every day (at 01:00 UTC){% endtrans %}</label><br>
-                                            <input id="capi-ttl" type="checkbox" data-toggle="toggle" data-size="mini"
-                                                   data-on="{% trans %}Yes{% endtrans %}"
-                                                   data-off="{% trans %}No{% endtrans %}" data-onstyle="success"
-                                                   data-offstyle="danger" name="capi_ttl" value="1">
-                                            <label class="control-label" for="capi-ttl"
-                                                   style="margin-left: 5px;">{% trans %}Keep Frontier User Portal access connection alive (don't have to reconnect){% endtrans %}</label>
-                                        </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- /.panel -->
@@ -361,6 +419,18 @@
                 }
             });
         });
+    });
+
+    $().ready(function () {
+        $('#capi-daily').change(function (e) {
+            e.preventDefault();
+            if ($('#capi-daily').is(':checked')) {
+                $('#capi-ttl').bootstrapToggle('on').bootstrapToggle('disable');
+
+            } else {
+                $('#capi-ttl').bootstrapToggle('enable');
+            }
+        })
     });
 
     $().ready(function () {

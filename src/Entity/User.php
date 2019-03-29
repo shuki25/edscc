@@ -147,6 +147,11 @@ class User implements UserInterface
      */
     private $readHistories;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Oauth2", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $oauth2;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
@@ -598,6 +603,23 @@ class User implements UserInterface
             if ($readHistory->getUser() === $this) {
                 $readHistory->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getOauth2(): ?Oauth2
+    {
+        return $this->oauth2;
+    }
+
+    public function setOauth2(Oauth2 $oauth2): self
+    {
+        $this->oauth2 = $oauth2;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $oauth2->getUser()) {
+            $oauth2->setUser($this);
         }
 
         return $this;

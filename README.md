@@ -55,9 +55,12 @@ $ vi .env.local
 ```
 $ crontab -e
 ```
-Add the following line in the editor. It will run every 5 minutes. You can change the frequency if you'd like. Refer to [Crontab reference guide](https://linuxconfig.org/linux-crontab-reference-guide) for more information.
+Add the following lines in the editor. It will run at various time depending on the tasks. You can change the frequency if you'd like. It's best to keep them staggered to prevent several tasks from running at the same time. Refer to [Crontab reference guide](https://linuxconfig.org/linux-crontab-reference-guide) for more information.
 ```
 */5 * * * * cd /path/to/base/dir/edscc; bin/console app:import-queue >/dev/null 2>&1
+1-59/5 * * * * cd /path/to/base/dir/edscc; bin/console app:capi-queue >/dev/null 2>&1
+*/10 * * * * cd /path/to/base/dir/edscc; bin/console app:capi-refresh-token >/dev/null 2>&1
+0 1 * * * cd /path/to/base/dir/edscc; bin/console app:capi-autoupdate >/dev/null 2>&1
 ```
 
 
@@ -149,7 +152,14 @@ $ bin/console app:load-dummy-data -h
 ```
 
 ### Contacting Maintainer
-You can drop a message to shuki25 on [EDCD discord](https://discord.gg/zQjjutY). If you want to contribute, please make a new issue to describe a new feature you would like to create to ensure that the work would not be duplicated by someone else who is already working on. Otherwise, leave a note
+You can drop a message to shuki25#1766 on [EDCD discord](https://discord.gg/zQjjutY). If you want to contribute, please make a new issue to describe a new feature you would like to create to ensure that the work would not be duplicated by someone else who is already working on. Otherwise, leave a note
+
+### Credits / Acknowledgements
+* "Elite Dangerous" is &copy;1984 - 2019 Frontier Developments plc.
+* Thanks to Cmdr Athalen for German translation.
+* Thanks to Cmdr QUSTO for Russian translation.
+* Thanks to Marginal for [EDMC](https://github.com/marginal/EDMarketConnector).
+* Uses [gitlocalize.com](https://gitlocalize.com) for translation management.
 
 ### License
 GNU GPL-3.0

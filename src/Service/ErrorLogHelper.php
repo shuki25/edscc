@@ -51,4 +51,22 @@ class ErrorLogHelper
         $this->entityManager->persist($error_log);
         $this->entityManager->flush();
     }
+
+    public function addSimpleMsgToErrorLog($scope, $eid, $msg = null, $debug = null)
+    {
+        $error_log = new ErrorLog();
+        $error_id = sprintf("%s-%d", $scope, $eid);
+        $error_msg = $msg;
+        $debug = isset($debug) ? json_encode($debug, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : null;
+
+        $error_log->setScope($scope)
+            ->setErrorId($error_id)
+            ->setErrorMsg($error_msg)
+            ->setStackTrace(null)
+            ->setDebugInfo($debug)
+            ->setDataTrace(null);
+
+        $this->entityManager->persist($error_log);
+        $this->entityManager->flush();
+    }
 }

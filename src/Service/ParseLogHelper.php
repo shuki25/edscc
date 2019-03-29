@@ -125,13 +125,24 @@ class ParseLogHelper
         }
     }
 
-    public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, SessionTracker $session_tracker, $api = false)
+    public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, SessionTracker $session_tracker, $api = false, $capi = false)
     {
         if ($api) {
             $e = $data;
             $session = $session_tracker->getSessionData();
             $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
             $this->activityCounter = $this->activityCounterRepository->findOneBy(['user' => $user, 'squadron' => $user->getSquadron(), 'activity_date' => new \DateTime($game_datetime, $this->utc)]);
+            if (!is_object($this->activityCounter)) {
+                $this->activityCounter = new ActivityCounter();
+                $this->activityCounter->setUser($user)
+                    ->setSquadron($user->getSquadron())
+                    ->setActivityDate(new \DateTime($game_datetime, $this->utc));
+            }
+            $em->persist($this->activityCounter);
+        } elseif ($capi) {
+            $e = json_decode($data, true);
+            $session = $session_tracker->getSessionData();
+            $game_datetime = isset($e['timestamp']) ? $e['timestamp'] : date_format(new \DateTime('now', $this->utc), \DateTime::RFC3339);
             if (!is_object($this->activityCounter)) {
                 $this->activityCounter = new ActivityCounter();
                 $this->activityCounter->setUser($user)

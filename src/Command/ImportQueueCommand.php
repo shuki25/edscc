@@ -103,6 +103,11 @@ class ImportQueueCommand extends Command
         while (isset($entry)) {
             $entry->setProgressCode('L');
             $entry->setTimeStarted();
+            $capi = false;
+
+            if (substr($entry->getOriginalFilename(), 0, 4) == 'CAPI') {
+                $capi = true;
+            }
 
             $this->commander = $this->commanderRepository->findOneBy(['user' => $entry->getUser()]);
             $this->user = $entry->getUser();
@@ -137,7 +142,7 @@ class ImportQueueCommand extends Command
                 while (($data = fgets($fh)) !== false) {
                     try {
                         $line++;
-                        $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data, $session_tracker);
+                        $this->parseLogHelper->parseEntry($em, $this->user, $this->commander, $data, $session_tracker, false, $capi);
                     } catch (\Exception $e) {
                         $debug = [
                             'user_id' => $this->user->getId(),

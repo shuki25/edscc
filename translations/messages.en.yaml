@@ -514,3 +514,13 @@ Current Password: Current Password
 Posted by Site Administrator: Posted by Site Administrator
 PS4/Xbox: PS4/Xbox
 Getting Journal Data for Console Players: Getting Journal Data for Console Players
+capi_instruction: Frontier Development (FDev) provides an external service for console players to import their journal data to any 3rd party application. However, the journal data is only kept up to 24 days and will not download today's gameplay. The app will automatically download the players' journal logs. To enable this app to retrieve your data, you will need to log in through Frontier User Portal with your credentials and confirm that you authorize ED:SCC to download your journal data.
+Token Expired: Token Expired
+Not Connected: Not Connected
+Connected: Connected
+Connect to Frontier User Portal: Connect to Frontier User Portal
+Disconnect: Disconnect
+Journal Data Feed Preferences: Journal Data Feed Preferences
+Sync Journal Data: Sync Journal Data
+Stop Syncing: Stop Syncing
+Syncing: Syncing
