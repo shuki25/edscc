@@ -94,6 +94,7 @@ Commander Name: Nombre del Comandante
 Commander Name (without CMDR): Nombre del comandante (sin CMDR)
 Commander Performance: Comandante de rendimiento
 Commanders Joined: Comandantes unidos
+Comments: Comentarios
 CommunityGoalReward: Recompensa de la meta comunitaria
 Competent: Competente
 Complete Registration: Registro completo
@@ -119,6 +120,7 @@ Criminal History (Detailed): Antecedentes penales (detallado)
 Criminal History Summary: Resumen de antecedentes penales
 Criminal History Summary by Faction: Resumen de antecedentes penales por facción
 Cr/Unit: Cr / Unidad
+Current Password: contraseña actual
 Current Squadron Rank: Rango de escuadrón actual
 Customizing Commander Roles: Personalizando los roles de comandante
 Customizing Rank Classifications: Personalización de clasificaciones de rango
@@ -258,6 +260,7 @@ Last Updated: Última actualización
 Leader: Líder
 Legend: Leyenda
 Lieutenant: Teniente
+Like: Me gusta
 Loan: Préstamo
 lockdown_message: El líder de tu escuadrón ha bloqueado tu cuenta. Necesitarás contactar
   a tu líder de escuadrón en el juego para desbloquear tu cuenta.
@@ -272,6 +275,7 @@ Manage MOTD: Manejar MOTD
 Manage Squadron Announcements: Administrar anuncios de escuadrón
 Manage Tags: Administrar etiquetas
 Mark as Published: Marcar como publicado
+Mark as Read: Marcar como leído
 MarketBuy: Mercado de compra
 MarketSell: Venta en el mercado
 Mark this MOTD as visible: Marque este MOTD como visible
@@ -390,6 +394,8 @@ Please enter your email: Por favor introduzca su correo electrónico
 Portuguese: portugués
 Post Captain: Capitán del puesto
 Post Commander: Puesto de comandante
+Posted by CMDR %author%: Publicado por CMDR% autor%
+Posted by Site Administrator: Publicado por el administrador del sitio
 Power Supporters: Partidarios del poder
 Previous: Anterior
 Prince: Príncipe
@@ -593,9 +599,11 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-Comments: Comentarios
-Current Password: contraseña actual
-Like: Me gusta
-Mark as Read: Marcar como leído
-Posted by CMDR %author%: Publicado por CMDR% autor%
-Posted by Site Administrator: Publicado por el administrador del sitio
+capi_instruction: Frontier Development (FDev) proporciona un servicio externo para
+  que los jugadores de la consola importen sus datos de diario a cualquier aplicación
+  de terceros. Sin embargo, los datos de la revista solo se guardan hasta 24 días
+  y no se descargarán los juegos de hoy. La aplicación descargará automáticamente
+  los registros de diario de los jugadores. Para habilitar esta aplicación para recuperar
+  sus datos, deberá iniciar sesión con Frontier User Portal con sus credenciales y
+  confirmar que autoriza a ED:SCC a descargar los datos de su diario.
+PS4/Xbox: PS4/Xbox
