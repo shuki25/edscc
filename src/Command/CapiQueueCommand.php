@@ -134,10 +134,10 @@ class CapiQueueCommand extends Command
                         $downloadBar->setProgress($downloadedBytes);
                     },
                     'sink' => $fh,
-                    'proxy' => [
-                        'https' => 'tcp://192.168.2.85:8888'
-                    ],
-                    'verify' => false
+//                    'proxy' => [
+//                        'https' => 'tcp://192.168.2.85:8888'
+//                    ],
+//                    'verify' => false
                 ]);
             } catch (RequestException $e) {
                 $io->error($e->getMessage() . '\nUnable to fetch data. Aborted.\n');
