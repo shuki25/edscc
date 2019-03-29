@@ -62,13 +62,11 @@
                                 </div>
                                 <div class="panel-body">
                                     <div>
-                                        <p>To maximize your experience and squadron's experience with the ED:SCC Web application, it requires data from the player journal log files which contains useful lines that record certain actions during your game play.  This application does not collect every action, just actions that are relevant to the Squadron dashboard and performance measurements. We will only capture data from your start date since you joined this squadron and data will not be capture prior to that date.  We only focus on your activities while you are an active squadron member.  When it detects that you have left the squadron, the data collection will stop at that point.</p>
-                                        <p>The usual location for these files can be found in this folder:</p>
+                                        <p>{% trans %}upload_file_instructions_1{% endtrans %}</p>
+                                        <p>{% trans %}upload_file_instructions_2{% endtrans %}:</p>
                                         <p><b>C:\Users\%userprofile%\Saved Games\Frontier Developments\Elite Dangerous</b></p>
-                                        <p>Upload the files with the filenames in a format like this: Journal.190209154325.01.log. Note that all log files end with .log. All other files like Status.json, Journal315129.cache or the similar will not be accepted.</p>
-                                        <p>We also do accept a zip file of all log files combined in a single upload. It
-                                            will process each file and capture relevant data and store in the database.
-                                            Maximum upload file size is {{ upload_max }}.</p>
+                                        <p>{% trans %}upload_file_instructions_3{% endtrans %}</p>
+                                        <p>{% trans with {"%size%": upload_max} %}upload_file_instructions_4{% endtrans %}</p>
                                     </div>
                                     <div class="form-container">
                                         <form action="{{ path('ajax_upload') }}" id="uploadFilesForm" name="fileupload" method="post" enctype="multipart/form-data">
@@ -159,14 +157,15 @@
                                 </div>
                                 <div class="panel-body">
                                     <div>
-                                        <p>Instead of uploading journal files manually, you can use Elite Dangerous Market Connector app to automatically update your statistics and squadron progress. You will need to download the plug-in and install it.  You can get the plug-in at:</p>
+                                        <p>{% trans %}edmc_instructions_1{% endtrans %}:</p>
                                         <p><a href="https://github.com/shuki25/edscc-plug-in">https://github.com/shuki25/edscc-plug-in</a>
                                         </p>
                                         <p><img src="https://i.imgur.com/bcMQd6Z.png"></p>
-                                        <p>If you do not have E:D Market Connector app, you can get it at:</p>
+                                        <p>{% trans %}edmc_instructions_2{% endtrans %}:</p>
                                         <p><a href="https://github.com/Marginal/EDMarketConnector">https://github.com/Marginal/EDMarketConnector</a> </p>
-                                        <p>After you install the app and/or the plug-in, you will need the API key for it to upload your player journal log automatically in real time.  Please copy and paste it in the EDMC settings. Also, you will need to enter the API server endpoint in your EDMC settings:</p>
-                                        <p><b>EDSCC API Server:</b> {{ baseUrl}}{{ path('api_edmc') }}</p>
+                                        <p>{% trans %}edmc_instructions_3{% endtrans %}:</p>
+                                        <p><b>{% trans %}EDSCC API Server{% endtrans %}
+                                                :</b> {{ baseUrl }}{{ path('api_edmc') }}</p>
                                         <form>
                                             <div class="row">
                                                 <div class="col-md-6"> <label>{% trans %}API Key{% endtrans %}: </label></div>
@@ -174,7 +173,6 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="input-group">
-
                                                         <input id="apikey" class="form-control" value="{{ app.user.apikey }}" disabled="disabled">
 
                                                         <div class="input-group-btn">
@@ -186,7 +184,6 @@
                                                     <button id="regenerate_api" type="button"
                                                             class="btn btn-danger">{% trans %}Regenerate API Key{% endtrans %}</button>
                                                 </div>
-
                                             </div>
                                         </form>
                                     </div>

@@ -524,3 +524,13 @@ Journal Data Feed Preferences: Journal Data Feed Preferences
 Sync Journal Data: Sync Journal Data
 Stop Syncing: Stop Syncing
 Syncing: Syncing
+Journal data last fetched on: Journal data last fetched on
+Frontier User Portal Status: Frontier User Portal Status
+upload_file_instructions_1: To maximize your experience and squadron's experience with the ED:SCC Web application, it requires data from the player journal log files which contains useful lines that record certain actions during your game play.  This application does not collect every action, just actions that are relevant to the Squadron dashboard and performance measurements. We will only capture data from your start date since you joined this squadron and data will not be capture prior to that date.  We only focus on your activities while you are an active squadron member.  When it detects that you have left the squadron, the data collection will stop at that point.
+upload_file_instructions_2: The usual location for these files can be found in this folder
+upload_file_instructions_3: "Upload the files with the filenames in a format like this: Journal.190209154325.01.log. Note that all log files end with .log. All other files like Status.json, Journal315129.cache or the similar will not be accepted."
+upload_file_instructions_4: We also do accept a zip file of all log files combined in a single upload. It will process each file and capture relevant data and store in the database. Maximum upload file size is %size%.
+edmc_instructions_1: Instead of uploading journal files manually, you can use Elite Dangerous Market Connector app to automatically update your statistics and squadron progress. You will need to download the plug-in and install it.  You can get the plug-in at
+edmc_instructions_2: "If you do not have E:D Market Connector app, you can get it at"
+edmc_instructions_3: After you install the app and/or the plug-in, you will need the API key for it to upload your player journal log automatically in real time.  Please copy and paste it in the EDMC settings. Also, you will need to enter the API server endpoint in your EDMC settings
+EDSCC API Server: EDSCC API Server
