@@ -1,5 +1,7 @@
 ---
 "#": "#"
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Нет
+  записей | {1} Одна запись |] 1,  Inf [ %start% по %end% из %count% записей"
 "{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Нет элементов | {1} один элемент
   |] 1, Inf [ %count% элементов"
 "{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
@@ -24,9 +26,11 @@ Admiral: Адмирал
 Agent: Агент
 Aimless: Бесцельный
 Amateur: Любитель
+Amount: Сумма
 Amt Earned: Сумма Дохода
 Amt Paid: Сумма Расхода
 Announcements: Объявления
+Anti-Xeno Activists: Активисты Анти-Ксено
 API Key: Ключ API
 API Key not generated: API Ключ не активирован
 Application Denied: Приложение запрещено
@@ -36,6 +40,7 @@ Approval is not required to join this squadron.: Для вступление в 
 Approval is required to join this squad.: Для присоединение к отряду требуется разрешение
 Approval Required: Требуется разрешение
 Approved: Одобрен
+Assault: Атака
 Attitude: Отношение
 Author: Автор
 Availability: Доступно
@@ -47,12 +52,14 @@ Baron: Барон
 Besides letters, include at least a number or symbol: Помимо букв, включите хотя бы
   число или символ
 Bodies Discovered: Обнаруженные тела
+Bodies Found Today: Тел обнаружено сегодня
 Bounties Collected over last 30 days: Ваучеры, собранные за последние 30 дней
 Bounty: Ваучер
 Bounty Hunters: Охотники за Ваучерами
 Broker: Торговец
 Cadet: Кадет
 Cancel: Отмена
+CapShipBond: Выплаты Мегакораблей
 CG Participated: CG Участвовал
 Champion: Чемпион
 Change Password: Изменить пароль
@@ -68,15 +75,25 @@ Choose the gaming platform this Squadron plays on: Выберите игрову
 Choose the status to determine user's access privilege to the squadron: Выберите статус,
   чтобы определить права доступа пользователя в Сквадроне.
 CMDR %name%: CMDR %name%
+Codex: Кодекс
+CollidedAtSpeedInNoFireZone: Превышение скорости повлекшее столкновение в безопасной
+  зоне
+CollidedAtSpeedInNoFireZoneHullDamage: Превышение скорости повлекшее столкновение
+  в безопасной зоне (Повреждение корпуска)
 Combat: Бой
+CombatBond: Боевые выплаты
+Commander: Игрок
 Commander Activities: Активность игрока
 Commander data has been purged from the system.: Данные игрока были удалены из системы.
+Commander Details: Статистика игрока
 Commander E-mail: E-mail игрока
 Commander Login Email: Игрок Логин Email
 Commander Name: Имя Игрока
 Commander Name (without CMDR): Имя игрока (без CMDR)
 Commander Performance: Эффективность Игрока
 Commanders Joined: Присоединенные Игроки
+Comments: Коментарии
+CommunityGoalReward: Награда за Цель Общества
 Competent: Компетентный
 Complete Registration: Завершить регистрацию
 Complete SAA Scans: Полное SAA сканирование
@@ -85,15 +102,23 @@ Count: Счет
 count_prior_day: "%count%% с предыдущего дня"
 CQC: CQC
 Create: Создай
+Create a New Squadron: Создание Сквадрона
 Created In: Создано в
+Create New Squadron: Создай Сквадрон
 Creating a new announcement: Создание нового объявления
 Creating a new MOTD: Создай новый MOTD
 Creating a New Squadron: Создание нового Сквадрона
+Credit: Баланс
 Credits: Баланс
 Crew Paid: Оплата экипажу
+Crew Wage: Наемный экипаж
 Crime: Нарушение
 Criminal History: История нарушений
+Criminal History (Detailed): История нарушений (подробно)
+Criminal History Summary: История нарушений
 Criminal History Summary by Faction: Общая история нарушений по фракции
+Cr/Unit: Прибыль за штуку
+Current Password: Текущий пароль
 Current Squadron Rank: Текущий ранг Сквадрона
 Customizing Commander Roles: Настройка ролей
 Customizing Rank Classifications: Настройка класса ранга
@@ -104,6 +129,11 @@ Custom Rank Name: Пользовательский ранг
 Daily Total Earning on: Ежедневный доход на
 Dangerous: Опасный
 Data: Данные
+datatable_empty_table: Нет сведений в таблице
+datatable_info: Показано _START_ по _END_ из _TOTAL_ записей
+datatable_info_empty: Показано 0 по 0 из 0 записей
+datatable_info_filtered: "(фильтр для _MAX_ всего записей)"
+datatable_zero_records: Записи не найдены
 Date: Дата
 Date Committed: Дата совершения
 Date Processed: Дата обработки
@@ -115,9 +145,21 @@ Default Rank Name: Ранг по умолчанию
 Denied: Отказано
 Description: Описание
 Devoted: Посвящается
+DisobeyPolice: Неподчинение Полиции
+DockingMajorBlockingAirlock: Блокировка стыковочного шлюза
+DockingMajorBlockingLandingPad: Блокировка посадочной площадки
+DockingMajorTrespass: Нарушение стыковки
+DockingMinorBlockingAirlock: Блокировка стыковочного шлюза фракции
+DockingMinorBlockingLandingPad: Блокировка посадочной площадки фракции
+DockingMinorTrespass: Нарушение стыковки
 Duke: Герцог
+DumpingDangerous: Опасный сброс
+DumpingNearStation: Опасный сброс около станции
 Earl: Граф
 Earning History (Detailed): История дохода (подробно)
+Earning History Summary: История дохода
+Earning History Summary by Minor Faction: Получение награды от фракции
+Earning Rank: Рейтинг полезности в Сквадроне
 Editing an announcement: Редактирование объявления
 Editing an MOTD: Редактировать MOTD
 EDMC Plug-in: Плагин EDMC
@@ -132,7 +174,6 @@ E-mail address verified: Адрес электронной почты подтв
 email_verification_message: Для активации учетной записи требуется подтверждение адреса
   электронной почты. На %email% было отправлено письмо с токеном для продолжения создания
   новой учетной записи.
-Empire: Иперия
 English: Английский
 Ensign: Знак/Вымпел
 Enter a new password.: Введите новый пароль.
@@ -152,6 +193,7 @@ Exploration Data Sold over last 30 days: Исследовательские да
 Explorer: Исследователь
 Explorers: Исследователи
 Faction Affiliation: Принадлежность фракции
+FactionKillBond: Награда фракции за убийство
 Faction / Superpower Affiliations: Фракция / Сверхдержавы
 Faction Supporters: Сторонники фракций
 Family: Семья
@@ -160,6 +202,8 @@ Federation: Федерация
 Fine: Штраф
 Finishing up your registration - Please select your Squadron: Завершение регистрации-Пожалуйста,
   выберите Сквадрон
+FireInNoFireZone: Ведение огня в безопасной зоне
+FireInStation: Ведение огня в станции
 First: Первый
 French: Французский
 Fuel Rats: Топливные Крысы
@@ -176,17 +220,21 @@ Home base: Домашняя база
 Home Base: Домашняя база
 Humanitarian Aid Providers: Поставщики гуманитарной помощи
 I agree to the terms: Я согласен с условиями
+I already have a membership: Я зарегистрированный участник
 ID: Индификационный номер (ID)
 I did not get the activation e-mail. Please resend.: Я не получил письмо для активации.
   Отправить повторно.
 I forgot my password: Я не помню свой пароль
+IllegalCargo: Незаконный груз
 Import History: История импорта
 Import Queue Status: Состояние очереди импорта
 In Queue: В очереди
+Interdiction: Перехват
 Internal Error: Внутренняя ошибка
 Invalid temporary password or mismatched new/verify password pairs.: Неверный временный
   пароль или не соответствует пара нового и проверенного пароля
 Invalid token, please reload the page: Неверный токен, перезагрузите страницу
+Items: строк
 I understand that by purging the data, it is irreversible.: Я понимаю, что очистка
   данных будет необратима.
 Join Date: Дата вступления
@@ -195,12 +243,15 @@ Keep me logged in (for 7 days): Запомнить меня (в течение 7
 King: Король
 Knight: Рыцарь
 label_next: Следующий
+label_previous: Предыдущий
+Language: Язык
 Last: Последний
 Last Login: Последний вход
 Last Updated: Последнее обновление
 Leader: Лидер
 Legend: Легенда
 Lieutenant: Лейтенант
+Like: Понравилось
 Loan: Долг
 lockdown_message: Командир Сквадрона заблокировал Ваш аккаунт. Свяжитесь с Командиром
   для разблокировки.
@@ -215,6 +266,7 @@ Manage MOTD: Управлять MOTD
 Manage Squadron Announcements: Управление объявлениями Сквадрона
 Manage Tags: Управление тегами
 Mark as Published: Отметить как опубликованный
+Mark as Read: Отметить как прочитанное
 Mark this MOTD as visible: Сделать этот MOTD видимым
 Mark this MOTD as visible on the login screen: Сделать этот MOTD видимым на экране
   входа
@@ -229,12 +281,34 @@ Message: Сообщение
 Message Content: Содержание сообщения
 Midshipman: Гардемарин
 Miners: Шахтеры
+Minor Faction Activities Summary: Деятельность по фракциям
 Minor Faction Issued By: Кем выдано
-Mostly Aimless: В основном бесполезный
-Mostly Harmless: В большинстве случаев безвреден
-Mostly Helpless: В основном беспомощный
-Mostly Penniless: В основном без гроша
+Mission_Altruism: Задание - Безвозмездное
+Mission_Assassinate: Задание - Уничтожение
+Mission_AssassinateWing: Задание - Уничтожение (В Крыле)
+Mission_Collect: Задание - Добыча
+Mission_Courier: Задание - Курьер
+Mission_Delivery: Задание - Доставка
+Mission_DeliveryWing: Задание - Доставка (В Крыле)
+Mission_Disable: Задание - Отключение
+Mission_DS: Задание - DS (???)
+Mission_Hack: Задание - Взлом
+Mission_Massacre: Задание - Расправа
+Mission_MassacreWing: Задание - Расправа (В Крыле)
+Mission_Mining: Задание  - Добыча
+Mission_PassengerBulk: Задание - Пассажирские перевозки (эконом)
+Mission_PassengerVIP: Задание - Пассажирские перевозки (VIP)
+Mission_Rescue: Задание  - Спасение
+Mission Rewards Collected over last 30 days: Награды за задания, полученные за последние
+  30 дней
+Mission_Salvage: Задание - Авария
+Mission_Scan: Задание - Сканирование
+Missions Completed: Задания завершены
+Missions Completed Today: Заданий выполненых сегодня
+Mission_Sightseeing: Задание - Осмотр достопримечательностей
+Mission_TheDead: Задание - Смерть
 MOTD: MOTD
+Murder: Убийство
 My Account: Мой аккаунт
 My Profile: Мой профиль
 Name of your Squadron: Название вашего Сквадрона
@@ -254,6 +328,7 @@ Novice: Новичок
 Occasional: Случайный
 Officer: Сотрудник
 Open: Открыто
+Other: Прочие
 Other Players in Your Squadron (Average): Другие игроки вашего Сквадрона (Среднее)
 Other Squadrons (Average): Другие Сквадроны (Среднее)
 Outsider: Аутсайдер
@@ -284,12 +359,14 @@ Permission Denied. Unable to access to this resource.: Доступ запрещ
 Permissions: Права доступа
 Petty Officer: Старшина
 Pioneer: Первопроходец
+Piracy: Пиратство
 Pirates: Пираты
 Player: Игрок
 Player Activities Report: Активность игрока
 Player Dashboard: Статистика игрока
 Player Journal Log: Журнал игрока
 Player Journal Log Import History: История игрока Журнал импорта
+Play Style: Стиль игры
 Please enter reason why the status is assigned as needed (if the access is being denied, etc.): Пожалуйста,
   укажите причину, по которой статус присваивается при необходимости (если доступ
   запрещен и т. д.)
@@ -297,6 +374,8 @@ Please enter your email: Пожалуйста, введите ваш адрес 
 Portuguese: Португальский
 Post Captain: Командир корабля
 Post Commander: Старший помошник
+Posted by CMDR %author%: Написано CMDR %author%
+Posted by Site Administrator: Написано Администратором Сайта
 Power Supporters: Сторонники власти
 Previous: Предыдущий
 Prince: Принц
@@ -323,6 +402,7 @@ Rank: Ранг
 Ranks: Ранги
 Rear Admiral: Контр-адмирал
 Reason: Причина
+RecklessWeaponsDischarge: Необдуманное действие с оружием
 Recruit: Новобранец
 Refresh: Обновить
 Regenerate API Key: Восстановить ключ API
@@ -346,19 +426,25 @@ Role Tags: Ролевые метки
 Rookie: Новобранец
 Russian: Русский
 Save Changes: Сохранить изменения
+Scannable: Сканируемая
 Scout: Разведчик
 Seals: Морские котики
 Search...: Поиск...
+SearchAndRescue: Поиск и спасение
 Select Log Files: Выберите файлы журнала
+Select Report: Выбрать отчет
 Semi Professional: Полу профессиональный
 Senior Officer: Старший офицер
 Serf: Раб
+Settlement: Поселение
+Showing items: Показать ед.
 Sign In: Войти
 Sign in to start your session: Войдите, чтобы начать
 Sign out: Выйти
 Solo: Соло
 Spanish: Испанский
 Squadron: Сквадрон
+Squadron Dashboard: Статистика Сквадрона
 Squadron Details: Детали Сквадрона
 Squadron ID: ID Сквадрона
 Squadron Join Request Update: Обновление запроса присоединения Сквадрона
@@ -379,7 +465,9 @@ Status Comment: Комментарий к статусу
 Strong: Сильный
 Superpower Affiliation: Сверхдержавы
 Surveyor: Геодезист
+System Scanned: Систем отсканированно
 Tags Associated with Your Squadron: Теги, связанные с вашим Сквадроном
+Targeted Minor Faction: Фракция сдачи задания
 Temporary Password: Временный пароль
 The current password is incorrect, and your password is not changed: Этот пароль неверен,
   и ваш пароль не изменился
@@ -395,6 +483,7 @@ This post is pinned (always will appear on the top of page): Это сообще
   (всегда будет отображаться в верхней части страницы)
 Timestamp: Заметка
 Title: Оглавление
+Today's Earnings: Доход за сегодня
 Total: Всего
 Total Asset: Активы
 Total Daily Earnings over last 30 days: Ежедневный доход за последние 30 дней
@@ -404,6 +493,7 @@ Total Members: Всего участников
 Total Reward: Общая награда
 Trade: Торговля
 Trade Profit over last 30 days: Торговая прибыль за последние 30 дней
+Traders: Торговцы
 Tycoon: Магнат
 Type: Тип
 Unable to fetch data.: Невозможно получить данные.
@@ -448,7 +538,6 @@ Victim: Потерпевший
 Viscount: Виконт
 Warrant Officer: Мичман
 Weak: Ослабление
-Wealth: Увеличение
 Weekdays: Будние дни
 Weekends: Выходные дни
 Weeknights: Будние вечера
@@ -486,104 +575,33 @@ Your password has been reset: Ваш пароль был сброшен
 Your settings have been saved.: Ваши настройки были сохранены.
 Your Squadron: Ваш Сквадрон
 Your squadron leader has banned you.: Ваш командир Сквадрона заблокировал Вас
-"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Нет
-  записей | {1} Одна запись |] 1,  Inf [ %start% по %end% из %count% записей"
-Amount: Сумма
-Anti-Xeno Activists: Активисты Анти-Ксено
-Assault: Атака
-Bodies Found Today: Тел обнаружено сегодня
-CapShipBond: Выплаты Мегакораблей
-Codex: Кодекс
-CollidedAtSpeedInNoFireZone: Превышение скорости повлекшее столкновение в безопасной
-  зоне
-CollidedAtSpeedInNoFireZoneHullDamage: Превышение скорости повлекшее столкновение
-  в безопасной зоне (Повреждение корпуска)
-CombatBond: Боевые выплаты
-Commander: Игрок
-Commander Details: Статистика игрока
-Comments: Коментарии
-CommunityGoalReward: Награда за Цель Общества
-Create a New Squadron: Создание Сквадрона
-Create New Squadron: Создай Сквадрон
-Credit: Баланс
-Crew Wage: Наемный экипаж
-Criminal History (Detailed): История нарушений (подробно)
-Criminal History Summary: История нарушений
-Cr/Unit: Прибыль за штуку
-Current Password: Текущий пароль
-datatable_empty_table: Нет сведений в таблице
-datatable_info: Показано _START_ по _END_ из _TOTAL_ записей
-datatable_info_empty: Показано 0 по 0 из 0 записей
-datatable_info_filtered: "(фильтр для _MAX_ всего записей)"
-datatable_zero_records: Записи не найдены
-DisobeyPolice: Неподчинение Полиции
-DockingMajorBlockingAirlock: Блокировка стыковочного шлюза
-DockingMajorBlockingLandingPad: Блокировка посадочной площадки
-DockingMajorTrespass: Нарушение стыковки
-DockingMinorBlockingAirlock: Блокировка стыковочного шлюза фракции
-DockingMinorBlockingLandingPad: Блокировка посадочной площадки фракции
-DockingMinorTrespass: Нарушение стыковки
-DumpingDangerous: Опасный сброс
-DumpingNearStation: Опасный сброс около станции
-Earning History Summary: История дохода
-Earning History Summary by Minor Faction: Получение награды от фракции
-Earning Rank: Рейтинг полезности в Сквадроне
-ExplorationData: Исследовательских данных
-FactionKillBond: Награда фракции за убийство
-FireInNoFireZone: Ведение огня в безопасной зоне
-FireInStation: Ведение огня в станции
-I already have a membership: Я зарегистрированный участник
-IllegalCargo: Незаконный груз
-Interdiction: Перехват
-Items: строк
-Joined: В сети
-label_previous: Предыдущий
-Language: Язык
-Like: Понравилось
-Mark as Read: Отметить как прочитанное
-MarketBuy: Потребительский ранок Покупка
-MarketSell: Потребительский ранок Продажа
-Minor Faction Activities Summary: Деятельность по фракциям
-Mission_Altruism: Задание - Безвозмездное
-Mission_Assassinate: Задание - Уничтожение
-Mission_AssassinateWing: Задание - Уничтожение (В Крыле)
-Mission_Collect: Задание - Добыча
-MissionCompleted: Задание выполнена (прочие)
-Mission_Courier: Задание - Курьер
-Mission_Delivery: Задание - Доставка
-Mission_DeliveryWing: Задание - Доставка (В Крыле)
-Mission_Disable: Задание - Отключение
-Mission_DS: Задание - DS (???)
-Mission_Hack: Задание - Взлом
-Mission_Massacre: Задание - Расправа
-Mission_MassacreWing: Задание - Расправа (В Крыле)
-Mission_Mining: Задание  - Добыча
-Mission_PassengerBulk: Задание - Пассажирские перевозки (эконом)
-Mission_PassengerVIP: Задание - Пассажирские перевозки (VIP)
-Mission_Rescue: Задание  - Спасение
-Mission Rewards Collected over last 30 days: Награды за задания, полученные за последние
-  30 дней
-Mission_Salvage: Задание - Авария
-Mission_Scan: Задание - Сканирование
-Missions Completed: Задания завершены
-Missions Completed Today: Заданий выполненых сегодня
-Mission_Sightseeing: Задание - Осмотр достопримечательностей
-Mission_TheDead: Задание - Смерть
-Murder: Убийство
-Other: Прочие
-Paying Minor Faction: Фракция выдавшая задание
-Piracy: Пиратство
-Play Style: Стиль игры
-Posted by CMDR %author%: Написано CMDR %author%
-Posted by Site Administrator: Написано Администратором Сайта
-RecklessWeaponsDischarge: Необдуманное действие с оружием
-Scannable: Сканируемая
-SearchAndRescue: Поиск и спасение
-Select Report: Выбрать отчет
-Settlement: Поселение
-Showing items: Показать ед.
-Squadron Dashboard: Статистика Сквадрона
-System Scanned: Систем отсканированно
-Targeted Minor Faction: Фракция сдачи задания
-Today's Earnings: Доход за сегодня
-Traders: Торговцы
+capi_instruction: Frontier Development (FDev) предоставляет возможность для  игроков
+  приставок по импорту данных журнала в любое стороннее приложение. Тем не менее,
+  данные журнала хранятся только 24 дня и не содержат текущий процесс. Приложение
+  будет автоматически загружать журналы  игроков. Чтобы включить это приложение для
+  получения данных, вам нужно будет войти в систему через портал Frontier User с учетными
+  данными и подтвердить, что вы разрешаете ED:SCC загружать данные журнала.
+Connected: Подключен
+Connect to Frontier User Portal: Подключен к Frontier User Portal
+Disconnect: Отключен
+Empire: Империя
+ExplorationData: Исследовательские данные
+Getting Journal Data for Console Players: Получение данных журнала для игроков на
+  приставках
+Joined: Зарегистрирован
+Journal Data Feed Preferences: Настройки передачи данных журнала
+MarketBuy: Потребительский рынок Покупка
+MarketSell: Потребительский рынок Продажа
+MissionCompleted: Задание выполнено (прочие)
+Mostly Aimless: Бесполезный
+Mostly Harmless: Безвреден
+Mostly Helpless: Беспомощный
+Mostly Penniless: Нищий
+Not Connected: Нет соединения
+Paying Minor Faction: Фракция оплатившая задание
+PS4/Xbox: PS4/Xbox
+Syncing: Синхронизация
+Token Expired: Время Токена истекло
+Wealth: Ваш общий капитал
+Stop Syncing: Остановить синхронизацию
+Sync Journal Data: Синхронизировать данные журнала
