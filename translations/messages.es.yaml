@@ -607,3 +607,14 @@ capi_instruction: Frontier Development (FDev) proporciona un servicio externo pa
   sus datos, deberá iniciar sesión con Frontier User Portal con sus credenciales y
   confirmar que autoriza a ED:SCC a descargar los datos de su diario.
 PS4/Xbox: PS4/Xbox
+Connected: Conectado
+Connect to Frontier User Portal: Conectarse al portal de usuario de Frontier
+Disconnect: Desconectar
+Getting Journal Data for Console Players: Obtención de datos de diario para jugadores
+  de consola
+Journal Data Feed Preferences: Preferencias de alimentación de datos de diario
+Not Connected: No conectado
+Stop Syncing: Detener la sincronización
+Syncing: Sincronizando
+Sync Journal Data: Sincronizar datos de diario
+Token Expired: Token Expirado
