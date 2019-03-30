@@ -2769,13 +2769,17 @@ table.text-center th {
  * ----------------
  */
 .modal {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
 }
 .modal-content {
-    border-radius: 0;
-    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
-    border: 0;
+    position: relative;
+    background-color: #1F282C;
+    background-clip: padding-box;
+    border: 1px solid #999999;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    outline: 0;
 }
 @media (min-width: 768px) {
     .modal-content {
@@ -2784,10 +2788,21 @@ table.text-center th {
     }
 }
 .modal-header {
-    border-bottom-color: #F4F4F4;
+    border-bottom-color: #B7B9B8;
+    border-top: 3px solid #F7890C;
+    background-color: #363C43;
+    /*+border-radius: 4px 4px 0px 0px;*/
+    -moz-border-radius: 4px 4px 0px 0px;
+    -webkit-border-radius: 4px 4px 0px 0px;
+    -khtml-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+    padding: 10px;
 }
 .modal-footer {
-    border-top-color: #F4F4F4;
+    border-top-color: #B7B9B8;
+    margin: 0;
+    padding: 10px;
+    background-color: #363C43;
 }
 .modal-primary .modal-header,
 .modal-primary .modal-footer {
