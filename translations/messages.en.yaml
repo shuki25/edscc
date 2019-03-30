@@ -534,3 +534,6 @@ edmc_instructions_1: Instead of uploading journal files manually, you can use El
 edmc_instructions_2: "If you do not have E:D Market Connector app, you can get it at"
 edmc_instructions_3: After you install the app and/or the plug-in, you will need the API key for it to upload your player journal log automatically in real time.  Please copy and paste it in the EDMC settings. Also, you will need to enter the API server endpoint in your EDMC settings
 EDSCC API Server: EDSCC API Server
+squadron_footnote: Recorded directly from log files, EDMC, or CAPI
+rank_footnote: Rank is overridden by log files, EDMC or CAPI if promotion or demotion has occurred in the game
+Current Squadron in the Game: Current Squadron in the Game
