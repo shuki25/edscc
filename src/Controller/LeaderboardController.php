@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -178,8 +179,8 @@ class LeaderboardController extends AbstractController
 //        $datatable['params'] = $params;
 
         // dd($datatable);
-        $response = new JsonResponse($datatable);
-
+        $response = new Response(json_encode($datatable, JSON_UNESCAPED_UNICODE));
+        $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         return $response;
     }
 
