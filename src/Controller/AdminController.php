@@ -65,7 +65,7 @@ class AdminController extends AbstractController
         }
 
         $custom_ranks = $user->getSquadron()->getCustomRanks();
-        $ranks = $rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
+        $ranks = $rankRepository->findBy(['group_code' => 'squadron'], ['assigned_id' => 'asc']);
 
         if ($custom_ranks->isEmpty()) {
             foreach ($ranks as $i => $row) {
@@ -369,7 +369,7 @@ class AdminController extends AbstractController
 
         if ($this->isGranted('CAN_EDIT_USER')) {
             $status = $statusRepository->findOneBy(['id' => $data['status_id']]);
-            $rank = $rankRepository->findOneBy(['group_code' => 'service', 'assigned_id' => $data['rank_id']]);
+            $rank = $rankRepository->findOneBy(['group_code' => 'squadron', 'assigned_id' => $data['rank_id']]);
             $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron_id, 'order_id' => $data['rank_id']]);
             if (is_object($user)) {
                 $user->setStatus($status)->setRank($rank)->setCustomRank($custom_rank)->setWelcomeMessageFlag($welcome_flag)->setEmailVerify($email_flag)->setDateJoined($join_date);

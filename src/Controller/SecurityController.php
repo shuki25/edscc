@@ -346,7 +346,7 @@ class SecurityController extends AbstractController
                 $squadron = $squadronRepository->findOneBy(['id' => $request->request->get('id')]);
                 $status_key = $squadron->getRequireApproval() == "Y" ? "Pending" : "Approved";
                 $status = $statusRepository->findOneBy(['name' => $status_key]);
-                $rank = $rankRepository->findOneBy(['group_code' => 'service', 'name' => 'Rookie']);
+                $rank = $rankRepository->findOneBy(['group_code' => 'squadron', 'name' => 'Rookie']);
                 $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron->getId(), 'order_id' => $rank->getAssignedId()]);
 
                 if (is_object($squadron) && is_object($status)) {
@@ -413,7 +413,7 @@ class SecurityController extends AbstractController
             $em->persist($squad);
             $em->flush();
 
-            $ranks = $rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
+            $ranks = $rankRepository->findBy(['group_code' => 'squadron'], ['assigned_id' => 'asc']);
 
             foreach ($ranks as $i => $row) {
                 $custom_rank = new CustomRank();

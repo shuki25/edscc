@@ -51,7 +51,16 @@
                                         <span class="help-block">{% trans %}Commander Login Email{% endtrans %}</span>
                                     </div>
                                     <div style="padding: 5px 0px 5px 0px;">
-                                        <label class="control-label" for="rank_id">{% trans %}Current Squadron Rank{% endtrans %}</label>
+                                        <label class="control-label required"
+                                               for="email">{% trans %}Current Squadron in the Game{% endtrans %}</label>
+                                        <input type="text" id="squadron_name" name="squadron_name" required="required"
+                                               maxlength="255" class="form-control" value="{{ user.squadronName }}"
+                                               disabled="disabled">
+                                        <span class="help-block">{% trans %}squadron_footnote{% endtrans %}</span>
+                                    </div>
+                                    <div style="padding: 5px 0px 5px 0px;">
+                                        <label class="control-label"
+                                               for="rank_id">{% trans %}Current Squadron Rank{% endtrans %}<sup>*</sup></label>
                                         <select id="rank_id" name="rank_id" class="form-control">
                                             {% for rank in ranks %}
                                                 <option value="{{ rank.orderId }}"{% if user.customRank.id == rank.id %} selected="selected"{% endif %}>{{ rank.name|trans }}</option>
@@ -89,6 +98,9 @@
                                 </div>
                             </div>
                             <!-- /.panel -->
+                            <div class="box-body" style="margin-top: 0; padding-top: 0;">
+                                <sup>*</sup> {% trans %}rank_footnote{% endtrans %}
+                            </div>
                         </div>
                         <!-- /.tab-panel -->
                         {% endif %}

@@ -22,6 +22,7 @@ use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
 use App\Repository\CrimeTypeRepository;
+use App\Repository\CustomRankRepository;
 use App\Repository\EarningHistoryRepository;
 use App\Repository\EarningTypeRepository;
 use App\Repository\ErrorLogRepository;
@@ -90,8 +91,12 @@ class ParseLogHelper
      * @var CrimeTypeRepository
      */
     private $crimeTypeRepository;
+    /**
+     * @var CustomRankRepository
+     */
+    private $customRankRepository;
 
-    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository, CrimeTypeRepository $crimeTypeRepository)
+    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository, CrimeTypeRepository $crimeTypeRepository, CustomRankRepository $customRankRepository)
     {
         $this->importQueueRepository = $importQueueRepository;
         $this->userRepository = $userRepository;
@@ -123,6 +128,7 @@ class ParseLogHelper
                 }
             }
         }
+        $this->customRankRepository = $customRankRepository;
     }
 
     public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, SessionTracker $session_tracker, $api = false, $capi = false)
@@ -337,6 +343,20 @@ class ParseLogHelper
                 $fine = isset($e['Fine']) ? $e['Fine'] : null;
                 $bounty = isset($e['Bounty']) ? $e['Bounty'] : null;
                 $this->addCrimeHistory($em, $user, $crime_committed, $minor_faction, $victim, $fine, $bounty, $game_datetime);
+                break;
+
+            case 'SquadronStartup':
+                $rank = $this->rankRepository->findOneBy(['group_code' => 'squadron', 'assigned_id' => (4 - $e['CurrentRank'])]);
+                $custom_rank = $this->customRankRepository->findOneBy(['squadron' => $user->getSquadron()->getId(), 'order_id' => (4 - $e['CurrentRank'])]);
+                $user->setSquadronName($e['SquadronName'])
+                    ->setRank($rank)
+                    ->setCustomRank($custom_rank);
+                break;
+
+            case 'AppliedToSquadron':
+                break;
+
+            case 'LeftSquadron':
                 break;
 
         }

@@ -19,7 +19,8 @@
                     <tr>
                         <th>{% trans %}#{% endtrans %}</th>
                         <th>{% trans %}Commander Name{% endtrans %}</th>
-                        <th>{% trans %}Rank{% endtrans %}</th>
+                        <th>{% trans %}Squadron{% endtrans %}<sup>*</sup></th>
+                        <th>{% trans %}Rank{% endtrans %}<sup>&dagger;</sup></th>
                         <th>{% trans %}Status{% endtrans %}</th>
                         <th>{% trans %}Join Date{% endtrans %}</th>
                         <th>{% trans %}Last Login{% endtrans %}</th>
@@ -33,6 +34,10 @@
             </div>
             <!-- ./box-body -->
         </div>
+        <div class="box-body" style="margin-top: 0; padding-top: 0">
+            <sup>&dagger;</sup> {% trans %}rank_footnote{% endtrans %}<br>
+            <sup>*</sup> {% trans %}squadron_footnote{% endtrans %}
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -43,15 +48,17 @@
             columnDefs: [
                 {name: "id", targets: 0},
                 {name: "commander_name", targets: 1},
-                {name: "rank", targets: 2},
-                {name: "status", targets: 3},
-                {name: "join_date", targets: 4},
-                {name: "last_login_at", targets: 5},
-                {name: "action", orderable: false, targets: 6}
+                {name: "squadron_name", targets: 2},
+                {name: "rank", targets: 3},
+                {name: "status", targets: 4},
+                {name: "join_date", targets: 5},
+                {name: "last_login_at", targets: 6},
+                {name: "action", orderable: false, targets: 7}
             ],
             columns: [
                 {data: "id", width: "30px"},
                 {data: "commander_name"},
+                {data: "squadron_name", width: "125px"},
                 {data: "rank", width: "85px"},
                 {data: "status", width: "55px" },
                 {data: "join_date", width: "100px"},

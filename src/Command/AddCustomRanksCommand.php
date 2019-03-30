@@ -67,7 +67,7 @@ class AddCustomRanksCommand extends Command
         $progressBar->setFormat('very_verbose');
         $progressBar->start();
 
-        $ranks = $this->rankRepository->findBy(['group_code' => 'service'], ['assigned_id' => 'asc']);
+        $ranks = $this->rankRepository->findBy(['group_code' => 'squadron'], ['assigned_id' => 'asc']);
         $rank_idx = [];
         $order_idx = [];
 

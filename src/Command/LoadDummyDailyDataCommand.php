@@ -130,7 +130,7 @@ class LoadDummyDailyDataCommand extends Command
         $progressBar = new ProgressBar($section1);
         $progressBar->setFormat('very_verbose');
 
-        $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'service']);
+        $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'squadron']);
         $this->referencesIndexByORM[Faction::class] = $this->factionRepository->findAll();
         $this->referencesIndexByORM[Power::class] = $this->powerRepository->findAll();
         $this->referencesIndexByORM[Platform::class] = $this->platformRepository->findAll();

@@ -152,6 +152,11 @@ class User implements UserInterface
      */
     private $oauth2;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $squadron_name;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
@@ -621,6 +626,18 @@ class User implements UserInterface
         if ($this !== $oauth2->getUser()) {
             $oauth2->setUser($this);
         }
+
+        return $this;
+    }
+
+    public function getSquadronName(): ?string
+    {
+        return $this->squadron_name;
+    }
+
+    public function setSquadronName(?string $squadron_name): self
+    {
+        $this->squadron_name = $squadron_name;
 
         return $this;
     }

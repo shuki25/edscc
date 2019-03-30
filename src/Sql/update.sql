@@ -263,4 +263,8 @@ VALUES (19, 'RecklessWeaponsDischarge', null);
 INSERT INTO crime_type (id, name, alias)
 VALUES (20, 'Other', null);
 
+UPDATE rank
+SET group_code='squadron'
+where group_code = 'service';
+
 SET FOREIGN_KEY_CHECKS = 1;

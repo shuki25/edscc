@@ -131,7 +131,7 @@ class LoadDummyDataCommand extends Command
         $progressBar->start($tot_num);
         $progressBar2->start(100);
 
-        $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'service']);
+        $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'squadron']);
         $this->referencesIndexByORM[Faction::class] = $this->factionRepository->findAll();
         $this->referencesIndexByORM[Power::class] = $this->powerRepository->findAll();
         $this->referencesIndexByORM[Platform::class] = $this->platformRepository->findAll();

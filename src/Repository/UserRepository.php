@@ -84,7 +84,7 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('val', $value);
 
 
-        $qb->select('u.id as id', 'u.commander_name as commander_name', 'u.date_joined as join_date', 'u.LastLoginAt as last_login_at')
+        $qb->select('u.id as id', 'u.commander_name as commander_name', 'u.squadron_name as squadron_name', 'u.date_joined as join_date', 'u.LastLoginAt as last_login_at')
             ->addSelect('s.name as status, cr.name as rank, s.tag as tag')
             ->join('u.status', 's')
             ->join('u.custom_rank', 'cr')
@@ -96,9 +96,9 @@ class UserRepository extends ServiceEntityRepository
         }
 
         if ($params['search']['value'] ?: 0) {
-            $qb->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
+            $qb->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term or u.squadron_name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
-            $qCount->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term')
+            $qCount->andWhere('u.commander_name like :term or s.name like :term or cr.name like :term or u.squadron_name like :term')
                 ->setParameter('term', '%' . $params['search']['value'] . '%');
         }
 
