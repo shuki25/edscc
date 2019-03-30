@@ -537,3 +537,10 @@ EDSCC API Server: EDSCC API Server
 squadron_footnote: Recorded directly from log files, EDMC, or CAPI
 rank_footnote: Rank is overridden by log files, EDMC or CAPI if promotion or demotion has occurred in the game
 Current Squadron in the Game: Current Squadron in the Game
+
+Keyword: Keyword
+Start Date: Start Date
+End Date: End Date
+Fine Tune Your Report Results: Fine Tune Your Report Results
+Close: Close
+Apply Filter: Apply Filter
