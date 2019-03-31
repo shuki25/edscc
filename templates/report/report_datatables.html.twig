@@ -13,6 +13,7 @@
                 <h3 class="box-title"><i class="fa fa-lg fa-chart-line margin-r-5"></i>{% trans with {"%name%":app.user.commandername} %}Activities Report for CMDR %name%{% endtrans %}</h3>
             </div>
             <!-- /.box-header -->
+            {% include 'report/filter.html.twig' %}
             <div class="box-body">
                 <div class="clearfix pull-right no-padding no-margin report-picker">
                     <div class="row">
@@ -47,7 +48,6 @@
             <!-- ./box-body -->
         </div>
     </div>
-    {% include 'report/filter.html.twig' %}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -115,7 +115,9 @@
         });
 
         $('#filter-button').on('click', function () {
-            $('#filter-modal').modal('show');
+            $('#filter-options').toggle('slide', {
+                direction: 'up'
+            });
         });
 
         $('#start-date').datepicker({

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -49,11 +50,28 @@ class ReportController extends AbstractController
     /**
      * @Route("/reports", name="app_player_reports")
      */
-    public function playerReports(Request $request)
+    public function playerReports(Request $request, SessionInterface $session)
     {
 
         $user = $this->getUser();
         $report_id = ($request->request->get('report')) ?: 1;
+        $filter = $request->request->get('filter');
+        $token = $request->request->get('_token');
+        $reset = $request->request->get('reset');
+
+        if (!is_null($filter) && !$reset) {
+            if ($this->isCsrfTokenValid('report_filter', $token)) {
+                if ($session->get('report_id') != $report_id) {
+                    $session->remove('filter');
+                }
+                $session->set('report_id', $report_id);
+                $session->set('filter', $filter);
+            }
+        } else {
+            $session->set('report_id', $report_id);
+            $session->remove('filter');
+            $filter = [];
+        }
 
         $sql = "select * from x_player_report order by title";
         $rs = $this->dbh->prepare($sql);
@@ -71,19 +89,21 @@ class ReportController extends AbstractController
         return $this->render('report/report_datatables.html.twig', [
             'report' => $report,
             'report_id' => $report_id,
-            'report_picker' => $report_picker
+            'report_picker' => $report_picker,
+            'filter' => $filter
         ]);
     }
 
     /**
      * @Route("/reports/ajax/{slug}/{token}", name="report_table", methods={"POST"} )
      */
-    public function reportTable($slug, $token, Request $request)
+    public function reportTable($slug, $token, Request $request, SessionInterface $session)
     {
         /**
          * @var User $user
          */
         $user = $this->getUser();
+        $filter = $session->get('filter');
 
         if (!$this->isCsrfTokenValid('ajax_report', $token)) {
             $datatable = [
@@ -125,6 +145,50 @@ class ReportController extends AbstractController
             }
         }
 
+        $filter_sql = "";
+        $filter_rules = json_decode($report['filter_rules'], true);
+
+        if (!is_null($filter_rules)) {
+            foreach ($filter_rules as $section => $rule) {
+                $prepare_sql = "";
+                switch ($section) {
+                    case 'date':
+                        if ($filter['start_date'] || $filter['end_date']) {
+                            foreach ($rule['fields'] as $column) {
+                                if ($prepare_sql) {
+                                    $prepare_sql .= " or ";
+                                }
+                                $date_sql = $this->makeDateRangeSql($column, $filter['start_date'], $filter['end_date'], $params);
+                                $prepare_sql .= sprintf("(%s)", $date_sql);
+                            }
+                            if ($filter_sql) {
+                                $filter_sql .= sprintf(" and (%s)", $prepare_sql);
+                            } else {
+                                $filter_sql .= sprintf(" %s (%s)", $rule['operator'], $prepare_sql);
+                            }
+                        }
+                        break;
+                    case 'keyword':
+                        if (trim($filter['keyword']) != "") {
+                            foreach ($rule['fields'] as $column) {
+                                if ($prepare_sql) {
+                                    $prepare_sql .= " or ";
+                                }
+                                $prepare_sql .= $column . " like ?";
+                                $params[] = "%" . $filter['keyword'] . "%";
+                            }
+                            $filter_sql .= sprintf(" %s (%s)", $rule['operator'], $prepare_sql);
+                        }
+                        break;
+                    case 'static':
+                        $filter_sql .= sprintf(" %s", $rule['string']);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         $order_by = $datatable_params['columns'][$datatable_params['order'][0]['column']]['data'];
         $order_dir = $datatable_params['order'][0]['dir'] == "asc" ? "asc" : "desc";
 
@@ -142,6 +206,18 @@ class ReportController extends AbstractController
             $rs->execute($counter_params);
             $rowcount = $rs->fetchColumn(0);
 
+            $filtered_count = 0;
+            if ($filter_sql) {
+                $sql = sprintf("select count(*) from (%s) a", sprintf($report['sql'], $filter_sql));
+                try {
+                    $rs = $this->dbh->prepare($sql);
+                    $rs->execute($params);
+                    $filtered_count = $rs->fetchColumn(0);
+                } catch (\PDOException $e) {
+                    $datatable['error_message'] = $e->getMessage();
+                }
+            }
+
             $order_by_str = " order by `%s` %s";
             if (isset($cast_columns[$order_by])) {
                 $order_by_str = " order by cast(`%s` as " . $cast_columns[$order_by] . ") %s";
@@ -149,15 +225,28 @@ class ReportController extends AbstractController
             $order_by_str .= " limit %d offset %d";
 
             if (isset($sort_columns[$order_by])) {
-                $sql = $report['sql'] . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                if ($filter_sql) {
+                    $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                } else {
+                    $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                }
             } else {
-                $sql = $report['sql'] . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                if ($filter_sql) {
+                    $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                } else {
+                    $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+                }
             }
 
-            $rs = $this->dbh->prepare($sql);
-            $rs->execute($params);
-            $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
-            $has_data = $rs->rowCount();
+            try {
+                $rs = $this->dbh->prepare($sql);
+                $rs->execute($params);
+                $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
+                $has_data = $rs->rowCount();
+            } catch (\PDOException $e) {
+                $datatable['error_message'] = $e->getMessage();
+            }
+
         } catch (\PDOException $e) {
             echo $e->getMessage();
             die;
@@ -179,16 +268,39 @@ class ReportController extends AbstractController
             }
         }
 
-        $datatable['recordsFiltered'] = $rowcount;
+        $datatable['recordsFiltered'] = isset($filter) ? $filtered_count : $rowcount;
         $datatable['recordsTotal'] = $rowcount;
         $datatable['draw'] = $datatable_params['draw'];
-//        $datatable['order_by'] = $order_by;
-//        $datatable['sql'] = $sql;
-//        $datatable['params'] = $params;
+        $datatable['order_by'] = $order_by;
+        $datatable['sql'] = $sql;
+        $datatable['params'] = $params;
+        $datatable['has_data'] = $has_data;
 
-//        dd($datatable);
+//        if(isset($filter)) {
+//            dd($datatable);
+//        }
+
         $response = new Response(json_encode($datatable, JSON_UNESCAPED_UNICODE));
         $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         return $response;
+    }
+
+    private function makeDateRangeSql($field, $start_date, $end_date, &$params)
+    {
+        $sql = "";
+
+        if ($start_date) {
+            $sql .= sprintf("%s >= ?", $field);
+            $params[] = $start_date;
+        }
+
+        if ($end_date) {
+            if ($sql) {
+                $sql .= " and ";
+            }
+            $sql .= sprintf("%s <= ?", $field);
+            $params[] = $end_date;
+        }
+        return $sql;
     }
 }
