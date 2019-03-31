@@ -624,3 +624,33 @@ upload_file_instructions_3: 'Suba los archivos con los nombres de archivo en un 
   como este: Journal.190209154325.01.log. Tenga en cuenta que todos los archivos de
   registro terminan con .log. Todos los otros archivos como Status.json, Journal315129.cache
   o similares no serán aceptados.'
+DockingMajorBlockingAirlock: Atraque mayor bloqueando burbuja de aire
+DockingMajorBlockingLandingPad: Atraque mayor bloqueando pista de aterrizaje
+DockingMajorTrespass: Atracar mayor entrada ilegal
+DockingMinorBlockingAirlock: Atraque menor bloqueando burbuja de aire
+DockingMinorBlockingLandingPad: Atraque menor bloqueando pista de aterrizaje
+DockingMinorTrespass: Atraque menor entrada ilegal
+DumpingDangerous: Vertido peligroso
+DumpingNearStation: Vertido cerca de la estación
+edmc_instructions_1: En lugar de subir de subir archivos de diario manualmente, puedes
+  usar la aplicación Elite Dangerous Market Connector para automaticamente tus estadísticas
+  y progreso de escuadrón. Necesitara bajar el plug-in y instalarlo.  Puedes obetener
+  el plug-in a
+edmc_instructions_2: Si tu no tienes la aplicación E:D Market Connector, puedes conseguirlo
+  en
+edmc_instructions_3: Despues de instalar la aplicación y/o el plug-in, necesitarás
+  la clave API para que se cargue su registro de diario de jugador automaticamente
+  en tiempo real.  Por favor copia y pegalo en ajustes EDMC. Ademas, necesitaras entrar
+  en el servidor punto final API en ajustes EDMC
+EDSCC API Server: 'Servidor EDSCC API '
+FactionKillBond: Bono de matanza de facción
+Frontier User Portal Status: Usario Status Portal de Frontier
+Journal data last fetched on: Ultimos datos recuperados de diario
+Ranger: Guardabosque
+rank_footnote: La clasificación está anulada por los archivos de registro, EDMC o
+  CAPI, si ha habido promoción o degradación en el juego
+squadron_footnote: Grabado directamente desde archivos de registro, EDMC, o CAPI
+upload_file_instructions_4: También aceptamos un archivo zip de todos los archivos
+  de registro combinados en una sola carga. Procesará cada archivo y capturará los
+  datos relevantes y los almacenará en la base de datos. El tamaño máximo de archivo
+  de carga es %size%.
