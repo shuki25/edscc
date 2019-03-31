@@ -61,6 +61,13 @@ Bounty Hunters: Caza recompensas
 Broker: Corredor
 Cadet: Cadete
 Cancel: Cancelar
+capi_instruction: Frontier Development (FDev) proporciona un servicio externo para
+  que los jugadores de la consola importen sus datos de diario a cualquier aplicación
+  de terceros. Sin embargo, los datos de la revista solo se guardan hasta 24 días
+  y no se descargarán los juegos de hoy. La aplicación descargará automáticamente
+  los registros de diario de los jugadores. Para habilitar esta aplicación para recuperar
+  sus datos, deberá iniciar sesión con Frontier User Portal con sus credenciales y
+  confirmar que autoriza a ED:SCC a descargar los datos de su diario.
 CapShipBond: Captial Ship Bond
 CG Participated: CG Participó
 Champion: Campeón
@@ -99,6 +106,8 @@ CommunityGoalReward: Recompensa de la meta comunitaria
 Competent: Competente
 Complete Registration: Registro completo
 Complete SAA Scans: Exploraciones completas de SAA
+Connected: Conectado
+Connect to Frontier User Portal: Conectarse al portal de usuario de Frontier
 Continue: Continuar
 Count: Contar
 count_prior_day: "%count%% del día anterior"
@@ -149,16 +158,9 @@ Default Rank Name: Nombre de rango predeterminado
 Denied: Negado
 Description: Descripción
 Devoted: Devoto
+Disconnect: Desconectar
 DisobeyPolice: Desobedecer policia
-DockingMajorBlockingAirlock: Docking Major Bloqueo Airlock
-DockingMajorBlockingLandingPad: Docking Major Blocking Landing Pad
-DockingMajorTrespass: Atracar mayor paso
-DockingMinorBlockingAirlock: Muelle de bloqueo de bloqueo menor
-DockingMinorBlockingLandingPad: Muelle de aterrizaje de bloqueo menor de acoplamiento
-DockingMinorTrespass: Atravesar un paso menor
 Duke: Duque
-DumpingDangerous: Dumping peligroso
-DumpingNearStation: Dumping cerca de la estación
 Earl: Conde
 Earning History (Detailed): Historial de ganancias (detallado)
 Earning History Summary: Resumen del historial de ganancias
@@ -200,7 +202,6 @@ Exploration Data Sold over last 30 days: Datos de exploración vendidos en los �
 Explorer: Explorador
 Explorers: Exploradores
 Faction Affiliation: Afiliación de facciones
-FactionKillBond: Faction Kill Bond
 Faction / Superpower Affiliations: Afiliaciones de facción / superpotencia
 Faction Supporters: Partidarios de la facción
 'false': falso
@@ -219,6 +220,8 @@ Game Date: Fecha de juego
 Game Mode: Modo de juego
 Gaming Platform: Plataforma de juegos
 German: Alemán
+Getting Journal Data for Console Players: Obtención de datos de diario para jugadores
+  de consola
 Good: Bueno
 Harmless: Inofensivo
 Helpless: Impotente
@@ -247,6 +250,7 @@ I understand that by purging the data, it is irreversible.: Entiendo que al purg
   los datos, es irreversible.
 Join Date: Fecha de Ingreso
 Joined: Unido
+Journal Data Feed Preferences: Preferencias de alimentación de datos de diario
 Journal Log File: Archivo de registro de diario
 Keep me logged in (for 7 days): Mantenerme conectado (durante 7 días)
 King: Rey
@@ -341,6 +345,7 @@ No Data: Sin datos
 No Date Available: Sin fecha disponible
 None: Ninguna
 No Power Allied: Sin poder aliado
+Not Connected: No conectado
 Novice: Principiante
 Occasional: Ocasional
 Officer: Oficial
@@ -404,6 +409,7 @@ Processed: Procesada
 Processed with Errors: Procesado con errores
 Professional: Profesional
 Promotion Voting: Promoción votacion
+PS4/Xbox: PS4/Xbox
 Publish At: Publicar en
 Published In: Publicado en
 Publish In: Publicar en
@@ -418,7 +424,6 @@ purge_commander_data_body: A veces, los comandantes purgan sus datos porque los 
 Purge the Data: Purgar los datos
 PvE: PvE
 PvP: PvP
-Ranger: guardabosque
 Rank: Rango
 Ranks: Rangos
 Rear Admiral: Contraalmirante
@@ -482,11 +487,14 @@ Squire: Escudero
 Start Upload: Iniciar la subida
 Status: Estado
 Status Comment: Comentario de estado
+Stop Syncing: Detener la sincronización
 'Strength: %strength% (cracked in %number% %unit%)': 'Fuerza: %strength% (agrietada
   en %number% %unit%)'
 Strong: Fuerte
 Superpower Affiliation: Afiliación de superpotencia
 Surveyor: Topógrafo
+Syncing: Sincronizando
+Sync Journal Data: Sincronizar datos de diario
 System Scanned: Sistema escaneado
 Tags Associated with Your Squadron: Etiquetas asociadas a tu escuadrón
 Targeted Minor Faction: Facción menor dirigida
@@ -506,6 +514,7 @@ This post is pinned (always will appear on the top of page): Esta publicación e
 Timestamp: Marca de tiempo
 Title: Título
 Today's Earnings: Ganancias de hoy
+Token Expired: Token Expirado
 Total: Total
 Total Asset: Activos totales
 Total Daily Earnings over last 30 days: Total de ganancias diarias en los últimos
@@ -599,22 +608,49 @@ Your password has been reset: Tu contraseña ha sido restablecida
 Your settings have been saved.: Su configuración ha sido guardada.
 Your Squadron: Tu escuadron
 Your squadron leader has banned you.: Tu jefe de escuadrón te ha prohibido.
-capi_instruction: Frontier Development (FDev) proporciona un servicio externo para
-  que los jugadores de la consola importen sus datos de diario a cualquier aplicación
-  de terceros. Sin embargo, los datos de la revista solo se guardan hasta 24 días
-  y no se descargarán los juegos de hoy. La aplicación descargará automáticamente
-  los registros de diario de los jugadores. Para habilitar esta aplicación para recuperar
-  sus datos, deberá iniciar sesión con Frontier User Portal con sus credenciales y
-  confirmar que autoriza a ED:SCC a descargar los datos de su diario.
-PS4/Xbox: PS4/Xbox
-Connected: Conectado
-Connect to Frontier User Portal: Conectarse al portal de usuario de Frontier
-Disconnect: Desconectar
-Getting Journal Data for Console Players: Obtención de datos de diario para jugadores
-  de consola
-Journal Data Feed Preferences: Preferencias de alimentación de datos de diario
-Not Connected: No conectado
-Stop Syncing: Detener la sincronización
-Syncing: Sincronizando
-Sync Journal Data: Sincronizar datos de diario
-Token Expired: Token Expirado
+Current Squadron in the Game: Escuadrón actual en el juego
+upload_file_instructions_1: 'Para maximizar su experiencia y la experiencia del escuadrón
+  con la aplicación web ED: SCC, se requieren datos de los archivos de registro del
+  diario del jugador que contienen líneas útiles que registran ciertas acciones durante
+  su juego. Esta aplicación no recopila todas las acciones, solo las acciones que
+  son relevantes para el tablero de escuadrones y las mediciones de rendimiento. Solo
+  capturaremos datos de su fecha de inicio desde que se unió a este escuadrón y los
+  datos no se capturarán antes de esa fecha. Solo nos enfocamos en tus actividades
+  mientras seas un miembro activo del escuadrón. Cuando detecte que ha abandonado
+  el escuadrón, la recopilación de datos se detendrá en ese punto.'
+upload_file_instructions_2: La ubicación habitual de estos archivos se puede encontrar
+  en esta carpeta.
+upload_file_instructions_3: 'Suba los archivos con los nombres de archivo en un formato
+  como este: Journal.190209154325.01.log. Tenga en cuenta que todos los archivos de
+  registro terminan con .log. Todos los otros archivos como Status.json, Journal315129.cache
+  o similares no serán aceptados.'
+DockingMajorBlockingAirlock: Atraque mayor bloqueando burbuja de aire
+DockingMajorBlockingLandingPad: Atraque mayor bloqueando pista de aterrizaje
+DockingMajorTrespass: Atracar mayor entrada ilegal
+DockingMinorBlockingAirlock: Atraque menor bloqueando burbuja de aire
+DockingMinorBlockingLandingPad: Atraque menor bloqueando pista de aterrizaje
+DockingMinorTrespass: Atraque menor entrada ilegal
+DumpingDangerous: Vertido peligroso
+DumpingNearStation: Vertido cerca de la estación
+edmc_instructions_1: En lugar de subir de subir archivos de diario manualmente, puedes
+  usar la aplicación Elite Dangerous Market Connector para automaticamente tus estadísticas
+  y progreso de escuadrón. Necesitara bajar el plug-in y instalarlo.  Puedes obetener
+  el plug-in a
+edmc_instructions_2: Si tu no tienes la aplicación E:D Market Connector, puedes conseguirlo
+  en
+edmc_instructions_3: Despues de instalar la aplicación y/o el plug-in, necesitarás
+  la clave API para que se cargue su registro de diario de jugador automaticamente
+  en tiempo real.  Por favor copia y pegalo en ajustes EDMC. Ademas, necesitaras entrar
+  en el servidor punto final API en ajustes EDMC
+EDSCC API Server: 'Servidor EDSCC API '
+FactionKillBond: Bono de matanza de facción
+Frontier User Portal Status: Usario Status Portal de Frontier
+Journal data last fetched on: Ultimos datos recuperados de diario
+Ranger: Guardabosque
+rank_footnote: La clasificación está anulada por los archivos de registro, EDMC o
+  CAPI, si ha habido promoción o degradación en el juego
+squadron_footnote: Grabado directamente desde archivos de registro, EDMC, o CAPI
+upload_file_instructions_4: También aceptamos un archivo zip de todos los archivos
+  de registro combinados en una sola carga. Procesará cada archivo y capturará los
+  datos relevantes y los almacenará en la base de datos. El tamaño máximo de archivo
+  de carga es %size%.
