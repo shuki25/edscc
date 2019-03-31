@@ -2,17 +2,38 @@
     <form action="{{ path('app_player_reports') }}" method="post" autocomplete="off">
         <div class="box-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" style="padding-right: 0;">
                     <div class="form-group-sm">
                         <div class="input-group input-group-sm">
                             <div class="input-group-addon"><i class="fas fa-search"></i></div>
                             <input type="text" class="form-control" id="keyword" name="filter[keyword]"
                                    value="{{ filter.keyword|default('') }}"
                                    placeholder="{% trans %}Keyword{% endtrans %}">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                                        type="button"><i class="far fa-folder-open"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    {% for item in saved_filter_list %}
+                                        <li><a href="#" class="saved-filter"
+                                               data-id="{{ item.id }}">{{ item.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                                        type="button"><i class="far fa-trash-alt"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    {% for item in saved_filter_list %}
+                                        <li>
+                                            <a href="{{ path('remove_custom_filter', {slug: item.id, report: report_id, token: csrf_token('remove_custom_filter')}) }}">{{ item.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="padding-right: 0;">
                     <div class="input-group input-group-sm" style="user-select: auto;">
                         <span class="input-group-addon" style="user-select: auto;"><i
                                     class="fas fa-calendar-alt"></i></span>
@@ -22,7 +43,7 @@
                                placeholder="{% trans %}Start Date{% endtrans %}" style="user-select: auto;">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="padding-right: 0;">
                     <div class="input-group input-group-sm" style="user-select: auto;">
                         <span class="input-group-addon" style="user-select: auto;"><i
                                     class="fas fa-calendar-alt"></i></span>
@@ -31,12 +52,13 @@
                                style="user-select: auto;">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="padding-left: 0;">
                     <input type="hidden" name="report" value="{{ report_id }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('report_filter') }}">
-                    <button type="submit" class="btn btn-sm btn-primary pull-right"
-                            style="user-select: auto;">{% trans %}Apply Filter{% endtrans %}</button>
-                    <button type="submit" class="btn btn-sm btn-default" name="reset" value="1"
+                    <button type="submit" class="btn btn-sm btn-primary btn-flat pull-right"
+                            style="user-select: auto;"><i
+                                class="fas fa-search margin-r-5"></i> {% trans %}Apply Filter{% endtrans %}</button>
+                    <button type="submit" class="btn btn-sm btn-default btn-flat pull-right" name="reset" value="1"
                             style="user-select: auto;">{% trans %}Reset{% endtrans %}</button>
                 </div>
             </div>

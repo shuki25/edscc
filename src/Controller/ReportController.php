@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\CustomFilter;
 use App\Entity\User;
+use App\Repository\CustomFilterRepository;
+use App\Service\ErrorLogHelper;
 use Nyholm\DSN;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -37,7 +40,7 @@ class ReportController extends AbstractController
         $dsn = sprintf('%s:host=%s;dbname=%s', $dsnObject->getProtocol(), $dsnObject->getFirstHost(), $dsnObject->getDatabase());
 
         try {
-            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"', \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'']);
+            $this->dbh = new \PDO($dsn, $dsnObject->getUsername(), $dsnObject->getPassword(), [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET sql_mode="TRADITIONAL"', \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'', \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
         } catch (\Exception $e) {
             dump($e->getMessage());
             dump($dsnObject);
@@ -50,7 +53,7 @@ class ReportController extends AbstractController
     /**
      * @Route("/reports", name="app_player_reports")
      */
-    public function playerReports(Request $request, SessionInterface $session)
+    public function playerReports(Request $request, SessionInterface $session, CustomFilterRepository $customFilterRepository)
     {
 
         $user = $this->getUser();
@@ -58,6 +61,39 @@ class ReportController extends AbstractController
         $filter = $request->request->get('filter');
         $token = $request->request->get('_token');
         $reset = $request->request->get('reset');
+        $save_filter = ($request->request->get('save_filter')) ?: 0;
+        $save_state = $request->query->get('save_state');
+        $em = $this->getDoctrine()->getManager();
+
+        if ($save_filter) {
+            $title = ucwords(trim($request->request->get('filter_title')));
+            $rule = base64_decode($request->request->get('filter_rule'));
+
+            if ($this->isCsrfTokenValid('filter_save', $token)) {
+                $filter = $customFilterRepository->findOneBy(['user' => $user, 'scope' => 'PlayerReport', 'title' => $title]);
+
+                if (is_null($filter)) {
+                    $filter = new CustomFilter();
+                    $filter->setUser($user);
+                    $em->persist($filter);
+                }
+
+                $filter->setScope('PlayerReport')
+                    ->setTitle($title)
+                    ->setFilterRule($rule);
+
+                $em->flush();
+                $this->addFlash('success', $this->translator->trans('Filter Saved'));
+            } else {
+                $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please try again.'));
+            }
+            $filter = json_decode($rule, true);
+        }
+
+        if ($save_state && !$save_filter) {
+            $report_id = $session->get('report_id');
+            $filter = $session->get('filter');
+        }
 
         if (!is_null($filter) && !$reset) {
             if ($this->isCsrfTokenValid('report_filter', $token)) {
@@ -86,18 +122,77 @@ class ReportController extends AbstractController
         $report['header'] = json_decode($report['header']);
         $report['columns'] = json_decode($report['columns']);
 
+        $saved_filter_list = $customFilterRepository->findBy(['user' => $user->getId(), 'scope' => 'PlayerReport'], ['title' => 'asc']);
+
         return $this->render('report/report_datatables.html.twig', [
             'report' => $report,
             'report_id' => $report_id,
             'report_picker' => $report_picker,
-            'filter' => $filter
+            'filter' => $filter,
+            'filter_base64' => base64_encode(json_encode($filter)),
+            'saved_filter_list' => $saved_filter_list
         ]);
+    }
+
+    /**
+     * @Route("/reports/remove_custom_filter/{slug}/{report}/{token}", name="remove_custom_filter", methods={"GET"})
+     */
+    public function removeCustomFilter($slug, $report, $token, CustomFilterRepository $customFilterRepository)
+    {
+        $custom_filter = $customFilterRepository->findOneBy(['user' => $this->getUser()->getId(),
+            'id' => $slug,
+            'scope' => 'PlayerReport'
+        ]);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($this->isCsrfTokenValid('remove_custom_filter', $token)) {
+            if (isset($custom_filter)) {
+                $em->remove($custom_filter);
+                $em->flush();
+                $this->addFlash('success', $this->translator->trans('Custom Filter Removed'));
+            } else {
+                $this->addFlash('alert', $this->translator->trans('Internal Error. Custom Filter was not Removed.'));
+            }
+        }
+        return $this->redirectToRoute('app_player_reports', ['save_state' => true, 'report' => $report]);
+    }
+
+    /**
+     * @Route("/reports/ajax/custom_filter", name="get_custom_filter", methods={"POST"})
+     */
+    public function getCustomFilter(Request $request, CustomFilterRepository $customFilterRepository)
+    {
+        $token = $request->request->get('_token');
+
+        if ($this->isCsrfTokenValid('custom_filter', $token)) {
+
+            $data['filter'] = [];
+
+            $custom_filter = $customFilterRepository->findOneBy(['user' => $this->getUser()->getId(),
+                'id' => $request->request->get('id'),
+                'scope' => 'PlayerReport'
+            ]);
+
+            if (is_null($custom_filter)) {
+                $data['status'] = 302;
+            } else {
+                $data['filter'] = json_decode($custom_filter->getFilterRule(), true);
+                $data['status'] = 200;
+            }
+        } else {
+            $data['status'] = 401;
+        }
+
+        $response = new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
+        $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
+        return $response;
     }
 
     /**
      * @Route("/reports/ajax/{slug}/{token}", name="report_table", methods={"POST"} )
      */
-    public function reportTable($slug, $token, Request $request, SessionInterface $session)
+    public function reportTable($slug, $token, Request $request, SessionInterface $session, ErrorLogHelper $errorLogHelper)
     {
         /**
          * @var User $user
@@ -205,51 +300,52 @@ class ReportController extends AbstractController
             $rs = $this->dbh->prepare($sql);
             $rs->execute($counter_params);
             $rowcount = $rs->fetchColumn(0);
+        } catch (\PDOException $e) {
+            $errorLogHelper->addErrorMsgToErrorLog('ReportTable', $slug, $e, [$sql, $params]);
+        }
 
-            $filtered_count = 0;
-            if ($filter_sql) {
-                $sql = sprintf("select count(*) from (%s) a", sprintf($report['sql'], $filter_sql));
-                try {
-                    $rs = $this->dbh->prepare($sql);
-                    $rs->execute($params);
-                    $filtered_count = $rs->fetchColumn(0);
-                } catch (\PDOException $e) {
-                    $datatable['error_message'] = $e->getMessage();
-                }
-            }
-
-            $order_by_str = " order by `%s` %s";
-            if (isset($cast_columns[$order_by])) {
-                $order_by_str = " order by cast(`%s` as " . $cast_columns[$order_by] . ") %s";
-            }
-            $order_by_str .= " limit %d offset %d";
-
-            if (isset($sort_columns[$order_by])) {
-                if ($filter_sql) {
-                    $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
-                } else {
-                    $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
-                }
-            } else {
-                if ($filter_sql) {
-                    $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
-                } else {
-                    $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
-                }
-            }
-
+        $filtered_count = 0;
+        if ($filter_sql) {
+            $sql = sprintf("select count(*) from (%s) a", sprintf($report['sql'], $filter_sql));
             try {
                 $rs = $this->dbh->prepare($sql);
                 $rs->execute($params);
-                $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
-                $has_data = $rs->rowCount();
+                $filtered_count = $rs->fetchColumn(0);
             } catch (\PDOException $e) {
-                $datatable['error_message'] = $e->getMessage();
+                $errorLogHelper->addErrorMsgToErrorLog('ReportTable', $slug, $e, [$sql, $params]);
             }
+        }
 
+        $order_by_str = " order by `%s` %s";
+        if (isset($cast_columns[$order_by])) {
+            $order_by_str = " order by cast(`%s` as " . $cast_columns[$order_by] . ") %s";
+        }
+        $order_by_str .= " limit %d offset %d";
+
+        if (isset($sort_columns[$order_by])) {
+            if ($filter_sql) {
+                $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            } else {
+                $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $sort_columns[$order_by], $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            }
+        } else {
+            if ($filter_sql) {
+                $sql = sprintf($report['sql'], $filter_sql) . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            } else {
+                $sql = sprintf($report['sql'], "") . sprintf($order_by_str, $order_by, $order_dir, (int)$datatable_params['length'], (int)$datatable_params['start']);
+            }
+        }
+
+//        $has_data = 0;
+//        $datatable['data'] = [];
+
+        try {
+            $rs = $this->dbh->prepare($sql);
+            $rs->execute($params);
+            $datatable['data'] = $rs->fetchAll(\PDO::FETCH_ASSOC);
+            $has_data = $rs->rowCount();
         } catch (\PDOException $e) {
-            echo $e->getMessage();
-            die;
+            $errorLogHelper->addErrorMsgToErrorLog('ReportTable', $slug, $e, [$sql, $params]);
         }
 
         if ($has_data) {

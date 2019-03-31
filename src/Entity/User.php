@@ -157,12 +157,18 @@ class User implements UserInterface
      */
     private $squadron_name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomFilter", mappedBy="user")
+     */
+    private $customFilters;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
         $this->importQueues = new ArrayCollection();
         $this->sessionTrackers = new ArrayCollection();
         $this->readHistories = new ArrayCollection();
+        $this->customFilters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -638,6 +644,37 @@ class User implements UserInterface
     public function setSquadronName(?string $squadron_name): self
     {
         $this->squadron_name = $squadron_name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomFilter[]
+     */
+    public function getCustomFilters(): Collection
+    {
+        return $this->customFilters;
+    }
+
+    public function addCustomFilter(CustomFilter $customFilter): self
+    {
+        if (!$this->customFilters->contains($customFilter)) {
+            $this->customFilters[] = $customFilter;
+            $customFilter->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomFilter(CustomFilter $customFilter): self
+    {
+        if ($this->customFilters->contains($customFilter)) {
+            $this->customFilters->removeElement($customFilter);
+            // set the owning side to null (unless already changed)
+            if ($customFilter->getUser() === $this) {
+                $customFilter->setUser(null);
+            }
+        }
 
         return $this;
     }
