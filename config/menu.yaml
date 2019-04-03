@@ -57,7 +57,7 @@ user:
         roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
     15:
         item: "Commander Activities"
-        route: ""
+        route: "mgr_reports"
         icon: "fa fa-fighter-jet"
         roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
     16:
