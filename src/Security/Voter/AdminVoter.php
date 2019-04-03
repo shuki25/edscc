@@ -34,6 +34,7 @@ class AdminVoter extends Voter
             'CAN_CHANGE_STATUS',
             'CAN_EDIT_PERMISSIONS',
             'CAN_VIEW_HISTORY',
+            'CAN_VIEW_REPORTS',
             'CAN_MODIFY_SELF'
         ];
         return in_array($attribute, $attributes_allowed);

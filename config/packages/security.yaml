@@ -13,7 +13,7 @@ security:
 
     role_hierarchy:
         ROLE_SUPERUSER: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        ROLE_ADMIN: [ROLE_EDITOR]
+        ROLE_ADMIN: [ROLE_EDITOR, CAN_VIEW_REPORTS]
 
     firewalls:
         dev:
