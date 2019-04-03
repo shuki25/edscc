@@ -105,7 +105,13 @@ input[type="file"] {
     border: 1px solid #1D1D1D;
     background: #1F282C;
     color: #E0DFDE;
-    font-size: ;
+}
+
+#commander-picker-button {
+    font-weight: normal;
+    border: 1px solid #1D1D1D;
+    background: #1F282C;
+    color: #E0DFDE;
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
