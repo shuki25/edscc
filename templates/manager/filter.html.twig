@@ -1,0 +1,81 @@
+<div class="box-body" id="filter-options" style="padding: 0; display: {% if filter %}block{% else %}none{% endif %};">
+    <form action="{{ path('mgr_reports') }}" method="post" autocomplete="off">
+        <div class="box-body">
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-2">
+                    {% trans %}Commander{% endtrans %}:
+                </div>
+                <div class="col-md-10">
+                    <form class="input-group-sm" method="post" href="{{ path('mgr_reports') }}">
+                        <select id="commander-picker" class="form-control text-sm" name="user">
+                            {% for item in squadron_members %}
+                                <option value="{{ item.id }}"{% if item.id == user_id %} selected="selected"{% endif %}>{{ item.commanderName }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" style="padding-right: 0;">
+                    <div class="form-group-sm">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-addon"><i class="fas fa-search"></i></div>
+                            <input type="text" class="form-control" id="keyword" name="filter[keyword]"
+                                   value="{{ filter.keyword|default('') }}"
+                                   placeholder="{% trans %}Keyword{% endtrans %}">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                                        type="button"><i class="far fa-folder-open"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    {% for item in saved_filter_list %}
+                                        <li><a href="#" class="saved-filter"
+                                               data-id="{{ item.id }}">{{ item.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                                        type="button"><i class="far fa-trash-alt"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    {% for item in saved_filter_list %}
+                                        <li>
+                                            <a href="{{ path('remove_custom_filter', {slug: item.id, report: report_id, token: csrf_token('remove_custom_filter')}) }}">{{ item.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding-right: 0;">
+                    <div class="input-group input-group-sm" style="user-select: auto;">
+                        <span class="input-group-addon" style="user-select: auto;"><i
+                                    class="fas fa-calendar-alt"></i></span>
+                        <input type="text" id="start-date" class="form-control" name="filter[start_date]"
+                               autocomplete="off"
+                               value="{{ filter.start_date|default('') }}"
+                               placeholder="{% trans %}Start Date{% endtrans %}" style="user-select: auto;">
+                    </div>
+                </div>
+                <div class="col-md-3" style="padding-right: 0;">
+                    <div class="input-group input-group-sm" style="user-select: auto;">
+                        <span class="input-group-addon" style="user-select: auto;"><i
+                                    class="fas fa-calendar-alt"></i></span>
+                        <input type="text" id="end-date" class="form-control" name="filter[end_date]" autocomplete="off"
+                               value="{{ filter.end_date|default('') }}" placeholder="{% trans %}End Date{% endtrans %}"
+                               style="user-select: auto;">
+                    </div>
+                </div>
+                <div class="col-md-2" style="padding-left: 0;">
+                    <input type="hidden" name="report" value="{{ report_id }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('report_filter') }}">
+                    <button type="submit" class="btn btn-sm btn-primary btn-flat pull-right"
+                            style="user-select: auto;"><i
+                                class="fas fa-search margin-r-5"></i> {% trans %}Apply Filter{% endtrans %}</button>
+                    <button type="submit" class="btn btn-sm btn-default btn-flat pull-right" name="reset" value="1"
+                            style="user-select: auto;">{% trans %}Reset{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
