@@ -368,9 +368,9 @@ class ReportController extends AbstractController
         $datatable['recordsTotal'] = $rowcount;
         $datatable['draw'] = $datatable_params['draw'];
         $datatable['order_by'] = $order_by;
-        $datatable['sql'] = $sql;
-        $datatable['params'] = $params;
-        $datatable['has_data'] = $has_data;
+//        $datatable['sql'] = $sql;
+//        $datatable['params'] = $params;
+//        $datatable['has_data'] = $has_data;
 
 //        if(isset($filter)) {
 //            dd($datatable);
