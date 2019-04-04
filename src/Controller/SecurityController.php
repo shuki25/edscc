@@ -160,12 +160,15 @@ class SecurityController extends AbstractController
 //            $passwordStatus = (new PasswordExposedChecker())->passwordExposed($data['password1']);
             $csrf_token = new CsrfToken('new_acct', $request->request->get('_csrf_token'));
 
+            $pwd1 = trim($data['password1']);
+            $pwd2 = trim($data['password2']);
+
             if (!$csrfToken->isTokenValid($csrf_token)) {
                 $error = "Invalid CSRF Token";
             } elseif (!isset($data['_terms'])) {
                 $error = "You did not agree to the terms. The account was not created.";
             } //            elseif(($data['password1'] === $data['password2']) && $passwordStatus != PasswordStatus::EXPOSED) {
-            elseif ($data['password1'] === $data['password2']) {
+            elseif ($pwd1 == $pwd2 && $pwd1 != "") {
                 $squadron = $squadronRepository->findOneBy(['id' => 1]);
 
                 $user = new User();
@@ -185,7 +188,7 @@ class SecurityController extends AbstractController
                     ->setCustomRank($custom_rank)
                     ->setStatus($status)
                     ->setApikey(md5('edmc' . $data['email'] . time()))
-                    ->setPassword($passwordEncoder->encodePassword($user, $data['password1']));
+                    ->setPassword($passwordEncoder->encodePassword($user, $pwd1));
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
@@ -210,6 +213,8 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_confirm_email', [
                     'email' => $data['email']
                 ]);
+            } elseif ($pwd1 == "") {
+                $error = "Password is required";
             } else {
                 $error = $passwordStatus == PasswordStatus::EXPOSED ? "The password you chose has been exposed in a data breach.  Please visit haveibeenpwned.com for further information.  Please choose a different password." : "The passwords did not match.  Please re-type them carefully.";
             }

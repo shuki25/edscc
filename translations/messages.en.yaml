@@ -117,6 +117,7 @@ Strong: Strong
 Your password change has been updated: Your password change has been updated
 The current password is incorrect, and your password is not changed: The current password is incorrect, and your password is not changed
 Your new password did not match with verify password. Password is not changed.: Your new password did not match with verify password. Password is not changed.
+Password is required: Password is required
 Commander data has been purged from the system.: Commander data has been purged from the system.
 "ED:SCC Approval Requested": "ED:SCC Approval Requested"
 "Activation Code for ED:SCC": "Activation Code for ED:SCC"
