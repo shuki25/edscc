@@ -112,7 +112,7 @@
                 serverSide: true,
                 processing: false,
                 ajax: {
-                    url: "{{ path('report_table', {'token': csrf_token('ajax_report'), 'slug': report_id}) }}",
+                    url: "{{ path('mgr_report_table', {'token': csrf_token('mgr_ajax_report'), 'slug': report_id}) }}",
                     type: "POST",
                     async: true
                 },
@@ -207,7 +207,7 @@
         function getCustomFilter(id) {
             $.ajax({
                 type: "POST",
-                url: "{{ path('get_custom_filter') }}",
+                url: "{{ path('mgr_get_custom_filter') }}",
                 data: {
                     _token: "{{ csrf_token('custom_filter') }}",
                     id: id,
