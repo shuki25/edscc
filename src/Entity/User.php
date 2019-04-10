@@ -162,6 +162,11 @@ class User implements UserInterface
      */
     private $customFilters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AccessHistory", mappedBy="user", orphanRemoval=true)
+     */
+    private $accessHistories;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
@@ -169,6 +174,7 @@ class User implements UserInterface
         $this->sessionTrackers = new ArrayCollection();
         $this->readHistories = new ArrayCollection();
         $this->customFilters = new ArrayCollection();
+        $this->accessHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -673,6 +679,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($customFilter->getUser() === $this) {
                 $customFilter->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AccessHistory[]
+     */
+    public function getAccessHistories(): Collection
+    {
+        return $this->accessHistories;
+    }
+
+    public function addAccessHistory(AccessHistory $accessHistory): self
+    {
+        if (!$this->accessHistories->contains($accessHistory)) {
+            $this->accessHistories[] = $accessHistory;
+            $accessHistory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccessHistory(AccessHistory $accessHistory): self
+    {
+        if ($this->accessHistories->contains($accessHistory)) {
+            $this->accessHistories->removeElement($accessHistory);
+            // set the owning side to null (unless already changed)
+            if ($accessHistory->getUser() === $this) {
+                $accessHistory->setUser(null);
             }
         }
 

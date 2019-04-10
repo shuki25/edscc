@@ -9,12 +9,14 @@
 namespace App\Service;
 
 
+use App\Entity\AccessHistory;
 use App\Entity\Squadron;
 use App\Entity\User;
 use App\Repository\SquadronRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use WhichBrowser\Parser;
 
 class NotificationHelper
 {
@@ -100,6 +102,21 @@ class NotificationHelper
         $params['user'] = $user;
         $body = $this->twig->render('emails/forgot_pw.html.twig', $params);
         $message = (new \Swift_Message($this->translator->trans('Password Reset Request')))
+            ->setFrom($this->from)
+            ->setTo($user->getEmail())
+            ->setBody($body, 'text/html');
+        $this->mailer->send($message);
+    }
+
+    public function userNewLoginLocation(User $user, AccessHistory $accessHistory)
+    {
+        $params = [
+            'user' => $user,
+            'ah' => $accessHistory
+        ];
+
+        $body = $this->twig->render('emails/new_login_location.html.twig', $params);
+        $message = (new \Swift_Message($this->translator->trans('New Login Location')))
             ->setFrom($this->from)
             ->setTo($user->getEmail())
             ->setBody($body, 'text/html');

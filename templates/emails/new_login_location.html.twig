@@ -1,0 +1,20 @@
+{% extends 'emails/email_base_min.html.twig' %}
+{% block preview %}{% trans %}New Login Location Alert{% endtrans %}{% endblock %}
+{% block title %}Notification Alert{% endblock %}
+{% block subtitle %}New Login Location{% endblock %}
+{% block body %}
+    <p class="my-3">Dear Commander {{ user.commandername }},</p>
+    <p class="my-3">We noticed a login from a new device or location and we want to make sure it’s you.</p>
+    <p><strong>Device:</strong> {{ ah.browser }}
+        / {{ ah.platform }}{% if ah.device != "" %} / {{ ah.device }}{% endif %}<br>
+        <strong>Where:</strong> {{ ah.cityname }}{% if ah.regionname != "" %}, {{ ah.regionname }}{% endif %}
+        , {{ ah.countryname }} (Approximate)<br>
+        <strong>IP Address:</strong> {{ ah.remoteip }}
+    </p>
+    <p><strong>If this was you:</strong><br>
+        You’re good to go! You don’t need to do anything.</p>
+    <p><strong>If this wasn’t you:</strong><br>
+        Someone knows your login details and used it to access your account. To protect your account, you need reset
+        your password. Also check for suspicious activity on any other accounts (Google, Facebook, etc.) with same login
+        name and password.</p>
+{% endblock %}

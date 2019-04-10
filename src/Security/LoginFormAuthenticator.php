@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
+use App\Service\AccessHistoryHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,8 +40,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @var TranslatorInterface
      */
     private $translator;
+    /**
+     * @var AccessHistoryHelper
+     */
+    private $accessHistoryHelper;
 
-    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $manager, StatusRepository $statusRepository, TranslatorInterface $translator)
+    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $manager, StatusRepository $statusRepository, TranslatorInterface $translator, AccessHistoryHelper $accessHistoryHelper)
     {
         $this->userRepository = $userRepository;
         $this->router = $router;
@@ -49,6 +54,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->manager = $manager;
         $this->statusRepository = $statusRepository;
         $this->translator = $translator;
+        $this->accessHistoryHelper = $accessHistoryHelper;
     }
 
     public function supports(Request $request)
@@ -88,6 +94,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $user = $this->userRepository->findOneBy(['email' => $request->request->get('email')]);
         $user->setLastLoginAt();
+        $remote_addr_label = getenv('APP_REMOTE_ADDR');
+        $remote_ip = getenv($remote_addr_label);
+        if (!$this->accessHistoryHelper->hasLoggedInBefore($user, $remote_ip)) {
+            $access_history = $this->accessHistoryHelper->addAccessHistory($user, $remote_ip);
+            $this->accessHistoryHelper->notifyUser($user, $access_history);
+        } else {
+            $this->accessHistoryHelper->updateAccessHistoryTimestamp($user, $remote_ip);
+        }
 
         $this->manager->flush();
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
