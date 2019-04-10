@@ -38,6 +38,7 @@ grant all privileges on edscc.* to 'username'@'localhost' identified by 'passwor
 $ cd src/Sql
 $ mysql -u [username] -p edscc < install.sql
 ```
+5. EDSCC uses IP2Location Database to track login location as a security measure and notifies users if a new login location was detected. The database needs to be downloaded and installed in the `database` folder. You have to register for an account at ip2location.com and download [DB9 LITE version](https://lite.ip2location.com/database/ip-country-region-city-latitude-longitude-zipcode) or download a [commerical database](https://www.ip2location.com/databases/db9-ip-country-region-city-latitude-longitude-zipcode) for a premium data.
 
 ### Configurations
 1. Copy .env to .env.local and change the settings accordingly.
@@ -49,8 +50,10 @@ $ vi .env.local
 2. Configure `APP_SECRET` to a new value, as it is necessary to protect the user session data from XSS attacks. `APP_ENV` takes two possible modes, `dev` or `prod` for development or production mode respectively. `prod` is recommended if you will not be updating the code base frequently.
 3. `DATABASE_URL` is your database server connection settings.
 4. `MAILER_URL` will be your local sendmail server or use gmail as your mail transporter but that requires extra configurations on Google's end. `MAILER_FROM` is the from e-mail address.
-5. Configure your apache2 settings for Symfony 4 framework. The source has already included .htaccess for apache2. Refer to [Symfony 4 documentation](https://symfony.com/doc/current/setup/web_server_configuration.html) for the Apache2 or Nginx setup. See below for examples.
-6. Configure crontab to set up a cron job to execute log files import processing script in the background.
+5. `APP_REMOTE_ADDR` is the server environment variable for remote IP of the user. If your server setup uses load balancing or proxy, you will need to specify the environment variable to the real IP address.
+5. `IP2LOCATION_PATH` is the path to IP2Location database. Change the filename if different from default.
+6. Configure your apache2 settings for Symfony 4 framework. The source has already included .htaccess for apache2. Refer to [Symfony 4 documentation](https://symfony.com/doc/current/setup/web_server_configuration.html) for the Apache2 or Nginx setup. See below for examples.
+7. Configure crontab to set up a cron job to execute log files import processing script in the background.
 
 ```
 $ crontab -e
