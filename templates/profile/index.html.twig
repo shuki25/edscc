@@ -81,6 +81,32 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i
+                                            class="fa fa-unlock-alt margin-r-5"></i> {% if app.user.isgoogleauthenticatorenabled %}{% trans %}Deactivate Two-Factor Authentication{% endtrans %}{% else %}{% trans %}Activate 2-Factor Authentication{% endtrans %}{% endif %}
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    {% if app.user.isgoogleauthenticatorenabled %}
+                                        <p class="text-green">{% trans %}2fa_active{% endtrans %}</p>
+                                        <p>{{ '2fa_instructions1'|trans|markdown }}</p>
+                                        <form action="{{ path('app_deactivate_2fa') }}" method="post">
+                                            <input type="hidden" name="_token"
+                                                   value="{{ csrf_token('deactivate_2fa') }}">
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-flat pull-right">{% trans %}Deactivate 2FA{% endtrans %}</button>
+                                        </form>
+                                    {% else %}
+                                        <p>{{ '2fa_instructions1'|trans|markdown }}</p>
+                                        <p>{{ '2fa_instructions2'|trans|markdown }}</p>
+                                        <button id="activate-2fa-button" type="submit"
+                                                class="btn btn-default btn-flat pull-right">{% trans %}Activate 2FA{% endtrans %}</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i
                                             class="fa fa-trash-alt margin-r-5"></i> {% trans %}Purge Commander Data{% endtrans %}
                                 </h3>
                             </div>
@@ -126,9 +152,79 @@
 
 </section>
 <!-- /.content -->
+    <div id="activate-2fa-qrcode" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-sm" role="document">
+            <form action="{{ path('app_profile_verify_2fa') }}" method="post" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h4 class="modal-title"><i
+                                    class="fas fa-unlock-alt margin-r-5"></i> {% trans %}Activate 2FA{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12" style="text-align: center">
+                                <div id="qrcode">
+                                    <i class="fas fa-lg fa-spinner fa-spin margin-r-5"></i> {% trans %}Loading...{% endtrans %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="text-align: center">
+                                <div class="form-group-sm">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-addon"><i class="fas fa-key"></i></div>
+                                        <input autocomplete="off" type="text" pattern="\d*" class="form-control"
+                                               name="google_2fa" maxlength="6"
+                                               placeholder="{% trans %}Enter 2FA Code{% endtrans %}"
+                                               required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="_token" value="{{ csrf_token('verify_2fa') }}">
+                        <input type="hidden" id="secret_2fa" name="secret" value="">
+                        <button type="button" class="btn btn-sm btn-primary"
+                                data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                        <button type="submit" class="btn btn-sm btn-default" name="verify_code"
+                                value="1">{% trans %}Verify Code{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 <script src="{{ asset('js/password_change.js') }}"></script>
+    <script>
+        $('#activate-2fa-button').on('click', function () {
+            getQRCode();
+            $('#activate-2fa-qrcode').modal();
+        });
+
+        function getQRCode() {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_activate_2fa') }}",
+                data: {
+                    _token: "{{ csrf_token('activate_2fa') }}"
+                },
+                success: function (result) {
+                    if (result.status == 200) {
+                        $('#qrcode').html(result.content);
+                        $('#secret_2fa').val(result.secret);
+                    } else {
+                        console.log('Error: ' + result.errorMessage);
+                    }
+                },
+                error: function (result) {
+                    console.log('Error thrown.');
+                }
+            });
+        }
+    </script>
 {% endblock %}
 

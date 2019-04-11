@@ -1,0 +1,46 @@
+{% extends 'security/base.html.twig' %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="login-box">
+        {% include 'security/logo.html.twig' %}
+        <div class="login-box-body">
+            <p class="login-box-msg">{% trans %}Two-Factor Authentication{% endtrans %}</p>
+
+            <form action="{{ path('2fa_login_check') }}" method="post">
+                <div class="form-group has-feedback">
+                    {% if isCsrfProtectionEnabled %}
+                        <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+                    {% endif %}
+                    <div class="form-group-sm">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-addon"><i class="fas fa-key"></i></div>
+                            <input autocomplete="off" type="text" pattern="\d*" class="form-control" name="_auth_code"
+                                   maxlength="6"
+                                   placeholder="{% trans %}Enter OTP Verification Code{% endtrans %}"
+                                   required="required">
+                        </div>
+                        <p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox"
+                                                                       name="{{ trustedParameterName }}"/> {{ "scheb_two_factor.trusted"|trans }}
+                            </label></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4"></div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <a href="{{ path('app_logout') }}" type="submit"
+                           class="btn btn-primary btn-block btn-flat">{% trans %}Cancel{% endtrans %}</a>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit"
+                                class="btn btn-default btn-block btn-flat">{% trans %}Verify Code{% endtrans %}</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+{% endblock %}

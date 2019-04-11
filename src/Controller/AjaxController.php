@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Alchemy\Zippy\Zippy;
 use App\Entity\ImportQueue;
 use App\Entity\ReadHistory;
 use App\Entity\SquadronTags;
@@ -19,9 +18,9 @@ use App\Repository\UserRepository;
 use App\Service\NotificationHelper;
 use Doctrine\ORM\EntityManager;
 use Knp\Bundle\TimeBundle\DateTimeFormatter;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -828,6 +827,38 @@ class AjaxController extends AbstractController
 
         $strength['message'] = $translator->trans('Strength: %strength% (cracked in %number% %unit%)', ['%strength%' => $strengthText, '%number%' => $human_readable_time['number'], '%unit%' => $human_readable_time['unit']]);
         return new JsonResponse($strength);
+    }
+
+    /**
+     * @Route("/ajax/activate/2fa", name="ajax_activate_2fa", methods={"POST"})
+     */
+    public function ajaxActivate2FA(Request $request, GoogleAuthenticatorInterface $googleAuthenticator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $domain = getenv('EDSCC_NAME');
+        $token = $request->request->get('_token');
+
+        if ($this->isCsrfTokenValid('activate_2fa', $token)) {
+            $secret = $googleAuthenticator->generateSecret();
+            $qrCodeUrl = $googleAuthenticator->getUrl($user);
+
+            $data['content'] = $this->renderView('ajax/activate_2FA.html.twig', [
+                'qrCodeURL' => $qrCodeUrl,
+                'secret' => $secret
+            ]);
+            $data['status'] = 200;
+            $data['secret'] = $secret;
+        } else {
+            $data['status'] = 401;
+            $data['errorMessage'] = "Invalid CSRF Token";
+        }
+
+        $response = new JsonResponse($data);
+        return $response;
     }
 
     /**

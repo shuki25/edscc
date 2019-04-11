@@ -550,3 +550,16 @@ Filter Saved: Filter Saved
 Custom Filter was not Removed: Custom Filter was not Removed
 Custom Filter Removed: Custom Filter Removed
 Internal Error. Custom Filter was not Removed.: Internal Error. Custom Filter was not Removed.
+2fa_active: Your account is currently set up for Two-Factor Authentication and is active.
+2fa_instructions1: Two-Factor Authentication (2FA) is a way to provide an additional security to your account.  The first factor is your password and the second factor is a verification code received from either Google Authenticator or [Authy](https://authy.com/) app on a mobile device or computer.  It uses Time-based One-time Password algorithm, which the verification code changes every 30 seconds. It will only ask for a verification code when logging in at a new location or browser for the first time.
+2fa_instructions2: Before activating, you will need to download and install Google Authenticator or Authy on your mobile device or use [GAuth add-on](https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl) for Chrome browser or [Authenticator add-on](https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search) for Firefox and you are good to go.  Click on the button to activate 2FA and you will be presented with a QR-code for the app to scan or enter manually in the GAuth add-on.
+Activate 2FA: Activate 2FA
+Two-Factor Authentication is activated: Two-Factor Authentication is activated
+Invalid 2FA code. 2FA is not activated.: Invalid 2FA code. 2FA is not activated.
+Enter 2FA Code: Enter 2FA Code
+Scan the QR Code: Scan the QR Code
+2FA Secret: 2FA Secret
+Deactivate Two-Factor Authentication: Deactivate Two-Factor Authentication
+Activate 2-Factor Authentication: Activate 2-Factor Authentication
+Two-Factor Authentication has been deactivated: Two-Factor Authentication has been deactivated
+Two-Factor Authentication: Two-Factor Authentication
