@@ -113,21 +113,8 @@ class ProfileController extends AbstractController
 
             if ($ga->verifyCode($data['secret'], $data['google_2fa'], 2)) {
 
-                $user->setGoogle2faFlag(true);
-                $google_2fa = $user->getGoogle2fa();
-
-                if (!is_object($google_2fa)) {
-                    $google_2fa = new Google2fa();
-                    $google_2fa->setUser($user)
-                        ->setSecret($data['secret']);
-                    $em->persist($google_2fa);
-                    $user->setGoogle2fa($google_2fa);
-                    $em->flush();
-                } else {
-                    $google_2fa->setSecret($data['secret']);
-                    $em->flush();
-                }
-
+                $user->setGoogleAuthenticatorSecret($data['secret']);
+                $em->flush();
                 $this->addFlash('success', $translator->trans('Two-Factor Authentication is activated'));
             } else {
                 $this->addFlash('alert', $translator->trans('Invalid 2FA code. 2FA is not activated.'));
@@ -154,6 +141,10 @@ class ProfileController extends AbstractController
 
         if ($this->isCsrfTokenValid('deactivate_2fa', $data['_token'])) {
             $user->setGoogleAuthenticatorSecret(null);
+            $list = $user->getAccessHistories();
+            foreach ($list as $i => $item) {
+                $item->setGoogle2faTrustFlag(false);
+            }
             $em->flush();
             $this->addFlash('alert', $translator->trans('Two-Factor Authentication has been deactivated'));
         } else {

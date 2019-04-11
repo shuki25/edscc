@@ -6,4 +6,8 @@ scheb_two_factor:
         - Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken
     google:
         enabled: true
+        issuer: EDSCC
         template: security/google_2fa_verify.html.twig
+    trusted_device:
+        enabled: true
+        manager: App\Manager\TrustedDeviceManager

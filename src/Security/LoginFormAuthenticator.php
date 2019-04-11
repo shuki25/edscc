@@ -97,10 +97,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $remote_addr_label = getenv('APP_REMOTE_ADDR');
         $remote_ip = getenv($remote_addr_label);
         if (!$this->accessHistoryHelper->hasLoggedInBefore($user, $remote_ip)) {
-            if (!$user->isGoogleAuthenticatorEnabled()) {
-                $access_history = $this->accessHistoryHelper->addAccessHistory($user, $remote_ip);
-                $this->accessHistoryHelper->notifyUser($user, $access_history);
-            }
+            $access_history = $this->accessHistoryHelper->addAccessHistory($user, $remote_ip);
+            $this->accessHistoryHelper->notifyUser($user, $access_history);
         } else {
             $this->accessHistoryHelper->updateAccessHistoryTimestamp($user, $remote_ip);
         }

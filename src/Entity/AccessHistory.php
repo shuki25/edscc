@@ -80,6 +80,11 @@ class AccessHistory
      */
     private $device;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $google_2fa_trust_flag = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -225,6 +230,18 @@ class AccessHistory
     public function setDevice(?string $device): self
     {
         $this->device = $device;
+
+        return $this;
+    }
+
+    public function getGoogle2faTrustFlag(): ?bool
+    {
+        return $this->google_2fa_trust_flag;
+    }
+
+    public function setGoogle2faTrustFlag(bool $google_2fa_trust_flag): self
+    {
+        $this->google_2fa_trust_flag = $google_2fa_trust_flag;
 
         return $this;
     }

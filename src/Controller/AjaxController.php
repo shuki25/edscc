@@ -844,6 +844,7 @@ class AjaxController extends AbstractController
 
         if ($this->isCsrfTokenValid('activate_2fa', $token)) {
             $secret = $googleAuthenticator->generateSecret();
+            $user->setGoogleAuthenticatorSecret($secret);
             $qrCodeUrl = $googleAuthenticator->getUrl($user);
 
             $data['content'] = $this->renderView('ajax/activate_2FA.html.twig', [
