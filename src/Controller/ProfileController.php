@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Google2fa;
 use App\Entity\User;
+use App\Repository\Google2faRepository;
 use Nyholm\DSN;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -90,6 +92,65 @@ class ProfileController extends AbstractController
         } else {
             $this->addFlash('alert', $translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
         }
+        return $this->redirectToRoute('app_profile');
+    }
+
+    /**
+     * @Route("/profile/verify/2fa", name="app_profile_verify_2fa", methods={"POST"})
+     */
+    public function verify2FA(Request $request, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($this->isCsrfTokenValid('verify_2fa', $data['_token'])) {
+
+            $ga = new \PHPGangsta_GoogleAuthenticator();
+
+            if ($ga->verifyCode($data['secret'], $data['google_2fa'], 2)) {
+
+                $user->setGoogleAuthenticatorSecret($data['secret']);
+                $em->flush();
+                $this->addFlash('success', $translator->trans('Two-Factor Authentication is activated'));
+            } else {
+                $this->addFlash('alert', $translator->trans('Invalid 2FA code. 2FA is not activated.'));
+            }
+
+        } else {
+            $this->addFlash('alert', $translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        }
+
+        return $this->redirectToRoute('app_profile');
+    }
+
+    /**
+     * @Route("/profile/deactivate/2fa", name="app_deactivate_2fa", methods={"POST"})
+     */
+    public function deactivate2FA(Request $request, TranslatorInterface $translator)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($this->isCsrfTokenValid('deactivate_2fa', $data['_token'])) {
+            $user->setGoogleAuthenticatorSecret(null);
+            $list = $user->getAccessHistories();
+            foreach ($list as $i => $item) {
+                $item->setGoogle2faTrustFlag(false);
+            }
+            $em->flush();
+            $this->addFlash('alert', $translator->trans('Two-Factor Authentication has been deactivated'));
+        } else {
+            $this->addFlash('alert', $translator->trans('Invalid CSRF Token. Please refresh the page to continue.'));
+        }
+
         return $this->redirectToRoute('app_profile');
     }
 

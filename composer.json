@@ -18,6 +18,8 @@
         "league/oauth2-client": "^2.4",
         "nyholm/dsn": "^1.0",
         "pcrov/jsonreader": "^1.0",
+      "phpgangsta/googleauthenticator": "dev-master",
+      "scheb/two-factor-bundle": "^3.18",
         "sensio/framework-extra-bundle": "^5.2",
         "sensiolabs/security-checker": "^5.0",
         "stof/doctrine-extensions-bundle": "^1.3",

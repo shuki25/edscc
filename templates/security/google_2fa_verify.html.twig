@@ -1,0 +1,53 @@
+{% set title %}
+    {% trans %}Two-Factor Authentication{% endtrans %}
+{% endset %}
+{% set description = '' %}
+{% extends 'security/base.html.twig' %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    {% if authenticationError %}
+        <div class="alert alert-warning alert-dismissible fade in text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span>
+            </button>
+            {{ authenticationError|trans(authenticationErrorData) }}
+        </div>
+    {% endif %}
+    <div class="login-box">
+        {% include 'security/logo.html.twig' %}
+        <div class="login-box-body">
+            <p class="login-box-msg">{% trans %}Two-Factor Authentication{% endtrans %}</p>
+
+            <form action="{{ path('2fa_login_check') }}" method="post">
+                <div class="form-group has-feedback">
+                    {% if isCsrfProtectionEnabled %}
+                        <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+                    {% endif %}
+                    <div class="form-group-sm">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-addon"><i class="fas fa-key"></i></div>
+                            <input autocomplete="off" type="text" pattern="\d*" class="form-control" name="_auth_code"
+                                   maxlength="6"
+                                   placeholder="{% trans %}Enter OTP Verification Code{% endtrans %}"
+                                   required="required">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="{{ trustedParameterName }}" value="1"
+                           style="margin-top: 10px"> {% trans %}Trust this device, please don't ask next time.{% endtrans %}
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="submit"
+                                class="btn btn-default btn-flat pull-right">{% trans %}Verify Code{% endtrans %}</button>
+                        <a href="{{ path('app_logout') }}" type="submit"
+                           class="btn btn-primary btn-flat pull-right margin-r-5">{% trans %}Cancel{% endtrans %}</a>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+{% endblock %}

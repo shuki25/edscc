@@ -91,6 +91,37 @@ class AccessHistoryHelper
         $this->entityManager->flush();
     }
 
+    public function update2FATrust(User $user, $ip_addr, $flag = false)
+    {
+        $browser = new Parser($_SERVER['HTTP_USER_AGENT']);
+
+        $access_history = $this->accessHistoryRepository->findOneBy([
+            'user' => $user->getId(),
+            'remote_ip' => $ip_addr,
+            'browser' => $browser->browser->toString(),
+            'platform' => $browser->os->toString(),
+            'device' => $browser->device->toString()
+        ]);
+
+        $access_history->setGoogle2faTrustFlag($flag);
+        $this->entityManager->flush();
+    }
+
+    public function check2FATrust(User $user, $ip_addr): bool
+    {
+        $browser = new Parser($_SERVER['HTTP_USER_AGENT']);
+
+        $access_history = $this->accessHistoryRepository->findOneBy([
+            'user' => $user->getId(),
+            'remote_ip' => $ip_addr,
+            'browser' => $browser->browser->toString(),
+            'platform' => $browser->os->toString(),
+            'device' => $browser->device->toString()
+        ]);
+
+        return (is_object($access_history)) ? $access_history->getGoogle2faTrustFlag() : false;
+    }
+
     public function notifyUser(User $user, AccessHistory $accessHistory)
     {
         $this->notificationHelper->userNewLoginLocation($user, $accessHistory);

@@ -2,17 +2,19 @@
 
 namespace App\Entity;
 
+use App\Service\AccessHistoryHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(indexes={@ORM\Index(name="apikey_idx", columns={"apikey"})})
  */
-class User implements UserInterface
+class User implements TwoFactorInterface, UserInterface
 {
     Use TimestampableEntity;
 
@@ -43,6 +45,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tmp_password;
+
+    /**
+     * @ORM\Column(name="googleAuthenticatorSecret", type="string", nullable=true)
+     */
+    private $googleAuthenticatorSecret;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -716,4 +723,23 @@ class User implements UserInterface
         return $this;
     }
 
+    public function isGoogleAuthenticatorEnabled(): bool
+    {
+        return $this->googleAuthenticatorSecret ? true : false;
+    }
+
+    public function getGoogleAuthenticatorUsername(): string
+    {
+        return $this->email;
+    }
+
+    public function getGoogleAuthenticatorSecret(): string
+    {
+        return $this->googleAuthenticatorSecret;
+    }
+
+    public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): void
+    {
+        $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
+    }
 }
