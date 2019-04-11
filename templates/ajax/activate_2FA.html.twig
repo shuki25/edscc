@@ -1,3 +1,3 @@
 <p>{% trans %}Scan the QR Code{% endtrans %}</p>
-<img src="{{ qrCodeURL }}">
+<img src="{{ qr_code_data_uri(qrcode_content, { writer: 'png', size: 200 }) }}">
 <p>{% trans %}2FA Secret{% endtrans %}: {{ secret }}</p>

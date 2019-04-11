@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^1.6.10",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/orm": "^2.5.11",
+      "endroid/qr-code-bundle": "^3.3",
       "ip2location/ip2location-php": "^8.0",
         "knplabs/knp-markdown-bundle": "^1.7",
         "knplabs/knp-paginator-bundle": "^3.0",
