@@ -2,13 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Google2fa;
 use App\Entity\User;
-use App\Repository\Google2faRepository;
 use Nyholm\DSN;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -98,7 +96,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/verify/2fa", name="app_profile_verify_2fa", methods={"POST"})
      */
-    public function verify2FA(Request $request, TranslatorInterface $translator)
+    public function verify2FA(Request $request, TranslatorInterface $translator, GoogleAuthenticatorInterface $googleAuthenticator)
     {
         /**
          * @var User $user
@@ -108,12 +106,8 @@ class ProfileController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         if ($this->isCsrfTokenValid('verify_2fa', $data['_token'])) {
-
-            $ga = new \PHPGangsta_GoogleAuthenticator();
-
-            if ($ga->verifyCode($data['secret'], $data['google_2fa'], 2)) {
-
-                $user->setGoogleAuthenticatorSecret($data['secret']);
+            $user->setGoogleAuthenticatorSecret($data['secret']);
+            if ($googleAuthenticator->checkCode($user, $data['google_2fa'])) {
                 $em->flush();
                 $this->addFlash('success', $translator->trans('Two-Factor Authentication is activated'));
             } else {
