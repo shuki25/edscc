@@ -32,12 +32,6 @@ class Squadron
     private $id_code;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Platform", inversedBy="squadrons")
-     * @ORM\OrderBy({"name" = "ASC"})
-     */
-    private $platform;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -225,18 +219,6 @@ class Squadron
     public function setIdCode(?string $id_code): self
     {
         $this->id_code = $id_code;
-
-        return $this;
-    }
-
-    public function getPlatform(): ?Platform
-    {
-        return $this->platform;
-    }
-
-    public function setPlatform(?Platform $platform): self
-    {
-        $this->platform = $platform;
 
         return $this;
     }

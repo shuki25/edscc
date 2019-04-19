@@ -18,7 +18,11 @@
                         <a href="#" class="list-group-item" data-squadron-id="{{ squadron.id }}">
                             <span class="clearfix pull-right"><small>{{ squadron.idCode }}</small></span>
                             <h4 class="list-group-item-heading text-orange">{{ squadron.name }}</h4>
-                            <small class="badge bg-blue pull-right">{{ squadron.platform.name }}</small>
+                            {% if squadrons_platform[loop.index - 1] %}
+                                {% for platform_tag in squadrons_platform[loop.index - 1] %}
+                                    <small class="badge bg-blue pull-right">{{ platform_tag }}</small>
+                                {% endfor %}
+                            {% endif %}
                             <p class="list-group-item-text"><i class="ed-asset ed-asset-icon-manage-ranks"></i> {% trans with {'%name%': squadron.admin.commanderName} %}CMDR %name%{% endtrans %}</p>
                             {% if squadron.requireApproval == 'Y' %}<span class="clearfix pull-right"><i class="ed-asset ed-asset-icon-new-applications"></i> </span>{% endif %}
                             <p class="list-group-item-text"><i class="ed-asset ed-asset-icon-surface_port_pm"></i> {{ squadron.homeBase }} </p>

@@ -337,6 +337,17 @@ class SecurityController extends AbstractController
     public function selectSquadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, NotificationHelper $notificationHelper)
     {
         $squadrons = $squadronRepository->findAllActiveSquadrons();
+        foreach ($squadrons as $index => $squadron) {
+            $platform_tags = [];
+            $tags = $squadron->getSquadronTags();
+            foreach ($tags as $tag) {
+                if ($tag->getTag()->getGroupCode() == "platform") {
+                    $platform_tags[] = $tag->getTag()->getName();
+                }
+            }
+            rsort($platform_tags);
+            $squadrons_platforms[$index] = $platform_tags;
+        }
 
         if ($request->getMethod() == "POST" && $request->request->get('complete_registration') == "1") {
             $token = $request->request->get('_csrf_token');
@@ -381,6 +392,7 @@ class SecurityController extends AbstractController
             'title' => 'Completing your registration',
             'description' => 'Selecting your Squadron',
             'squadrons' => $squadrons,
+            'squadrons_platform' => $squadrons_platforms,
             'error' => ''
         ]);
     }

@@ -74,10 +74,6 @@ class LoadDummyDataCommand extends Command
      */
     private $powerRepository;
     /**
-     * @var PlatformRepository
-     */
-    private $platformRepository;
-    /**
      * @var StatusRepository
      */
     private $statusRepository;
@@ -86,7 +82,7 @@ class LoadDummyDataCommand extends Command
      */
     private $earningTypeRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, PlatformRepository $platformRepository, StatusRepository $statusRepository, EntityManagerInterface $manager, EarningTypeRepository $earningTypeRepository)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, StatusRepository $statusRepository, EntityManagerInterface $manager, EarningTypeRepository $earningTypeRepository)
     {
         parent::__construct();
 
@@ -96,7 +92,6 @@ class LoadDummyDataCommand extends Command
         $this->userRepository = $userRepository;
         $this->factionRepository = $factionRepository;
         $this->powerRepository = $powerRepository;
-        $this->platformRepository = $platformRepository;
         $this->statusRepository = $statusRepository;
         $this->manager = $manager;
         $this->earningTypeRepository = $earningTypeRepository;

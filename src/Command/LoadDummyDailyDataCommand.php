@@ -78,10 +78,6 @@ class LoadDummyDailyDataCommand extends Command
      */
     private $powerRepository;
     /**
-     * @var PlatformRepository
-     */
-    private $platformRepository;
-    /**
      * @var StatusRepository
      */
     private $statusRepository;
@@ -94,7 +90,7 @@ class LoadDummyDailyDataCommand extends Command
      */
     private $activityCounterRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, PlatformRepository $platformRepository, StatusRepository $statusRepository, EntityManagerInterface $manager, EarningTypeRepository $earningTypeRepository, ActivityCounterRepository $activityCounterRepository)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, SquadronRepository $squadronRepository, RankRepository $rankRepository, UserRepository $userRepository, FactionRepository $factionRepository, PowerRepository $powerRepository, StatusRepository $statusRepository, EntityManagerInterface $manager, EarningTypeRepository $earningTypeRepository, ActivityCounterRepository $activityCounterRepository)
     {
         parent::__construct();
 
@@ -104,7 +100,6 @@ class LoadDummyDailyDataCommand extends Command
         $this->userRepository = $userRepository;
         $this->factionRepository = $factionRepository;
         $this->powerRepository = $powerRepository;
-        $this->platformRepository = $platformRepository;
         $this->statusRepository = $statusRepository;
         $this->manager = $manager;
         $this->earningTypeRepository = $earningTypeRepository;

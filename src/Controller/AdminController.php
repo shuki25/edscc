@@ -53,6 +53,7 @@ class AdminController extends AbstractController
         $tags = $tagsRepository->findBy([], ['group_code' => 'asc', 'name' => 'asc']);
         $group_code = [
             'activities' => "Activities",
+            'platform' => "Platform",
             'availability' => "Availability",
             'game_mode' => "Game Mode",
             'play_style' => "Play Style",

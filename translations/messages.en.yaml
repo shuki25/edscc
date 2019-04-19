@@ -1,6 +1,5 @@
 Name of your Squadron: Name of your Squadron
 Squadron ID: Squadron ID
-Gaming Platform: Gaming Platform
 Faction Affiliation: Faction Affiliation
 Superpower Affiliation: Superpower Affiliation
 Requires approval from squad leaders to join: Requires approval from squad leaders to join
@@ -14,7 +13,6 @@ Your activation code has been resent. Check your INBOX.: Your activation code ha
 Please enter your email: Please enter your email
 Exact spelling as depicted in the game: Exact spelling as depicted in the game
 A 4-character indicator for your Squadron in the game: A 4-character indicator for your Squadron in the game
-Choose the gaming platform this Squadron plays on: Choose the gaming platform this Squadron plays on
 Choose a Superpower affiliation if applicable: Choose a Superpower affiliation if applicable
 Home base: Home base
 Manage Squadron Announcements: Manage Squadron Announcements
@@ -566,3 +564,7 @@ Two-Factor Authentication: Two-Factor Authentication
 Trust this device, please don't ask next time.: Trust this device, please don't ask next time.
 Enter OTP Verification Code: Enter OTP Verification Code
 Verify Code: Verify Code
+Platform: Platform
+PS4: PS4
+PC: PC
+XBox: XBox

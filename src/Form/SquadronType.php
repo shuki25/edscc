@@ -40,10 +40,6 @@ class SquadronType extends AbstractType
                     'maxlength' => 4
                 ]
             ])
-            ->add('platform', null, [
-                'label' => 'Gaming Platform',
-                'help' => 'Choose the gaming platform this Squadron plays on'
-            ])
             ->add('faction', null, [
                 'label' => 'Faction Affiliation',
                 'placeholder' => 'Choose a Faction',

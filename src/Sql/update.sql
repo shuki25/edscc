@@ -277,4 +277,74 @@ UPDATE rank
 SET group_code='squadron'
 where group_code = 'service';
 
+TRUNCATE TABLE tags;
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (1, 'activities', 'Anti-Xeno Activists', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (2, 'activities', 'Bounty Hunters', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (3, 'activities', 'Explorers', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (4, 'activities', 'Faction Supporters', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (5, 'activities', 'Humanitarian Aid Providers', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (6, 'activities', 'Pirates', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (7, 'activities', 'Power Supporters', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (8, 'activities', 'Traders', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (9, 'activities', 'Miners', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (10, 'activities', 'Fuel Rats', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (11, 'activities', 'Seals', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (12, 'availability', 'Occasional', 'bg-orange');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (13, 'availability', 'Weekdays', 'bg-orange');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (14, 'availability', 'Weekends', 'bg-orange');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (15, 'availability', 'Weeknights', 'bg-orange');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (16, 'game_mode', 'Relaxed', 'bg-green');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (17, 'game_mode', 'Family', 'bg-green');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (18, 'game_mode', 'Devoted', 'bg-green');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (19, 'play_style', 'PvE', 'bg-olive');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (20, 'play_style', 'PvP', 'bg-olive');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (21, 'play_style', 'Roleplay', 'bg-olive');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (22, 'language', 'English', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (23, 'language', 'Portuguese', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (24, 'language', 'German', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (25, 'language', 'French', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (26, 'language', 'Spanish', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (27, 'language', 'Russian', 'bg-navy');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (28, 'attitude', 'Solo', 'bg-default');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (29, 'attitude', 'Open', 'bg-default');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (30, 'attitude', 'Private Group', 'bg-default');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (31, 'activities', 'FA off', 'bg-blue');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (32, 'platform', 'PC', 'bg-purple');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (33, 'platform', 'XBox', 'bg-purple');
+INSERT INTO tags (id, group_code, name, badge_color)
+VALUES (34, 'platform', 'PS4', 'bg-purple');
+
 SET FOREIGN_KEY_CHECKS = 1;
