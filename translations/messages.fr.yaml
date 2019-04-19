@@ -473,3 +473,26 @@ Your password has been reset: votre mot de passe a été réinitialisé
 Your settings have been saved.: Vos paramètres ont été sauvegardés.
 Your Squadron: Votre escadron
 Your squadron leader has banned you.: Votre chef d'escadron vous a banni.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Aucune
+  entrée | {1} Une entrée |] 1, Inf [%start% à %end% du %count% entrées"
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Aucun élément | {1} un élément
+  |] 1, Inf [%count% items"
+Activities Report for CMDR %name%: Rapport d\'activités pour CMDR %name%
+CMDR %name%: CMDR %name%
+edmc_instructions_2: Si vous ne disposez pas de l\'application E:D Market Connector,
+  vous pouvez l\'obtenir à l\'adresse suivante
+PC: PC
+PS4: PS4
+'Strength: %strength% (cracked in %number% %unit%)': 'Force: %strength% (fissuré en
+  %number% %unit%)'
+upload_file_instructions_1: 'Pour optimiser votre expérience et celle de l’escadron
+  avec l’application Web ED: SCC, elle a besoin des données des fichiers journaux
+  du journal du joueur, qui contiennent des lignes utiles permettant d’enregistrer
+  certaines actions au cours de votre partie. Cette application ne collecte pas toutes
+  les actions, mais uniquement les actions pertinentes pour le tableau de bord et
+  les mesures de performance de l\''escadron. Nous ne capturerons que les données
+  de votre date de début puisque vous avez rejoint cet escadron et les données ne
+  seront pas capturées avant cette date. Nous nous concentrons uniquement sur vos
+  activités lorsque vous êtes un membre actif de l\''escadron. Lorsqu\''il détecte
+  que vous avez quitté l\''escadron, la collecte de données s\''arrête à ce moment-là.'
+XBox: XBox
