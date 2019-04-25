@@ -691,3 +691,5 @@ User Permission Settings: Paramètres des permissions de l’utilisateur
 Your application to join the chosen squadron was denied. If you have any questions, please contact your squadron leader.: Votre
   demande pour rejoindre l’escadron choisi a été refusée. Si vous avez des questions,
   veuillez contacter votre chef d’escadron.
+2fa_active: Votre compte est actuellement configuré pour l'authentification à deux
+  facteurs et est actif.
