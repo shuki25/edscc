@@ -693,3 +693,11 @@ Your application to join the chosen squadron was denied. If you have any questio
   veuillez contacter votre chef d’escadron.
 2fa_active: Votre compte est actuellement configuré pour l'authentification à deux
   facteurs et est actif.
+2fa_instructions1: L’authentification à deux facteurs (2FA) est un moyen de fournir
+  une sécurité supplémentaire à votre compte. Le premier facteur est votre mot de
+  passe et le second facteur est un code de vérification reçu de Google Authenticator
+  ou de l'application [Authy] (https://authy.com/) sur un appareil mobile ou un ordinateur.
+  Il utilise l’algorithme de mot de passe à utilisation unique basé sur le temps,
+  dont le code de vérification change toutes les 30 secondes. Il vous demandera uniquement
+  un code de vérification lorsque vous vous connecterez pour la première fois depuis
+  un nouvel emplacement ou un nouveau navigateur.
