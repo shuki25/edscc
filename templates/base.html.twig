@@ -25,13 +25,9 @@
     <!-- Custom ED Asset Glyphicons -->
     <link rel="stylesheet" href="{{ asset('glyphicons/style.css') }}">
     <!-- Theme style -->
-    {% if admin_skin == "skin-dark" %}
     <link rel="stylesheet" href="{{ asset('css/adminLTE-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
-    {% else %}
-    <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    {% endif %}
-    <link rel="stylesheet" href="{{ asset('css/skins/') }}{{ admin_skin }}.css">
+        <link rel="stylesheet" href="{{ asset('css/skins/skin-dark.css') }}">
     {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +40,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition {{ admin_skin }} {{ layout_option }} fixed">
+<body class="hold-transition skin-dark {{ layout_option }} fixed">
 <div class="wrapper">
 
     <!-- Main Header -->
