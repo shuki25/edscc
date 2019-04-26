@@ -478,6 +478,19 @@ Mission_Rescue: Mission - Rescue
 Mission_PassengerVIP: Mission - VIP Passenger
 Mission_Mining: Mission - Mining
 Mission_MassacreWing: Mission - Massacre (Wing)
+Chain_WrongTarget: Chained Mission - Wrong Target
+Chain_SeekingAsylum: Chained Mission - Seeking Asylum
+Chain_SalvageJustice: Chained Mission - Salvage Justice
+Chain_SafeTravelling: Chained Mission - Safe Travelling
+Chain_RegainFooting: Chained Mission - Regain Footing
+Chain_PlanetaryIncursions: Chained Mission - Planetary Incursions
+Chain_HelpFinishTheOrder: Chained Mission - Help Finish The Order
+Chain_FindThePirateLord: Chained Mission - Find The Pirate Lord
+Chain_Delivery: Chained Mission - Delivery
+Mission_Smuggle: Mission - Smuggle
+Mission_RS: Mission - RS
+Mission_LongDistanceExpedition: Mission - Long Distance Expedition
+Mission_DisableMegaship: Mission - Disable Megaship
 CombatBond: Combat Bond
 Settlement: Settlement
 Scannable: Scannable
@@ -572,3 +585,6 @@ PS4: PS4
 PC: PC
 XBox: XBox
 Verify: Verify
+Commander Activities Report for CMDR %name%: Commander Activities Report for CMDR %name%
+To Do: To Do
+Placeholder for future addition: Placeholder for future addition
