@@ -18,7 +18,7 @@ VALUES (7, 'CAN_MODIFY_SELF', 'User can modify settings or permissions for himse
 INSERT INTO acl (id, role_string, description, list_order, admin_flag)
 VALUES (8, 'CAN_VIEW_REPORTS', 'User can view management reports', 2, 0);
 
-DROP TABLE x_player_report;
+DROP TABLE IF EXISTS x_player_report;
 CREATE TABLE IF NOT EXISTS x_player_report
 (
   id             int(11) unsigned auto_increment primary key,
@@ -107,7 +107,7 @@ VALUES (8, 'Criminal History Summary by Faction', '["Crime","Minor Faction Issue
         '{"fine":"sort_fine","bounty":"sort_bounty"}', '["crime_committed"]',
         '{"date":{"operator":"and","fields":["committed_on"]},"static":{"string":"group by crime_committed, c.minor_faction_id"},"keyword":{"operator":"having","fields":["crime_committed","minor_faction","num_committed","fine","bounty"]}}');
 
-DROP TABLE x_leaderboard_report;
+DROP TABLE IF EXISTS x_leaderboard_report;
 CREATE TABLE IF NOT EXISTS x_leaderboard_report
 (
   id             int(11) unsigned auto_increment
@@ -172,7 +172,7 @@ VALUES (6, 'Overall Missions', '["Commander","Missions Completed","Total Reward"
         'select count(*) from user where squadron_id=?', '[["squadron_id"],["squadron_id"]]',
         'select * from user where id=?', 0, 'asc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
 
-DROP TABLE x_manager_report;
+DROP TABLE IF EXISTS x_manager_report;
 CREATE TABLE IF NOT EXISTS x_manager_report
 (
   id             int(11) unsigned auto_increment
