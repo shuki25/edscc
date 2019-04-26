@@ -8,7 +8,6 @@ use App\Entity\Commander;
 use App\Entity\EarningHistory;
 use App\Entity\EarningType;
 use App\Entity\Faction;
-use App\Entity\Platform;
 use App\Entity\Power;
 use App\Entity\Rank;
 use App\Entity\Squadron;
@@ -16,7 +15,6 @@ use App\Entity\Status;
 use App\Entity\User;
 use App\Repository\EarningTypeRepository;
 use App\Repository\FactionRepository;
-use App\Repository\PlatformRepository;
 use App\Repository\PowerRepository;
 use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
@@ -129,7 +127,6 @@ class LoadDummyDataCommand extends Command
         $this->referencesIndexByORM[Rank::class] = $this->rankRepository->findBy(['group_code' => 'squadron']);
         $this->referencesIndexByORM[Faction::class] = $this->factionRepository->findAll();
         $this->referencesIndexByORM[Power::class] = $this->powerRepository->findAll();
-        $this->referencesIndexByORM[Platform::class] = $this->platformRepository->findAll();
         $this->referencesIndexByORM[Status::class] = $this->statusRepository->findAll();
         $this->referencesIndexByORM[EarningType::class] = $this->earningTypeRepository->findAll();
 
@@ -173,8 +170,7 @@ class LoadDummyDataCommand extends Command
                 ->setWelcomeMessage($this->faker->paragraphs($this->faker->numberBetween(2, 5), true))
                 ->setFaction($this->getRandomReferenceByORM(Faction::class))
                 ->setPower($this->getRandomReferenceByORM(Power::class))
-                ->setHomeBase($this->faker->firstName . $this->faker->randomElement([' Memorial', ' Station', ' Base', ' Starport']))
-                ->setPlatform($this->getRandomReferenceByORM(Platform::class));
+                ->setHomeBase($this->faker->firstName . $this->faker->randomElement([' Memorial', ' Station', ' Base', ' Starport']));
             $progressBar->advance();
         });
 
