@@ -1,5 +1,23 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
+TRUNCATE TABLE acl;
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (1, 'ROLE_ADMIN', 'User has full administrative rights (overrides everything below)', 1, 1);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (2, 'ROLE_EDITOR', 'User can add, edit, delete announcements', 3, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (3, 'CAN_CHANGE_STATUS', 'User can approve, deny, ban or lock out a squadron member', 4, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (4, 'CAN_EDIT_USER', 'User can edit a squadron member account settings', 5, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (5, 'CAN_EDIT_PERMISSIONS', 'User can modify access permissions of a squadron member', 6, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (6, 'CAN_VIEW_HISTORY', 'User can view a history log of a squadron member', 7, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (7, 'CAN_MODIFY_SELF', 'User can modify settings or permissions for himself/herself', 8, 0);
+INSERT INTO acl (id, role_string, description, list_order, admin_flag)
+VALUES (8, 'CAN_VIEW_REPORTS', 'User can view management reports', 2, 0);
+
 DROP TABLE x_player_report;
 CREATE TABLE IF NOT EXISTS x_player_report
 (
@@ -155,7 +173,7 @@ VALUES (6, 'Overall Missions', '["Commander","Missions Completed","Total Reward"
         'select * from user where id=?', 0, 'asc', null, '{"reward":"sort_reward","crew_wage":"sort_crew_wage"}', null);
 
 DROP TABLE x_manager_report;
-create table if not exists x_manager_report
+CREATE TABLE IF NOT EXISTS x_manager_report
 (
   id             int(11) unsigned auto_increment
     primary key,
