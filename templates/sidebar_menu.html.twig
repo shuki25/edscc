@@ -2,6 +2,7 @@
 {% if is_granted("ROLE_USER")  %}
     {% set menu = menuBuilder.userMenu() %}
     {#{{ dump(app.token.roles) }}#}
+    {#{{ dump(app.request.attributes) }}#}
     {% set currentRoute = app.request.attributes.get('_route') %}
     <ul class="sidebar-menu" data-widget="tree">
     {% for item in menu %}
@@ -22,8 +23,8 @@
                 {% set isCurrent = true %}
             {% endif %}
             {% if isGranted %}
-                <li {% if (item.route is defined and item.route == currentRoute) or isCurrent == true %}class="active"{% endif %}>
-                    <a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}">{% if item.icon %}
+                <li {% if (item.route is defined and item.route == currentRoute and currentRoute != 'to-do') or isCurrent == true %}class="active"{% endif %}>
+                    <a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}{% if item.anchor is defined %}#{{ item.anchor }}{% endif %}">{% if item.icon %}
                         <i class="{{ item.icon }}"></i>{% endif %}
                         <span>{{ item.item|trans }}</span> {% if item.star is defined and item.star == true %}<span
                                 class="pull-right-container"><small class="label pull-right bg-green"><i

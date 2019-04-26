@@ -14,7 +14,7 @@
                         {% if filter is empty %}disabled="disabled"{% endif %}><i
                             class="far fa-save"></i></button>
                 <h3 class="box-title"><i
-                            class="fa fa-lg fa-chart-line margin-r-5"></i>{% trans %}Commander Activities Report for{% endtrans %}
+                            class="fa fa-lg fa-chart-line margin-r-5"></i>{% trans with {'%name%': user.commandername} %}Commander Activities Report for %name%{% endtrans %}
                 </h3>
             </div>
             <!-- /.box-header -->
@@ -33,6 +33,7 @@
                                         <option value="{{ item.id }}"{% if item.id == report_id %} selected="selected"{% endif %}>{{ item.title|trans }}</option>
                                     {% endfor %}
                                 </select>
+                                <input type="hidden" name="user" value="{{ user_id }}">
                             </form>
                         </div>
 
@@ -55,7 +56,7 @@
     </div>
     <div id="filter-save" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
         <div class="modal-dialog modal-sm" role="document">
-            <form action="{{ path('app_player_reports') }}" method="post">
+            <form action="{{ path('mgr_reports') }}" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -114,6 +115,10 @@
                 ajax: {
                     url: "{{ path('mgr_report_table', {'token': csrf_token('mgr_ajax_report'), 'slug': report_id}) }}",
                     type: "POST",
+                    data: {
+                        user_id: "{{ user.id }}",
+                        token_id: "{{ token_id }}"
+                    },
                     async: true
                 },
                 paging: true,

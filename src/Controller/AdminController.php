@@ -38,6 +38,16 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/to-do", name="to-do")
+     */
+    public function toDoPlaceholder()
+    {
+        return $this->render('todo.html.twig', [
+            'title' => 'To Do Placeholder'
+        ]);
+    }
+
+    /**
      * @Route("/admin/squadron_settings", name="admin_squadron_settings")
      * @IsGranted("ROLE_ADMIN")
      */

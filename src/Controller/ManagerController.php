@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ManagerController extends AbstractController
@@ -72,6 +73,11 @@ class ManagerController extends AbstractController
         $save_filter = ($request->request->get('save_filter')) ?: 0;
         $save_state = $request->query->get('save_state');
         $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var User $user
+         */
+        $user = $userRepository->findOneBy(['id' => $user_id]);
 
         if ($save_filter) {
             $title = ucwords(trim($request->request->get('filter_title')));
@@ -140,7 +146,9 @@ class ManagerController extends AbstractController
             'squadron_members' => $squadron_members,
             'filter' => $filter,
             'filter_base64' => base64_encode(json_encode($filter)),
-            'saved_filter_list' => $saved_filter_list
+            'saved_filter_list' => $saved_filter_list,
+            'user' => $user,
+            'token_id' => md5(getenv('APP_SECRET') . $user_id)
         ]);
     }
 
@@ -205,12 +213,8 @@ class ManagerController extends AbstractController
      * @Route("/manager/ajax/{slug}/{token}", name="mgr_report_table", methods={"POST"} )
      * @IsGranted("CAN_VIEW_REPORTS")
      */
-    public function reportTable($slug, $token, Request $request, SessionInterface $session, ErrorLogHelper $errorLogHelper)
+    public function reportTable($slug, $token, Request $request, SessionInterface $session, ErrorLogHelper $errorLogHelper, UserRepository $userRepository, TranslatorInterface $translator)
     {
-        /**
-         * @var User $user
-         */
-        $user = $this->getUser();
         $filter = $session->get('filter');
 
         if (!$this->isCsrfTokenValid('mgr_ajax_report', $token)) {
@@ -221,6 +225,22 @@ class ManagerController extends AbstractController
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
             return $response;
         }
+
+        $user_id = $request->request->get('user_id');
+
+        if ($request->request->get('token_id') != md5(getenv('APP_SECRET') . $user_id)) {
+            $datatable = [
+                'error' => $translator->trans('Unauthorized')
+            ];
+            $response = new Response(json_encode($datatable, JSON_UNESCAPED_UNICODE));
+            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
+            return $response;
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = $userRepository->findOneBy(['id' => $user_id]);
 
         $datatable_params = $request->request->all();
         //dd($datatable_params);
