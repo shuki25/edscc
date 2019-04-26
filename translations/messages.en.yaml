@@ -112,6 +112,9 @@ Bad: Bad
 Weak: Weak
 Good: Good
 Strong: Strong
+Mismatch Password: Mismatch Password
+Passwords match: Passwords match
+Token (from your E-mail): Token (from your E-mail)
 Your password change has been updated: Your password change has been updated
 The current password is incorrect, and your password is not changed: The current password is incorrect, and your password is not changed
 Your new password did not match with verify password. Password is not changed.: Your new password did not match with verify password. Password is not changed.
@@ -568,3 +571,4 @@ Platform: Platform
 PS4: PS4
 PC: PC
 XBox: XBox
+Verify: Verify
