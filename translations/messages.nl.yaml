@@ -434,3 +434,258 @@ Your password change has been updated: Uw wachtwoordwijziging is bijgewerkt
 Your password has been reset: Je wachtwoord is gereset
 Your settings have been saved.: Je instellingen zijn opgeslagen.
 Your squadron leader has banned you.: Je squadronleider heeft je verbannen.
+"{0} No entries|{1} One entry|]1,Inf[ %start% to %end% of %count% entries": "{0} Geen
+  invoer | {1} Eén invoer |] 1, Inf [% begin% tot% einde% van% tellen% inzendingen"
+"{0} No new members joined today|{1} One new member joined today|]1,Inf[ %count% new members joined today": "{0}
+  Er zijn vandaag geen nieuwe leden bijgekomen | {1} Vandaag is er één nieuw lid bijgekomen
+  |] 1, Inf [er zijn vandaag %count% nieuwe leden bijgekomen"
+2fa_active: Uw account is momenteel ingesteld voor Twee-Factoren authenticatie en
+  is actief.
+2fa_instructions1: Twee-Factoren Authenticatie (2FA) is een manier om een extra beveiliging
+  aan uw account te bieden. De eerste factor is uw wachtwoord en de tweede factor
+  is een verificatiecode die wordt ontvangen van de app Google Authenticator of de
+  app [Authy](https://authy.com/) op een mobiel apparaat of een computer. Het maakt
+  gebruik van het op tijd gebaseerde algoritme voor een eenmalig wachtwoord, waarbij
+  de verificatiecode elke 30 seconden wordt gewijzigd. Er wordt alleen een verificatiecode
+  gevraagd wanneer u voor de eerste keer inlogt op een nieuwe locatie of browser.
+2fa_instructions2: Voordat u deze activeert, moet u Google Authenticator of Authy
+  op uw mobiele apparaat downloaden en installeren of [GAuth-add-on](https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
+  voor de Chrome-browser gebruiken of [Authenticator add-on](https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
+  voor Firefox en je bent klaar om het te gebruiken. Klik op de knop om 2FA te activeren
+  en u krijgt een QR-code te zien die u met de app kan scannen of handmatig kan invoeren
+  in de GAuth-invoegtoepassing.
+A 4-character indicator for your Squadron in the game: De 4 tekens die je squadron
+  representateren in het spel
+Activate 2-Factor Authentication: Activeer 2-Factoren Authenticatie
+Activated: geactiveerd
+Activation Code for ED:SCC: Activeringscode voor ED:SCC
+Admin: Beheerder
+Administration: Administratie
+Admiral: Admiral
+Agent: Agent
+Aimless: Aimless
+Amt Paid: Amt Betaald
+Anti-Xeno Activists: Anti-Xeno Activisten
+API Key: API Sleutel
+API Key not generated: API-sleutel niet aangemaakt
+Approval is not required to join this squadron.: Goedkeuring is niet vereist om lid
+  te worden van deze squadron.
+Approval is required to join this squad.: Goedkeuring is vereist om lid te worden
+  van deze squadron.
+Approved: Geaccepteerd
+Author: Auteur
+Banned: Verbannen
+Bodies Discovered: Hemellichamen ontdekt
+Bodies Found Today: Hemellichamen gevonden vandaag
+Bounties Collected over last 30 days: Premies verzameld in de laatste 30 dagen
+Bounty: Premie
+Broker: Broker
+capi_instruction: Frontier Development (FDev) biedt een externe service voor console
+  spelers om hun journal gegevens te importeren naar elke toepassing van derden. De
+  journal gegevens worden echter maximaal 24 dagen bewaard en zullen de gameplay van
+  vandaag niet downloaden. De app downloadt automatisch de journal logs van de spelers.
+  Om deze app in staat te stellen uw gegevens op te halen, moet u inloggen met Frontier
+  User Portal met uw inloggegevens en bevestigen dat u ED:SCC toestaat om uw journal
+  gegevens te downloaden.
+CG Participated: CG deelgenomen
+Chain_Delivery: Chained Mission - Delivery
+Chain_HelpFinishTheOrder: Chained Mission - Help Finish The Order
+Chain_PlanetaryIncursions: Chained Mission - Planetary Incursions
+Chain_RegainFooting: Chained Mission - Regain Footing
+Chain_SafeTravelling: Chained Mission - Safe Travelling
+Chain_SeekingAsylum: Chained Mission - Seeking Asylum
+Champion: Champion
+Change Password: Wachtwoord veranderen
+Chief Petty Officer: Chief Petty Officer
+Choose a Faction: Kies een Faction
+Choose a Superpower affiliation if applicable: Kies een Superpower afffiliation indien
+  van toepassing
+Choose the commander's rank: Kies de rang van de commander
+Choose the status to determine user's access privilege to the squadron: Kies de status
+  om vast te stellen welke rechten de gebruiker krijgt in de squadron
+CollidedAtSpeedInNoFireZone: Botsen op snelheid in de No Fire Zone
+Combat: Combat
+Commander: Commander
+Commander Activities: Commander activiteiten
+Commander Activities Report for CMDR %name%: Commander Activiteitenrapport voor CMDR
+  %name%
+Commander Name: Commander Naam
+Commander Name (without CMDR): Commander Naam (zonder CMDR)
+Commander Performance: Commander Prestatie's
+Commanders Joined: Commanders zijn lid geworden
+Comments: Reacties
+Competent: Competent
+Complete SAA Scans: SAA scans voltooien
+Connect to Frontier User Portal: Maak verbinding met Frontier User Portal
+Continue: Doorgaan
+Create a New Squadron: Maak een nieuwe squadron
+Create New Squadron: Maak een nieuwe squadron
+Creating a New Squadron: Een nieuwe squadron maken
+Criminal History: Misdadig verleden
+Criminal History (Detailed): Misdadig verleden (uitgebreid)
+Criminal History Summary: Misdadig verleden Samenvatting
+Criminal History Summary by Faction: Misdadig verleden Samenvatting door Faction
+Cr/Unit: Cr/Unit
+Current Squadron Rank: Huidige squadron rang
+custom_rank_instructions: In het spel kunnen Squadrons hun eigen rangschikkingsclassificatie
+  aanpassen om het verhaal van Squadron te integreren. In de linkerkolom worden de
+  standaardrangnamen weergegeven, voer vervolgens aangepaste rangordenamen in de rechterkolom
+  in.
+Daily Total Earning on: Dagelijks totale opbrengst aan
+Data: Data
+Date that this Commander has joined the squadron (may be different from signing up for this account): Datum
+  waarop deze commander zich bij het squadron heeft aangesloten (kan afwijken van
+  het aanmelden voor dit account)
+Deactivate Two-Factor Authentication: Deactiveren van Twee-Factoren Authenticatie
+Deadly: Deadly
+Dealer: Dealer
+Default Rank Name: Standaard rangnaam
+Denied: Geweigerd
+DisobeyPolice: Politie niet gehoorzamen
+Duke: Duke
+DumpingNearStation: Dumping in de buurt van station
+Earl: Earl
+Earning History (Detailed): Transactie geschiedenis (gedetailleerd)
+Earning History Summary: Samenvatting van transactie geschiedenis
+Earning History Summary by Minor Faction: Samenvatting van transactie geschiedenis
+  van Minor Faction
+edmc_instructions_1: In plaats van het handmatig uploaden van journalbestanden, kunt
+  u de Elite Dangerous Market Connector-app gebruiken om uw statistieken en de voortgang
+  van het squadron automatisch bij te werken. U moet de plug-in downloaden en installeren.
+  U kunt de plug-in vinden op
+EDMC Plug-in: EDMC invoegtoepassing
+EDMC Transaction: EDMC transactie
+EDSCC API Server: EDSCC API server
+Efficiency Rate: Efficientie percentage
+Elite: Elite
+Empire: Empire
+Ensign: Ensign
+Entrepreneur: Entrepreneur
+Errors: Errors
+Exact spelling as depicted in the game: Exacte spelling zoals weergegeven in het spel
+Expert: Expert
+ExplorationData: Verkennings gegevens
+Explorer: Explorer
+Federation: Federation
+Fine: Boete
+FireInNoFireZone: Schietvrije zone
+FireInStation: Schoten in station
+German: Duits
+Getting Journal Data for Console Players: Journal gegevens opvragen voor consolespelers
+Harmless: Harmless
+Helpless: Helpless
+ID: ID
+Interdiction: Interdiction
+I understand that by purging the data, it is irreversible.: Ik begrijp dat het opschonen
+  van de gegevens onomkeerbaar is.
+Join Date: Datum van deelname
+King: King
+Knight: Knight
+label_next: Volgende
+label_previous: Vorige
+Last Login: Laatste login
+Leader: Leader
+Legend: Legend
+Lieutenant: Lieutenant
+Like: Like
+Locked - Processing: Geblokkeerd - Aan het verwerken
+Lord: Lord
+Lt. Commander: Lt. Commander
+Manage Announcements: Management aankondigingen
+Management: Management
+Manage Squadron Announcements: Beheer Squadron aankondigingen
+Marquis: Marquis
+Master: Master
+Merchant: Merchant
+Midshipman: Midshipman
+Mission_Altruism: Mission - Altruism
+Mission_Assassinate: Mission - Assassinate
+Mission_Courier: Mission - Courier
+Mission_Delivery: Mission - Delivery
+Mission_DeliveryWing: Mission - Delivery (Wing)
+Mission_Disable: Mission - Disable
+Mission_DisableMegaship: Mission - Disable Megaship
+Mission_DS: Mission - DS (???)
+Mission_LongDistanceExpedition: Mission - Long Distance Expedition
+Mission_Massacre: Mission - Massacre
+Mission_MassacreWing: Mission - Massacre (Wing)
+Mission_Mining: Mission - Mining
+Mission_PassengerBulk: Mission - Passenger Bulk
+Mission_PassengerVIP: Mission - VIP Passenger
+Mission_Rescue: Mission - Rescue
+Mission_RS: Mission - RS
+Mission_Salvage: Mission - Salvage
+Mission_Scan: Mission - Scan
+Mission_Sightseeing: Mission - Sightseeing
+Mission_Smuggle: Mission - Smuggle
+Mission_TheDead: Mission - The Dead
+Mostly Aimless: Mostly Aimless
+Mostly Harmless: Mostly Harmless
+Mostly Helpless: Mostly Helpless
+Mostly Penniless: Mostly Penniless
+Murder: Murder
+My Account: Mijn Account
+New Password: nieuw wachtwoord
+Novice: Novice
+Officer: Officer
+Other Squadrons (Average): Andere squadrons (gemiddeld)
+Pathfinder: Pathfinder
+Peddler: Peddler
+Penniless: Penniless
+Permission Denied. Unable to access to this resource.: Toegang geweigerd. U heeft
+  geen toegang tot deze bron.
+Petty Officer: Petty Officer
+Pioneer: Pioneer
+Piracy: Piraterij
+Pirates: Piraten
+Player Dashboard: Speler dashboard
+Player Journal Log: Speler journal logboek
+Player Journal Log Import History: Logboek importgeschiedenis
+Post Commander: Post commander
+Previous: Vorige
+Prince: Prince
+Purge Commander Data: Verwijder commander data
+purge_commander_data_body: Soms zouden commanders hun gegevens opschonen omdat de
+  gegevens er niet goed uitzien. Door uw gegevens uit de database te wissen, kunt
+  u uw journalbestanden opnieuw importeren om uw gegevens actueler en up-to-date te
+  maken. Hiermee worden alleen de gegevens verwijderd die aan uw huidige squadron
+  zijn gekoppeld. Als u eerder in een ander squadron zat, worden die gegevens niet
+  gewist. Onthoud dat, voordat je je gegevens opschoont en alle spelersjournaalbestanden
+  opnieuw importeert, je game en je EDMC moet afsluiten als deze actief is.
+Purge the Data: Verwijder de gegevens
+rank_footnote: Rang wordt overschreven door logbestanden, EDMC of CAPI als promotie
+  of degradatie heeft plaatsgevonden in het spel
+Rear Admiral: Rear Admiral
+RecklessWeaponsDischarge: Reckless Weapons Discharge
+Recruit: Recruit
+Rejected: Geweigerd
+Requires approval from squad leaders to join: Vereist goedkeuring van squadron leiders
+  om toe te treden
+Retype password: Type nogmaals het wachtwoord in
+Roleplay: Roleplay
+Roles: Roles
+Role Tags: Role Tags
+Rookie: Rookie
+Scout: Scout
+Seals: Seals
+SearchAndRescue: Search and Rescue
+Senior Officer: Senior Officer
+Serf: Serf
+Squadron Details: Squadron gegevens
+Squadron ID: Squadron ID
+Squadron Join Request Update: Squadron lidmaatschaps verzoek update
+Squadron Leaderboard: Squadron Leaderboard
+Squadron Membership Status: Squadron lidmaatschapsstatus
+'Squadron: %name%': 'Squadron: %name%'
+Squadron Rank Classifications Saved.: Squadron Rank Classificaties opgeslagen.
+Squire: Squire
+Status: Status
+Surveyor: Surveyor
+Sync Journal Data: Synchroniseer logboekgegevens
+Targeted Minor Faction: Gerichte minor faction
+Vice Admiral: Vice Admiral
+Viscount: Viscount
+Write a brief description about your Squadron. New members will see this when picking which squadron to join.: Schrijf
+  een korte beschrijving over je squadron. Nieuwe leden zullen dit zien bij het kiezen
+  van een squadron om zich bij aan te sluiten.
+Your Squadron: Je squadron
