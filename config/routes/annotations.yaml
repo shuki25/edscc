@@ -9,3 +9,4 @@ controllers:
         ru: '/ru'
         de: '/de'
         pt: '/pt'
+        nl: '/nl'

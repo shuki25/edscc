@@ -52,17 +52,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
-        - { path: ^/[(es|fr|ru|de|pt)]+/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
-        - { path: ^/ajax/squadron/info, roles: ROLE_PENDING }
-        - { path: ^/[(es|fr|ru|de|pt)]+/ajax/squadron/info, roles: ROLE_PENDING }
-        - { path: ^/ajax/password/strength, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[(es|fr|ru|de|pt)]+/ajax/password/strength, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(select_squadron|create_squadron), roles: ROLE_PENDING }
-        - { path: ^/[(es|fr|ru|de|pt)]+/(select_squadron|create_squadron), roles: ROLE_PENDING }
-        - { path: ^/(login|logout|forgot|new_member|verify_email|resend_token|pending_access|reset_pw), roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[(es|fr|ru|de|pt)]+/(login|logout|forgot|new_member|verify_email|resend_token|pending_access), roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/profile roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/squadron/info, roles: ROLE_PENDING }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/password/strength, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*(select_squadron|create_squadron), roles: ROLE_PENDING }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*(login|logout|forgot|new_member|verify_email|resend_token|pending_access|reset_pw), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
