@@ -689,3 +689,23 @@ Write a brief description about your Squadron. New members will see this when pi
   een korte beschrijving over je squadron. Nieuwe leden zullen dit zien bij het kiezen
   van een squadron om zich bij aan te sluiten.
 Your Squadron: Je squadron
+"{0} No items|{1} one item|]1,Inf[ %count% items": "{0} Geen items | {1} één item
+  |] 1, Inf [%count% items"
+Activities Report for CMDR %name%: Activiteitenrapport voor CMDR %name%
+CMDR %name%: CMDR %name%
+count_prior_day: "% count%% van vorige dag"
+ED:SCC Approval Requested: 'ED: SCC-goedkeuring aangevraagd'
+email_verification_message: Een verificatie van uw e-mailadres is vereist om uw account
+  te activeren. Er is een e-mail verzonden naar %email% met een token om verder te
+  gaan met het maken van het nieuwe account.
+pending_access_message: Uw toegang wacht op goedkeuring van de squadronleider. Omdat
+  u bent toegetreden tot het squadron waarvoor een goedkeuring van een van de squadronleiders
+  vereist is, ontvangt u een e-mailbericht dat uw toegang is verleend zodra u bent
+  goedgekeurd. Als je vragen hebt, neem dan contact op met je squadronleider, CMDR
+  %cmdr%, in de game.
+Posted by CMDR %author%: Geplaatst door CMDR % author%
+'Strength: %strength% (cracked in %number% %unit%)': 'Sterkte: %strength% (gekraakt
+  in %number% %unit%)'
+upload_file_instructions_4: We accepteren ook een zip-bestand van alle logbestanden
+  gecombineerd in een enkele upload. Het verwerkt elk bestand en neemt relevante gegevens
+  op en slaat het op in de database. Maximale upload bestandsgrootte is %size%.
