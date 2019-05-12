@@ -665,3 +665,43 @@ Two-Factor Authentication: Двухфакторная аутентификаци
 Two-Factor Authentication has been deactivated: Двухфакторная аутентификация была
   деактивирована
 Two-Factor Authentication is activated: Двухфакторная аутентификация активирована
+2fa_instructions1: Двухфакторная аутентификация (2FA) - это способ обеспечить дополнительную
+  безопасность вашей учетной записи. Первый фактор - это ваш пароль, а второй - код
+  подтверждения, полученный из Google Authenticator или из [Authy] (https://authy.com/)
+  приложение на мобильном устройстве или компьютере. Он использует алгоритм одноразового
+  пароля на временной основе, код проверки которого меняется каждые 30 секунд. Он
+  будет запрашивать код подтверждения только при первом входе в систему в новом месте
+  или браузере.
+2fa_instructions2: Перед активацией вам необходимо загрузить и установить Google Authenticator
+  или Authy на ваше мобильное устройство или использовать [дополнение GAuth] (https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
+  для браузера Chrome или [надстройка Authenticator] (https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
+  для Firefox, и вы готовы к работе. Нажмите на кнопку, чтобы активировать 2FA, и
+  вам будет предоставлен QR-код, который приложение сможет сканировать или ввести
+  вручную в приложение GAuth.
+Activate 2FA: Включено 2FA
+Chain_Delivery: Последовательная миссия - Доставка
+Chain_FindThePirateLord: Последовательная миссия - Найди Пиратского Лорда
+Chain_HelpFinishTheOrder: Последовательная миссия - Помогите закончить Задание
+Chain_PlanetaryIncursions: Последовательная миссия - Планетарное вторжение
+Chain_RegainFooting: Последовательная миссия - Восстановить равновесие сил
+Chain_SafeTravelling: Последовательная миссия - Безопасное путешествие
+Chain_SalvageJustice: Последовательная миссия - Спасение правосудия
+Chain_SeekingAsylum: Salvage Justice - В поисках убежища
+Chain_WrongTarget: Salvage Justice - Не верная цель
+Commander Activities Report for CMDR %name%: Отчет о деятельности игрока для CMDR%
+  name%
+Enter 2FA Code: Введите код двух факторной авторизации
+Invalid 2FA code. 2FA is not activated.: Неверный код двух факторной авторизации.
+  Двух факторная авторизация не активирована.
+Mission_DisableMegaship: Задание - отключить Megaship.
+Mission_LongDistanceExpedition: Задание - Экспедиция на дальние расстояния
+Mission_RS: Задание - RS
+Mission_Smuggle: Задание - Контрабанда
+Password is required: Необходим пароль
+Passwords match: Пароли совпадают
+PC: PC
+Placeholder for future addition: Образец для будущего добавления
+Trust this device, please don't ask next time.: Доверять этому устройству.
+Verify: Проверено
+Verify Code: Проверенный код
+XBox: XBox
