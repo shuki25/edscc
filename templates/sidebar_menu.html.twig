@@ -28,9 +28,15 @@
                         <i class="{{ item.icon }}"></i>{% endif %}
                         <span>{{ item.item|trans }}</span> {% if item.star is defined and item.star == true %}<span
                                 class="pull-right-container"><small class="label pull-right bg-green"><i
-                                        class="fa fa-star"></i></small>{% endif %}{% if item.counter is defined and item.counter == true and item.counter_value > 0 %}<span
+                                        class="fa fa-star"></i></small></span>{% endif %}{% if item.counter is defined and item.counter == true and item.counter_value > 0 %}
+                            <span
                                     class="pull-right-container"{% if item.counter_title is defined %} data-toggle="tooltip" data-placement="right" title="{{ item.counter_title }}"{% endif %}><small
-                                        class="label pull-right bg-{{ item.counter_color|default('orange') }}">{{ item.counter_value }}</small>{% endif %}
+                                    class="label pull-right bg-{{ item.counter_color|default('orange') }}">{{ item.counter_value }}</small>
+                            </span>{% endif %}
+                        {% if item.alert is defined and item.alert == true and item.alert_value == true %}<span
+                                class="pull-right-container">
+                            <small class="label pull-right bg-red"><i
+                                        class="{{ item.alert_icon }}"></i></small></span>{% endif %}
                     </a></li>
             {% endif %}
         {% endif %}

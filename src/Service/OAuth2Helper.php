@@ -31,8 +31,7 @@ use App\Entity\User;
 use App\Repository\Oauth2Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Client\Provider\GenericProvider;
-use League\OAuth2\Client\Provider\GenericResourceOwner;
-use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 
 class OAuth2Helper extends GenericProvider
 {
@@ -64,7 +63,7 @@ class OAuth2Helper extends GenericProvider
         $this->oauth2Repository = $oauth2Repository;
     }
 
-    public function saveAccessTokenToDataStore(User $user, AccessToken $accessToken)
+    public function saveAccessTokenToDataStore(User $user, AccessTokenInterface $accessToken)
     {
         $oauth2 = $this->oauth2Repository->findOneBy(['user' => $user->getId()]);
 
@@ -78,7 +77,8 @@ class OAuth2Helper extends GenericProvider
             ->setTokenType('Bearer')
             ->setRefreshToken($accessToken->getRefreshToken())
             ->setExpiresIn($accessToken->getExpires())
-            ->setConnectionFlag(true);
+            ->setConnectionFlag(true)
+            ->setRefreshFailed(false);
 
         $this->entityManager->flush();
     }

@@ -55,7 +55,8 @@ class CapiAutoupdateCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $list = $this->oauth2Repository->findBy([
             'connection_flag' => true,
-            'auto_download' => true
+            'auto_download' => true,
+            'refresh_failed' => false
         ]);
 
         $progressBar = new ProgressBar($output, count($list));

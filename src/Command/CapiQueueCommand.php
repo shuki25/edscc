@@ -190,6 +190,7 @@ class CapiQueueCommand extends Command
             } elseif ($status_code == 422) {
                 $entry->setProgressCode('F');
                 $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $entry->getId(), $status_code, $reason);
+                $entry->getUser()->getOauth2()->setRefreshFailed(true);
                 unlink($file_path);
             } else {
                 echo "FALL BACK";

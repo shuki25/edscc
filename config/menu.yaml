@@ -38,6 +38,10 @@ user:
         item: "Player Journal Log"
         route: "app_import"
         icon: "fa fa-upload"
+        alert: true
+        alert_sql: "select refresh_failed as alert from oauth2 where user_id=:user"
+        alert_color: "red"
+        alert_icon: "fas fa-exclamation"
     11:
         item: "My Profile"
         route: "app_profile"

@@ -89,6 +89,12 @@ class MenuBuilder implements ContainerAwareInterface
                 $counter = $rs->fetchColumn(0);
                 $data[$i]['counter_value'] = $counter;
             }
+            if (isset($item['alert'])) {
+                $rs = $this->dbh->prepare($item['alert_sql']);
+                $rs->execute([':user' => $userid]);
+                $alert = $rs->fetchColumn(0);
+                $data[$i]['alert_value'] = $alert;
+            }
         }
         return $data;
     }

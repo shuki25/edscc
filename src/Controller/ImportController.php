@@ -6,6 +6,7 @@ use App\Entity\CapiQueue;
 use App\Entity\Oauth2;
 use App\Entity\User;
 use App\Repository\CapiQueueRepository;
+use App\Service\ErrorLogHelper;
 use App\Service\OAuth2Helper;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,7 +67,7 @@ class ImportController extends AbstractController
     /**
      * @Route("/import/capi/auth", name="app_capi_auth")
      */
-    public function capi_auth(Request $request, OAuth2Helper $helper)
+    public function capi_auth(Request $request, OAuth2Helper $helper, ErrorLogHelper $errorLogHelper)
     {
         $code = $request->query->get('code');
         $state = $request->query->get('state');
@@ -83,10 +84,10 @@ class ImportController extends AbstractController
         } else {
             try {
                 $accessToken = $helper->getAccessToken('authorization_code', ['code' => $code]);
-                $resourceOwner = $helper->getResourceOwner($accessToken);
-                $helper->saveAccessTokenToDataStore($this->getUser(), $accessToken, $resourceOwner);
+                $helper->saveAccessTokenToDataStore($this->getUser(), $accessToken);
             } catch (IdentityProviderException $e) {
-                dd($e->getMessage());
+                $errorLogHelper->addErrorMsgToErrorLog('CapiAuth', $e->getCode(), $e);
+                $this->addFlash('alert', $this->translator->trans('Frontier Authentication Failed'));
             }
         }
 
@@ -133,7 +134,8 @@ class ImportController extends AbstractController
         if ($this->isCsrfTokenValid('capi_disconnect', $token)) {
             $oauth2->setConnectionFlag(false)
                 ->setAutoDownload(false)
-                ->setKeepAlive(false);
+                ->setKeepAlive(false)
+                ->setRefreshFailed(false);
             $this->getDoctrine()->getManager()->flush();
         } else {
             $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please try again.'));
@@ -168,6 +170,10 @@ class ImportController extends AbstractController
                         ->setJournalDate($target_date)
                         ->setProgressCode('Q');
                     $em->persist($capi_queue);
+                } else {
+                    if ($capi_queue->getProgressCode() == "F" || $capi_queue->getProgressCode() == "E") {
+                        $capi_queue->setProgressCode('Q');
+                    }
                 }
             }
             $em->flush();

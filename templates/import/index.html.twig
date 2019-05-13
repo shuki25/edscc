@@ -48,7 +48,9 @@
                                                                                       data-toggle="tab">{% trans %}EDMC Plug-in{% endtrans %}</a>
                         </li>
                         <li {% if tab == "ps4_xbox" %}class="active"{% endif %}><a href="#ps4_xbox"
-                                                                                   data-toggle="tab">{% trans %}PS4/Xbox{% endtrans %}</a>
+                                                                                   data-toggle="tab">{% if oauth2.refreshfailed %}
+                                    <small class="label bg-red"><i class="fas fa-exclamation">
+                                    </small></i> {% endif %}{% trans %}PS4/Xbox{% endtrans %}</a>
                         </li>
                         <li {% if tab == "import_history" %}class="active"{% endif %}><a href="#import_history"
                                                                                          data-toggle="tab">{% trans %}Import History{% endtrans %}</a>
@@ -211,27 +213,38 @@
                                                 <div class="row">
                                                     <div class="col-sm-6 pull-left">
                                                         <span class="">{% trans %}Frontier User Portal Status{% endtrans %}:</span>
-                                                        {% if oauth2.connectionFlag %}
-                                                            {% if current_time > oauth2.expiresIn %}
-                                                                <span class="badge bg-red">{% trans %}Token Expired{% endtrans %}</span>
-                                                            {% else %}
-                                                                <span class="badge bg-green">{% trans %}Connected{% endtrans %}</span>
-                                                            {% endif %}
+                                                        {% if oauth2.refreshFailed and oauth2.connectionFlag == true %}
+                                                            <span class="badge bg-red">{% trans %}Authorization Refresh Failed{% endtrans %}</span>
                                                         {% else %}
-                                                            <span class="badge bg-red">{% trans %}Not Connected{% endtrans %}</span>
+                                                            {% if oauth2.connectionFlag %}
+                                                                {% if current_time > oauth2.expiresIn %}
+                                                                    <span class="badge bg-red">{% trans %}Token Expired{% endtrans %}</span>
+                                                                {% else %}
+                                                                    <span class="badge bg-green">{% trans %}Connected{% endtrans %}</span>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <span class="badge bg-red">{% trans %}Not Connected{% endtrans %}</span>
+                                                            {% endif %}
                                                         {% endif %}
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        {% if oauth2.connectionFlag == false or current_time > oauth2.expiresIn %}
+                                                        {% if oauth2.refreshFailed and oauth2.connectionFlag == true %}
+                                                            <a href="{{ path('app_capi_disconnect') }}?_token={{ csrf_token('capi_disconnect') }}"
+                                                               class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</a>
                                                             <a href="{{ path('app_capi_auth') }}?_token={{ csrf_token('capi_auth') }}"
-                                                           class="btn btn-sm btn-primary pull-right">{% trans %}Connect to Frontier User Portal{% endtrans %}</a>
+                                                               class="btn btn-sm btn-primary pull-right margin-r-5">{% trans %}Reauthorize{% endtrans %}</a>
                                                         {% else %}
-                                                            {% if oauth2.syncStatus %}
-                                                                <button type="button" disabled="disabled"
-                                                                        class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</button>
+                                                            {% if oauth2.connectionFlag == false or current_time > oauth2.expiresIn %}
+                                                                <a href="{{ path('app_capi_auth') }}?_token={{ csrf_token('capi_auth') }}"
+                                                                   class="btn btn-sm btn-primary pull-right">{% trans %}Connect to Frontier User Portal{% endtrans %}</a>
                                                             {% else %}
-                                                                <a href="{{ path('app_capi_disconnect') }}?_token={{ csrf_token('capi_disconnect') }}"
-                                                                   class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</a>
+                                                                {% if oauth2.syncStatus %}
+                                                                    <button type="button" disabled="disabled"
+                                                                            class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</button>
+                                                                {% else %}
+                                                                    <a href="{{ path('app_capi_disconnect') }}?_token={{ csrf_token('capi_disconnect') }}"
+                                                                       class="btn btn-sm btn-primary pull-right">{% trans %}Disconnect{% endtrans %}</a>
+                                                                {% endif %}
                                                             {% endif %}
                                                         {% endif %}
                                                     </div>
@@ -246,7 +259,7 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        {% if oauth2.connectionFlag != false %}
+                                                        {% if oauth2.connectionFlag != false and oauth2.refreshFailed == false and current_time < oauth2.expiresIn %}
                                                             {% if oauth2.syncStatus == false %}
                                                                 <a href="{{ path('app_capi_sync') }}?_token={{ csrf_token('capi_sync') }}"
                                                                    class="btn btn-sm btn-primary pull-right"><i

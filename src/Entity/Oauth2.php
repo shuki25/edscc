@@ -66,6 +66,11 @@ class Oauth2
     private $sync_status = 0;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $refresh_failed = 0;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $last_fetched_on;
@@ -191,6 +196,18 @@ class Oauth2
     public function setSyncStatus(bool $sync_status): self
     {
         $this->sync_status = $sync_status;
+
+        return $this;
+    }
+
+    public function getRefreshFailed(): ?bool
+    {
+        return $this->refresh_failed;
+    }
+
+    public function setRefreshFailed(bool $refresh_failed): self
+    {
+        $this->refresh_failed = $refresh_failed;
 
         return $this;
     }
