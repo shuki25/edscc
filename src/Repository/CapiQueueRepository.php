@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\CapiQueue;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,14 +20,43 @@ class CapiQueueRepository extends ServiceEntityRepository
         parent::__construct($registry, CapiQueue::class);
     }
 
-    public function totalCountInQueue()
+    public function totalCountInQueue($code = "Q")
     {
         $qb = $this->createQueryBuilder('q')
             ->select("count(q.id)")
             ->andWhere("q.progress_code = :val")
-            ->setParameter('val', "Q");
+            ->setParameter('val', $code);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function countInQueueByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->select("count(q.id)")
+            ->andWhere("q.progress_code in ('Q', 'R')")
+            ->andWhere("q.user = :user")
+            ->setParameter('user', $user);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function nextInRetryQueue($progress_code = "Q", $timeout = 5): ?CapiQueue
+    {
+//        $utc = new \DateTimeZone('UTC');
+        $timeout_dt = new \DateTime('now');
+        $interval = sprintf("PT%dM", $timeout);
+        $timeout_dt->sub(new \DateInterval($interval));
+
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.progress_code = :val1')
+            ->andWhere('q.updatedAt < :val2')
+            ->setParameter('val1', $progress_code)
+            ->setParameter('val2', $timeout_dt)
+            ->orderBy('q.journal_date', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     // /**

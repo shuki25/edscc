@@ -184,6 +184,8 @@ class ProfileController extends AbstractController
                     $rs->execute([$uid]);
                     $rs = $this->dbh->prepare("delete from import_queue where user_id=?");
                     $rs->execute([$uid]);
+                    $rs = $this->dbh->prepare("delete from capi_queue where user_id=?");
+                    $rs->execute([$uid]);
                     $this->dbh->commit();
 
                 } catch (\PDOException $e) {

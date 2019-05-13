@@ -64,7 +64,7 @@ class OAuth2Helper extends GenericProvider
         $this->oauth2Repository = $oauth2Repository;
     }
 
-    public function saveAccessTokenToDataStore(User $user, AccessToken $accessToken, GenericResourceOwner $resourceOwner)
+    public function saveAccessTokenToDataStore(User $user, AccessToken $accessToken)
     {
         $oauth2 = $this->oauth2Repository->findOneBy(['user' => $user->getId()]);
 

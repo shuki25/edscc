@@ -52,10 +52,10 @@ class ErrorLogHelper
         $this->entityManager->flush();
     }
 
-    public function addSimpleMsgToErrorLog($scope, $eid, $msg = null, $debug = null)
+    public function addSimpleMsgToErrorLog($scope, $rid, $eid, $msg = null, $debug = null)
     {
         $error_log = new ErrorLog();
-        $error_id = sprintf("%s-%d", $scope, $eid);
+        $error_id = sprintf("%s-%d: %d", $scope, $rid, $eid);
         $error_msg = $msg;
         $debug = isset($debug) ? json_encode($debug, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : null;
 

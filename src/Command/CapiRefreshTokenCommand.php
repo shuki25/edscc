@@ -60,8 +60,7 @@ class CapiRefreshTokenCommand extends Command
                 $newAccessToken = $this->OAuth2Helper->getAccessToken('refresh_token', [
                     'refresh_token' => $oauth2->getRefreshToken()
                 ]);
-                $resourceOwner = $this->OAuth2Helper->getResourceOwner($newAccessToken);
-                $this->OAuth2Helper->saveAccessTokenToDataStore($item->getUser(), $newAccessToken, $resourceOwner);
+                $this->OAuth2Helper->saveAccessTokenToDataStore($item->getUser(), $newAccessToken);
 
                 $count++;
                 $progressBar->advance();

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CapiQueueRepository")
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CapiQueue
 {
+    Use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

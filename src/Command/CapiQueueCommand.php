@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -60,7 +61,8 @@ class CapiQueueCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Process Frontier CAPI queue');
+            ->setDescription('Process Frontier CAPI queue')
+            ->addOption('retry', 'r', InputOption::VALUE_NONE, 'Retry downloading partial content');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -68,6 +70,7 @@ class CapiQueueCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $folder_path = $this->bag->get('command.fileupload.path');
         $capi_journal_url = getenv('CAPI_JOURNAL_API');
+        $progress_code = $input->getOption('retry') === true ? 'R' : 'Q';
 
         if (!is_readable($folder_path) || !is_dir($folder_path)) {
             $io->error($folder_path . " is not readable or is not a directory.");
@@ -75,8 +78,8 @@ class CapiQueueCommand extends Command
             return;
         }
 
-        $max = $this->capiQueueRepository->totalCountInQueue();
-        $entry = $this->capiQueueRepository->findOneBy(['progress_code' => 'Q'], ['journal_date' => 'asc']);
+        $max = $this->capiQueueRepository->totalCountInQueue($progress_code);
+        $entry = $this->capiQueueRepository->nextInRetryQueue($progress_code, $progress_code == "Q" ? 0 : 5);
 
         $section1 = $output->section();
         $section2 = $output->section();
@@ -140,17 +143,33 @@ class CapiQueueCommand extends Command
 //                    'verify' => false
                 ]);
             } catch (RequestException $e) {
-                $io->error($e->getMessage() . '\nUnable to fetch data. Aborted.\n');
-                fclose($fh);
-                $this->errorLogHelper->addErrorMsgToErrorLog('CapiQueue', $entry->getId(), $e);
-                $entry->setProgressCode('E');
+
+                $status_code = $e->getCode();
+                $reason = $e->getMessage();
+
+                switch ($status_code) {
+                    case '422':
+                        break;
+                    default:
+                        $io->error($e->getMessage() . '. Unable to fetch data. Skipped.');
+                        $this->errorLogHelper->addErrorMsgToErrorLog('CapiQueue', $entry->getId(), $e);
+                        $entry->setProgressCode('E');
+                        break;
+                }
+
+                $this->entityManager->flush();
                 $error = 1;
             } finally {
                 $downloadBar->finish();
                 fclose($fh);
             }
 
-            if (!$error && $response->getStatusCode() == 200) {
+            if (!$error) {
+                $status_code = $response->getStatusCode();
+                $reason = $response->getReasonPhrase();
+            }
+
+            if (!$error && $status_code == 200) {
                 $journal_file = sprintf("CAPI-Journal.%s.log", $entry->getJournalDate()->format('ymdHis'));
                 $import_queue = new ImportQueue();
                 $import_queue->setUser($entry->getUser())
@@ -161,15 +180,20 @@ class CapiQueueCommand extends Command
                 $this->entityManager->persist($import_queue);
                 $entry->setProgressCode('D');
                 $entry->getUser()->getOauth2()->setLastFetchedOn($entry->getJournalDate());
-            } elseif ($response->getStatusCode() == 204) {
+            } elseif ($status_code == 204) {
                 $entry->setProgressCode('N');
                 unlink($file_path);
-            } elseif ($response->getStatusCode() == 422) {
-                $entry->setProgressCode('E');
-                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $response->getStatusCode(), $response->getReasonPhrase());
+            } elseif ($status_code == 206) {
+                $entry->setProgressCode('R');
+                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $entry->getId(), $status_code, $reason);
+                unlink($file_path);
+            } elseif ($status_code == 422) {
+                $entry->setProgressCode('F');
+                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $entry->getId(), $status_code, $reason);
                 unlink($file_path);
             } else {
-                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $response->getStatusCode(), $response->getReasonPhrase());
+                echo "FALL BACK";
+                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueueFallBack', $entry->getId(), $status_code, $reason);
             }
 
             $this->entityManager->flush();
@@ -177,13 +201,14 @@ class CapiQueueCommand extends Command
             unset($client);
 
             $prev_user = $entry->getUser();
-            $entry = $this->capiQueueRepository->findOneBy(['progress_code' => 'Q'], ['journal_date' => 'asc']);
+            $entry = $this->capiQueueRepository->nextInRetryQueue($progress_code, $progress_code == "Q" ? 0 : 5);
             $start_time = microtime(true);
         }
 
         $list = $this->oauth2Repository->findBy(['sync_status' => true]);
         foreach ($list as $item) {
-            $item->setSyncStatus(false);
+            $count = $this->capiQueueRepository->countInQueueByUser($item->getUser());
+            $item->setSyncStatus(($count > 0) ? true : false);
             $this->entityManager->flush();
         }
 

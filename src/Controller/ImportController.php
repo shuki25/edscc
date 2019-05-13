@@ -170,7 +170,10 @@ class ImportController extends AbstractController
                     $em->persist($capi_queue);
                 }
             }
-            $oauth2->setSyncStatus(true);
+            $em->flush();
+
+            $count = $capiQueueRepository->countInQueueByUser($user);
+            $oauth2->setSyncStatus(($count > 0) ? true : false);
             $em->flush();
         } else {
             $this->addFlash('alert', $this->translator->trans('Expired CSRF Token. Please try again.'));
