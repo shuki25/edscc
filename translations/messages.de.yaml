@@ -657,3 +657,16 @@ upload_file_instructions_3: 'Lade die Dateien mit den Dateinamen im folgenden Fo
 Verify: Bestätigen
 Verify Code: Code bestätigen
 XBox: XBox
+2fa_instructions1: Die Zwei-Faktor-Authentifizierung (2FA) bietet zusätzliche Sicherheit
+  für dein Konto. Der erste Faktor ist dein Passwort und der zweite Faktor ist ein
+  Bestätigungscode, der entweder von Google Authenticator oder der App [Authy](https://authy.com/)
+  auf einem mobilen Gerät oder Computer empfangen wird. Es verwendet den Time-Based
+  One-Time Password-Algorithmus, bei dem sich der Verifizierungscode alle 30 Sekunden
+  ändert. Es wird nur nach einem Bestätigungscode gefragt, wenn du dich zum ersten
+  Mal an einem neuen Standort oder Browser anmeldest.
+2fa_instructions2: Vor der Aktivierung musst du Google Authenticator oder Authy auf
+  dein Mobilgerät herunterladen und installieren oder [GAuth Add-On](https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
+  für den Chrome-Browser verwenden oder [Authenticator-Add-on](https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
+  für Firefox, und du kannst loslegen. Klicke auf die Schaltfläche, um 2FA zu aktivieren,
+  und du erhälst einen QR-Code, den die App scannen oder manuell in das GAuth-Add-On
+  eingeben muss.
