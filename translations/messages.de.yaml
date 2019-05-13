@@ -71,8 +71,6 @@ Choose a squadron on the left.: Wähle eine Staffel auf der linken Seite.
 Choose a Superpower affiliation if applicable: Wähle eine Supermacht-Zugehörigkeit
   (falls zutreffend)
 Choose the commander's rank: Wähle den Rang des Kommandanten
-Choose the gaming platform this Squadron plays on: Wähle die Spiele-Plattform die
-  deine Staffel nutzt um zu spielen
 Choose the status to determine user's access privilege to the squadron: Wähle den
   Status aus, um das Zugriffsrecht des Benutzers auf die Staffel festzulegen
 CMDR %name%: CMDR %name%
@@ -92,6 +90,7 @@ Commander Name: Name des Kommandanten
 Commander Name (without CMDR): Name des Kommandanten (ohne CMDR)
 Commander Performance: Leistung des Kommandanten
 Commanders Joined: Kommandanten beigetreten
+Comments: Kommentare
 CommunityGoalReward: Community-Ziel Belohnung
 Competent: Kompetent
 Complete Registration: Registrierung abschließen
@@ -117,6 +116,7 @@ Criminal History (Detailed): Kriminelle Vergangenheit (detailliert)
 Criminal History Summary: Kriminelle Vergangenheit (zusammengefasst)
 Criminal History Summary by Faction: Kriminelle Vergangenheit (nach Fraktion)
 Cr/Unit: Cr / Einheit
+Current Password: Derzeitiges Passwort
 Current Squadron Rank: Aktueller Staffelrang
 Customizing Commander Roles: Anpassen der Kommendanten-Rollen
 Customizing Rank Classifications: Rangklassifizierungen anpassen
@@ -179,8 +179,6 @@ email_verification_message: Zur Bestätigung Ihres Kontos ist eine Bestätigung 
 Empire: Imperium
 English: Englisch
 Ensign: Leutnant
-Enter a new password.: Geben Sie ein neues Kennwort ein.
-Enter the temporary password.: Geben Sie das temporäre Passwort ein.
 Enter your current password.: Gib dein aktuelles Passwort ein.
 Entrepreneur: Entrepreneur
 Errors: Fehler
@@ -212,7 +210,6 @@ French: Französisch
 Fuel Rats: Fuel Rats
 Game Date: Spieldatum
 Game Mode: Spielmodus
-Gaming Platform: Spielplattform
 German: Deutsche
 Good: Gut
 Harmless: Harmlos
@@ -255,6 +252,7 @@ Last Updated: Letzte Aktualisierung
 Leader: Anführer
 Legend: Legende
 Lieutenant: Kapitänleutnant
+Like: Like
 Loan: Darlehen
 lockdown_message: Dein Staffelführer hat dein Konto gesperrt. Du musst dich im Spiel
   an deinen Staffelführer wenden, um dein Konto freizuschalten.
@@ -269,6 +267,7 @@ Manage MOTD: MOTD verwalten
 Manage Squadron Announcements: Staffelankündigungen verwalten
 Manage Tags: Tags verwalten
 Mark as Published: Als veröffentlicht markieren
+Mark as Read: Als gelesen markieren
 MarketBuy: Markt Käufe
 MarketSell: Markt Verkäufe
 Mark this MOTD as visible: Markiere diese MOTD als sichtbar
@@ -385,6 +384,8 @@ Please enter your email: Bitte gib deine E-Mail-Adresse ein
 Portuguese: Portugiesisch
 Post Captain: Kapitän
 Post Commander: Fregattenkapitän
+Posted by CMDR %author%: Gepostet von CMDR %author%
+Posted by Site Administrator: Gepostet von Seitenadministrator
 Power Supporters: Unterstützer der Lokalmacht
 Previous: Vorherige
 Prince: Prinz
@@ -587,9 +588,128 @@ Your password has been reset: Dein Passwort wurde zurück gesetzt
 Your settings have been saved.: Deine Einstellungen wurden gespeichert.
 Your Squadron: Deine Staffel
 Your squadron leader has banned you.: Dein Staffelführer hat dich gebannt
-Comments: Kommentare
-Current Password: Derzeitiges Passwort
-Like: Like
-Posted by Site Administrator: Gepostet von Seitenadministrator
-Mark as Read: Als gelesen markieren
-Posted by CMDR %author%: Gepostet von CMDR %author%
+2fa_active: Dein Konto ist derzeit für die Zwei-Faktor-Authentifizierung freigeschaltet
+  und ist aktiv.
+Activate 2FA: 2FA aktivieren
+Activate 2-Factor Authentication: Aktiviere 2-Faktor-Authentifizierung
+capi_instruction: 'Frontier Development (FDev) bietet einen externen Service für Konsolenspieler,
+  um ihre Journaldaten in Anwendungen von Drittanbietern zu importieren. Die Journaldaten
+  werden jedoch nur bis zu 24 Tage aufbewahrt und laden heutige Spieledaten nicht
+  herunter. Die App lädt automatisch die Journalprotokolle der Spieler herunter. Damit
+  diese App deine Daten abrufen kann, musst du sich mit deinen Anmeldeinformationen
+  über das Frontier-Benutzerportal anmelden und bestätigen, dass du ED: SCC zum Herunterladen
+  deiner Journaldaten autorisierst.'
+Commander Activities Report for CMDR %name%: Kommandanten-Aktivitätsbericht für CMDR%
+  name%
+Connected: Verbunden
+Connect to Frontier User Portal: Verbunden mit dem Frontier User Portal
+Custom Filter Removed: Benutzerdefinierter Filter entfernt
+Custom Filter was not Removed: Benutzerdefinierter Filter nicht entfernt
+Deactivate Two-Factor Authentication: Zwei-Faktor-Authentifizierung deaktivieren
+edmc_instructions_1: Anstatt Journaldateien manuell hochzuladen, kannst du die Elite
+  Dangerous Market Connector-App verwenden, um Statistiken und den Fortschritt des
+  Geschwaders automatisch zu aktualisieren. Du musst das Plug-In herunterladen und
+  installieren. Das Plug-in erhältst du unter
+edmc_instructions_2: 'Wenn du keine E: D Market Connector-App hast, kannst du diese
+  hier herunterladen'
+edmc_instructions_3: Nachdem du die App und / oder das Plug-In installiert hast, benötigst
+  du den API-Schlüssel, um dein Spieler-Journalprotokoll automatisch in Echtzeit hochzuladen.
+  Bitte kopiere diesen und füge ihn in die EDMC-Einstellungen ein. Außerdem musst
+  du die API-Server-Adresse in deine EDMC-Einstellungen eingeben
+EDSCC API Server: EDSCC API Server
+End Date: Enddatum
+Enter 2FA Code: 2FA-Code eingeben
+Enter a new password.: Gib ein neues Kennwort ein.
+Enter OTP Verification Code: OTP-Bestätigungscode eingeben
+Enter the temporary password.: Gib das temporäre Passwort ein.
+Frontier User Portal Status: Frontier User Portal Status
+Invalid 2FA code. 2FA is not activated.: Ungültiger 2FA-Code. 2FA ist nicht aktiviert.
+Journal data last fetched on: Journaldaten zuletzt abgerufen
+Password is required: Passwort benötigt
+PC: PC
+Placeholder for future addition: Platzhalter
+PS4: PS4
+PS4/Xbox: PS4/Xbox
+Save: Speichern
+Stop Syncing: Synchronisierung stoppen
+Sync Journal Data: Journal synchronisieren
+To Do: To Do
+Token (from your E-mail): Token (aus E-Mail)
+Trust this device, please don't ask next time.: Vertrauen diesem Gerät, bitte nicht
+  das nächste Mal fragen.
+Two-Factor Authentication has been deactivated: Zwei-Faktor-Authentifizierung wurde
+  deaktiviert
+Two-Factor Authentication is activated: Zwei-Faktor-Authentifizierung aktiviert
+upload_file_instructions_1: 'Um Ihre Erfahrung und die Erfahrung der Staffel mit der
+  ED: SCC-Webanwendung zu maximieren, sind Daten aus den Protokolldateien des Spielerjournals
+  erforderlich, die nützliche Zeilen enthalten, in denen bestimmte Aktionen während
+  des Spiels aufgezeichnet werden. Diese Anwendung erfasst nicht jede Aktion, sondern
+  nur Aktionen, die für das Squadron-Dashboard und die Leistungsmessungen relevant
+  sind. Wir erfassen nur Daten vom Startdatum an, seit du dieser Staffel beigetreten
+  bist, und Daten werden vor diesem Datum nicht erfasst. Wir konzentrieren uns nur
+  auf dein Aktivitäten, während du ein aktives Staffelmitglied sind. Wenn das System
+  feststellt, dass du das Geschwader verlassen hast, wird die Datenerfassung an diesem
+  Punkt beendet.'
+upload_file_instructions_3: 'Lade die Dateien mit den Dateinamen im folgenden Format
+  hoch: Journal.190209154325.01.log. Beachte, dass alle Protokolldateien mit .log
+  enden. Alle anderen Dateien wie Status.json, Journal315129.cache oder ähnliches
+  werden nicht akzeptiert.'
+Verify: Bestätigen
+Verify Code: Code bestätigen
+XBox: XBox
+2fa_instructions1: Die Zwei-Faktor-Authentifizierung (2FA) bietet zusätzliche Sicherheit
+  für dein Konto. Der erste Faktor ist dein Passwort und der zweite Faktor ist ein
+  Bestätigungscode, der entweder von Google Authenticator oder der App [Authy](https://authy.com/)
+  auf einem mobilen Gerät oder Computer empfangen wird. Es verwendet den Time-Based
+  One-Time Password-Algorithmus, bei dem sich der Verifizierungscode alle 30 Sekunden
+  ändert. Es wird nur nach einem Bestätigungscode gefragt, wenn du dich zum ersten
+  Mal an einem neuen Standort oder Browser anmeldest.
+2fa_instructions2: Vor der Aktivierung musst du Google Authenticator oder Authy auf
+  dein Mobilgerät herunterladen und installieren oder [GAuth Add-On](https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
+  für den Chrome-Browser verwenden oder [Authenticator-Add-on](https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
+  für Firefox, und du kannst loslegen. Klicke auf die Schaltfläche, um 2FA zu aktivieren,
+  und du erhälst einen QR-Code, den die App scannen oder manuell in das GAuth-Add-On
+  eingeben muss.
+2FA Secret: 2FA Secret
+Apply Filter: Filter anwenden
+Chain_Delivery: Verkettete Mission - Lieferung
+Chain_FindThePirateLord: Verkettete Mission - Finde den Piratenlord
+Chain_HelpFinishTheOrder: Verkettete Mission - Hilf mit, die Bestellung abzuschließen
+Chain_PlanetaryIncursions: Verkettete Mission - Planeteneinfälle
+Chain_RegainFooting: Verkettete Mission - wieder Fuß fassen
+Chain_SafeTravelling: Verkettete Mission - Sicheres Reisen
+Chain_SalvageJustice: Verkettete Mission - Bergungsgerechtigkeit
+Chain_SeekingAsylum: Verkettete Mission - Asyl suchen
+Chain_WrongTarget: Verkettete Mission - Falsches Ziel
+Close: Schließen
+Current Squadron in the Game: Aktuelle Staffel im Spiel
+Disconnect: Trennen
+Filter Saved: Filter gespeichert
+Filter Title: Filtertitel
+Fine Tune Your Report Results: Feinabstimmung der Berichtsergebnisse
+Getting Journal Data for Console Players: Journaldaten für Konsolenspieler abrufen
+Internal Error. Custom Filter was not Removed.: Interner Fehler. Benutzerdefinierter
+  Filter wurde nicht entfernt.
+Journal Data Feed Preferences: Einstellungen für Journaldaten-Feed
+Keyword: Stichwort
+Mismatch Password: Passwort stimmt nicht überein
+Mission_DisableMegaship: Mission - Megaship deaktivieren
+Mission_LongDistanceExpedition: Mission - Langstreckenexpedition
+Mission_RS: Mission - RS
+Mission_Smuggle: Mission - Schmuggel
+Not Connected: Nicht verbunden
+Passwords match: Passwörter stimmen überein
+Platform: Plattform
+rank_footnote: Rang wird durch Protokolldateien, EDMC oder CAPI überschrieben, wenn
+  im Spiel Aufstieg oder Herabstufung erfolgt ist
+Scan the QR Code: QR-Code scannen
+squadron_footnote: Direkt aufgezeichnet aus Protokolldateien, EDMC oder CAPI
+Start Date: Anfangsdatum
+Syncing: Synchronisierung
+Token Expired: Token abgelaufen
+Two-Factor Authentication: Zwei-Faktor-Authentifizierung
+upload_file_instructions_2: Der übliche Speicherort für diese Dateien befindet sich
+  in diesem Ordner
+upload_file_instructions_4: Wir akzeptieren auch eine ZIP-Datei aller Protokolldateien
+  in einem einzigen Upload. Es verarbeitet jede Datei, erfasst relevante Daten und
+  speichert sie in der Datenbank. Die maximale Größe der Upload-Datei beträgt% size%.
