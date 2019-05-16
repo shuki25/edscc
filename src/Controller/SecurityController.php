@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\VerifyToken;
 use App\Form\SquadronType;
 use App\Repository\CustomRankRepository;
+use App\Repository\LanguageRepository;
 use App\Repository\MotdRepository;
 use App\Repository\RankRepository;
 use App\Repository\SquadronRepository;
@@ -50,11 +51,15 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils, MotdRepository $motdRepository)
+    public function login(Request $request, AuthenticationUtils $authenticationUtils, MotdRepository $motdRepository, LanguageRepository $languageRepository)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+        if ($request->get('email')) {
+            $lastUsername = $request->get('email');
+        }
         $motd = $motdRepository->findBy(['show_login' => true], ['id' => 'desc']);
+        $locale = $languageRepository->findBy(['has_translation' => true], ['name' => 'asc']);
 
         return $this->render('security/login.html.twig', [
             'controller_name' => 'SecurityController',
@@ -62,7 +67,9 @@ class SecurityController extends AbstractController
             'description' => 'Squadron Member Login',
             'error' => $error,
             'last_username' => $lastUsername,
-            'motd' => $motd
+            'motd' => $motd,
+            'locale' => $locale,
+            'user_locale' => $request->getLocale()
         ]);
     }
 

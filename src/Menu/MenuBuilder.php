@@ -52,7 +52,7 @@ class MenuBuilder implements ContainerAwareInterface
         try {
             $this->menu = $this->yaml->parseFile('../config/menu.yaml');
         } catch (ParseException $e) {
-            echo $e->getMessage();
+            dd($e->getMessage());
         }
 
         $this->bag = $bag;

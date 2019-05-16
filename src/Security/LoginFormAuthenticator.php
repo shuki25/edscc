@@ -8,6 +8,9 @@ use App\Service\AccessHistoryHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -104,7 +107,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $this->manager->flush();
-        $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
+        $targetPath = "";
         $status = $user->getStatus()->getName();
         $message = $this->translator->trans('Access Denied: Account status is %status%', ['%status%' => $status]);
 
@@ -121,8 +124,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         } elseif ($user->getWelcomeMessageFlag() == "N" && $user->getStatus()->getName() == "Approved") {
             $targetPath = $this->router->generate('app_welcome');
         }
-
-        return new RedirectResponse($targetPath ?: $this->router->generate('dashboard'));
+        return new RedirectResponse($targetPath ?: $this->router->generate('dashboard', ['_locale' => $request->getLocale()]));
     }
 
     public function start(Request $request, AuthenticationException $authException = null)

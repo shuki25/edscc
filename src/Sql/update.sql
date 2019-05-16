@@ -18,23 +18,39 @@ VALUES (7, 'CAN_MODIFY_SELF', 'User can modify settings or permissions for himse
 INSERT INTO acl (id, role_string, description, list_order, admin_flag)
 VALUES (8, 'CAN_VIEW_REPORTS', 'User can view management reports', 2, 0);
 
+TRUNCATE TABLE language;
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (1, 'en', 'English', 'English', 1, 100, 1);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (2, 'de', 'German', 'Deustch', 1, 0, 1);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (3, 'es', 'Spanish', 'Español', 1, 0, 1);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (4, 'fr', 'French', 'Français', 1, 0, 1);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (5, 'nl', 'Dutch', 'Nederlands', 1, 0, 1);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (6, 'pt', 'Portuguese', 'Português', 1, 0, 0);
+INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
+VALUES (7, 'ru', 'Russian', 'русский', 1, 0, 1);
+
 DROP TABLE IF EXISTS x_player_report;
 CREATE TABLE IF NOT EXISTS x_player_report
 (
-  id             int(11) unsigned auto_increment primary key,
-  title          varchar(255)  null,
-  header         varchar(512)  null,
-  columns        varchar(512)  null,
-  `sql`          varchar(1024) null,
-  count_sql      varchar(512)  null,
-  parameters     varchar(512)  null,
-  parameters_sql varchar(512)  null,
-  order_id       tinyint(11)   null,
-  order_dir      varchar(4)    null,
-  cast_columns   varchar(512)  null,
-  sort_columns   varchar(512)  null,
-  trans_columns  varchar(512)  null,
-  filter_rules   varchar(512)  null
+    id             int(11) unsigned auto_increment primary key,
+    title          varchar(255)  null,
+    header         varchar(512)  null,
+    columns        varchar(512)  null,
+    `sql`          varchar(1024) null,
+    count_sql      varchar(512)  null,
+    parameters     varchar(512)  null,
+    parameters_sql varchar(512)  null,
+    order_id       tinyint(11)   null,
+    order_dir      varchar(4)    null,
+    cast_columns   varchar(512)  null,
+    sort_columns   varchar(512)  null,
+    trans_columns  varchar(512)  null,
+    filter_rules   varchar(512)  null
 );
 INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
                              order_dir, cast_columns, sort_columns, trans_columns, filter_rules)
@@ -110,20 +126,20 @@ VALUES (8, 'Criminal History Summary by Faction', '["Crime","Minor Faction Issue
 DROP TABLE IF EXISTS x_leaderboard_report;
 CREATE TABLE IF NOT EXISTS x_leaderboard_report
 (
-  id             int(11) unsigned auto_increment
-    primary key,
-  title          varchar(255)  null,
-  header         varchar(512)  null,
-  columns        varchar(512)  null,
-  `sql`          varchar(1024) null,
-  count_sql      varchar(512)  null,
-  parameters     varchar(512)  null,
-  parameters_sql varchar(512)  null,
-  order_id       tinyint(11)   null,
-  order_dir      varchar(4)    null,
-  cast_columns   varchar(512)  null,
-  sort_columns   varchar(512)  null,
-  trans_columns  varchar(512)  null
+    id             int(11) unsigned auto_increment
+        primary key,
+    title          varchar(255)  null,
+    header         varchar(512)  null,
+    columns        varchar(512)  null,
+    `sql`          varchar(1024) null,
+    count_sql      varchar(512)  null,
+    parameters     varchar(512)  null,
+    parameters_sql varchar(512)  null,
+    order_id       tinyint(11)   null,
+    order_dir      varchar(4)    null,
+    cast_columns   varchar(512)  null,
+    sort_columns   varchar(512)  null,
+    trans_columns  varchar(512)  null
 );
 INSERT INTO x_leaderboard_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
                                   order_dir, cast_columns, sort_columns, trans_columns)
@@ -175,22 +191,22 @@ VALUES (6, 'Overall Missions', '["Commander","Missions Completed","Total Reward"
 DROP TABLE IF EXISTS x_manager_report;
 CREATE TABLE IF NOT EXISTS x_manager_report
 (
-  id             int(11) unsigned auto_increment
-    primary key,
-  title          varchar(255)          null,
-  per_user       tinyint(11) default 0 not null,
-  header         varchar(512)          null,
-  columns        varchar(512)          null,
-  `sql`          varchar(1024)         null,
-  count_sql      varchar(512)          null,
-  parameters     varchar(512)          null,
-  parameters_sql varchar(512)          null,
-  order_id       tinyint(11)           null,
-  order_dir      varchar(4)            null,
-  cast_columns   varchar(512)          null,
-  sort_columns   varchar(512)          null,
-  trans_columns  varchar(512)          null,
-  filter_rules   varchar(512)          null
+    id             int(11) unsigned auto_increment
+        primary key,
+    title          varchar(255)          null,
+    per_user       tinyint(11) default 0 not null,
+    header         varchar(512)          null,
+    columns        varchar(512)          null,
+    `sql`          varchar(1024)         null,
+    count_sql      varchar(512)          null,
+    parameters     varchar(512)          null,
+    parameters_sql varchar(512)          null,
+    order_id       tinyint(11)           null,
+    order_dir      varchar(4)            null,
+    cast_columns   varchar(512)          null,
+    sort_columns   varchar(512)          null,
+    trans_columns  varchar(512)          null,
+    filter_rules   varchar(512)          null
 );
 INSERT INTO x_manager_report (id, title, per_user, header, columns, `sql`, count_sql, parameters, parameters_sql,
                               order_id, order_dir, cast_columns, sort_columns, trans_columns, filter_rules)
@@ -267,7 +283,7 @@ VALUES (8, 'Criminal History Summary by Faction', 0, '["Crime","Minor Faction Is
 CREATE OR REPLACE VIEW v_commander_mission_total as
 select eh.squadron_id as squadron_id, eh.user_id as user_id, sum(eh.reward) as total_earned, earned_on
 from earning_history eh
-       left join earning_type et on eh.earning_type_id = et.id
+         left join earning_type et on eh.earning_type_id = et.id
 where et.mission_flag = 1
 group by eh.squadron_id, eh.user_id, eh.earned_on;
 
