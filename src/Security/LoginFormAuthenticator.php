@@ -120,9 +120,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         if ($user->getSquadron()->getId() == 1) {
-            $targetPath = $this->router->generate('app_select_squadron');
+            $targetPath = $this->router->generate('app_select_squadron', ['_locale' => $request->getLocale()]);
         } elseif ($user->getWelcomeMessageFlag() == "N" && $user->getStatus()->getName() == "Approved") {
-            $targetPath = $this->router->generate('app_welcome');
+            $targetPath = $this->router->generate('app_welcome', ['_locale' => $request->getLocale()]);
         }
         return new RedirectResponse($targetPath ?: $this->router->generate('dashboard', ['_locale' => $request->getLocale()]));
     }
