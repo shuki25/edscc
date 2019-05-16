@@ -7,5 +7,5 @@ $ composer update
 $ bin/console make:migration
 $ bin/console doctrine:migrations:migrate
 $ cd src/Sql
-$ mysql -u [username] -p edscc < update.sql
+$ mysql -u [username] -p --default-character-set=utf8 edscc < update.sql
 ```
