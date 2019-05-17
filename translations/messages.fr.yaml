@@ -12,15 +12,14 @@
 2fa_instructions1: L’authentification à deux facteurs (2FA) est un moyen de fournir
   une sécurité supplémentaire à votre compte. Le premier facteur est votre mot de
   passe et le second facteur est un code de vérification reçu de Google Authenticator
-  ou de l'application [Authy] (https://authy.com/) sur un appareil mobile ou un ordinateur.
+    ou de l'application [Authy](https://authy.com/) sur un appareil mobile ou un ordinateur.
   Il utilise l’algorithme de mot de passe à utilisation unique basé sur le temps,
   dont le code de vérification change toutes les 30 secondes. Il vous demandera uniquement
   un code de vérification lorsque vous vous connecterez pour la première fois depuis
   un nouvel emplacement ou un nouveau navigateur.
 2fa_instructions2: Avant d’activer, vous devez télécharger et installer Google Authenticator
-  ou Authy sur votre appareil mobile ou utiliser [le module complémentaire GAuth]
-  (https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
-  pour le navigateur Chrome, ou [le module complémentaire Authenticator] (https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
+    ou Authy sur votre appareil mobile ou utiliser [le module complémentaire GAuth](https://chrome.google.com/webstore/detail/gauth-authenticator/ilgcnhelpchnceeipipijaljkblbcobl)
+    pour le navigateur Chrome, ou [le module complémentaire Authenticator](https://addons.mozilla.org/en-US/firefox/addon/auth-helper/?src=search)
   pour Firefox, et vous êtes prêt à partir. Cliquez sur le bouton pour activer 2FA
   et un code QR vous sera présenté pour l’application à numériser ou à saisir manuellement
   dans le module complémentaire GAuth.
