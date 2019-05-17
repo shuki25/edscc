@@ -720,3 +720,30 @@ Houston, we have a problem!: Houston, wir haben ein Problem!
 Invite to Join: Zum Beitritt einladen
 Machine Translated: Maschinell übersetzt
 Reauthorize: Neu autorisieren
+Enable invite link for new commanders to join this squadron: Aktiviere den Einladungslink
+  damit sich neue Kommandeure dieser Staffel anschließen können
+Error: Fehler
+Invalid Invite to Join Link: Ungültiger Einladungslink
+invite_link1: Wenn du den Einladungslink aktivierst, kannst du den Link "Einladung
+  zum Beitritt" für neue Kommandeure freigeben, um sich direkt deiner Staffel anzuschließen.
+  Wenn du ein neues Benutzerkonto erstellst, umgehen sie die Staffelauswahlseite und
+  treten direkt deiner Staffel bei. Bitte beachten, dass es nicht für Kommandeure
+  mit einem vorhandenen Konto auf EDSCC funktioniert.
+invite_link2: Einladungslink
+Inviting new Commanders to join your Squadron: Neue Kommandanten zur Staffel einladen
+Registering a New Squadron Member: Neues Staffelmitglied registrieren
+register_join_squad: Registriere dich, um _SQUADRON_ beizutreten
+Register to Join the Squadron: Registriere dich, um der Staffel beizutreten
+Sorry, the commander name is in use.  Pick a different commander name.: Entschuldigung,
+  der Kommandantenname wird bereits verwendet. Wähle einen anderen Kommandantennamen.
+Sorry, the email address is in use by another user.  Please use a different email address.: Entschuldigung,
+  die E-Mail-Adresse wird von einem anderen Benutzer verwendet. Bitte verwende eine
+  andere E-Mail-Adresse.
+Tags: Tags
+The Invite to Join link is no longer valid: Der Einladungslink ist nicht mehr gültig
+You did not agree to the terms. The account was not created.: Du hast den Bedingungen
+  nicht zugestimmt. Das Konto wurde nicht erstellt.
+You have been invited to join our Squadron!: Du wurdest eingeladen, sich unserer Staffel
+  anzuschließen!
+You must be logged out to use the Invite to Join link: Du musst abgemeldet sein, um
+  den Einladungslink zu verwenden
