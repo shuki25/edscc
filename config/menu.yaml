@@ -75,6 +75,7 @@ admin:
         item: "Squadron Settings"
         route: "admin_squadron_settings"
         icon: "fa fa-tools"
+        star: true
         roles: ["ROLE_ADMIN"]
     2:
         item: "Manage Announcements"
