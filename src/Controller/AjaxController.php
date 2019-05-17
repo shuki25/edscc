@@ -753,6 +753,35 @@ class AjaxController extends AbstractController
     }
 
     /**
+     * @Route("/ajax/invite-link", name="ajax_invite_link", methods={"POST"})
+     */
+    public function ajaxInviteLink(Request $request, SquadronRepository $squadronRepository)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $data['status'] = 500;
+
+        $token = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('invite_link', $token)) {
+            $data['status'] = 403;
+            $data['errorMessage'] = $translator->trans("Expired CSRF token, please reload the page.");
+        } else {
+            $flag = $request->request->get('is_checked') == "true" ? true : false;
+            $squadron = $squadronRepository->findOneBy(['id' => $request->request->get('id')]);
+            $squadron->setInviteLink($flag);
+            $em->flush();
+            $data['status'] = 200;
+        }
+
+        $response = new JsonResponse($data);
+
+        return $response;
+    }
+
+    /**
      * @Route("/ajax/tags", name="ajax_tags", methods={"POST"} )
      */
     public function ajaxTags(Request $request, UserRepository $userRepository, TagsRepository $tagsRepository, SquadronTagsRepository $squadronTagsRepository, TranslatorInterface $translator)

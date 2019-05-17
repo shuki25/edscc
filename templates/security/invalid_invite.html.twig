@@ -1,0 +1,42 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edscc.css') }}">
+{% endblock %}
+{% block class %} login-page{% endblock %}
+{% block body %}
+    <div class="login-box">
+        <div class="login-box-header">
+            {% include 'security/logo.html.twig' %}
+        </div>
+        <div class="login-box-body">
+            <div class="login-box-msg">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <p>{% trans %}Error{% endtrans %}</p>
+                {% else %}
+                    <p>{% trans %}Invalid Invite to Join Link{% endtrans %}</p>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <p>{% trans %}You must be logged out to use the Invite to Join link{% endtrans %}</p>
+                    {% else %}
+                        <p>{% trans %}The Invite to Join link does not exist or is no longer valid{% endtrans %}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row text-center" style="padding-top: 15px;">
+                <div class="col-md-12">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('dashboard') }}"
+                           class="btn btn-default">{% trans %}Return to Dashboard{% endtrans %}</a>
+                    {% else %}
+                        <a href="{{ path('app_logout') }}"
+                           class="btn btn-default">{% trans %}Return to Login Screen{% endtrans %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

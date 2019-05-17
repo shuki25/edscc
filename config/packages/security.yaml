@@ -56,5 +56,5 @@ security:
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/squadron/info, roles: ROLE_PENDING }
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/password/strength, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*(select_squadron|create_squadron), roles: ROLE_PENDING }
-        - { path: ^/[(es|fr|ru|de|pt|nl)/]*(login|logout|forgot|new_member|verify_email|resend_token|pending_access|reset_pw), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[(es|fr|ru|de|pt|nl)/]*(login|logout|forgot|new_member|verify_email|resend_token|pending_access|reset_pw|join), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

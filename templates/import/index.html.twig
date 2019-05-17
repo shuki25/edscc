@@ -177,7 +177,9 @@
                                                         <input id="apikey" class="form-control" value="{{ app.user.apikey }}" disabled="disabled">
 
                                                         <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-primary" onclick="copyToClipboard('apikey')"><i class="fa fa-copy"></i></button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                    onclick="copyToClipboard('#apikey')"><i
+                                                                        class="fa fa-copy"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -394,15 +396,11 @@
     });
 
     function copyToClipboard(elementId) {
-        var aux = document.createElement("div");
-        aux.setAttribute("contentEditable", true);
-        aux.innerHTML = document.getElementById(elementId).getAttribute('value');
-        // console.log(aux.innerHTML);
-        aux.setAttribute("onfocus", "document.execCommand('selectAll',false,null)");
-        document.body.appendChild(aux);
-        aux.focus();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($(elementId).val()).select();
         document.execCommand("copy");
-        document.body.removeChild(aux);
+        temp.remove();
     }
 
     $().ready(function () {

@@ -155,9 +155,109 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/join/{slug}", name="app_invite_join")
+     */
+    public function inviteToJoin($slug, Request $request, SquadronRepository $squadronRepository, UserPasswordEncoderInterface $passwordEncoder, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, UserRepository $userRepository, NotificationHelper $notificationHelper)
+    {
+        $error = "";
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->render('security/invalid_invite.html.twig', [
+                'title' => $this->translator->trans('Invite to Join'),
+                'description' => ''
+            ]);
+        }
+
+        $squadron = $squadronRepository->findOneBy(['id_code' => $slug]);
+
+        if (!is_object($squadron) || !$squadron->getInviteLink()) {
+            return $this->render('security/invalid_invite.html.twig', [
+                'title' => $this->translator->trans('Invite to Join'),
+                'description' => ''
+            ]);
+        }
+
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            $token = $data['_token'];
+
+            $pwd1 = trim($data['password1']);
+            $pwd2 = trim($data['password2']);
+
+            $existing_commander = $userRepository->findOneBy(['commander_name' => $data['commander_name']]);
+            $existing_email = $userRepository->findOneBy(['email' => $data['email']]);
+
+            $check_ok = !is_object($existing_commander) && !is_object($existing_email);
+
+            if (!$this->isCsrfTokenValid('invite_join', $token)) {
+                $error = $this->translator->trans("Expired CSRF Token. Please try again.");
+            } elseif (!isset($data['_terms'])) {
+                $error = $this->translator->trans("You did not agree to the terms. The account was not created.");
+            } elseif ($pwd1 == $pwd2 && $pwd1 != "" && $squadron->getId() == $data['squadron_id'] && $check_ok) {
+                $user = new User();
+                $commander = new Commander();
+                $rank = $rankRepository->findOneBy(['id' => 1]);
+                $status = $statusRepository->findOneBy(['name' => 'Pending']);
+                $custom_rank = $customRankRepository->findOneBy(['order_id' => 0, 'squadron' => $squadron]);
+
+                $user->setCommanderName($data['commander_name'])
+                    ->setEmail($data['email'])
+                    ->setEmailVerify('N')
+                    ->setGoogleFlag('N')
+                    ->setGravatarFlag('Y')
+                    ->setSquadron($squadron)
+                    ->setCommander($commander)
+                    ->setRank($rank)
+                    ->setCustomRank($custom_rank)
+                    ->setStatus($status)
+                    ->setApikey(md5('edmc' . $data['email'] . time()))
+                    ->setPassword($passwordEncoder->encodePassword($user, $pwd1));
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $token = new VerifyToken();
+                $token->setUser($user);
+                $token->setToken();
+                $token->setExpiresAt(new \DateTime("+24 hour"));
+
+                $em->persist($token);
+                $em->flush();
+
+                $twig_params = [
+                    'token' => $token->getToken(),
+                    'user' => $user,
+                    'expires_at' => $token->getExpiresAt()
+                ];
+
+                $notificationHelper->userEmailVerification($data['email'], $twig_params);
+
+                return $this->redirectToRoute('app_confirm_email', [
+                    'email' => $data['email']
+                ]);
+            } else {
+                if (is_object($existing_email)) {
+                    $error .= "* " . $this->translator->trans("Sorry, the email address is in use by another user.  Please use a different email address.") . "\n";
+                }
+                if (is_object($existing_commander)) {
+                    $error .= "* " . $this->translator->trans("Sorry, the commander name is in use.  Pick a different commander name.");
+                }
+            }
+        }
+
+        return $this->render('security/join_squadron.html.twig', [
+            'title' => $this->translator->trans('register_join_squad', ['_SQUADRON_' => $squadron->getName()]),
+            'description' => $this->translator->trans('Registering a New Squadron Member'),
+            'squad' => $squadron,
+            'error' => $this->translator->trans($error)
+        ]);
+    }
+
+    /**
      * @Route("/new_member", name="app_new_member")
      */
-    public function newMember(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper)
+    public function newMember(Request $request, UserPasswordEncoderInterface $passwordEncoder, CsrfTokenManagerInterface $csrfToken, SquadronRepository $squadronRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, StatusRepository $statusRepository, NotificationHelper $notificationHelper, UserRepository $userRepository)
     {
 
         $error = "";
@@ -170,12 +270,17 @@ class SecurityController extends AbstractController
             $pwd1 = trim($data['password1']);
             $pwd2 = trim($data['password2']);
 
+            $existing_commander = $userRepository->findOneBy(['commander_name' => $data['commander_name']]);
+            $existing_email = $userRepository->findOneBy(['email' => $data['email']]);
+
+            $check_ok = !is_object($existing_commander) && !is_object($existing_email);
+
             if (!$csrfToken->isTokenValid($csrf_token)) {
                 $error = "Invalid CSRF Token";
             } elseif (!isset($data['_terms'])) {
                 $error = "You did not agree to the terms. The account was not created.";
             } //            elseif(($data['password1'] === $data['password2']) && $passwordStatus != PasswordStatus::EXPOSED) {
-            elseif ($pwd1 == $pwd2 && $pwd1 != "") {
+            elseif ($pwd1 == $pwd2 && $pwd1 != "" && $check_ok) {
                 $squadron = $squadronRepository->findOneBy(['id' => 1]);
 
                 $user = new User();
@@ -220,10 +325,13 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_confirm_email', [
                     'email' => $data['email']
                 ]);
-            } elseif ($pwd1 == "") {
-                $error = "Password is required";
             } else {
-                $error = $passwordStatus == PasswordStatus::EXPOSED ? "The password you chose has been exposed in a data breach.  Please visit haveibeenpwned.com for further information.  Please choose a different password." : "The passwords did not match.  Please re-type them carefully.";
+                if (is_object($existing_email)) {
+                    $error .= "* " . $this->translator->trans("Sorry, the email address is in use by another user.  Please use a different email address.") . "\n";
+                }
+                if (is_object($existing_commander)) {
+                    $error .= "* " . $this->translator->trans("Sorry, the commander name is in use.  Pick a different commander name.");
+                }
             }
         }
 

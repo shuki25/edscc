@@ -94,6 +94,11 @@ class Squadron
      */
     private $customRanks;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $invite_link;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -324,6 +329,18 @@ class Squadron
                 $customRank->setSquadron(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInviteLink(): ?bool
+    {
+        return $this->invite_link;
+    }
+
+    public function setInviteLink(bool $invite_link): self
+    {
+        $this->invite_link = $invite_link;
 
         return $this;
     }

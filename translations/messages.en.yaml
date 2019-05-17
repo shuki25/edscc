@@ -592,3 +592,22 @@ Frontier Authentication Failed: Frontier Authentication Failed
 Authorization Refresh Failed: Authorization Refresh Failed
 Reauthorize: Reauthorize
 Machine Translated: Machine Translated
+Invite to Join: Invite to Join
+Inviting new Commanders to join your Squadron: Inviting new Commanders to join your Squadron
+Enable invite link for new commanders to join this squadron: Enable invite link for new commanders to join this squadron
+invite_link1: Enabling the invite to join link would allow you to share the invite to join link with new commanders to directly join your squadron. When they create a new user account, they will bypass the squadron selection page and join directly into your squadron. Please note that it will not work for commanders with an existing account on EDSCC.
+invite_link2: The invite to join your squadron link
+You must be logged out to use the Invite to Join link: You must be logged out to use the Invite to Join link
+Invalid Invite to Join Link: Invalid Invite to Join Link
+Error: Error
+The Invite to Join link is no longer valid: The Invite to Join link is no longer valid
+register_join_squad: Register to join _SQUADRON_
+Registering a New Squadron Member: Registering a New Squadron Member
+Register to Join the Squadron: Register to Join the Squadron
+figure_caption_invite: "Figure: Sample screenshot of an invite"
+You did not agree to the terms. The account was not created.: You did not agree to the terms. The account was not created.
+Sorry, the email address is in use by another user.  Please use a different email address.: Sorry, the email address is in use by another user.  Please use a different email address.
+Sorry, the commander name is in use.  Pick a different commander name.: Sorry, the commander name is in use.  Pick a different commander name.
+Tags: Tags
+You have been invited to join our Squadron!: You have been invited to join our Squadron!
+Houston, we have a problem!: Houston, we have a problem!

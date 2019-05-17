@@ -38,6 +38,12 @@ input[type="file"] {
     background-image: none !important;
 }
 
+hr.divider {
+    color: #FF851B;
+    background-color: #FF851B;
+    height: 3px;
+}
+
 .header-clock {
     padding-top: 8px;
     padding-right: 22px;

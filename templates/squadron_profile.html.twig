@@ -22,7 +22,8 @@
         <strong><i class="ed-asset-icon-elite-dangerous-minimalistic margin-r-5"></i> {% trans %}Faction / Superpower Affiliations{% endtrans %}
         </strong>
         <p class="text-muted">
-            {{ squad.faction.name|default('No Faction Allied') }} / {{ squad.power.name|default('No Power Allied') }}
+            {{ squad.faction.name|default('No Faction Allied')|trans }}
+            / {{ squad.power.name|default('No Power Allied')|trans }}
         </p>
         <hr>
         <strong><i class="ed-asset ed-asset-icon-members margin-r-5"></i>{% trans %}Membership{% endtrans %}</strong>

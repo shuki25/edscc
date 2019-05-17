@@ -6,22 +6,22 @@
     {% set currentRoute = app.request.attributes.get('_route') %}
     <ul class="sidebar-menu" data-widget="tree">
     {% for item in menu %}
-        {% if item.header is defined %}
+        {% set isGranted = true %}
+        {% if item.roles is defined %}
+            {% set isGranted = false %}
+            {% for role in item.roles %}
+                {% if is_granted(role) %}
+                    {% set isGranted = true %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% set isCurrent = false %}
+        {% if item.routes is defined and currentRoute in item.routes %}
+            {% set isCurrent = true %}
+        {% endif %}
+        {% if item.header is defined and isGranted %}
             <li class="header">{{ item.header|trans|upper }}</li>
         {% else %}
-            {% set isGranted = true %}
-            {% if item.roles is defined %}
-                {% set isGranted = false %}
-                {% for role in item.roles %}
-                    {% if is_granted(role) %}
-                        {% set isGranted = true %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-            {% set isCurrent = false %}
-            {% if item.routes is defined and currentRoute in item.routes %}
-                {% set isCurrent = true %}
-            {% endif %}
             {% if isGranted %}
                 <li {% if (item.route is defined and item.route == currentRoute and currentRoute != 'to-do') or isCurrent == true %}class="active"{% endif %}>
                     <a href="{% if item.route is defined and item.route is not empty %}{{ path(item.route) }}{% else %}#{% endif %}{% if item.anchor is defined %}#{{ item.anchor }}{% endif %}">{% if item.icon %}

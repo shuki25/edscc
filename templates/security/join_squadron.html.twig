@@ -1,0 +1,168 @@
+{% extends 'security/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('addons/iCheck/square/blue.css') }}">
+{% endblock %}
+{% block class %} register-page{% endblock %}
+{% block body %}
+    <div class="select-squadron-box">
+        <div class="select-squadron-box-header">
+            {% include 'security/logo.html.twig' %}
+        </div>
+        <div class="select-squadron-box-body">
+            {% if error %}
+                {% include 'error2.html.twig' %}
+            {% endif %}
+            <p class="select-squadron-box-msg">{% trans %}You have been invited to join our Squadron!{% endtrans %}</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="profile-squadron-img img-responsive"
+                         src="{{ asset('img/ed-assets/thumbnails') }}/{% if squad.power is null or squad.power is empty %}{{ squad.faction.logo }}{% else %}{{ squad.power.logo }}{% endif %}"
+                         alt="Squadron Logo">
+                    <h3 class="profile-username text-center" style="padding-top: 10px;">{{ squad.name }}</h3>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><i class="fa fa-align-left margin-r-5"></i> {% trans %}Description{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                {{ squad.description }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong><i class="ed-asset-icon-manage-ranks margin-r-5"></i> {% trans %}Squadron Leader{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                CMDR {{ squad.admin.commandername }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong><i class="ed-asset-icon-surface_port_pm margin-r-5"></i> {% trans %}Home Base{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                {{ squad.homebase }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong><i class="ed-asset-icon-elite-dangerous-minimalistic margin-r-5"></i> {% trans %}Faction / Superpower Affiliations{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                {{ squad.faction.name|default('No Faction Allied')|trans }}
+                                / {{ squad.power.name|default('No Power Allied')|trans }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong><i class="ed-asset ed-asset-icon-members margin-r-5"></i>{% trans %}Membership{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                {% trans %}Total Members{% endtrans %}: {{ squad.user.count }}<br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><i class="ed-asset ed-asset-icon-tags margin-r-5"></i> {% trans %}Tags{% endtrans %}
+                            </strong>
+                            <p class="text-muted">
+                                {% for tag in squad.squadronTags %}
+                                    <span class="badge {{ tag.tag.badgeColor }}">{{ tag.tag.name|trans }}</span>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">
+            <p class="select-squadron-box-msg">{% trans %}Register to Join the Squadron{% endtrans %}</p>
+            <form action="{{ path('app_invite_join', {'slug': squad.idCode}) }}" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <input type="hidden" name="_token" value="{{ csrf_token('invite_join') }}">
+                            <input type="hidden" name="squadron_id" value="{{ squad.id }}">
+                            <input type="text" name="commander_name" value="{{ app.request.get('commander_name') }}"
+                                   required="required"
+                                   class="form-control"
+                                   placeholder="{% trans %}Commander Name (without CMDR){% endtrans %}">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="email" name="email" value="{{ app.request.get('email') }}" class="form-control"
+                                   required="required"
+                                   placeholder="{% trans %}Email{% endtrans %}">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" name="password1" class="form-control" id="new-password"
+                                   placeholder="{% trans %}Password{% endtrans %}">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            <small id="new-password-message">{% trans %}Enter a new password.{% endtrans %}</small>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" name="password2" class="form-control" id="verify-password"
+                                   placeholder="{% trans %}Retype password{% endtrans %}">
+                            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                            <small id="verify-password-message">{% trans %}Re-type the new password to verify.{% endtrans %}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ul style="padding-left: 15px;">
+                            <li>{% trans %}Use 8 to 64 characters{% endtrans %}</li>
+                            <li>{% trans %}Besides letters, include at least a number or symbol{% endtrans %}</li>
+                            <li>{% trans %}Password is case sensitive{% endtrans %}</li>
+                            <li>{% trans %}Password is not part of your username{% endtrans %}</li>
+                            <li>{% trans %}Avoid using the same password for multiple sites{% endtrans %}</li>
+                            <li>{% trans %}Password strength is either good or strong{% endtrans %}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input name="_terms" type="checkbox"> {% trans %}I agree to the terms{% endtrans %}
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <input type="hidden" id="current-password" name="current_password" value="dummy">
+                        <button id="change-password-button" type="submit" disabled="disabled"
+                                class="btn btn-primary btn-block btn-flat">{% trans %}Register{% endtrans %}</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.form-box -->
+    </div>
+    <!-- /.select-squadron-box -->
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- iCheck -->
+    <script src="{{ asset('addons/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/password_change.js') }}"></script>
+    <script>
+        const AJAX_URL = '{{ path('ajax_password_strength', {'_locale': app.request.attributes.get('_locale')}) }}';
+
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' /* optional */
+            });
+        });
+    </script>
+    {% if error %}
+        <script>
+            $('#errorModal').modal('show');
+        </script>
+    {% endif %}
+{% endblock %}

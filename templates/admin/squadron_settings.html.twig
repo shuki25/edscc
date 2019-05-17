@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
 {% block title %}{{ title|default('Squadron Settings')}}!{% endblock %}
-
 {% block content %}
 <div class="content">
     <div class="row">
@@ -16,6 +18,7 @@
                     <li><a href="#tags" data-toggle="tab">{% trans %}Manage Tags{% endtrans %}</a></li>
                     <li><a href="#ranks" data-toggle="tab">{% trans %}Ranks{% endtrans %}</a></li>
                     <li><a href="#roles" data-toggle="tab">{% trans %}Roles{% endtrans %}</a></li>
+                    <li><a href="#invite-link" data-toggle="tab">{% trans %}Invite to Join{% endtrans %}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="details">
@@ -107,6 +110,53 @@
                         <!-- /.panel -->
                     </div>
                     <!-- /.tab-pane -->
+                    <div class="tab-pane" id="invite-link">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i
+                                            class="fas fa-lg fa-sign-in-alt margin-r-5 panel-title"></i> {% trans %}Inviting new Commanders to join your Squadron{% endtrans %}
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <figure>
+                                    <img src="{{ asset('img/ed-assets/invite_to_join.png') }}" width="100%"
+                                         style="margin-bottom: 8px;">
+                                    <figcaption
+                                            style="font-size: smaller;">{% trans %}figure_caption_invite{% endtrans %}</figcaption>
+                                </figure>
+                                <hr>
+                                <p>{% trans %}invite_link1{% endtrans %}</p>
+                                <input id="invite_link" type="checkbox" data-toggle="toggle" data-size="mini"
+                                       data-on="{% trans %}Yes{% endtrans %}" data-off="{% trans %}No{% endtrans %}"
+                                       data-onstyle="success" data-offstyle="danger" name="invite_link_flag"
+                                       {% if squad.inviteLink %}checked{% endif %}>
+                                <label class="control-label" for="invite_link"
+                                       style="margin-left: 5px;">{% trans %}Enable invite link for new commanders to join this squadron{% endtrans %}</label>
+                                <div id="invite-url"
+                                     style="display: {% if squad.inviteLink %}block{% else %}none{% endif %}; padding-top: 8px;">
+                                    <form><label class="control-label"
+                                                 for="join_link">{% trans %}invite_link2{% endtrans %}:</label>
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <input id="join_link" class="form-control"
+                                                           value="{{ baseUrl }}{{ path('app_invite_join', {'slug': squad.idCode, '_locale': app.request.attributes.get('_locale')}) }}"
+                                                           disabled="disabled">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary"
+                                                                onclick="copyToClipboard('#join_link')"><i
+                                                                    class="fa fa-copy"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.tab-pane -->
                 </div>
                 <!-- /.tab-content -->
             </div>
@@ -119,7 +169,43 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script>
+    $().ready(function () {
+        $('#invite_link').change(function (e) {
+            e.preventDefault();
+            if ($('#invite_link').is(':checked')) {
+                $('#invite-url').show();
+                update_invite_link({{ squad.id }}, true);
+            } else {
+                $('#invite-url').hide();
+                update_invite_link({{ squad.id }}, false);
+            }
+        });
+
+        function update_invite_link(id, check_flag) {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('ajax_invite_link') }}",
+                data: {
+                    _token: "{{ csrf_token('invite_link') }}",
+                    id: id,
+                    is_checked: check_flag
+                },
+                success: function (result) {
+                    if (result.status != 200) {
+                        $('#errorMessage').replaceWith(result.errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (result) {
+                    console.log('Internal Error.');
+                }
+            });
+        }
+
+    });
+
     $(() => {
         $(".tag-button-group").on('change', function (e) {
                 e.preventDefault();
@@ -152,4 +238,13 @@
         }
     });
 </script>
+    <script>
+        function copyToClipboard(elementId) {
+            var temp = $("<input>");
+            $("body").append(temp);
+            temp.val($(elementId).val()).select();
+            document.execCommand("copy");
+            temp.remove();
+        }
+    </script>
 {% endblock %}

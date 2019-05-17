@@ -66,7 +66,7 @@ $(()=>{
         }
         else {
             $.ajax({
-                url: 'ajax/password/strength',
+                url: AJAX_URL,
                 method: 'POST',
                 dataType: 'json',
                 data: {

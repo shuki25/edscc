@@ -93,6 +93,7 @@
 <script src="{{ asset('addons/iCheck/icheck.min.js') }}"></script>
 <script src="{{ asset('js/password_change.js') }}"></script>
 <script>
+    const AJAX_URL = '{{ path('ajax_password_strength', {'_locale': app.request.attributes.get('_locale')}) }}';
     $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',

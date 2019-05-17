@@ -200,6 +200,8 @@
 {{ parent() }}
 <script src="{{ asset('js/password_change.js') }}"></script>
     <script>
+        const AJAX_URL = '{{ path('ajax_password_strength', {'_locale': app.request.attributes.get('_locale')}) }}';
+
         $('#activate-2fa-button').on('click', function () {
             getQRCode();
             $('#activate-2fa-qrcode').modal();
