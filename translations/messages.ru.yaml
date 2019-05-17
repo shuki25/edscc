@@ -708,3 +708,34 @@ Your squadron leader has banned you.: Ваш командир Сквадрона
 Authorization Refresh Failed: Не удалось обновить авторизацию
 Houston, we have a problem!: Хьюстон у нас проблема!
 Tags: Теги
+Enable invite link for new commanders to join this squadron: Включить ссылку приглашения
+  для новых игроков, чтобы присоединиться к данному Сквадрону
+Error: Ошибка
+figure_caption_invite: 'Рисунок: пример картинки приглашения'
+Frontier Authentication Failed: Сбой аутентификации с аккаунтом Frontier
+Invalid Invite to Join Link: Неверное приглашение присоединения по ссылке
+invite_link1: Включение ссылки приглашения  позволит вам поделиться ссылкой приглашения
+  для новых игроков в Сквадрон. При создании новой учетной записи игрока, они пропускают
+  страницу выбора Сквадрона и присоединяются непосредственно к вашему Сквадрону. Обратите
+  внимание, что это будет работать для игроков с существующим аккаунтом в EDSCC.
+invite_link2: Приглашение для присоединения к вашему Сквадрону
+Invite to Join: Приглашение присоединиться
+Inviting new Commanders to join your Squadron: Приглашение новых игроков присоединиться
+  к вашему Сквадрону
+Machine Translated: Машинный перевод
+Reauthorize: Повторно авторизовать
+Registering a New Squadron Member: Регистрация нового участника Скадрона
+register_join_squad: Зарегистрируйтесь, чтобы присоединиться к _SQUADRON_
+Register to Join the Squadron: Зарегистрируйтесь, чтобы присоединиться к Сквадрону
+Sorry, the commander name is in use.  Pick a different commander name.: Извините,
+  имя игрока уже используется. Выберите другое имя игрока.
+Sorry, the email address is in use by another user.  Please use a different email address.: Извините,
+  адрес электронной почты зарегистрирован у другого игрока. Пожалуйста, используйте
+  другой адрес электронной почты.
+The Invite to Join link is no longer valid: Ссылка "Приглашения присоединиться" больше
+  не действительна
+You did not agree to the terms. The account was not created.: Вы не согласны с условиями.
+  Аккаунт не создан.
+You have been invited to join our Squadron!: Вы приглашены в наш Сквадрон!
+You must be logged out to use the Invite to Join link: Вы должны выйти из системы,
+  чтобы использовать ссылку приглашения.
