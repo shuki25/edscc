@@ -3,7 +3,7 @@
     {{ parent() }}
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 {% endblock %}
-{% block title %}{{ title|default('Squadron Settings')}}!{% endblock %}
+{% block title %}{{ title|default('Squadron Settings')|trans }}{% endblock %}
 {% block content %}
 <div class="content">
     <div class="row">

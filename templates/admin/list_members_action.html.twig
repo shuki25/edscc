@@ -1,5 +1,5 @@
 {% if (id == app.user.id and is_granted('CAN_MODIFY_SELF')) or (id != app.user.id) %}
-    {% if is_granted(['CAN_CHANGE_STATUS','CAN_EDIT_USER']) %}
+    {% if is_granted(['CAN_CHANGE_STATUS','CAN_EDIT_USER']) and (id != app.user.squadron.admin.id) %}
         {% if status == "Pending" %}
             <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="approve" title="Approve"><i class="fa fa-lg fa-user-plus"></i> </a>
             <a href="#" class="action-button" data-squadron-id="{{ id }}" data-action="deny" title="Deny"><i class="fa fa-lg fa-user-times"></i> </a>

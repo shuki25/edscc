@@ -3,7 +3,7 @@
     {{ parent() }}
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 {% endblock %}
-{% block title %}{{ title|default('Editing Member')}}!{% endblock %}
+{% block title %}{{ title|default('Editing Member')|trans }}{% endblock %}
 
 {% block content %}
     {% set isActive = false %}
@@ -69,8 +69,15 @@
                                         <span class="help-block">{% trans %}Choose the commander's rank{% endtrans %}</span>
                                     </div>
                                     <div style="padding: 5px 0px 5px 0px;">
-                                        <label class="control-label" for="status_id">{% trans %}Squadron Membership Status{% endtrans %}</label>
-                                        <select id="status_id" name="status_id" class="form-control">
+                                        <label class="control-label"
+                                               for="status_id">{% trans %}Squadron Membership Status{% endtrans %}{% if owner_flag %}
+                                                <span style="color: green">
+                                                ({% trans %}Squadron Owner -- Cannot Edit{% endtrans %})</span>{% endif %}
+                                        </label>
+                                        {% if owner_flag %}<input type="hidden" name="status_id"
+                                                                  value="{{ user.status.id }}">{% endif %}
+                                        <select id="status_id" name="status_id"
+                                                class="form-control"{% if owner_flag %} disabled="disabled"{% endif %}>
                                             {% for status in statuses %}
                                                 <option value="{{ status.id }}"{% if user.status.id == status.id %} selected="selected"{% endif %}>{{ status.name|trans }}</option>
                                             {% endfor %}

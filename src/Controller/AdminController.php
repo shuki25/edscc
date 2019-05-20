@@ -172,7 +172,7 @@ class AdminController extends AbstractController
     public function listAnnouncements()
     {
         return $this->render('admin/list_announcements_datatables.html.twig', [
-            'title' => 'Members List'
+            'title' => 'Manage Announcements'
         ]);
     }
 
@@ -265,7 +265,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/edit_announcement.html.twig', [
             'form_template' => $form->createView(),
-            'title' => $this->translator->trans('Manage Announcements'),
+            'title' => $this->translator->trans('Editing an announcement'),
             'isEdit' => true
         ]);
     }
@@ -311,7 +311,7 @@ class AdminController extends AbstractController
         $this->denyAccessUnlessGranted(['CAN_CHANGE_STATUS', 'CAN_EDIT_USER', 'CAN_EDIT_PERMISSIONS', 'CAN_VIEW_HISTORY'], User::class);
 
         return $this->render('admin/list_members_datatables.html.twig', [
-            'title' => 'Members List'
+            'title' => 'Manage Members'
         ]);
     }
 
@@ -322,6 +322,7 @@ class AdminController extends AbstractController
     {
         $squadron_id = $this->getUser()->getSquadron()->getId();
         $user = $userRepository->findOneBy(['id' => $id, 'Squadron' => $squadron_id]);
+        $owner_flag = ($user->getId() == $user->getSquadron()->getAdmin()->getId()) ? true : false;
 
         if ($id == $this->getUser()->getId()) {
             $this->denyAccessUnlessGranted('CAN_MODIFY_SELF');
@@ -345,6 +346,7 @@ class AdminController extends AbstractController
         return $this->render('admin/edit_member.html.twig', [
             'title' => 'Editing squadron member',
             'user' => $user,
+            'owner_flag' => $owner_flag,
             'ranks' => $ranks,
             'statuses' => $statuses,
             'acls' => $acls
@@ -380,6 +382,9 @@ class AdminController extends AbstractController
 
         if ($this->isGranted('CAN_EDIT_USER')) {
             $status = $statusRepository->findOneBy(['id' => $data['status_id']]);
+            if ($user->getId() == $user->getSquadron()->getAdmin()->getId()) {
+                $status = $statusRepository->findOneBy(['name' => 'Approved']);
+            }
             $rank = $rankRepository->findOneBy(['group_code' => 'squadron', 'assigned_id' => $data['rank_id']]);
             $custom_rank = $customRankRepository->findOneBy(['squadron' => $squadron_id, 'order_id' => $data['rank_id']]);
             if (is_object($user)) {
