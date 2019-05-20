@@ -271,39 +271,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/announcements/{slug}/pin/{token}", name="admin_announcement_pin", methods={"GET"})
-     * @IsGranted("ROLE_EDITOR")
-     */
-    public function pinAnnouncement($slug, $token)
-    {
-        return $this->render('placeholder.html.twig', [
-            'title' => 'Placeholder',
-        ]);
-    }
-
-    /**
-     * @Route("/admin/announcements/{slug}/remove/{token}", name="admin_announcement_remove", methods={"GET"})
-     * @IsGranted("ROLE_EDITOR")
-     */
-    public function removeAnnouncement($slug, $token)
-    {
-        return $this->render('placeholder.html.twig', [
-            'title' => 'Placeholder',
-        ]);
-    }
-
-    /**
-     * @Route("/admin/announcements/{slug}/hide", name="admin_announcement_hide", methods={"GET"})
-     * @IsGranted("ROLE_EDITOR")
-     */
-    public function hideAnnouncement($slug, $token)
-    {
-        return $this->render('placeholder.html.twig', [
-            'title' => 'Placeholder',
-        ]);
-    }
-
-    /**
      * @Route("/admin/members", name="admin_list_members")
      */
     public function listMembers(Request $request)
