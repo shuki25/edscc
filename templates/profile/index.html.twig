@@ -125,6 +125,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i
+                                            class="fa fa-sign-out-alt margin-r-5"></i> {% trans %}Leave Squadron{% endtrans %}
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    {% if app.user.id == app.user.squadron.admin.id %}
+                                        <p>{% trans %}leave_squadron_body_owner{% endtrans %}</p>
+                                    {% else %}
+                                        <p>{% trans %}leave_squadron_body{% endtrans %}</p>
+                                        <form method="post" action="{{ path('app_leave_squadron') }}">
+                                            <input type="hidden" name="_token"
+                                                   value="{{ csrf_token('leave_squadron') }}">
+                                            <input id="leave-confirm" type="checkbox" name="confirmed" value="1">
+                                            <b>{% trans %}I understand that by leaving the squadron, I may not be able to rejoin this squadron.{% endtrans %}</b>
+                                            <br>
+                                            <button id="leave-button" type="submit"
+                                                    class="btn btn-danger btn-flat pull-right"
+                                                    disabled="disabled">{% trans %}Leave this Squadron{% endtrans %}</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="user-avatar">
@@ -205,6 +231,24 @@
         $('#activate-2fa-button').on('click', function () {
             getQRCode();
             $('#activate-2fa-qrcode').modal();
+        });
+
+        $('#purge-confirm').on('change', function (e) {
+            e.preventDefault();
+            if ($('#purge-confirm').is(':checked')) {
+                $('#purge-button').removeAttr('disabled');
+            } else {
+                $('#purge-button').attr('disabled', 'disabled');
+            }
+        });
+
+        $('#leave-confirm').on('change', function (e) {
+            e.preventDefault();
+            if ($('#leave-confirm').is(':checked')) {
+                $('#leave-button').removeAttr('disabled');
+            } else {
+                $('#leave-button').attr('disabled', 'disabled');
+            }
         });
 
         function getQRCode() {

@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\CustomRankRepository;
+use App\Repository\RankRepository;
+use App\Repository\SquadronRepository;
+use App\Repository\StatusRepository;
 use Nyholm\DSN;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -146,6 +150,42 @@ class ProfileController extends AbstractController
         }
 
         return $this->redirectToRoute('app_profile');
+    }
+
+    /**
+     * @Route("/profile/leave", name="app_leave_squadron", methods={"POST"})
+     */
+    public function leaveSquadron(Request $request, SquadronRepository $squadronRepository, StatusRepository $statusRepository, RankRepository $rankRepository, CustomRankRepository $customRankRepository, TranslatorInterface $translator)
+    {
+
+        $token = $request->request->get('_token');
+
+        if ($this->isCsrfTokenValid('leave_squadron', $token)) {
+            /**
+             * @var User $user
+             */
+            $user = $this->getUser();
+            $em = $this->getDoctrine()->getManager();
+
+            if ($user->getId() == $user->getSquadron()->getAdmin()->getId()) {
+                $this->addFlash('error', $translator->trans('Squadron Owner cannot leave squadron'));
+            } else {
+                $squadron = $squadronRepository->findOneBy(['id' => 1]);
+                $status = $statusRepository->findOneBy(['id' => 1]);
+                $rank = $rankRepository->findOneBy(['id' => 1]);
+                $custom_rank = $customRankRepository->findOneBy(['id' => 1]);
+                $newRoles = array_intersect($user->getRoles(), ['ROLE_SUPERUSER']);
+//                dd($user->getRoles(), $newRoles);
+                $user->setSquadron($squadron)
+                    ->setRoles($newRoles)
+                    ->setStatus($status)
+                    ->setRank($rank)
+                    ->setCustomRank($custom_rank)
+                    ->setWelcomeMessageFlag('N');
+                $em->flush();
+            }
+        }
+        return $this->redirectToRoute('app_logout');
     }
 
     /**

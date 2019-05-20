@@ -9,15 +9,6 @@ $(()=>{
             e.preventDefault();
         }
     });
-    $('#purge-confirm').on('change', function (e) {
-        e.preventDefault();
-        if($('#purge-confirm').is(':checked')) {
-            $('#purge-button').removeAttr('disabled');
-        }
-        else {
-            $('#purge-button').attr('disabled','disabled');
-        }
-    });
 
     $('#current-password').on('keyup change', delay(function (e) {
         e.preventDefault();
