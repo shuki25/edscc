@@ -175,6 +175,16 @@ class User implements TwoFactorInterface, UserInterface
     private $accessHistories;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $discord_name;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $discord_id;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\ThargoidActivity", mappedBy="user", orphanRemoval=true)
      */
     private $thargoidActivities;
@@ -776,6 +786,30 @@ class User implements TwoFactorInterface, UserInterface
                 $thargoidActivity->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscordName(): ?string
+    {
+        return $this->discord_name;
+    }
+
+    public function setDiscordName(?string $discord_name): self
+    {
+        $this->discord_name = $discord_name;
+
+        return $this;
+    }
+
+    public function getDiscordId(): ?int
+    {
+        return $this->discord_id;
+    }
+
+    public function setDiscordId(?int $discord_id): self
+    {
+        $this->discord_id = $discord_id;
 
         return $this;
     }

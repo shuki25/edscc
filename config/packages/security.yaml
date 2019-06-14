@@ -52,6 +52,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/discord, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/squadron/info, roles: ROLE_PENDING }
         - { path: ^/[(es|fr|ru|de|pt|nl)/]*ajax/password/strength, roles: IS_AUTHENTICATED_ANONYMOUSLY }

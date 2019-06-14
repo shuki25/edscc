@@ -104,6 +104,11 @@ class Squadron
      */
     private $thargoidActivities;
 
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true)
+     */
+    private $discord_bot_api;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -378,6 +383,18 @@ class Squadron
                 $thargoidActivity->setSquadron(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscordBotApi(): ?string
+    {
+        return $this->discord_bot_api;
+    }
+
+    public function setDiscordBotApi(?string $discord_bot_api): self
+    {
+        $this->discord_bot_api = $discord_bot_api;
 
         return $this;
     }
