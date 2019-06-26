@@ -97,7 +97,7 @@ class Squadron
     /**
      * @ORM\Column(type="boolean")
      */
-    private $invite_link;
+    private $invite_link = false;
 
     public function __construct()
     {
