@@ -123,7 +123,7 @@ class CapiQueueCommand extends Command
             $entry->setProgressCode('L');
             $this->entityManager->flush();
 
-            $client = new Client();
+            $client = new Client(['redirect.disable' => true]);
             $target_url = sprintf("%s/%s", $capi_journal_url, $entry->getJournalDate()->format("Y/m/d"));
 
             try {
@@ -137,8 +137,9 @@ class CapiQueueCommand extends Command
                         $downloadBar->setProgress($downloadedBytes);
                     },
                     'sink' => $fh,
+                    'allow_redirects' => false,
 //                    'proxy' => [
-//                        'https' => 'tcp://192.168.2.85:8888'
+//                        'https' => 'tcp://192.168.2.137:8888'
 //                    ],
 //                    'verify' => false
                 ]);
@@ -190,6 +191,11 @@ class CapiQueueCommand extends Command
             } elseif ($status_code == 422) {
                 $entry->setProgressCode('F');
                 $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueue', $entry->getId(), $status_code, $reason);
+                $entry->getUser()->getOauth2()->setRefreshFailed(true);
+                unlink($file_path);
+            } elseif ($status_code == 302) {
+                $entry->setProgressCode('E');
+                $this->errorLogHelper->addSimpleMsgToErrorLog('CapiQueueRedirect', $entry->getId(), $status_code, $reason);
                 $entry->getUser()->getOauth2()->setRefreshFailed(true);
                 unlink($file_path);
             } else {
