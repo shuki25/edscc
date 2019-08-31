@@ -90,12 +90,23 @@ class IP2LocationHelper
     {
         $data = $this->getIP2Location($ip_addr);
 
-        $accessHistory->setCountryCode($data['countryCode'])
-            ->setCountryName($data['countryName'])
-            ->setCityName($data['cityName'])
-            ->setRegionName($data['regionName'])
-            ->setLatitude($data['latitude'])
-            ->setLongitude($data['longitude'])
-            ->setZipCode($data['zipCode']);
+        if (is_object($data)) {
+            $accessHistory->setCountryCode($data['countryCode'])
+                ->setCountryName($data['countryName'])
+                ->setCityName($data['cityName'])
+                ->setRegionName($data['regionName'])
+                ->setLatitude($data['latitude'])
+                ->setLongitude($data['longitude'])
+                ->setZipCode($data['zipCode']);
+        } else {
+            $accessHistory->setCountryCode('-')
+                ->setCountryName('-')
+                ->setCityName('-')
+                ->setRegionName('-')
+                ->setLatitude('0')
+                ->setLongitude('0')
+                ->setZipCode('-');
+        }
+
     }
 }
