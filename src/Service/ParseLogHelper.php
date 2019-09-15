@@ -14,10 +14,10 @@ use App\Entity\Crime;
 use App\Entity\CrimeType;
 use App\Entity\EarningHistory;
 use App\Entity\EarningType;
-use App\Entity\ErrorLog;
 use App\Entity\FactionActivity;
 use App\Entity\MinorFaction;
 use App\Entity\SessionTracker;
+use App\Entity\ThargoidActivity;
 use App\Entity\User;
 use App\Repository\ActivityCounterRepository;
 use App\Repository\CommanderRepository;
@@ -25,12 +25,12 @@ use App\Repository\CrimeTypeRepository;
 use App\Repository\CustomRankRepository;
 use App\Repository\EarningHistoryRepository;
 use App\Repository\EarningTypeRepository;
-use App\Repository\ErrorLogRepository;
 use App\Repository\ImportQueueRepository;
 use App\Repository\MinorFactionRepository;
 use App\Repository\RankRepository;
+use App\Repository\ThargoidActivityRepository;
+use App\Repository\ThargoidVariantRepository;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ParseLogHelper
@@ -95,8 +95,19 @@ class ParseLogHelper
      * @var CustomRankRepository
      */
     private $customRankRepository;
+    /**
+     * @var ThargoidActivityRepository
+     */
+    private $thargoidActivityRepository;
+    /**
+     * @var ThargoidVariantRepository
+     */
+    private $thargoidVariantRepository;
 
-    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository, CrimeTypeRepository $crimeTypeRepository, CustomRankRepository $customRankRepository)
+    private $thargoidFactions;
+
+
+    public function __construct(ImportQueueRepository $importQueueRepository, UserRepository $userRepository, CommanderRepository $commanderRepository, RankRepository $rankRepository, EarningTypeRepository $earningTypeRepository, EarningHistoryRepository $earningHistoryRepository, ActivityCounterRepository $activityCounterRepository, MinorFactionRepository $minorFactionRepository, CrimeTypeRepository $crimeTypeRepository, CustomRankRepository $customRankRepository, ThargoidActivityRepository $thargoidActivityRepository, ThargoidVariantRepository $thargoidVariantRepository)
     {
         $this->importQueueRepository = $importQueueRepository;
         $this->userRepository = $userRepository;
@@ -129,6 +140,13 @@ class ParseLogHelper
             }
         }
         $this->customRankRepository = $customRankRepository;
+        $this->thargoidActivityRepository = $thargoidActivityRepository;
+        $this->thargoidVariantRepository = $thargoidVariantRepository;
+
+        $thargoidFactionObj = $this->minorFactionRepository->findThargoidFactions();
+        foreach ($thargoidFactionObj as $i => $row) {
+            $this->thargoidFactions[] = $row->getId();
+        }
     }
 
     public function parseEntry(EntityManagerInterface &$em, User &$user, Commander &$commander, $data, SessionTracker $session_tracker, $api = false, $capi = false)
@@ -236,6 +254,7 @@ class ParseLogHelper
                 $target_faction = isset($e['VictimFaction']) ? $this->getLocalizedString($e, 'VictimFaction') : "";
                 $this->activityCounter->addBountiesClaimed(1);
                 $this->addMinorFactionActivity($em, $user, $e['event'], $game_datetime, $e['Reward'], $minor_faction, $target_faction);
+                $this->addIfIsThargoidActivity($em, $user, $game_datetime, $e['Reward'], $minor_faction, $target_faction);
                 break;
 
             case 'RedeemVoucher':
@@ -474,6 +493,25 @@ class ParseLogHelper
         }
 
         return $minorFactionObj;
+    }
+
+    private function addIfIsThargoidActivity(EntityManagerInterface &$em, User &$user, $date, $reward, $minorFaction, $targetFaction)
+    {
+        $thargoid_kill = new ThargoidActivity();
+        $minorFactionObj = $this->findMinorFaction($em, $minorFaction);
+        $targetFactionObj = $this->findMinorFaction($em, $targetFaction);
+
+        if (in_array($targetFactionObj->getId(), $this->thargoidFactions)) {
+            $thargoidVariant = $this->thargoidVariantRepository->findOneBy(['reward' => $reward]);
+            $thargoid_kill->setUser($user)
+                ->setSquadron($user->getSquadron())
+                ->setThargoid($thargoidVariant)
+                ->setDateKilled(new \DateTime($date, $this->utc))
+                ->setReward($reward)
+                ->setMinorFaction($minorFactionObj);
+
+            $em->persist($thargoid_kill);
+        }
     }
 
 }
