@@ -298,6 +298,62 @@ VALUES (8, 'Criminal History Summary by Faction', 0, '["Crime","Minor Faction Is
         '{"fine":"sort_fine","bounty":"sort_bounty"}', '["crime_committed"]',
         '{"date":{"operator":"and","fields":["committed_on"]},"static":{"string":"group by crime_committed, c.minor_faction_id"},"keyword":{"operator":"having","fields":["crime_committed","minor_faction","num_committed","fine","bounty"]}}');
 
+DROP TABLE IF EXISTS x_variable;
+CREATE TABLE IF NOT EXISTS x_variable
+(
+    id          int(11) unsigned auto_increment
+        primary key,
+    name        varchar(32)           null,
+    columns     varchar(255)          null,
+    `sql`       varchar(1024)         null,
+    parameters  varchar(255)          null,
+    long_format smallint(1) default 0 null,
+    long_prefix varchar(50)           null,
+    long_column varchar(50)           null
+);
+
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (1, 'default', '*', 'select id, squadron_id, rank_id, custom_rank_id, status_id from user where id=?', '["id"]',
+        0, null, null);
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (2, 'activity_total', '*',
+        'select a.*, (a.efficiency_achieved/a.saa_scan_completed)*100 as efficiency_percent from (select sum(bounties_claimed) as bounties_claimed , sum(systems_scanned) as systems_scanned, sum(bodies_found) as bodies_found, sum(saa_scan_completed) as saa_scan_completed, sum(efficiency_achieved) as efficiency_achieved, sum(market_buy) as market_buy, sum(market_sell) as market_sell, sum(missions_completed) as missions_completed, sum(mining_refined) as mining_refined, sum(stolen_goods) as stolen_goods, sum(cg_participated) as cg_participated, sum(crimes_committed) as crimes_committed from activity_counter where user_id=? and squadron_id=?) a',
+        '["id","squadron_id"]', 0, null, null);
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (3, 'commander', '*', 'select * from commander where id=?', '["id"]', 0, null, null);
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (4, 'crime_count', '*',
+        'select b.name, count(a.penalty_fee) as long_value from (select crime_type_id, if(fine, fine, bounty) as penalty_fee from crime where user_id=? and squadron_id=?) a right join crime_type b on b.id=a.crime_type_id group by b.id',
+        '["id","squadron_id"]', 1, 'crime_count_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (5, 'earning_sum', '*',
+        'select b.name, a.reward as long_value from (select earning_type_id, sum(reward) as reward from earning_history where user_id=? and squadron_id=? group by earning_type_id) a right join earning_type b on b.id=a.earning_type_id',
+        '["id","squadron_id"]', 1, 'earning_sum_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (6, 'earning_count', '*',
+        'select b.name, a.reward as long_value from (select earning_type_id, count(reward) as reward from earning_history where user_id=? and squadron_id=? group by earning_type_id) a right join earning_type b on b.id=a.earning_type_id',
+        '["id","squadron_id"]', 1, 'earning_count_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (7, 'crime_max', '*',
+        'select b.name, max(a.penalty_fee) as long_value from (select crime_type_id, if(fine, fine, bounty) as penalty_fee from crime where user_id=? and squadron_id=?) a right join crime_type b on b.id=a.crime_type_id group by b.id',
+        '["id","squadron_id"]', 1, 'crime_max_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (8, 'crime_sum', '*',
+        'select b.name, sum(a.penalty_fee) as long_value from (select crime_type_id, if(fine, fine, bounty) as penalty_fee from crime where user_id=? and squadron_id=?) a right join crime_type b on b.id=a.crime_type_id group by b.id',
+        '["id","squadron_id"]', 1, 'crime_sum_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (9, 'earning_max', '*',
+        'select b.name, a.reward as long_value from (select earning_type_id, max(reward) as reward from earning_history where user_id=? and squadron_id=? group by earning_type_id) a right join earning_type b on b.id=a.earning_type_id',
+        '["id","squadron_id"]', 1, 'earning_max_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (10, 'thargoid_max_reward', '*',
+        'select b.name, max(a.reward) as long_value from (select user_id, squadron_id, earning_type_id, reward from faction_activity where user_id=? and squadron_id=? and target_minor_faction_id in (select id from minor_faction where name=''Thargoids'' or name=''$faction_Thargoid;'')) a right join earning_type b on b.id=a.earning_type_id',
+        '["id", "squadron_id"]', 1, 'thargoid_max_', 'name');
+INSERT INTO x_variable (id, name, columns, `sql`, parameters, long_format, long_prefix, long_column)
+VALUES (11, 'thargoid_count', '*',
+        'select b.name, count(a.reward) as long_value from (select user_id, squadron_id, earning_type_id, reward from faction_activity where user_id=? and squadron_id=? and target_minor_faction_id in (select id from minor_faction where name=''Thargoids'' or name=''$faction_Thargoid;'')) a right join earning_type b on b.id=a.earning_type_id',
+        '["id", "squadron_id"]', 1, 'thargoid_count_', 'name');
+
 CREATE OR REPLACE VIEW v_commander_mission_total as
 select eh.squadron_id as squadron_id, eh.user_id as user_id, sum(eh.reward) as total_earned, earned_on
 from earning_history eh
@@ -528,6 +584,42 @@ INSERT INTO tags (id, group_code, name, badge_color)
 VALUES (33, 'platform', 'XBox', 'bg-purple');
 INSERT INTO tags (id, group_code, name, badge_color)
 VALUES (34, 'platform', 'PS4', 'bg-purple');
+
+TRUNCATE TABLE achievement_rule;
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (1, 'Bug Swatter', 'Killed 25 Thargoids', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (2, 'Killed a Bug', 'First Thargoid Kill', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (3, 'Billionaire', 'Earned First Billion Credits', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (4, 'Uncle Scrooge', 'Earned 3 Billion Credits', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (5, 'First Murder', 'Committed a First Murder', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (6, 'Exterminator Apprentince', 'Killed >50 Thargoids', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (7, 'Exterminator Master', 'Killed >100 Thargoids', null);
+INSERT INTO achievement_rule (id, name, description, trophy_image)
+VALUES (8, 'Exterminator Pro', 'Killed > 200 Thargoids', null);
+
+TRUNCATE TABLE achievement_condition;
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (1, 1, 'thargoid_count_bounty', '>=', '25', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (2, 2, 'thargoid_count_bounty', '>=', '1', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (3, 3, 'credits', '>=', '1000000000', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (5, 4, 'credits', '>=', '3000000000', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (6, 5, 'crime_count_murder', '>=', '1', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (7, 6, 'thargoid_count_bounty', '>=', '50', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (8, 7, 'thargoid_count_bounty', '>=', '100', 'I');
+INSERT INTO achievement_condition (id, achievement_rule_id, variable, operator, condition_value, data_type)
+VALUES (9, 8, 'thargoid_count_bounty', '>=', '200', 'I');
 
 TRUNCATE TABLE thargoid_variant;
 INSERT INTO thargoid_variant (id, name, reward)
