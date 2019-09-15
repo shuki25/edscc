@@ -35,6 +35,10 @@ user:
         route: "app_player_reports"
         icon: "fa fa-chart-line"
     10:
+        item: "My Achievements"
+        route: "achievement"
+        icon: "fa fa-trophy"
+    11:
         item: "Player Journal Log"
         route: "app_import"
         icon: "fa fa-upload"
@@ -42,30 +46,30 @@ user:
         alert_sql: "select refresh_failed as alert from oauth2 where user_id=:user"
         alert_color: "red"
         alert_icon: "fas fa-exclamation"
-    11:
+    12:
         item: "My Profile"
         route: "app_profile"
         icon: "fa fa-cog"
-    12:
+    13:
         header: "Management"
         roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
-    #    13:
+    #    14:
     #        item: "Criminal History"
     #        route: ""
     #        icon: "fa fa-shield-alt"
     #        roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
-    14:
+    15:
         item: "Commander Performance"
         route: "to-do"
         icon: "fa fa-tachometer-alt"
         roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
-    15:
+    16:
         item: "Commander Activities"
         route: "mgr_reports"
         icon: "fa fa-fighter-jet"
         star: true
         roles: ["ROLE_ADMIN", "CAN_VIEW_REPORTS"]
-    16:
+    17:
         item: "Promotion Voting"
         route: "to-do"
         icon: "fa fa-check-square"
@@ -94,6 +98,11 @@ admin:
         counter_title: "Pending Members"
         roles: ["ROLE_ADMIN","CAN_EDIT_USER","CAN_CHANGE_STATUS","CAN_EDIT_PERMISSIONS","CAN_VIEW_HISTORY"]
     4:
+        item: "Manage Achievements"
+        route: "to-do"
+        icon: "fa fa-trophy"
+        roles: ["ROLE_ADMIN"]
+    5:
         item: "MOTD"
         route: "admin_list_motd"
         routes: ["admin_list_motd","admin_motd_new","admin_motd_edit"]
