@@ -6,6 +6,7 @@
     {#    {{ dump(commander_data) }}#}
 
     <div class="content">
+        <h3>{% trans %}Achievements Unlocked{% endtrans %}</h3>
         <div class="row">
             {% for trophy in unlocked_achievements %}
             {% if loop.index0 is divisible by(4) %}
@@ -29,6 +30,36 @@
                         <ul class="nav">
                             <li>{% trans %}Unlocked{% endtrans %} <span
                                         class="pull-right">{{ trophy.dateUnlocked|date('Y-m-d') }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            {% endfor %}
+        </div>
+        <h3>{% trans %}Locked Achievements{% endtrans %}</h3>
+        <div class="row">
+            {% for trophy in locked_achievements %}
+            {% if loop.index0 is divisible by(4) %}
+            {#            {{ dump(trophy) }}#}
+        </div>
+        <div class="row">
+            {% endif %}
+            <div class="col-md-3">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-dark">
+                        <h4 class="widget-user-username">{{ trophy.name }}</h4>
+                        <h5 class="widget-user-desc">{{ trophy.description }}</h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <img class="img-responsive img-circle"
+                             src="https://www.gravatar.com/avatar/5fc1088ac5fb8cdb0c08e18a0bd3f309?d=mp" alt="Trophy">
+                    </div>
+                    <div class="box-footer">
+                        <ul class="nav">
+                            <li>{% trans %}Not Yet Unlocked{% endtrans %}</li>
                         </ul>
                     </div>
                 </div>
