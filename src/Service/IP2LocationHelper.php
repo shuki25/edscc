@@ -90,7 +90,7 @@ class IP2LocationHelper
     {
         $data = $this->getIP2Location($ip_addr);
 
-        if (is_object($data)) {
+        if (is_array($data)) {
             $accessHistory->setCountryCode($data['countryCode'])
                 ->setCountryName($data['countryName'])
                 ->setCityName($data['cityName'])
