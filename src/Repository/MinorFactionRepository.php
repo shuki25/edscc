@@ -19,6 +19,18 @@ class MinorFactionRepository extends ServiceEntityRepository
         parent::__construct($registry, MinorFaction::class);
     }
 
+    /**
+     * @return MinorFaction[]
+     */
+    public function findThargoidFactions()
+    {
+        return $this->createQueryBuilder('mf')
+            ->where('mf.name = ?1 or mf.name =?2')
+            ->setParameter('1', 'Thargoids')
+            ->setParameter('2', '$faction_Thargoid;')
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return MinorFaction[] Returns an array of MinorFaction objects
     //  */
