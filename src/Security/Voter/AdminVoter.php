@@ -44,8 +44,8 @@ class AdminVoter extends Voter
     {
         $allowed = ['ROLE_ADMIN'];
         $allowed[] = $attribute;
-        foreach ($this->roleHierarchy->getReachableRoles($token->getRoles()) as $role) {
-            if (in_array($role->getRole(), $allowed)) {
+        foreach ($this->roleHierarchy->getReachableRoleNames($token->getRoleNames()) as $role) {
+            if (in_array($role, $allowed)) {
                 return true;
             }
         }
