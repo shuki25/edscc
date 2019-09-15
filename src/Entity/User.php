@@ -175,6 +175,11 @@ class User implements TwoFactorInterface, UserInterface
     private $accessHistories;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="user")
+     */
+    private $achievements;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\ThargoidActivity", mappedBy="user", orphanRemoval=true)
      */
     private $thargoidActivities;
@@ -187,6 +192,7 @@ class User implements TwoFactorInterface, UserInterface
         $this->readHistories = new ArrayCollection();
         $this->customFilters = new ArrayCollection();
         $this->accessHistories = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
         $this->thargoidActivities = new ArrayCollection();
     }
 
@@ -747,6 +753,37 @@ class User implements TwoFactorInterface, UserInterface
     public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): void
     {
         $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
+    }
+
+    /**
+     * @return Collection|Achievement[]
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievement $achievement): self
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements[] = $achievement;
+            $achievement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievement $achievement): self
+    {
+        if ($this->achievements->contains($achievement)) {
+            $this->achievements->removeElement($achievement);
+            // set the owning side to null (unless already changed)
+            if ($achievement->getUser() === $this) {
+                $achievement->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
