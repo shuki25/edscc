@@ -336,7 +336,7 @@ class ReportController extends AbstractController
             }
         }
 
-//        $has_data = 0;
+        $has_data = 0;
 //        $datatable['data'] = [];
 
         try {
