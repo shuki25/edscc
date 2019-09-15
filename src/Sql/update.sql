@@ -22,17 +22,17 @@ TRUNCATE TABLE language;
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
 VALUES (1, 'en', 'English', 'English', 1, 100, 1);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (2, 'de', 'German', 'Deustch', 1, 0, 1);
+VALUES (2, 'de', 'German', 'Deustch', 1, 100, 1);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (3, 'es', 'Spanish', 'Español', 1, 0, 1);
+VALUES (3, 'es', 'Spanish', 'Español', 1, 87, 1);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (4, 'fr', 'French', 'Français', 1, 0, 1);
+VALUES (4, 'fr', 'French', 'Français', 1, 98, 1);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (5, 'nl', 'Dutch', 'Nederlands', 1, 0, 1);
+VALUES (5, 'nl', 'Dutch', 'Nederlands', 1, 96, 1);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (6, 'pt', 'Portuguese', 'Português', 1, 0, 0);
+VALUES (6, 'pt', 'Portuguese', 'Português', 1, 85, 0);
 INSERT INTO language (id, locale, name, locale_name, has_translation, percent_complete, verified)
-VALUES (7, 'ru', 'Russian', 'русский', 1, 0, 1);
+VALUES (7, 'ru', 'Russian', 'русский', 1, 100, 1);
 
 DROP TABLE IF EXISTS x_player_report;
 CREATE TABLE IF NOT EXISTS x_player_report
@@ -122,6 +122,24 @@ VALUES (8, 'Criminal History Summary by Faction', '["Crime","Minor Faction Issue
         '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 0, 'asc', null,
         '{"fine":"sort_fine","bounty":"sort_bounty"}', '["crime_committed"]',
         '{"date":{"operator":"and","fields":["committed_on"]},"static":{"string":"group by crime_committed, c.minor_faction_id"},"keyword":{"operator":"having","fields":["crime_committed","minor_faction","num_committed","fine","bounty"]}}');
+INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                             order_dir, cast_columns, sort_columns, trans_columns, filter_rules)
+VALUES (9, 'Anti-Xeno Activities Summary', '["Paying Minor Faction","Thargoid Variant","Count","Amount"]',
+        '["minor_faction","thargoid_variant","num_transactions","reward"]',
+        'select u.commander_name, ta.user_id, ta.squadron_id, mf.name as minor_faction, tv.name as thargoid_variant, count(ta.id) as num_transactions, format(sum(ta.reward),0) as reward, sum(ta.reward) as sort_reward from thargoid_activity ta right outer join user u on ta.user_id = u.id left join thargoid_variant tv on ta.thargoid_id=tv.id left join minor_faction mf on ta.minor_faction_id = mf.id where ta.user_id=? and ta.squadron_id=? %s',
+        'select count(*) from (select id from thargoid_activity where user_id=? and squadron_id=? group by thargoid_id) a',
+        '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 1, 'asc', null,
+        '{"reward":"sort_reward"}', null,
+        '{"date":{"operator":"and","fields":["ta.earned_on"]},"static":{"string":"group by thargoid_id"},"keyword":{"operator":"having","fields":["minor_faction","thargoid_variant","num_transactions","reward"]}}');
+INSERT INTO x_player_report (id, title, header, columns, `sql`, count_sql, parameters, parameters_sql, order_id,
+                             order_dir, cast_columns, sort_columns, trans_columns, filter_rules)
+VALUES (10, 'Anti-Xeno Activities (Detailed)', '["Date Killed","Paying Minor Faction","Thargoid Variant","Amount"]',
+        '["date_killed","minor_faction","thargoid_variant","reward"]',
+        'select u.commander_name, ta.user_id, ta.squadron_id, ta.date_killed, mf.name as minor_faction, tv.name as thargoid_variant, format(ta.reward,0) as reward, ta.reward as sort_reward from thargoid_activity ta right outer join user u on ta.user_id = u.id left join minor_faction mf on ta.minor_faction_id = mf.id left join thargoid_variant tv on ta.thargoid_id=tv.id where ta.user_id=? and ta.squadron_id=? %s',
+        'select count(*) from (select id from thargoid_activity where user_id=? and squadron_id=?) a',
+        '[["id","squadron_id"],["id","squadron_id"]]', 'select * from user where id=?', 0, 'desc', null,
+        '{"reward":"sort_reward"}', null,
+        '{"date":{"operator":"and","fields":["ta.date_killed"]},"keyword":{"operator":"having","fields":["date_killed","minor_faction","thargoid_variant","reward"]}}');
 
 DROP TABLE IF EXISTS x_leaderboard_report;
 CREATE TABLE IF NOT EXISTS x_leaderboard_report
@@ -384,6 +402,14 @@ INSERT INTO earning_type (id, name, mission_flag)
 VALUES (47, 'Mission_LongDistanceExpedition', 1);
 INSERT INTO earning_type (id, name, mission_flag)
 VALUES (48, 'Mission_DisableMegaship', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (49, 'Chain_Assassinate', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (50, 'Chain_MiningToOrder', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (51, 'Chain_Salvage', 1);
+INSERT INTO earning_type (id, name, mission_flag)
+VALUES (52, 'Mission_MassacreThargoid', 1);
 
 TRUNCATE TABLE crime_type;
 INSERT INTO crime_type (id, name, alias)
@@ -502,5 +528,19 @@ INSERT INTO tags (id, group_code, name, badge_color)
 VALUES (33, 'platform', 'XBox', 'bg-purple');
 INSERT INTO tags (id, group_code, name, badge_color)
 VALUES (34, 'platform', 'PS4', 'bg-purple');
+
+TRUNCATE TABLE thargoid_variant;
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (1, 'Scout', 10000);
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (2, 'Cyclop', 2000000);
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (3, 'Baslisk', 6000000);
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (4, 'Medusa', 10000000);
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (5, 'Hydra', 15000000);
+INSERT INTO thargoid_variant (id, name, reward)
+VALUES (6, 'Orthrus', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
