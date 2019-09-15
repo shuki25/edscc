@@ -99,12 +99,18 @@ class Squadron
      */
     private $invite_link = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ThargoidActivity", mappedBy="squadron")
+     */
+    private $thargoidActivities;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->announcements = new ArrayCollection();
         $this->squadronTags = new ArrayCollection();
         $this->customRanks = new ArrayCollection();
+        $this->thargoidActivities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -341,6 +347,37 @@ class Squadron
     public function setInviteLink(bool $invite_link): self
     {
         $this->invite_link = $invite_link;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ThargoidActivity[]
+     */
+    public function getThargoidActivities(): Collection
+    {
+        return $this->thargoidActivities;
+    }
+
+    public function addThargoidActivity(ThargoidActivity $thargoidActivity): self
+    {
+        if (!$this->thargoidActivities->contains($thargoidActivity)) {
+            $this->thargoidActivities[] = $thargoidActivity;
+            $thargoidActivity->setSquadron($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThargoidActivity(ThargoidActivity $thargoidActivity): self
+    {
+        if ($this->thargoidActivities->contains($thargoidActivity)) {
+            $this->thargoidActivities->removeElement($thargoidActivity);
+            // set the owning side to null (unless already changed)
+            if ($thargoidActivity->getSquadron() === $this) {
+                $thargoidActivity->setSquadron(null);
+            }
+        }
 
         return $this;
     }

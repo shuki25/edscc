@@ -174,6 +174,11 @@ class User implements TwoFactorInterface, UserInterface
      */
     private $accessHistories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ThargoidActivity", mappedBy="user", orphanRemoval=true)
+     */
+    private $thargoidActivities;
+
     public function __construct()
     {
         $this->verifyTokens = new ArrayCollection();
@@ -182,6 +187,7 @@ class User implements TwoFactorInterface, UserInterface
         $this->readHistories = new ArrayCollection();
         $this->customFilters = new ArrayCollection();
         $this->accessHistories = new ArrayCollection();
+        $this->thargoidActivities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -741,5 +747,36 @@ class User implements TwoFactorInterface, UserInterface
     public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): void
     {
         $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
+    }
+
+    /**
+     * @return Collection|ThargoidActivity[]
+     */
+    public function getThargoidActivities(): Collection
+    {
+        return $this->thargoidActivities;
+    }
+
+    public function addThargoidActivity(ThargoidActivity $thargoidActivity): self
+    {
+        if (!$this->thargoidActivities->contains($thargoidActivity)) {
+            $this->thargoidActivities[] = $thargoidActivity;
+            $thargoidActivity->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThargoidActivity(ThargoidActivity $thargoidActivity): self
+    {
+        if ($this->thargoidActivities->contains($thargoidActivity)) {
+            $this->thargoidActivities->removeElement($thargoidActivity);
+            // set the owning side to null (unless already changed)
+            if ($thargoidActivity->getUser() === $this) {
+                $thargoidActivity->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
