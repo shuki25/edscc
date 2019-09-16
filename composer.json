@@ -17,6 +17,7 @@
     "knplabs/knp-paginator-bundle": "^3.0",
     "knplabs/knp-time-bundle": "^1.9",
     "league/oauth2-client": "^2.4",
+    "maddhatter/markdown-table": "^1.0",
     "nyholm/dsn": "^1.0",
     "pcrov/jsonreader": "^1.0",
     "scheb/two-factor-bundle": "^4.0",
