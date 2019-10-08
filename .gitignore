@@ -13,4 +13,5 @@
 /src/Migrations/
 /.idea/
 /*.lock
+*.DS_Store
 ### End Custom
