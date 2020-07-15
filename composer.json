@@ -30,7 +30,7 @@
     "symfony/flex": "^1.1",
     "symfony/form": "^4.3",
     "symfony/framework-bundle": "^4.3",
-    "symfony/orm-pack": "^1.0",
+    "symfony/orm-pack": "^2.0",
     "symfony/security-bundle": "^4.3",
     "symfony/swiftmailer-bundle": "^3.2",
     "symfony/translation": "^4.3",
