@@ -66,11 +66,12 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
-<script src="{{ asset('js/password_change.js') }}"></script>
-{% if error %}
-<script>
-$('#errorModal').modal('show');
-</script>
-{% endif %}
+    {{ parent() }}
+    <script>const AJAX_URL = '{{ path('ajax_password_strength', {'_locale': app.request.attributes.get('_locale')}) }}';</script>
+    <script src="{{ asset('js/password_change.js') }}"></script>
+    {% if error %}
+        <script>
+            $('#errorModal').modal('show');
+        </script>
+    {% endif %}
 {% endblock %}
