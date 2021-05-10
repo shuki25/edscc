@@ -8,7 +8,7 @@
     "bjeavons/zxcvbn-php": "^0.4.0",
     "divineomega/password_exposed": "^3.0",
     "doctrine/annotations": "^1.6",
-    "doctrine/doctrine-bundle": "^1.6.10",
+    "doctrine/doctrine-bundle": "^2.3.2",
     "doctrine/doctrine-migrations-bundle": "^2.0",
     "doctrine/orm": "^2.5.11",
     "endroid/qr-code-bundle": "^3.3",
